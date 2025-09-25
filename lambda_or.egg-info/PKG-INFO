@@ -1,0 +1,48 @@
+Metadata-Version: 2.1
+Name: lambda-or
+Version: 0.0.2
+Summary: Lambda Odds Ratio
+Home-page: https://github.com/zeroknowledgediscovery/lambda_or
+Download-URL: https://github.com/zeroknowledgediscovery/lambda_or/archive/0.0.2.tar.gz
+Author: Ishanu Chattopadhyay
+Author-email: zeroknowledgediscovery@gmail.com
+License: LICENSE
+Keywords: robust odds ratio,misclassification correction,machine learning,EHR databases
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Science/Research
+Classifier: Topic :: Scientific/Engineering :: Information Analysis
+Classifier: Topic :: Scientific/Engineering :: Bio-Informatics
+Classifier: Topic :: Software Development :: Libraries
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3.9
+Requires-Python: >=3.6
+Description-Content-Type: text/x-rst
+License-File: LICENSE
+
+===============
+Qbiome
+===============
+
+.. class:: no-web no-pdf
+
+:Info: Draft link will be posted here
+:Author: ZeD Lab <zed.createuky.net>
+:Description: Robust Odds Ratio correcting label noise 
+:Documentation: 
+
+
+**Usage:**
+
+.. code-block::
+
+    from lambda_or import lambda_or, pq_from_two_gates
+
+    tilde = np.array([[100, 50],[ 80, 70]], dtype=float)
+    # Suppose selection-conditional rates from two-gate ROC:
+    p_sel, q_sel = 0.92, 0.90
+    res = lambda_or(tilde, p_sel, q_sel, n_val=2000)
+    
+    print(res.log_or, res.neglog10_p, res.z, res.se)
+    print(res.counts)   # corrected a,b,c,d
+

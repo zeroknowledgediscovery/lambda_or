@@ -1,0 +1,12 @@
+LICENSE
+MANIFEST.in
+README.rst
+setup.py
+version.py
+lambda_or/__init__.py
+lambda_or/lambda_or.py
+lambda_or.egg-info/PKG-INFO
+lambda_or.egg-info/SOURCES.txt
+lambda_or.egg-info/dependency_links.txt
+lambda_or.egg-info/requires.txt
+lambda_or.egg-info/top_level.txt

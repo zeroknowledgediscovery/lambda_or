@@ -1,0 +1,3 @@
+include version.py
+recursive-include lambda_or/examples  *
+recursive-include lambda_or *.ipynb *.joblib *.c *.so *.pyx *.pkl *.csv *.txt
