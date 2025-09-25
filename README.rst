@@ -2,6 +2,10 @@
 Lambda-OR
 ===============
 
+.. image:: https://zenodo.org/badge/1063683292.svg
+  :target: https://doi.org/10.5281/zenodo.17196710
+
+
 .. class:: no-web no-pdf
 
 :Info: Draft link will be posted here
