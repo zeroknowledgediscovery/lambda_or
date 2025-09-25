@@ -1,5 +1,5 @@
 ===============
-Qbiome
+Lambda-OR
 ===============
 
 .. class:: no-web no-pdf
