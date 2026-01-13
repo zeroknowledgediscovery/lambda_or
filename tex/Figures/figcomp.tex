@@ -1,0 +1,166 @@
+
+\pgfplotsset{cycle list name=color list}
+\pgfplotsset{
+  discard if/.style 2 args={
+    x filter/.code={
+      \edef\tempa{\thisrow{#1}}
+      \edef\tempb{#2}
+      \ifx\tempa\tempb
+      \def\pgfmathresult{inf}
+      \fi
+    }
+  },
+  discard if not/.style 2 args={
+    x filter/.code={
+      \edef\tempa{\thisrow{#1}}
+      \edef\tempb{#2}
+      \ifx\tempa\tempb
+      \else
+      \def\pgfmathresult{inf}
+      \fi
+    }
+  }
+} 
+% Define a basic list of markers
+\def\OPC{.45}
+\pgfplotsset{
+  cycle list/.define={mymarkers}{
+    {mark=*, blue,fill opacity=\OPC},
+    {mark=square*, red,fill opacity=\OPC},
+    {mark=triangle*, green!70!black,fill opacity=\OPC},
+    {mark=diamond*, orange,fill opacity=\OPC},
+    {mark=pentagon*, purple,fill opacity=\OPC},
+    {mark=star, teal,fill opacity=\OPC},
+    {mark=*, brown,fill opacity=\OPC},
+    {mark=square*, magenta,fill opacity=\OPC},
+    {mark=triangle*, cyan,fill opacity=\OPC},
+    {mark=diamond*, olive,fill opacity=\OPC},
+    {mark=*, violet,fill opacity=\OPC},
+    {mark=square*, black,fill opacity=\OPC},
+    {mark=triangle*, pink,fill opacity=\OPC},
+    {mark=diamond*, lim,fill opacity=\OPCe},
+    {mark=pentagon*, gray,fill opacity=\OPC},
+    {mark=star, navy,fill opacity=\OPC},
+    {mark=*, olive,fill opacity=\OPC},
+    {mark=square*, turquoise,fill opacity=\OPC},
+    {mark=triangle*, darkgray,fill opacity=\OPC},
+    {mark=diamond*, salmon,fill opacity=\OPC},
+    {mark=pentagon*, gold,fill opacity=\OPC},
+    {mark=star, cora,fill opacity=\OPCl},
+    {mark=*, indigo,fill opacity=\OPC},
+    {mark=square*, forestgreen,fill opacity=\OPC},
+    {mark=triangle*, sienna,fill opacity=\OPC},
+    {mark=diamond*, midnightblue,fill opacity=\OPC}
+  }
+}
+
+ 
+
+\pgfplotsset{disablelogfilter}
+  \def\TEXTCOL{gray}
+  \def\AXISCOL{gray}
+
+\begin{tikzpicture}[font=\bf\sffamily\fontsize{8}{8}\selectfont]
+  \def\WDT{3in}
+  \def\HGT{3.0in}
+  \coordinate (O) at (0,0);
+
+  \node [anchor=north west] (A) at (O.south){
+    \begin{tikzpicture}[anchor=center]
+      \def\datatableB{Figures/resultsnaive200.csv}
+      \begin{axis}[\AXISCOL,%anchor=north,at=(A.south),
+                legend columns=3,
+        legend style={column sep=1em, text=black,anchor=south west,
+          at={(0,1.1)},inner sep=1pt,draw=none,
+          fill opacity=1,align=right,text opacity=1,text=\TEXTCOL},
+        width=\WDT, height=\HGT,
+        xlabel={log OR (jittered)},
+        ylabel={$p_{\mathrm{two}}$ (jittered)},
+        %-----------------
+        axis on top=false,
+        scaled ticks=false,
+        scale only axis=true,
+        major tick length=1pt,
+        minor tick length=0pt,
+        enlargelimits=0.1,
+        % enlarge y limits=0.1,
+        %enlarge x limits=0.05,
+        axis background/.style={
+        shade,top color=transparent!10,bottom color=transparent!0},
+        axis line style={\AXISCOL!20, thick},
+        grid=both,
+        % xtick=data,
+        %minor tick num=4,
+        major grid style={opacity=.35,thick,\AXISCOL},
+        minor grid style={opacity=.1,very thin,\AXISCOL},
+        % -------------------
+        point meta=explicit symbolic,
+        table/meta=group,  
+        ]
+        \pgfplotsinvokeforeach {A,B,C,D,E,F,G,H,I,J,K,
+          L,M,N,O,P,Q,R,S,T,Z}{
+          \addplot+[each nth point={15},filter discard warning=false, unbounded coords=discard,
+          only marks,
+          mark size=2pt,
+          discard if not={group}{#1},
+          cycle list name=mymarkers
+          ]
+          table[
+          x=log_or,
+          y=sig,
+          col sep=comma
+          ] {\datatableB};
+          \addlegendentry{\getlabel{#1}}
+        }
+      \end{axis}
+    \end{tikzpicture}};
+
+  \node[anchor=north west] (B) at (A.north east){
+    \begin{tikzpicture}[anchor=center]
+      \def\datatable{Figures/resultsplot100.csv}
+      \begin{axis}[\AXISCOL, width=\WDT, height=\HGT,
+        xlabel={log OR (jittered)},
+        ylabel={$p_{\mathrm{two}}$ (jittered)},
+        %-----------------
+        axis on top=false,
+        scaled ticks=false,
+        scale only axis=true,
+        major tick length=1pt,
+        minor tick length=0pt,
+        enlargelimits=0.1, 
+        % enlarge y limits=0.1,
+        %enlarge x limits=0.05,
+        axis background/.style={
+        shade,top color=transparent!10,bottom color=transparent!0},
+        axis line style={\AXISCOL!20, thick},
+        grid=both,
+        % xtick=data,
+        %minor tick num=4,
+        major grid style={opacity=.35,thick,\AXISCOL},
+        minor grid style={opacity=.1,very thin,\AXISCOL},
+        % -------------------
+        point meta=explicit symbolic,
+        table/meta=group,   
+        ]
+        \pgfplotsinvokeforeach {A,B,C,D,E,F,G,H,I,J,K,
+          L,M,N,O,P,Q,R,S,T,Z}{
+          \addplot+[%each nth point={15},filter discard warning=false, unbounded coords=discard,
+          only marks,
+          mark size=2pt,
+          discard if not={group}{#1},
+          cycle list name=mymarkers
+          ]
+          table[
+          x=log_or,
+          y=p_two,
+          col sep=comma
+          ] {\datatable};
+          %\addlegendentry{\getlabel{#1}}
+        }
+      \end{axis}
+    \end{tikzpicture}};
+
+
+  
+\end{tikzpicture}
+        

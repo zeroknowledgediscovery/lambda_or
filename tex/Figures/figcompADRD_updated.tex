@@ -1,0 +1,165 @@
+
+% figcompADRD_updated.tex
+% Build strategy:
+%   1) This file defines three heavy panels (A/B/C) as separate \tikzpicture blocks,
+%      each externalized to its own PDF.
+%   2) A final lightweight composite \tikzpicture includes those PDFs into ONE figure.
+% Build (first time):
+%   lualatex --shell-escape figcompADRD_updated.tex
+%   make -j1 -f figcompADRD_updated.makefile   % builds panel PDFs sequentially
+%   lualatex --shell-escape figcompADRD_updated.tex
+%
+% After the first build, re-runs will be fast; only changed panels rebuild.
+%
+\documentclass[tikz]{standalone} % use 'article' if embedding in a paper
+\usepackage{graphicx}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usetikzlibrary{external}
+\tikzexternalize[mode=list and make, prefix=fig-external/]
+
+% ================= Common settings & helpers =================
+
+% Data sources (adjust paths as needed)
+\def\datatableB{../ntb/paperADRDpriororresults.csv}
+\def\datatableC{../ntb/paperADRDshapresults.csv}
+\def\datatable {../ntb/paperADRDresultsplot100.csv}
+
+% Colors / styles
+\def\OPC{.5}
+\colorlet{AXISCOL}{gray}
+\colorlet{TEXTCOL}{gray}
+\definecolor{Red1}{RGB}{200,50,50}
+\definecolor{Yellow2}{RGB}{255,230,120}
+\colorlet{Green1}{green!50!black}
+
+% Engine-agnostic mapping for group -> color
+\usepackage{xcolor}
+\usepackage{xparse}
+\ExplSyntaxOn
+\NewDocumentCommand{\getcolor}{m}{
+  \str_case:nnF {#1}{
+    {A}{Blue}{B}{Red}{C}{Green!70!black}{D}{Orange}
+    {E}{Purple}{F}{Teal}{G}{Brown}{H}{Magenta}
+    {I}{Cyan}{J}{Olive}{K}{Violet}{L}{Black}
+    {M}{Pink}{N}{Lime}{O}{Gray}{P}{Navy}
+    {Q}{Olive}{R}{Turquoise}{S}{DarkGray}{T}{Salmon}
+  }{black}
+}
+\ExplSyntaxOff
+
+% Filters: drop rows by label, and thin the data at the table reader
+\pgfplotsset{
+  discard if/.style 2 args={
+    x filter/.code={
+      \edef\tempa{\thisrow{#1}}\edef\tempb{#2}%
+      \ifx\tempa\tempb\def\pgfmathresult{inf}\fi
+    }
+  },
+  discard if not/.style 2 args={
+    x filter/.code={
+      \edef\tempa{\thisrow{#1}}\edef\tempb{#2}%
+      \ifx\tempa\tempb\else\def\pgfmathresult{inf}\fi
+    }
+  }
+}
+
+% Row decimator: keep every \SKIP-th row (at table-read stage)
+\newcommand{\SKIP}{10} % set to 1 to keep all
+\pgfplotstableset{
+  row predicate/.code={%
+    \pgfmathtruncatemacro\keep{mod(\pgfplotstablerow,\SKIP)}%
+    \ifnum\keep=0\else\pgfplotstableuserowfalse\fi
+  }
+}
+
+% A few global axis defaults for lean plotting
+\pgfplotsset{
+  myscatter/.style={
+    only marks,
+    mark=*,
+    mark size=0.3pt,
+    mark options={draw=black!30, fill opacity=\OPC, opacity=\OPC},
+    filter discard warning=false,
+    unbounded coords=discard,
+    forget plot
+  },
+  myaxis/.style={
+    AXISCOL,
+    width=2.25in, height=2.0in,
+    grid=both,
+    scaled ticks=false,
+    major tick length=0pt,
+    minor tick length=0pt,
+    minor tick num=2,
+    major grid style={opacity=.35,thick,AXISCOL},
+    minor grid style={opacity=.1,thin,AXISCOL!90!Green1},
+    axis line style={AXISCOL,thick},
+    enlargelimits=0.1,
+    unbounded coords=discard,
+    restrict x to domain=-8:8,
+    restrict y to domain=1e-6:1e8,
+    point meta=explicit symbolic,
+    table/meta=group
+  }
+}
+
+% ================= Panel A (Classical clogor; ADRD) =================
+\tikzsetnextfilename{panelA}
+\begin{document}
+\begin{tikzpicture}
+\begin{semilogyaxis}[myaxis, xlabel={Effect size ($\clogor$)}, ylabel={significance ($-\log_{10} p$)}]
+  % Draw threshold line (y = 2)
+  \draw[Red1, dashed, ultra thick] (axis cs:-8,2) -- (axis cs:8,2);
+  % Loop over groups A..T
+  \pgfplotsinvokeforeach {A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T}{
+    \addplot+[myscatter, mark options={fill=\getcolor{#1}},
+              discard if not={group}{#1}]
+      table[x=log_or, y=p_two, col sep=comma]{\datatableB};
+  }
+\end{semilogyaxis}
+\end{tikzpicture}
+
+% ================= Panel B (SHAP; ADRD) =================
+\tikzsetnextfilename{panelB}
+\begin{tikzpicture}
+\begin{semilogyaxis}[myaxis, xlabel={Effect size ($\logor$)}]
+  \draw[Red1, dashed, ultra thick] (axis cs:-8,2) -- (axis cs:8,2);
+  \pgfplotsinvokeforeach {A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T}{
+    \addplot+[myscatter, mark options={fill=\getcolor{#1}},
+              discard if not={group}{#1}]
+      table[x=log_or, y=p_two, col sep=comma]{\datatableC};
+  }
+\end{semilogyaxis}
+\end{tikzpicture}
+
+% ================= Panel C (logor; ADRD) =================
+\tikzsetnextfilename{panelC}
+\begin{tikzpicture}
+\begin{semilogyaxis}[myaxis, xlabel={Effect size ($\logor$)}]
+  % Highlight region
+  \filldraw[dashed, fill=Yellow2, opacity=.5] (axis cs:-7,2) rectangle (axis cs:-2,7);
+  \draw[Red1, dashed, ultra thick] (axis cs:-8,2) -- (axis cs:8,2);
+  \pgfplotsinvokeforeach {A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T}{
+    \addplot+[myscatter, mark options={fill=\getcolor{#1}},
+              discard if not={group}{#1}]
+      table[x=log_or, y=p_two, col sep=comma]{\datatable};
+  }
+\end{semilogyaxis}
+\end{tikzpicture}
+
+% ================= Composite (single final figure) =================
+\tikzsetnextfilename{figcompADRD_all}
+\begin{tikzpicture}[font=\bfseries\sffamily\fontsize{10}{10}\selectfont]
+  % Place prebuilt PDFs; the first run + make will produce these
+  \node[anchor=north west] at (0,0)        {\includegraphics{fig-external/panelA.pdf}};
+  \node[anchor=north west] at (2.6in,0)    {\includegraphics{fig-external/panelB.pdf}};
+  \node[anchor=north west] at (5.2in,0)    {\includegraphics{fig-external/panelC.pdf}};
+
+  % Panel labels (adjust positions as needed)
+  \node[anchor=south west] at (0,0.1in) {(g) Classical $\clogor$ (ADRD)};
+  \node[anchor=south west] at (2.6in,0.1in) {(h) $SHAP$ (ADRD)};
+  \node[anchor=south west] at (5.2in,0.1in) {(i) $\logor$ (ADRD)};
+\end{tikzpicture}
+
+\end{document}

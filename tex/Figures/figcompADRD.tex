@@ -1,0 +1,194 @@
+
+\pgfplotsset{cycle list name=color list}
+\pgfplotsset{
+discard if/.style 2 args={
+x filter/.code={
+\edef\tempa{\thisrow{#1}}
+\edef\tempb{#2}
+\ifx\tempa\tempb
+\def\pgfmathresult{inf}
+\fi
+}
+},
+discard if not/.style 2 args={
+x filter/.code={
+\edef\tempa{\thisrow{#1}}
+\edef\tempb{#2}
+\ifx\tempa\tempb
+\else
+\def\pgfmathresult{inf}
+\fi
+}
+}
+} 
+% Define a basic list of markers
+\def\OPC{.5}
+
+\begin{tikzpicture}[font=\bf\sffamily\fontsize{10}{10}\selectfont]
+\def\datatableB{../ntb/paperADRDpriororresults.csv}
+          \def\datatableC{../ntb/paperADRDshapresults.csv}
+\def\datatable{../ntb/paperADRDresultsplot100.csv}
+%\def\datatableB{../ntb/prior1.csv}
+%\def\datatable{../ntb/result100.csv}
+%
+\def\SKIP{15}   
+\def\WDT{2.25in}
+\def\HGT{2in}
+\def\COLYY{Yellow2}
+\coordinate (O) at (0,0);
+\def\TEXTCOL{gray}
+\def\AXISCOL{gray}
+\node [anchor=north west] (A) at (O.south){
+\begin{tikzpicture}[anchor=center]
+\begin{semilogyaxis}[\AXISCOL,%anchor=north,at=(A.south),
+legend columns=3,
+legend style={column sep=1em,text=black,anchor=south west,
+at={(-.12,1.1750),},inner sep=1pt,draw=none,
+fill opacity=1,align=right,text opacity=1,text=\TEXTCOL},
+width=\WDT, height=\HGT,
+xlabel={Effect size ($\clogor$)},
+ylabel={significance ($-\log_{10} p$)},
+%-----------------
+axis on top=false, 
+scaled ticks=false, 
+scale only axis=true,  
+major tick length=0pt,
+minor tick length=0pt,
+enlargelimits=0.1,
+% enlarge y limits=0.1,
+%enlarge x limits=0.05,
+%axis background/.style={
+%shade,top color=transparent!10,bottom color=transparent!0},
+axis line style={\AXISCOL, thick},
+grid=both,
+% xtick=data,
+minor tick num=2,
+major grid style={opacity=.35,thick,\AXISCOL},
+minor grid style={opacity=.1,thin,\AXISCOL!90!Green1},
+% -------------------
+point meta=explicit symbolic,
+table/meta=group,  
+]
+\pgfplotsinvokeforeach {A,B,C,D,E,F,G,H,I,J,K,
+L,M,N,O,P,Q,R,S,T}{
+\addplot+[each nth point={\SKIP},filter discard warning=false, unbounded coords=discard,
+only marks,  mark=*,%\getmark{#1},
+mark size=2.5pt, mark options={draw=black!30,fill opacity=\OPC,    fill=\getcolor{#1},
+opacity=\OPC,}    ,
+discard if not={group}{#1},
+%cycle list name=mymarkers
+]
+table[
+x=log_or,
+y=p_two, 
+col sep=comma
+] {\datatableB};
+%\addlegendentry{\getlabel{#1}}
+}
+\draw[Red1,dashed, ultra thick] (axis cs:-3,2) -- (axis cs:3,2);
+\end{semilogyaxis}
+\end{tikzpicture}};
+
+\node[anchor=south west] (B) at ([xshift=3in]A.south west){
+\begin{tikzpicture}[anchor=center]
+\begin{semilogyaxis}[\AXISCOL, width=\WDT, height=\HGT,
+xlabel={Effect size ($\logor$)},
+%ylabel={$p_{\mathrm{two}}$ (jittered)},
+%-----------------
+axis on top=false,
+scaled ticks=false,
+scale only axis=true,
+major tick length=0pt,
+minor tick length=0pt,
+enlargelimits=0.1,
+% enlarge y limits=0.1,
+%enlarge x limits=0.05,
+%axis background/.style={
+%shade,top color=transparent!10,bottom color=transparent!0},
+axis line style={\AXISCOL, thick},
+grid=both,
+% xtick=data,
+minor tick num=2,
+major grid style={opacity=.35,thick,\AXISCOL},
+minor grid style={opacity=.1,thin,\AXISCOL!90!Green1},
+% -------------------
+point meta=explicit symbolic,
+table/meta=group,   
+]
+\pgfplotsinvokeforeach {A,B,C,D,E,F,G,H,I,J,K,
+L,M,N,O,P,Q,R,S,T}{
+\addplot+[each nth point={\SKIP},
+filter discard warning=false, unbounded coords=discard,
+only marks,  mark=*,%\getmark{#1},
+mark size=2.50pt, mark options={draw=black!30,fill opacity=\OPC,    fill=\getcolor{#1},
+opacity=\OPC,}    ,
+%   mark size=2.5pt,%mark options={draw=lightgray,fill opacity=\OPC,} 
+discard if not={group}{#1},
+%cycle list name=mymarkers
+]
+table[
+x=log_or,
+y=p_two,
+col sep=comma
+] {\datatableC};
+%\addlegendentry{\getlabel{#1}}
+}
+\draw[Red1,dashed, ultra thick] (axis cs:-6,2) -- (axis cs:6,2);
+\end{semilogyaxis}
+\end{tikzpicture}};
+
+\node[anchor=south west] (C) at ([xshift=3in]B.south west){
+\begin{tikzpicture}[anchor=center]
+\begin{semilogyaxis}[\AXISCOL, width=\WDT, height=\HGT,
+xlabel={Effect size ($\logor$)},
+%ylabel={$p_{\mathrm{two}}$ (jittered)},
+%-----------------
+axis on top=false,
+scaled ticks=false,
+scale only axis=true,
+major tick length=0pt,
+minor tick length=0pt,
+enlargelimits=0.1,
+% enlarge y limits=0.1,
+%enlarge x limits=0.05,
+%axis background/.style={
+%shade,top color=transparent!10,bottom color=transparent!0},
+axis line style={\AXISCOL, thick},
+grid=both,
+% xtick=data,
+minor tick num=2,
+major grid style={opacity=.35,thick,\AXISCOL},
+minor grid style={opacity=.1,thin,\AXISCOL!90!Green1},
+% -------------------
+point meta=explicit symbolic,
+table/meta=group,   
+]
+\draw[dashed,fill=\COLYY,opacity=.5] (axis cs: -7,2) rectangle (axis cs: -2,7);
+\pgfplotsinvokeforeach {A,B,C,D,E,F,G,H,I,J,K,
+L,M,N,O,P,Q,R,S,T}{
+\addplot+[each nth point={\SKIP},
+filter discard warning=false, unbounded coords=discard,
+only marks,  mark=*,%\getmark{#1},
+mark size=2.50pt, mark options={draw=black!30,fill opacity=\OPC,    fill=\getcolor{#1},
+opacity=\OPC,}    ,
+%   mark size=2.5pt,%mark options={draw=lightgray,fill opacity=\OPC,} 
+discard if not={group}{#1},
+%cycle list name=mymarkers
+]
+table[
+x=log_or,
+y=p_two,
+col sep=comma
+] {\datatable};
+%\addlegendentry{\getlabel{#1}}
+}
+\draw[Red1,dashed, ultra thick] (axis cs:-6,2) -- (axis cs:6,2);
+\end{semilogyaxis}
+\end{tikzpicture}}; 
+\node[anchor=north west] (L1) at ([xshift=.45in,yshift=2.75in]A.south west) {{\Large g.} Classical  $\clogor$ (ADRD)};
+\node[anchor=south west] (L2) at ([xshift=.2in]$(L1.south west)!(B.west)!(L1.south east)$) {{\Large h.} $SHAP$ (ADRD)};
+\node[anchor=south west] (L3) at ([xshift=.20in]$(L1.south west)!(C.west)!(L1.south east)$) {{\Large i.} $\logor$ (ADRD)};
+
+
+\end{tikzpicture}
+

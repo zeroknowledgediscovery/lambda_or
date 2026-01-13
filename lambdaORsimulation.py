@@ -286,9 +286,9 @@ def plot_primary_curves(summ_df: pd.DataFrame, outdir: str):
 
 
 
-    pd.DataFrame({'bias_n':bias_n, 'bias_p':bias_p}).to_csv('bias.csv')
-    pd.DataFrame({'rmse_n':rmse_n, 'rmse_p':rmse_p}).to_csv('rmse.csv')
-    pd.DataFrame({'cov_n':cov_n, 'cov_p':cov_p}).to_csv('coverage.csv')
+    pd.DataFrame({'error':xvals,'bias_n':bias_n, 'bias_p':bias_p}).to_csv('bias.csv')
+    pd.DataFrame({'error':xvals,'rmse_n':rmse_n, 'rmse_p':rmse_p}).to_csv('rmse.csv')
+    pd.DataFrame({'error':xvals,'cov_n':cov_n, 'cov_p':cov_p}).to_csv('coverage.csv')
 
 
 def plot_ridge_use(rep_df: pd.DataFrame, outdir: str):

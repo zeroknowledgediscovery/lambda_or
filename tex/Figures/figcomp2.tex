@@ -1,0 +1,151 @@
+
+\pgfplotsset{cycle list name=color list}
+\pgfplotsset{
+  discard if/.style 2 args={
+    x filter/.code={
+      \edef\tempa{\thisrow{#1}}
+      \edef\tempb{#2}
+      \ifx\tempa\tempb
+      \def\pgfmathresult{inf}
+      \fi
+    }
+  },
+  discard if not/.style 2 args={
+    x filter/.code={
+      \edef\tempa{\thisrow{#1}}
+      \edef\tempb{#2}
+      \ifx\tempa\tempb
+      \else
+      \def\pgfmathresult{inf}
+      \fi
+    }
+  }
+} 
+% Define a basic list of markers
+\def\OPC{.5}
+\pgfplotsset{
+  cycle list/.define={mymarkers}{
+    {mark=*, blue, opacity=\OPC},
+    {mark=square*, red, opacity=\OPC},
+    {mark=triangle*, green!70!black, opacity=\OPC},
+    {mark=diamond*, orange, opacity=\OPC},
+    {mark=pentagon*, purple, opacity=\OPC},
+    {mark=star, teal, opacity=\OPC},
+    {mark=*, brown, opacity=\OPC},
+    {mark=square*, magenta, opacity=\OPC},
+    {mark=triangle*, cyan, opacity=\OPC},
+    {mark=diamond*, olive, opacity=\OPC},
+    {mark=*, violet, opacity=\OPC},
+    {mark=square*, black, opacity=\OPC},
+    {mark=triangle*, pink, opacity=\OPC},
+    {mark=diamond*, lim, opacity=\OPCe},
+    {mark=pentagon*, gray, opacity=\OPC},
+    {mark=star, navy, opacity=\OPC},
+    {mark=*, olive, opacity=\OPC},
+    {mark=square*, turquoise, opacity=\OPC},
+    {mark=triangle*, darkgray, opacity=\OPC},
+    {mark=diamond*, salmon, opacity=\OPC},
+    {mark=pentagon*, gold, opacity=\OPC},
+    {mark=star, cora, opacity=\OPCl},
+    {mark=*, indigo, opacity=\OPC},
+    {mark=square*, forestgreen, opacity=\OPC},
+    {mark=triangle*, sienna, opacity=\OPC},
+    {mark=diamond*, midnightblue, opacity=\OPC}
+  }
+}
+  
+  
+\begin{tikzpicture}[font=\bf\sffamily\fontsize{8}{8}\selectfont]
+          \def\datatableB{Figures/resultsnaive2000.csv}
+  \def\datatable{Figures/resultsplot.csv}
+  \def\datatableB{../ntb/paperADRDresultsplot100.csv}
+  \def\WDT{3.65in}
+  \def\HGT{2.85in}
+          \def\COLYY{Yellow2} 
+  \coordinate (O) at (0,0);
+  \def\TEXTCOL{gray}
+  \def\AXISCOL{gray}
+  \node [anchor=north west] (A) at (O.south){
+    \begin{tikzpicture}[anchor=center]
+      \begin{semilogyaxis}[\AXISCOL,%anchor=north,at=(A.south),
+                legend columns=2,
+        legend style={column sep=1em,text=black,anchor=south west,
+          at={(-.12,1.1750),},inner sep=1pt,draw=none,
+          fill opacity=1,align=right,text opacity=1,text=\TEXTCOL},
+        width=\WDT, height=\HGT,
+        xlabel={log OR},
+        ylabel={significance ($-\log_{10} p$)},
+        %-----------------
+        axis on top=false, 
+        scaled ticks=false, 
+        scale only axis=true, 
+        major tick length=0pt,
+        minor tick length=0pt,
+        enlargelimits=0.10,
+        % enlarge y limits=0.1,
+        %enlarge x limits=0.05,
+        %axis background/.style={
+        %shade,top color=transparent!10,bottom color=transparent!0},
+        axis line style={\AXISCOL, thick},
+        grid=both,
+        % xtick=data,
+        minor tick num=2,
+        major grid style={opacity=.35,thick,\AXISCOL},
+        minor grid style={opacity=.1,thin,\AXISCOL!90!Green1},
+        % -------------------
+        point meta=explicit symbolic,
+        table/meta=group,  
+        ]
+        \draw[dashed,fill=\COLYY,opacity=.5] (axis cs: -7,2) rectangle (axis cs: -2,7);
+        \pgfplotsinvokeforeach {A,B,C,D,E,F,G,H,I,J,K,
+          L,M,N,O,Q,R,S,T,Z}{
+          \addplot+[each nth point={25},%filter discard warning=false, unbounded coords=discard,
+          only marks,
+          mark size=2.5pt, mark options={draw=black!30,fill opacity=\OPC,}    ,
+          discard if not={group}{#1},
+          cycle list name=mymarkers
+          ]
+          table[
+          x=log_or,
+          y=p_two,
+          col sep=comma
+          ] {\datatableB};
+          \addlegendentry{\getlabel{#1}}
+        }
+        \draw[Red1,dashed, ultra thick] (axis cs:-6,2) -- (axis cs:12,2);
+      \end{semilogyaxis}
+  \end{tikzpicture}};
+  \node [anchor=south east,font=\sffamily\fontsize{7}{8}\selectfont] (B) at ([xshift=-.35in]A.south west) {
+\begin{tabular}{L{.40in}|L{1.35in}}\hline
+code&description\\\hline
+\cellcolor{\COLYY}N92.1& Excessive  and  frequent  menstruation  with  irregular  cycle \\\hline
+\cellcolor{\COLYY}R87.61& ~Atypical  squamous  cells  of  undetermined  significance  on  cytologic  smear  of  cervix  (ASC-US) \\\hline
+\cellcolor{\COLYY}N80.9& Endometriosis,  unspecified \\\hline
+\cellcolor{\COLYY}R87.82& ~Cervical  low  risk  human  papillomavirus  (HPV)  DNA  test  positive \\\hline
+\cellcolor{\COLYY}D26& Other  benign  neoplasms  of  uterus \\\hline
+\cellcolor{\COLYY}N84& Polyp  of  female  genital  tract \\\hline
+\cellcolor{\COLYY}N60.01& Solitary  cyst  of  right  breast \\\hline
+\cellcolor{\COLYY}N92& Excessive,  frequent  and  irregular  menstruation \\\hline
+\cellcolor{\COLYY}N84.1& Polyp  of  cervix  uteri \\\hline
+\cellcolor{\COLYY}N91& Absent,  scanty  and  rare  menstruation \\\hline
+\cellcolor{\COLYY}F90& Attention-deficit  hyperactivity  disorders \\\hline
+\cellcolor{\COLYY}N92.4& Excessive  bleeding  in  the  premenopausal  period \\\hline
+\cellcolor{\COLYY}N87.0& Mild  cervical  dysplasia \\\hline
+\cellcolor{\COLYY}M77.11& Lateral  epicondylitis,  right  elbow \\\hline
+\cellcolor{\COLYY}N93& Other  abnormal  uterine  and  vaginal  bleeding \\\hline
+\cellcolor{\COLYY}N92.5& Other  specified  irregular  menstruation \\\hline
+\cellcolor{\COLYY}B18.2& Chronic  viral  hepatitis  C \\\hline
+\cellcolor{\COLYY}N88& Other  noninflammatory  disorders  of  cervix  uteri \\\hline
+\cellcolor{\COLYY}N92.0& Excessive  and  frequent  menstruation  with  regular  cycle \\\hline
+\cellcolor{\COLYY}N60.11& Diffuse  cystic  mastopathy  of  right  breast \\\hline
+\cellcolor{\COLYY}N91.2& Amenorrhea,  unspecified \\\hline
+\cellcolor{\COLYY}D25& Leiomyoma  of  uterus \\\hline
+\cellcolor{\COLYY}N88.8& Other  specified  noninflammatory  disorders  of  cervix  uteri \\\hline
+\end{tabular}
+    };
+\node[anchor=south west] (L1) at (A.north west) {{\Large b.}  $\log$ posterior OR (POR)};
+\node[anchor=south west] (L2) at ($(L1.south west)!(B.west)!(L1.south east)$) {{\Large a.} Significant ``protective'' codes};
+
+  
+\end{tikzpicture}
+        

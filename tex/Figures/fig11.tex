@@ -1,0 +1,171 @@
+%TODOD
+% 1. add spor for IPF and ASD
+% 2. Add naive OR (currentlt it is hi/low OR
+% 3. Add discussiona dn and match with known comorbidities, and show some ridiculous examples
+% one figure / one table
+% traget PNAS breif report: strategy i sto have sections I , II and Figure/table + discussion in main, and compariosn/guaarntee math in SI Methods
+%  we need an example of bad attribution and a good attrbution
+% and make the case that this is AFTER we have a predictive model
+% this is a paper on explainability. so competing with SHAP
+% can we do individual?
+% risk profile (maybe a polyscore for individual as
+% polyscore(M) = \sum_i spor(X_j) : X_j is present in patient M
+% we also need to show that average SHAP is bad.. have a figure for that
+\documentclass[twocolumn,10pt]{IEEEtran}
+\let\labelindent\relax
+\usepackage{enumitem}
+\input{preamble.tex}
+\tikzexternaldisable
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+%\pagestyle{fancy}
+\def\COLA{black}
+\newif\iftikzX
+\tikzXtrue
+\tikzXfalse
+%\def\jobname{polar}
+\newif\ifFIGS 
+\FIGSfalse  
+% \FIGStrue
+
+
+
+% --- deterministic, high-separation colors using dvipsnames ---
+\newcommand{\getcolor}[1]{%
+  \ifnum\pdfstrcmp{#1}{A}=0 Red\fi
+  \ifnum\pdfstrcmp{#1}{B}=0 RoyalBlue\fi
+  \ifnum\pdfstrcmp{#1}{C}=0 ForestGreen\fi
+  \ifnum\pdfstrcmp{#1}{D}=0 BurntOrange\fi
+  \ifnum\pdfstrcmp{#1}{E}=0 Magenta\fi
+  \ifnum\pdfstrcmp{#1}{F}=0 TealBlue\fi
+  \ifnum\pdfstrcmp{#1}{G}=0 Violet\fi
+  \ifnum\pdfstrcmp{#1}{H}=0 Goldenrod\fi
+  \ifnum\pdfstrcmp{#1}{I}=0 Turquoise\fi
+  \ifnum\pdfstrcmp{#1}{J}=0 Maroon\fi
+  \ifnum\pdfstrcmp{#1}{K}=0 OliveGreen\fi
+  \ifnum\pdfstrcmp{#1}{L}=0 Cerulean\fi
+  \ifnum\pdfstrcmp{#1}{M}=0 BrickRed\fi
+  \ifnum\pdfstrcmp{#1}{N}=0 SeaGreen\fi
+  \ifnum\pdfstrcmp{#1}{O}=0 Purple\fi
+  \ifnum\pdfstrcmp{#1}{P}=0 Dandelion\fi
+  \ifnum\pdfstrcmp{#1}{Q}=0 NavyBlue\fi
+  \ifnum\pdfstrcmp{#1}{R}=0 LimeGreen\fi
+  \ifnum\pdfstrcmp{#1}{S}=0 RubineRed\fi
+  \ifnum\pdfstrcmp{#1}{T}=0 CadetBlue\fi
+}
+
+
+\newcommand{\getmark}[1]{%
+  \ifnum\pdfstrcmp{#1}{A}=0 *\fi
+  \ifnum\pdfstrcmp{#1}{B}=0 square*\fi
+  \ifnum\pdfstrcmp{#1}{C}=0 triangle*\fi
+  \ifnum\pdfstrcmp{#1}{D}=0 diamond*\fi
+  \ifnum\pdfstrcmp{#1}{E}=0 pentagon*\fi
+  \ifnum\pdfstrcmp{#1}{F}=0 star\fi
+  \ifnum\pdfstrcmp{#1}{G}=0 *\fi
+  \ifnum\pdfstrcmp{#1}{H}=0 square*\fi
+  \ifnum\pdfstrcmp{#1}{I}=0 triangle*\fi
+  \ifnum\pdfstrcmp{#1}{J}=0 diamond*\fi
+  \ifnum\pdfstrcmp{#1}{K}=0 *\fi
+  \ifnum\pdfstrcmp{#1}{L}=0 square*\fi
+  \ifnum\pdfstrcmp{#1}{M}=0 triangle*\fi
+  \ifnum\pdfstrcmp{#1}{N}=0 diamond*\fi
+  \ifnum\pdfstrcmp{#1}{O}=0 pentagon*\fi
+  \ifnum\pdfstrcmp{#1}{P}=0 star\fi
+  \ifnum\pdfstrcmp{#1}{Q}=0 *\fi
+  \ifnum\pdfstrcmp{#1}{R}=0 square*\fi
+  \ifnum\pdfstrcmp{#1}{S}=0 triangle*\fi
+  \ifnum\pdfstrcmp{#1}{T}=0 diamond*\fi
+}
+
+\newcommand{\getlabel}[1]{%
+  \ifnum\pdfstrcmp{#1}{A}=0 Infectious \& parasitic diseases\fi
+  \ifnum\pdfstrcmp{#1}{B}=0 Infectious \& parasitic diseases\fi
+  \ifnum\pdfstrcmp{#1}{C}=0 Malignant neoplasms\fi
+  \ifnum\pdfstrcmp{#1}{D}=0 Blood disorders \& benign neoplasms\fi
+  \ifnum\pdfstrcmp{#1}{E}=0 Endocrine, nutritional, metabolic\fi
+  \ifnum\pdfstrcmp{#1}{F}=0 Mental \& behavioural disorders\fi
+  \ifnum\pdfstrcmp{#1}{G}=0 Nervous system diseases\fi
+  \ifnum\pdfstrcmp{#1}{H}=0 Eye, ear diseases\fi
+  \ifnum\pdfstrcmp{#1}{I}=0 Circulatory system diseases\fi
+  \ifnum\pdfstrcmp{#1}{J}=0 Respiratory diseases\fi
+  \ifnum\pdfstrcmp{#1}{K}=0 Digestive system diseases\fi
+  \ifnum\pdfstrcmp{#1}{L}=0 Skin \& subcutaneous tissue diseases\fi
+  \ifnum\pdfstrcmp{#1}{M}=0 Musculoskeletal diseases\fi
+  \ifnum\pdfstrcmp{#1}{N}=0 Genitourinary diseases\fi
+  \ifnum\pdfstrcmp{#1}{O}=0 Pregnancy \& childbirth\fi
+  \ifnum\pdfstrcmp{#1}{P}=0 Perinatal conditions\fi
+  \ifnum\pdfstrcmp{#1}{Q}=0 Congenital malformations\fi
+  \ifnum\pdfstrcmp{#1}{R}=0 Symptoms, signs, and abnormal findings\fi
+  \ifnum\pdfstrcmp{#1}{S}=0 Injuries to body regions\fi
+  \ifnum\pdfstrcmp{#1}{T}=0 Injuries, poisoning, external causes\fi
+  \ifnum\pdfstrcmp{#1}{Z}=0 Factors influencing health status\fi
+}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\indep}{\perp\!\!\!\perp}
+\newcommand{\SPOR}{\operatorname{SPOR}}
+\newcommand{\COR}{\operatorname{OR}}
+\newcommand{\logor}{\log\SPOR}
+\newcommand{\clogor}{\log\COR}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\AUC}{\operatorname{AUC}}
+
+\title{Robust Feature Attribution under Label Noise with Stabilized Posterior Odds Ratios}
+\author{D. Onishchenko and I. Chattopadhyay}
+\date{}
+
+\begin{document}
+
+
+
+\begin{figure*}[!ht]
+
+\centering 
+\def\TAG{IPF}
+
+  \tikzexternalenable
+  \tikzsetnextfilename{figcompsemilogIPFxx}
+  
+  \tikzXtrue
+  \centering  
+   \iftikzX 
+   \input{Figures/figcompIPF.tex}
+    \else \includegraphics[width=0.9\textwidth]{Figures/External/figcompsemilogIPF}
+  \fi
+\end{figure*}
+ 
+%% \begin{figure*}[!ht]
+
+%% \centering 
+%% \def\TAG{ASD}
+%%   \tikzexternalenable
+%%   \tikzsetnextfilename{figcompsemilogASD}
+  
+%%  \tikzXtrue
+%%   \centering  
+%%    \iftikzX 
+%%    \input{Figures/figcompASD.tex}
+%%     \else \includegraphics[width=0.9\textwidth]{Figures/External/figcompsemilogASD}
+%%   \fi
+%% \end{figure*}
+
+%% \begin{figure*}[!ht]
+
+%% \centering 
+%% \def\TAG{ADRD}
+%%   \tikzexternalenable
+%%   \tikzsetnextfilename{figcompsemilogADRD}
+  
+%%   \tikzXtrue
+%%   \centering  
+%%    \iftikzX 
+%%    \input{Figures/figcompADRD.tex}
+%%     \else \includegraphics[width=0.9\textwidth]{Figures/External/figcompsemilogADRD}
+%%   \fi
+ 
+%% \end{figure*}
+
+
+
+\end{document}
+
