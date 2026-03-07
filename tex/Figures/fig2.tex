@@ -28,7 +28,7 @@
 \FIGSfalse  
 % \FIGStrue
 
-\tikzexternalize[mode=list and make, prefix=Figures/External/]
+\tikzexternalize[mode=list and make, prefix=./]
 
 
 % --- deterministic, high-separation colors using dvipsnames ---
@@ -102,22 +102,22 @@
   \ifnum\pdfstrcmp{#1}{T}=0 Injuries, poisoning, external causes\fi
   \ifnum\pdfstrcmp{#1}{Z}=0 Factors influencing health status\fi
 }
-\newcommand{\R}{\mathbb{R}}
-\newcommand{\indep}{\perp\!\!\!\perp}
-\newcommand{\SPOR}{\operatorname{SPOR}}
-\newcommand{\COR}{\operatorname{OR}}
-\newcommand{\logor}{\log\SPOR}
-\newcommand{\clogor}{\log\COR}
-\newcommand{\E}{\mathbb{E}}
-\newcommand{\AUC}{\operatorname{AUC}}
+%% \newcommand{\R}{\mathbb{R}}
+%% \newcommand{\indep}{\perp\!\!\!\perp}
+%% \newcommand{\SPOR}{\operatorname{SPOR}}
+%% \newcommand{\COR}{\operatorname{OR}}
+%% \newcommand{\logor}{\log\SPOR}
+%% \newcommand{\clogor}{\log\COR}
+%% \newcommand{\E}{\mathbb{E}}
+%% \newcommand{\AUC}{\operatorname{AUC}}
 
 \title{Robust Feature Attribution under Label Noise with Stabilized Posterior Odds Ratios}
 \author{D. Onishchenko and I. Chattopadhyay}
 \date{}
 % Data sources (adjust paths as needed)
-\def\datatableB{../ntb/paperASDpriororresults.csv}
-\def\datatableC{../ntb/paperASDshapresults.csv}
-\def\datatable {../ntb/paperASDresultsplot100.csv}
+\def\datatableB{paperASDpriororresults.csv}
+\def\datatableC{paperASDshapresults.csv}
+\def\datatable {paperASDresultsplot100.csv}
 
 \begin{document}
 
@@ -197,7 +197,7 @@ table/meta=group,
 L,M,N,O,P,Q,R,S,T}{
 \addplot+[each nth point={\SKIP},filter discard warning=false, unbounded coords=discard,
 only marks,  mark=*,%\getmark{#1},
-mark size=2.5pt, mark options={draw=black!30,fill opacity=\OPC,    fill=\getcolor{#1},
+mark size=2.50pt, mark options={draw=black!30,fill opacity=\OPC,    fill=\getcolor{#1},
 opacity=\OPC,}    ,
 discard if not={group}{#1},
 %cycle list name=mymarkers
@@ -245,7 +245,7 @@ L,M,N,O,P,Q,R,S,T}{
 \addplot+[each nth point={\SKIP},
 filter discard warning=false, unbounded coords=discard,
 only marks,  mark=*,%\getmark{#1},
-mark size=2.50pt, mark options={draw=black!30,fill opacity=\OPC,    fill=\getcolor{#1},
+mark size=2.5pt, mark options={draw=black!30,fill opacity=\OPC,    fill=\getcolor{#1},
 opacity=\OPC,}    ,
 %   mark size=2.5pt,%mark options={draw=lightgray,fill opacity=\OPC,} 
 discard if not={group}{#1},
@@ -274,7 +274,7 @@ scaled ticks=false,
 scale only axis=true,
 major tick length=0pt,
 minor tick length=0pt,
-enlargelimits=0.1,
+enlargelimits=0.10,
 % enlarge y limits=0.1,
 %enlarge x limits=0.05,
 %axis background/.style={
@@ -315,13 +315,13 @@ col sep=comma
 \tikzsetnextfilename{figcompsemilogASD}
 \begin{tikzpicture}[font=\bfseries\sffamily\fontsize{10}{10}\selectfont]
   % Place prebuilt PDFs; the first run + make will produce these
-  \node[anchor=north west] (A) at (0,0.0)        {\includegraphics{Figures/External/ASDpanelA.pdf}};
-  \node[anchor=north west] (B) at (A.north east)    {\includegraphics{Figures/External/ASDpanelB.pdf}};
-  \node[anchor=north west] (C)  at (B.north east)    {\includegraphics{Figures/External/ASDpanelC.pdf}};
+  \node[anchor=north west] (A) at (0,0)        {\includegraphics{ASDpanelA.pdf}};
+  \node[anchor=north west] (B) at (A.north east)    {\includegraphics{ASDpanelB.pdf}};
+  \node[anchor=north west] (C)  at (B.north east)    {\includegraphics{ASDpanelC.pdf}};
 
   % Panel labels (adjust positions as needed)
   \node[anchor=south west] (L1) at ([xshift=.5in]A.north west) {{\large d.} Classical $\clogor$ (ASD)};
-  \node[anchor=south west] (L2) at ([xshift=0.2in]$(L1.south)!(B.west)!(L1.south east)$)  {{\large e.} $SHAP$ (ASD)};
+  \node[anchor=south west] (L2) at ([xshift=0.20in]$(L1.south)!(B.west)!(L1.south east)$)  {{\large e.} $SHAP$ (ASD)};
   \node[anchor=south west] (L3) at ([xshift=0.2in]$(L1.south)!(C.west)!(L1.south east)$)  {{\large f.} $\logor$ (ASD)};
 \end{tikzpicture}
 

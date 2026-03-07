@@ -1,295 +1,160 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2025.6.25)  23 OCT 2025 01:33
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Fedora 39) (preloaded format=pdflatex 2025.10.30)  4 MAR 2026 10:31
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
-**\def\tikzexternalrealjob{main}\input{main}
-(./main.tex (/usr/share/texlive/texmf-dist/tex/latex/IEEEtran/IEEEtran.cls
-Document Class: IEEEtran 2015/08/26 V1.8b by Michael Shell
--- See the "IEEEtran_HOWTO" manual for usage information.
--- http://www.michaelshell.org/tex/ieeetran/
-\@IEEEtrantmpdimenA=\dimen138
-\@IEEEtrantmpdimenB=\dimen139
-\@IEEEtrantmpdimenC=\dimen140
-\@IEEEtrantmpcountA=\count179
-\@IEEEtrantmpcountB=\count180
-\@IEEEtrantmpcountC=\count181
-\@IEEEtrantmptoksA=\toks15
-LaTeX Font Info:    Trying to load font information for OT1+ppl on input line 5
-03.
-(/usr/share/texlive/texmf-dist/tex/latex/psnfss/ot1ppl.fd
-File: ot1ppl.fd 2001/06/04 font definitions for OT1/ppl.
+**\def\tikzexternalrealjob{mainBMC_steps1-5}\input{mainBMC_steps1-5}
+(./mainBMC_steps1-5.tex (./sn-jnl.cls
+Document Class: sn-jnl 2019/11/18 v0.1: An authoring template for Springer Jour
+nal articles
+(/usr/share/texlive/texmf-dist/tex/latex/base/article.cls
+Document Class: article 2022/07/02 v1.4n Standard LaTeX document class
+(/usr/share/texlive/texmf-dist/tex/latex/base/fleqn.clo
+File: fleqn.clo 2016/12/29 v1.2b Standard LaTeX option (flush left equations)
+\mathindent=\skip48
+Applying: [2015/01/01] Make \[ robust on input line 50.
+LaTeX Info: Redefining \[ on input line 51.
+Already applied: [0000/00/00] Make \[ robust on input line 62.
+Applying: [2015/01/01] Make \] robust on input line 74.
+LaTeX Info: Redefining \] on input line 75.
+Already applied: [0000/00/00] Make \] robust on input line 83.
+) (/usr/share/texlive/texmf-dist/tex/latex/base/size10.clo
+File: size10.clo 2022/07/02 v1.4n Standard LaTeX file (size option)
 )
--- Using IEEE Computer Society mode.
-** ATTENTION: Single column mode is not typically used with IEEE publications.
--- Using 8.5in x 11in (letter) paper.
--- Using PDF output.
-\@IEEEnormalsizeunitybaselineskip=\dimen141
--- This is a 10 point document.
-\CLASSINFOnormalsizebaselineskip=\dimen142
-\CLASSINFOnormalsizeunitybaselineskip=\dimen143
-\IEEEnormaljot=\dimen144
-LaTeX Font Info:    Font shape `OT1/ppl/bx/n' in size <5.01874> not available
-(Font)              Font shape `OT1/ppl/b/n' tried instead on input line 1090.
-LaTeX Font Info:    Font shape `OT1/ppl/bx/it' in size <5.01874> not available
-(Font)              Font shape `OT1/ppl/b/it' tried instead on input line 1090.
-
-LaTeX Font Info:    Font shape `OT1/ppl/bx/n' in size <7.02625> not available
-(Font)              Font shape `OT1/ppl/b/n' tried instead on input line 1090.
-LaTeX Font Info:    Font shape `OT1/ppl/bx/it' in size <7.02625> not available
-(Font)              Font shape `OT1/ppl/b/it' tried instead on input line 1090.
-
-LaTeX Font Info:    Font shape `OT1/ppl/bx/n' in size <8.03> not available
-(Font)              Font shape `OT1/ppl/b/n' tried instead on input line 1090.
-LaTeX Font Info:    Font shape `OT1/ppl/bx/it' in size <8.03> not available
-(Font)              Font shape `OT1/ppl/b/it' tried instead on input line 1090.
-
-LaTeX Font Info:    Font shape `OT1/ppl/bx/n' in size <9.03374> not available
-(Font)              Font shape `OT1/ppl/b/n' tried instead on input line 1090.
-LaTeX Font Info:    Font shape `OT1/ppl/bx/it' in size <9.03374> not available
-(Font)              Font shape `OT1/ppl/b/it' tried instead on input line 1090.
-
-LaTeX Font Info:    Font shape `OT1/ppl/bx/n' in size <9.53561> not available
-(Font)              Font shape `OT1/ppl/b/n' tried instead on input line 1090.
-LaTeX Font Info:    Font shape `OT1/ppl/bx/it' in size <9.53561> not available
-(Font)              Font shape `OT1/ppl/b/it' tried instead on input line 1090.
-
-LaTeX Font Info:    Font shape `OT1/ppl/bx/n' in size <11.04124> not available
-(Font)              Font shape `OT1/ppl/b/n' tried instead on input line 1090.
-LaTeX Font Info:    Font shape `OT1/ppl/bx/it' in size <11.04124> not available
-
-(Font)              Font shape `OT1/ppl/b/it' tried instead on input line 1090.
-
-LaTeX Font Info:    Font shape `OT1/ppl/bx/n' in size <12.045> not available
-(Font)              Font shape `OT1/ppl/b/n' tried instead on input line 1090.
-LaTeX Font Info:    Font shape `OT1/ppl/bx/it' in size <12.045> not available
-(Font)              Font shape `OT1/ppl/b/it' tried instead on input line 1090.
-
-LaTeX Font Info:    Font shape `OT1/ppl/bx/n' in size <17.06374> not available
-(Font)              Font shape `OT1/ppl/b/n' tried instead on input line 1090.
-LaTeX Font Info:    Font shape `OT1/ppl/bx/it' in size <17.06374> not available
-
-(Font)              Font shape `OT1/ppl/b/it' tried instead on input line 1090.
-
-LaTeX Font Info:    Font shape `OT1/ppl/bx/n' in size <20.075> not available
-(Font)              Font shape `OT1/ppl/b/n' tried instead on input line 1090.
-LaTeX Font Info:    Font shape `OT1/ppl/bx/it' in size <20.075> not available
-(Font)              Font shape `OT1/ppl/b/it' tried instead on input line 1090.
-
-LaTeX Font Info:    Font shape `OT1/ppl/bx/n' in size <24.09> not available
-(Font)              Font shape `OT1/ppl/b/n' tried instead on input line 1090.
-LaTeX Font Info:    Font shape `OT1/ppl/bx/it' in size <24.09> not available
-(Font)              Font shape `OT1/ppl/b/it' tried instead on input line 1090.
-
-\IEEEquantizedlength=\dimen145
-\IEEEquantizedlengthdiff=\dimen146
-\IEEEquantizedtextheightdiff=\dimen147
-\IEEEilabelindentA=\dimen148
-\IEEEilabelindentB=\dimen149
-\IEEEilabelindent=\dimen150
-\IEEEelabelindent=\dimen151
-\IEEEdlabelindent=\dimen152
-\IEEElabelindent=\dimen153
-\IEEEiednormlabelsep=\dimen154
-\IEEEiedmathlabelsep=\dimen155
-\IEEEiedtopsep=\skip47
-\c@section=\count182
-\c@subsection=\count183
-\c@subsubsection=\count184
-\c@paragraph=\count185
-\c@IEEEsubequation=\count186
-\abovecaptionskip=\skip48
-\belowcaptionskip=\skip49
-\c@figure=\count187
-\c@table=\count188
-\@IEEEeqnnumcols=\count189
-\@IEEEeqncolcnt=\count190
-\@IEEEsubeqnnumrollback=\count191
-\@IEEEquantizeheightA=\dimen156
-\@IEEEquantizeheightB=\dimen157
-\@IEEEquantizeheightC=\dimen158
-\@IEEEquantizeprevdepth=\dimen159
-\@IEEEquantizemultiple=\count192
-\@IEEEquantizeboxA=\box47
-\@IEEEtmpitemindent=\dimen160
-\IEEEPARstartletwidth=\dimen161
-\c@IEEEbiography=\count193
-\@IEEEtranrubishbin=\box48
-) (./preamble.tex (/usr/share/texlive/texmf-dist/tex/latex/etex-pkg/etex.sty
-Package: etex 2016/08/01 v2.7 eTeX basic definition package (PEB,DPC)
-\et@xins=\count194
-) (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/amssymb.sty
-Package: amssymb 2013/01/14 v3.01 AMS font symbols
-(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/amsfonts.sty
-Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
-\@emptytoks=\toks16
-\symAMSa=\mathgroup4
-\symAMSb=\mathgroup5
-LaTeX Font Info:    Redeclaring math symbol \hbar on input line 98.
-LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
-(Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
-)) (/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsmath.sty
-Package: amsmath 2020/09/23 v2.17i AMS math features
-\@mathmargin=\skip50
-For additional information on amsmath, use the `?' option.
-(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amstext.sty
-Package: amstext 2000/06/29 v2.01 AMS text
-(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsgen.sty
-File: amsgen.sty 1999/11/30 v2.0 generic functions
-\@emptytoks=\toks17
-\ex@=\dimen162
-)) (/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsbsy.sty
-Package: amsbsy 1999/11/29 v1.2d Bold Symbols
-\pmbraise@=\dimen163
-) (/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsopn.sty
-Package: amsopn 2016/03/08 v2.02 operator names
+\c@part=\count185
+\c@section=\count186
+\c@subsection=\count187
+\c@subsubsection=\count188
+\c@paragraph=\count189
+\c@subparagraph=\count190
+\c@figure=\count191
+\c@table=\count192
+\abovecaptionskip=\skip49
+\belowcaptionskip=\skip50
+\bibindent=\dimen140
 )
-\inf@bad=\count195
-LaTeX Info: Redefining \frac on input line 234.
-\uproot@=\count196
-\leftroot@=\count197
-LaTeX Info: Redefining \overline on input line 399.
-\classnum@=\count198
-\DOTSCASE@=\count199
-LaTeX Info: Redefining \ldots on input line 496.
-LaTeX Info: Redefining \dots on input line 499.
-LaTeX Info: Redefining \cdots on input line 620.
-\Mathstrutbox@=\box49
-\strutbox@=\box50
-\big@size=\dimen164
-LaTeX Font Info:    Redeclaring font encoding OML on input line 743.
-LaTeX Font Info:    Redeclaring font encoding OMS on input line 744.
-Normal \count register pool exhausted, switching to extended pool.
-\macc@depth=\count277
-\c@MaxMatrixCols=\count278
-\dotsspace@=\muskip16
-\c@parentequation=\count279
-\dspbrk@lvl=\count280
-\tag@help=\toks18
-\row@=\count281
-\column@=\count282
-\maxfields@=\count283
-\andhelp@=\toks19
-\eqnshift@=\dimen165
-\alignsep@=\dimen166
-\tagshift@=\dimen167
-\tagwidth@=\dimen168
-\totwidth@=\dimen169
-\lineht@=\dimen170
-\@envbody=\toks20
-\multlinegap=\skip51
-\multlinetaggap=\skip52
-\mathdisplay@stack=\toks21
-LaTeX Info: Redefining \[ on input line 2923.
-LaTeX Info: Redefining \] on input line 2924.
-) (/usr/share/texlive/texmf-dist/tex/latex/amscls/amsthm.sty
-Package: amsthm 2020/05/29 v2.20.6
-\thm@style=\toks22
-\thm@bodyfont=\toks23
-\thm@headfont=\toks24
-\thm@notefont=\toks25
-\thm@headpunct=\toks26
-\thm@preskip=\skip53
-\thm@postskip=\skip54
-\thm@headsep=\skip55
-\dth@everypar=\toks27
-) (/usr/share/texlive/texmf-dist/tex/latex/graphics/graphicx.sty
-Package: graphicx 2020/09/09 v1.2b Enhanced LaTeX Graphics (DPC,SPQR)
+LaTeX Info: Redefining \rm on input line 146.
+LaTeX Info: Redefining \sf on input line 147.
+LaTeX Info: Redefining \tt on input line 148.
+LaTeX Info: Redefining \bf on input line 149.
+LaTeX Info: Redefining \it on input line 150.
+LaTeX Info: Redefining \sl on input line 151.
+LaTeX Info: Redefining \sc on input line 152.
+LaTeX Info: Redefining \cal on input line 153.
+LaTeX Info: Redefining \mit on input line 154.
+LaTeX Info: Redefining \textsubscript on input line 212.
+\columnhsize=\skip51
+(/usr/share/texlive/texmf-dist/tex/latex/geometry/geometry.sty
+Package: geometry 2020/01/02 v5.9 Page Geometry
 (/usr/share/texlive/texmf-dist/tex/latex/graphics/keyval.sty
-Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
-\KV@toks@=\toks28
-) (/usr/share/texlive/texmf-dist/tex/latex/graphics/graphics.sty
-Package: graphics 2020/08/30 v1.4c Standard LaTeX Graphics (DPC,SPQR)
+Package: keyval 2022/05/29 v1.15 key=value parser (DPC)
+\KV@toks@=\toks16
+) (/usr/share/texlive/texmf-dist/tex/generic/iftex/ifvtex.sty
+Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
+(/usr/share/texlive/texmf-dist/tex/generic/iftex/iftex.sty
+Package: iftex 2022/02/03 v1.0f TeX engine tests
+))
+\Gm@cnth=\count193
+\Gm@cntv=\count194
+\c@Gm@tempcnt=\count195
+\Gm@bindingoffset=\dimen141
+\Gm@wd@mp=\dimen142
+\Gm@odd@mp=\dimen143
+\Gm@even@mp=\dimen144
+\Gm@layoutwidth=\dimen145
+\Gm@layoutheight=\dimen146
+\Gm@layouthoffset=\dimen147
+\Gm@layoutvoffset=\dimen148
+\Gm@dimlist=\toks17
+)
+\artcatbox=\box51
+\aucount=\count196
+\corraucount=\count197
+\punctcount=\count198
+\emailcnt=\count199
+\c@affn=\count266
+\addcount=\count267
+\PacsCount=\count268
+\PacsTmpCnt=\count269
+\FMremarkdim=\dimen149
+\fmremarkbox=\box52
+(/usr/share/texlive/texmf-dist/tex/latex/sttools/cuted.sty
+Package: cuted 2021/10/04 v2.0 Mixing onecolumn and twocolumn modes
+\At@ViperColsBreak=\toks18
+\preCutedStrip=\toks19
+\postCutedStrip=\toks20
+\cuted@@tempbox@a=\box53
+\cuted@@tempbox@c=\box54
+\cuted@@tempbox@var=\box55
+\hold@viper=\box56
+\@viper=\box57
+\cuted@@varbox@a=\box58
+\cuted@@varbox@c=\box59
+\cuted@@tempdim@spread=\dimen150
+\cuted@@tempdim@a=\dimen151
+\cuted@@tempdim@b=\dimen152
+\ht@hold@viper=\dimen153
+\ht@viper=\dimen154
+\var@@pagediscards@ht=\dimen155
+\stripsep=\skip52
+\viper@penalty=\count270
+)
+\firstpagehtcheck=\dimen156
+\labelwidthi=\dimen157
+\labelwidthii=\dimen158
+\labelwidthiii=\dimen159
+\labelwidthiv=\dimen160
+\figwidth=\dimen161
+\figheight=\dimen162
+\sidecapwidth=\dimen163
+\wrapcapline=\dimen164
+\totalwrapline=\dimen165
+\wraptotline=\dimen166
+\figurebox=\box60
+\wrapfigcapbox=\box61
+\figcapbox=\box62
+\capbox=\box63
+\headwidthskip=\skip53
+\tabcapbox=\box64
+\temptbox=\box65
+\tempdime=\dimen167
+\tabhtdime=\dimen168
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/rotating.sty
+Package: rotating 2016/08/11 v2.16d rotated objects in LaTeX
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/graphicx.sty
+Package: graphicx 2021/09/16 v1.2d Enhanced LaTeX Graphics (DPC,SPQR)
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/graphics.sty
+Package: graphics 2022/03/10 v1.4e Standard LaTeX Graphics (DPC,SPQR)
 (/usr/share/texlive/texmf-dist/tex/latex/graphics/trig.sty
-Package: trig 2016/01/03 v1.10 sin cos tan (DPC)
+Package: trig 2021/08/11 v1.11 sin cos tan (DPC)
 ) (/usr/share/texlive/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
 File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
 )
-Package graphics Info: Driver file: pdftex.def on input line 105.
+Package graphics Info: Driver file: pdftex.def on input line 107.
 (/usr/share/texlive/texmf-dist/tex/latex/graphics-def/pdftex.def
-File: pdftex.def 2020/10/05 v1.2a Graphics/color driver for pdftex
+File: pdftex.def 2022/09/22 v1.2b Graphics/color driver for pdftex
 ))
-\Gin@req@height=\dimen171
-\Gin@req@width=\dimen172
-) (/usr/share/texlive/texmf-dist/tex/latex/xcolor/xcolor.sty
-Package: xcolor 2016/05/11 v2.12 LaTeX color extensions (UK)
-(/usr/share/texlive/texmf-dist/tex/latex/graphics-cfg/color.cfg
-File: color.cfg 2016/01/02 v1.6 sample color configuration
+\Gin@req@height=\dimen169
+\Gin@req@width=\dimen170
+) (/usr/share/texlive/texmf-dist/tex/latex/base/ifthen.sty
+Package: ifthen 2022/04/13 v1.1d Standard LaTeX ifthen package (DPC)
 )
-Package xcolor Info: Package option `usenames' ignored on input line 216.
-Package xcolor Info: Driver file: pdftex.def on input line 225.
-Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1348.
-Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1352.
-Package xcolor Info: Model `RGB' extended on input line 1364.
-Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1366.
-Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1367.
-Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1368.
-Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1369.
-Package xcolor Info: Model `Gray' substituted by `gray' on input line 1370.
-Package xcolor Info: Model `wave' substituted by `hsb' on input line 1371.
-(/usr/share/texlive/texmf-dist/tex/latex/graphics/dvipsnam.def
-File: dvipsnam.def 2016/06/17 v3.0m Driver-dependent file (DPC,SPQR)
-) (/usr/share/texlive/texmf-dist/tex/latex/xcolor/svgnam.def
-File: svgnam.def 2016/05/11 v2.12 Predefined colors according to SVG 1.1 (UK)
-) (/usr/share/texlive/texmf-dist/tex/latex/xcolor/x11nam.def
-File: x11nam.def 2016/05/11 v2.12 Predefined colors according to Unix/X11 (UK)
-)) (/usr/share/texlive/texmf-dist/tex/latex/doublestroke/dsfont.sty
-Package: dsfont 1995/08/01 v0.1 Double stroke roman fonts
-) (/usr/share/texlive/texmf-dist/tex/latex/jknapltx/mathrsfs.sty
-Package: mathrsfs 1996/01/01 Math RSFS package v1.0 (jk)
-\symrsfs=\mathgroup6
-) (/usr/share/texlive/texmf-dist/tex/latex/texshade/texshade.sty
-Package: texshade 2021/04/01 LaTeX TeXshade (v1.26)
-Package `texshade', Version 1.26 of 2021/04/01.
-\structurefile=\read2
-\featurefile=\write3
-\alignfile=\read3
-\sublogofile=\read4
-\exp@rtfile=\write4
-\exp@rt@chimerafile=\write5
-\symalphahelix=\mathgroup7
-\loopcount=\count284
-\innerloopcount=\count285
-\outerloopcount=\count286
-\seq@count=\count287
-\killseq@count=\count288
-\seq@percent=\count289
-\res@count=\count290
-\seq@pointer=\count291
-\pos@count=\count292
-\res@perline=\count293
-\end@count=\count294
-\cons@count=\count295
-\total@count=\count296
-\temp@count=\count297
-\triple@count=\count298
-\temp@@count=\count299
-\pos@sum=\count300
-\box@width=\skip56
-\name@width=\skip57
-\box@depth=\skip58
-\width@tmp=\skip59
-\box@height=\skip60
-\number@width=\skip61
-\line@stretch=\skip62
-\center@fill=\skip63
-\arrow@width=\skip64
-\arrow@height=\skip65
-\rule@thick=\skip66
-\arrow@thick=\skip67
-\logo@height=\skip68
-\equal@width=\skip69
-\equal@tmp=\skip70
-\equal@height=\skip71
-\temp@@length=\skip72
-\vspace@legend=\skip73
-\hspace@legend=\skip74
-\bar@length=\skip75
+\c@r@tfl@t=\count271
+\rotFPtop=\skip54
+\rotFPbot=\skip55
+\rot@float@box=\box66
+\rot@mess@toks=\toks21
+) (/usr/share/texlive/texmf-dist/tex/latex/threeparttable/threeparttable.sty
+Package: threeparttable 2003/06/13  v 3.0
+\@tempboxb=\box67
+) (/usr/share/texlive/texmf-dist/tex/latex/appendix/appendix.sty
+Package: appendix 2020/02/08 v1.2c extra appendix facilities
+\c@@pps=\count272
+\c@@ppsavesec=\count273
+\c@@ppsaveapp=\count274
 ) (/usr/share/texlive/texmf-dist/tex/latex/hyperref/hyperref.sty
-Package: hyperref 2021-02-27 v7.00k Hypertext links for LaTeX
+Package: hyperref 2023-02-07 v7.00v Hypertext links for LaTeX
 (/usr/share/texlive/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty
 Package: ltxcmds 2020-05-10 v1.25 LaTeX kernel commands for general use (HO)
-) (/usr/share/texlive/texmf-dist/tex/generic/iftex/iftex.sty
-Package: iftex 2020/03/06 v1.0d TeX engine tests
 ) (/usr/share/texlive/texmf-dist/tex/generic/pdftexcmds/pdftexcmds.sty
 Package: pdftexcmds 2020-06-27 v0.33 Utility functions of pdfTeX for LuaTeX (HO
 )
@@ -299,8 +164,8 @@ Package: infwarerr 2019/12/03 v1.5 Providing info/warning/error messages (HO)
 Package pdftexcmds Info: \pdf@primitive is available.
 Package pdftexcmds Info: \pdf@ifprimitive is available.
 Package pdftexcmds Info: \pdfdraftmode found.
-) (/usr/share/texlive/texmf-dist/tex/generic/kvsetkeys/kvsetkeys.sty
-Package: kvsetkeys 2019/12/15 v1.18 Key value parser (HO)
+) (/usr/share/texlive/texmf-dist/tex/latex/kvsetkeys/kvsetkeys.sty
+Package: kvsetkeys 2022-10-05 v1.19 Key value parser (HO)
 ) (/usr/share/texlive/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.sty
 Package: kvdefinekeys 2019-12-19 v1.6 Define keys (HO)
 ) (/usr/share/texlive/texmf-dist/tex/generic/pdfescape/pdfescape.sty
@@ -311,175 +176,372 @@ Package: hycolor 2020-01-27 v1.10 Color options for hyperref/bookmark (HO)
 Package: letltxmacro 2019/12/03 v1.6 Let assignment for LaTeX macros (HO)
 ) (/usr/share/texlive/texmf-dist/tex/latex/auxhook/auxhook.sty
 Package: auxhook 2019-12-17 v1.6 Hooks for auxiliary files (HO)
-) (/usr/share/texlive/texmf-dist/tex/latex/kvoptions/kvoptions.sty
-Package: kvoptions 2020-10-07 v3.14 Key value format for package options (HO)
+) (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
+Package: nameref 2022-05-17 v2.50 Cross-referencing by name of section
+(/usr/share/texlive/texmf-dist/tex/latex/refcount/refcount.sty
+Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
+) (/usr/share/texlive/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty
+Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
+(/usr/share/texlive/texmf-dist/tex/latex/kvoptions/kvoptions.sty
+Package: kvoptions 2022-06-15 v3.15 Key value format for package options (HO)
+))
+\c@section@level=\count275
 )
-\@linkdim=\dimen173
-\Hy@linkcounter=\count301
-\Hy@pagecounter=\count302
+\@linkdim=\dimen171
+\Hy@linkcounter=\count276
+\Hy@pagecounter=\count277
 (/usr/share/texlive/texmf-dist/tex/latex/hyperref/pd1enc.def
-File: pd1enc.def 2021-02-27 v7.00k Hyperref: PDFDocEncoding definition (HO)
+File: pd1enc.def 2023-02-07 v7.00v Hyperref: PDFDocEncoding definition (HO)
 Now handling font encoding PD1 ...
 ... no UTF-8 mapping file for font encoding PD1
-) (/usr/share/texlive/texmf-dist/tex/latex/hyperref/hyperref-langpatches.def
-File: hyperref-langpatches.def 2021-02-27 v7.00k Hyperref: patches for babel la
-nguages
 ) (/usr/share/texlive/texmf-dist/tex/generic/intcalc/intcalc.sty
 Package: intcalc 2019/12/15 v1.3 Expandable calculations with integers (HO)
 ) (/usr/share/texlive/texmf-dist/tex/generic/etexcmds/etexcmds.sty
 Package: etexcmds 2019/12/15 v1.7 Avoid name clashes with e-TeX commands (HO)
 )
-\Hy@SavedSpaceFactor=\count303
+\Hy@SavedSpaceFactor=\count278
 (/usr/share/texlive/texmf-dist/tex/latex/hyperref/puenc.def
-File: puenc.def 2021-02-27 v7.00k Hyperref: PDF Unicode definition (HO)
+File: puenc.def 2023-02-07 v7.00v Hyperref: PDF Unicode definition (HO)
 Now handling font encoding PU ...
 ... no UTF-8 mapping file for font encoding PU
 )
-Package hyperref Info: Hyper figures OFF on input line 4192.
-Package hyperref Info: Link nesting OFF on input line 4197.
-Package hyperref Info: Hyper index ON on input line 4200.
-Package hyperref Info: Plain pages OFF on input line 4207.
-Package hyperref Info: Backreferencing OFF on input line 4212.
+Package hyperref Info: Hyper figures OFF on input line 4177.
+Package hyperref Info: Link nesting OFF on input line 4182.
+Package hyperref Info: Hyper index ON on input line 4185.
+Package hyperref Info: Plain pages OFF on input line 4192.
+Package hyperref Info: Backreferencing OFF on input line 4197.
 Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
-Package hyperref Info: Bookmarks ON on input line 4445.
-\c@Hy@tempcnt=\count304
+Package hyperref Info: Bookmarks ON on input line 4425.
+\c@Hy@tempcnt=\count279
 (/usr/share/texlive/texmf-dist/tex/latex/url/url.sty
-\Urlmuskip=\muskip17
+\Urlmuskip=\muskip16
 Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 )
-LaTeX Info: Redefining \url on input line 4804.
-\XeTeXLinkMargin=\dimen174
+LaTeX Info: Redefining \url on input line 4763.
+\XeTeXLinkMargin=\dimen172
 (/usr/share/texlive/texmf-dist/tex/generic/bitset/bitset.sty
 Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
 (/usr/share/texlive/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty
 Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO
 )
 ))
-\Fld@menulength=\count305
-\Field@Width=\dimen175
-\Fld@charsize=\dimen176
-Package hyperref Info: Hyper figures OFF on input line 6075.
-Package hyperref Info: Link nesting OFF on input line 6080.
-Package hyperref Info: Hyper index ON on input line 6083.
-Package hyperref Info: backreferencing OFF on input line 6090.
-Package hyperref Info: Link coloring OFF on input line 6095.
-Package hyperref Info: Link coloring with OCG OFF on input line 6100.
-Package hyperref Info: PDF/A mode OFF on input line 6105.
-LaTeX Info: Redefining \ref on input line 6145.
-LaTeX Info: Redefining \pageref on input line 6149.
+\Fld@menulength=\count280
+\Field@Width=\dimen173
+\Fld@charsize=\dimen174
+Package hyperref Info: Hyper figures OFF on input line 6042.
+Package hyperref Info: Link nesting OFF on input line 6047.
+Package hyperref Info: Hyper index ON on input line 6050.
+Package hyperref Info: backreferencing OFF on input line 6057.
+Package hyperref Info: Link coloring OFF on input line 6062.
+Package hyperref Info: Link coloring with OCG OFF on input line 6067.
+Package hyperref Info: PDF/A mode OFF on input line 6072.
 (/usr/share/texlive/texmf-dist/tex/latex/base/atbegshi-ltx.sty
-Package: atbegshi-ltx 2020/08/17 v1.0a Emulation of the original atbegshi packa
-ge
-with kernel methods
+Package: atbegshi-ltx 2021/01/10 v1.0c Emulation of the original atbegshi
+package with kernel methods
 )
-\Hy@abspage=\count306
-\c@Item=\count307
-\c@Hfootnote=\count308
+\Hy@abspage=\count281
+\c@Item=\count282
+\c@Hfootnote=\count283
 )
 Package hyperref Info: Driver (autodetected): hpdftex.
 (/usr/share/texlive/texmf-dist/tex/latex/hyperref/hpdftex.def
-File: hpdftex.def 2021-02-27 v7.00k Hyperref driver for pdfTeX
+File: hpdftex.def 2023-02-07 v7.00v Hyperref driver for pdfTeX
 (/usr/share/texlive/texmf-dist/tex/latex/base/atveryend-ltx.sty
-Package: atveryend-ltx 2020/08/19 v1.0a Emulation of the original atvery packag
-e
+Package: atveryend-ltx 2020/08/19 v1.0a Emulation of the original atveryend pac
+kage
 with kernel methods
 )
-\Fld@listcount=\count309
-\c@bookmark@seq@number=\count310
+\Fld@listcount=\count284
+\c@bookmark@seq@number=\count285
 (/usr/share/texlive/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty
-Package: rerunfilecheck 2019/12/05 v1.9 Rerun checks for auxiliary files (HO)
+Package: rerunfilecheck 2022-07-10 v1.10 Rerun checks for auxiliary files (HO)
 (/usr/share/texlive/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty
 Package: uniquecounter 2019/12/15 v1.4 Provide unlimited unique counter (HO)
 )
 Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
-86.
+85.
 )
-\Hy@SectionHShift=\skip76
+\Hy@SectionHShift=\skip56
 )
-Package hyperref Info: Option `colorlinks' set `true' on input line 20.
-Package hyperref Info: Option `breaklinks' set `false' on input line 20.
+Package hyperref Info: Option `colorlinks' set `true' on input line 1471.
+Package hyperref Info: Option `breaklinks' set `true' on input line 1471.
+Package hyperref Info: Option `plainpages' set `false' on input line 1471.
+Package hyperref Info: Option `bookmarksopen' set `true' on input line 1471.
+Package hyperref Info: Option `bookmarksnumbered' set `false' on input line 147
+1.
+(/usr/share/texlive/texmf-dist/tex/latex/wrapfig/wrapfig.sty
+\wrapoverhang=\dimen175
+\WF@size=\dimen176
+\c@WF@wrappedlines=\count286
+\WF@box=\box68
+\WF@everypar=\toks22
+Package: wrapfig 2003/01/31  v 3.6
+)
+\wraplines=\count287
+\@authorfigbox=\box69
+\@authorfigboxdim=\skip57
+\biofigadjskip=\skip58
+(/usr/share/texlive/texmf-dist/tex/latex/amscls/amsthm.sty
+Package: amsthm 2020/05/29 v2.20.6
+\thm@style=\toks23
+\thm@bodyfont=\toks24
+\thm@headfont=\toks25
+\thm@notefont=\toks26
+\thm@headpunct=\toks27
+\thm@preskip=\skip59
+\thm@postskip=\skip60
+\thm@headsep=\skip61
+\dth@everypar=\toks28
+) (/usr/share/texlive/texmf-dist/tex/latex/base/fix-cm.sty
+Package: fix-cm 2020/11/24 v1.1t fixes to LaTeX
+(/usr/share/texlive/texmf-dist/tex/latex/base/ts1enc.def
+File: ts1enc.def 2001/06/05 v3.0e (jk/car/fm) Standard LaTeX file
+LaTeX Font Info:    Redeclaring font encoding TS1 on input line 47.
+)) (/usr/share/texlive/texmf-dist/tex/latex/natbib/natbib.sty
+Package: natbib 2010/09/13 8.31b (PWD, AO)
+\bibhang=\skip62
+\bibsep=\skip63
+LaTeX Info: Redefining \cite on input line 694.
+\c@NAT@ctr=\count288
+)) (/usr/share/texlive/texmf-dist/tex/latex/etex-pkg/etex.sty
+Package: etex 2016/08/01 v2.7 eTeX basic definition package (PEB,DPC)
+
+Package etex Warning: Extended allocation already in use.
+(etex)                etex.sty code will not be used.
+(etex)                To force etex package to load, add
+(etex)                \RequirePackage{etex}
+(etex)                at the start of the document.
+
+) (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/amssymb.sty
+Package: amssymb 2013/01/14 v3.01 AMS font symbols
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/amsfonts.sty
+Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
+\@emptytoks=\toks29
+\symAMSa=\mathgroup4
+\symAMSb=\mathgroup5
+LaTeX Font Info:    Redeclaring math symbol \hbar on input line 98.
+LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
+(Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
+)) (/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsmath.sty
+Package: amsmath 2022/04/08 v2.17n AMS math features
+\@mathmargin=\skip64
+For additional information on amsmath, use the `?' option.
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amstext.sty
+Package: amstext 2021/08/26 v2.01 AMS text
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsgen.sty
+File: amsgen.sty 1999/11/30 v2.0 generic functions
+\@emptytoks=\toks30
+\ex@=\dimen177
+)) (/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsbsy.sty
+Package: amsbsy 1999/11/29 v1.2d Bold Symbols
+\pmbraise@=\dimen178
+) (/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsopn.sty
+Package: amsopn 2022/04/08 v2.04 operator names
+)
+\inf@bad=\count289
+LaTeX Info: Redefining \frac on input line 234.
+\uproot@=\count290
+\leftroot@=\count291
+LaTeX Info: Redefining \overline on input line 399.
+LaTeX Info: Redefining \colon on input line 410.
+\classnum@=\count292
+\DOTSCASE@=\count293
+LaTeX Info: Redefining \ldots on input line 496.
+LaTeX Info: Redefining \dots on input line 499.
+LaTeX Info: Redefining \cdots on input line 620.
+\Mathstrutbox@=\box70
+\strutbox@=\box71
+LaTeX Info: Redefining \big on input line 722.
+LaTeX Info: Redefining \Big on input line 723.
+LaTeX Info: Redefining \bigg on input line 724.
+LaTeX Info: Redefining \Bigg on input line 725.
+\big@size=\dimen179
+LaTeX Font Info:    Redeclaring font encoding OML on input line 743.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 744.
+\macc@depth=\count294
+LaTeX Info: Redefining \bmod on input line 905.
+LaTeX Info: Redefining \pmod on input line 910.
+LaTeX Info: Redefining \smash on input line 940.
+LaTeX Info: Redefining \relbar on input line 970.
+LaTeX Info: Redefining \Relbar on input line 971.
+\c@MaxMatrixCols=\count295
+\dotsspace@=\muskip17
+\c@parentequation=\count296
+\dspbrk@lvl=\count297
+\tag@help=\toks31
+\row@=\count298
+\column@=\count299
+\maxfields@=\count300
+\andhelp@=\toks32
+\eqnshift@=\dimen180
+\alignsep@=\dimen181
+\tagshift@=\dimen182
+\tagwidth@=\dimen183
+\totwidth@=\dimen184
+\lineht@=\dimen185
+\@envbody=\toks33
+\multlinegap=\skip65
+\multlinetaggap=\skip66
+\mathdisplay@stack=\toks34
+LaTeX Info: Redefining \[ on input line 2953.
+LaTeX Info: Redefining \] on input line 2954.
+) (/usr/share/texlive/texmf-dist/tex/latex/xcolor/xcolor.sty
+Package: xcolor 2022/06/12 v2.14 LaTeX color extensions (UK)
+(/usr/share/texlive/texmf-dist/tex/latex/graphics-cfg/color.cfg
+File: color.cfg 2016/01/02 v1.6 sample color configuration
+)
+Package xcolor Info: Package option `usenames' ignored on input line 218.
+Package xcolor Info: Driver file: pdftex.def on input line 227.
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/mathcolor.ltx)
+Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1353.
+Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1357.
+Package xcolor Info: Model `RGB' extended on input line 1369.
+Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1371.
+Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1372.
+Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1373.
+Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1374.
+Package xcolor Info: Model `Gray' substituted by `gray' on input line 1375.
+Package xcolor Info: Model `wave' substituted by `hsb' on input line 1376.
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/dvipsnam.def
+File: dvipsnam.def 2016/06/17 v3.0m Driver-dependent file (DPC,SPQR)
+) (/usr/share/texlive/texmf-dist/tex/latex/xcolor/svgnam.def
+File: svgnam.def 2022/06/12 v2.14 Predefined colors according to SVG 1.1 (UK)
+) (/usr/share/texlive/texmf-dist/tex/latex/xcolor/x11nam.def
+File: x11nam.def 2022/06/12 v2.14 Predefined colors according to Unix/X11 (UK)
+)) (/usr/share/texlive/texmf-dist/tex/latex/doublestroke/dsfont.sty
+Package: dsfont 1995/08/01 v0.1 Double stroke roman fonts
+) (/usr/share/texlive/texmf-dist/tex/latex/jknapltx/mathrsfs.sty
+Package: mathrsfs 1996/01/01 Math RSFS package v1.0 (jk)
+\symrsfs=\mathgroup6
+) (/usr/share/texlive/texmf-dist/tex/latex/texshade/texshade.sty
+Package: texshade 2022/08/29 LaTeX TeXshade (v1.26a)
+Package `texshade', Version 1.26a of 2022/08/29.
+\structurefile=\read2
+\featurefile=\write3
+\alignfile=\read3
+\sublogofile=\read4
+\exp@rtfile=\write4
+\exp@rt@chimerafile=\write5
+\symalphahelix=\mathgroup7
+\loopcount=\count301
+\innerloopcount=\count302
+\outerloopcount=\count303
+\seq@count=\count304
+\killseq@count=\count305
+\seq@percent=\count306
+\res@count=\count307
+\seq@pointer=\count308
+\pos@count=\count309
+\res@perline=\count310
+\end@count=\count311
+\cons@count=\count312
+\total@count=\count313
+\temp@count=\count314
+\triple@count=\count315
+\temp@@count=\count316
+\pos@sum=\count317
+\box@width=\skip67
+\name@width=\skip68
+\box@depth=\skip69
+\width@tmp=\skip70
+\box@height=\skip71
+\number@width=\skip72
+\line@stretch=\skip73
+\center@fill=\skip74
+\arrow@width=\skip75
+\arrow@height=\skip76
+\rule@thick=\skip77
+\arrow@thick=\skip78
+\logo@height=\skip79
+\equal@width=\skip80
+\equal@tmp=\skip81
+\equal@height=\skip82
+\temp@@length=\skip83
+\vspace@legend=\skip84
+\hspace@legend=\skip85
+\bar@length=\skip86
+)
+Package hyperref Info: Option `colorlinks' set `true' on input line 64.
+Package hyperref Info: Option `breaklinks' set `false' on input line 64.
 (/usr/share/texlive/texmf-dist/tex/latex/pgf/frontendlayer/tikz.sty (/usr/share
 /texlive/texmf-dist/tex/latex/pgf/basiclayer/pgf.sty (/usr/share/texlive/texmf-
 dist/tex/latex/pgf/utilities/pgfrcs.sty (/usr/share/texlive/texmf-dist/tex/gene
 ric/pgf/utilities/pgfutil-common.tex
-\pgfutil@everybye=\toks29
-\pgfutil@tempdima=\dimen177
-\pgfutil@tempdimb=\dimen178
-
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfutil-common-lists.t
-ex)) (/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfutil-latex.def
-\pgfutil@abb=\box51
+\pgfutil@everybye=\toks35
+\pgfutil@tempdima=\dimen186
+\pgfutil@tempdimb=\dimen187
+) (/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfutil-latex.def
+\pgfutil@abb=\box72
 ) (/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfrcs.code.tex (/us
 r/share/texlive/texmf-dist/tex/generic/pgf/pgf.revision.tex)
-Package: pgfrcs 2020/12/27 v3.1.8b (3.1.8b)
+Package: pgfrcs 2023-01-15 v3.1.10 (3.1.10)
 ))
-Package: pgf 2020/12/27 v3.1.8b (3.1.8b)
+Package: pgf 2023-01-15 v3.1.10 (3.1.10)
 (/usr/share/texlive/texmf-dist/tex/latex/pgf/basiclayer/pgfcore.sty (/usr/share
 /texlive/texmf-dist/tex/latex/pgf/systemlayer/pgfsys.sty (/usr/share/texlive/te
 xmf-dist/tex/generic/pgf/systemlayer/pgfsys.code.tex
-Package: pgfsys 2020/12/27 v3.1.8b (3.1.8b)
+Package: pgfsys 2023-01-15 v3.1.10 (3.1.10)
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfkeys.code.tex
-\pgfkeys@pathtoks=\toks30
-\pgfkeys@temptoks=\toks31
+\pgfkeys@pathtoks=\toks36
+\pgfkeys@temptoks=\toks37
 
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfkeysfiltered.code.t
-ex
-\pgfkeys@tmptoks=\toks32
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfkeyslibraryfiltered
+.code.tex
+\pgfkeys@tmptoks=\toks38
 ))
-\pgf@x=\dimen179
-\pgf@y=\dimen180
-\pgf@xa=\dimen181
-\pgf@ya=\dimen182
-\pgf@xb=\dimen183
-\pgf@yb=\dimen184
-\pgf@xc=\dimen185
-\pgf@yc=\dimen186
-\pgf@xd=\dimen187
-\pgf@yd=\dimen188
+\pgf@x=\dimen188
+\pgf@y=\dimen189
+\pgf@xa=\dimen190
+\pgf@ya=\dimen191
+\pgf@xb=\dimen192
+\pgf@yb=\dimen193
+\pgf@xc=\dimen194
+\pgf@yc=\dimen195
+\pgf@xd=\dimen196
+\pgf@yd=\dimen197
 \w@pgf@writea=\write6
 \r@pgf@reada=\read5
-\c@pgf@counta=\count311
-\c@pgf@countb=\count312
-\c@pgf@countc=\count313
-\c@pgf@countd=\count314
-\t@pgf@toka=\toks33
-\t@pgf@tokb=\toks34
-\t@pgf@tokc=\toks35
-\pgf@sys@id@count=\count315
+\c@pgf@counta=\count318
+\c@pgf@countb=\count319
+\c@pgf@countc=\count320
+\c@pgf@countd=\count321
+\t@pgf@toka=\toks39
+\t@pgf@tokb=\toks40
+\t@pgf@tokc=\toks41
+\pgf@sys@id@count=\count322
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgf.cfg
-File: pgf.cfg 2020/12/27 v3.1.8b (3.1.8b)
+File: pgf.cfg 2023-01-15 v3.1.10 (3.1.10)
 )
 Driver file for pgf: pgfsys-pdftex.def
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgfsys-pdftex.def
-File: pgfsys-pdftex.def 2020/12/27 v3.1.8b (3.1.8b)
+File: pgfsys-pdftex.def 2023-01-15 v3.1.10 (3.1.10)
 
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgfsys-common-pdf.de
 f
-File: pgfsys-common-pdf.def 2020/12/27 v3.1.8b (3.1.8b)
+File: pgfsys-common-pdf.def 2023-01-15 v3.1.10 (3.1.10)
 )))
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgfsyssoftpath.code.
 tex
-File: pgfsyssoftpath.code.tex 2020/12/27 v3.1.8b (3.1.8b)
-\pgfsyssoftpath@smallbuffer@items=\count316
-\pgfsyssoftpath@bigbuffer@items=\count317
+File: pgfsyssoftpath.code.tex 2023-01-15 v3.1.10 (3.1.10)
+\pgfsyssoftpath@smallbuffer@items=\count323
+\pgfsyssoftpath@bigbuffer@items=\count324
 )
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgfsysprotocol.code.
 tex
-File: pgfsysprotocol.code.tex 2020/12/27 v3.1.8b (3.1.8b)
+File: pgfsysprotocol.code.tex 2023-01-15 v3.1.10 (3.1.10)
 )) (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcore.code.tex
-Package: pgfcore 2020/12/27 v3.1.8b (3.1.8b)
+Package: pgfcore 2023-01-15 v3.1.10 (3.1.10)
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex (/usr/shar
-e/texlive/texmf-dist/tex/generic/pgf/math/pgfmathcalc.code.tex (/usr/share/texl
-ive/texmf-dist/tex/generic/pgf/math/pgfmathutil.code.tex) (/usr/share/texlive/t
-exmf-dist/tex/generic/pgf/math/pgfmathparser.code.tex
-\pgfmath@dimen=\dimen189
-\pgfmath@count=\count318
-\pgfmath@box=\box52
-\pgfmath@toks=\toks36
-\pgfmath@stack@operand=\toks37
-\pgfmath@stack@operation=\toks38
+e/texlive/texmf-dist/tex/generic/pgf/math/pgfmathutil.code.tex) (/usr/share/tex
+live/texmf-dist/tex/generic/pgf/math/pgfmathparser.code.tex
+\pgfmath@dimen=\dimen198
+\pgfmath@count=\count325
+\pgfmath@box=\box73
+\pgfmath@toks=\toks42
+\pgfmath@stack@operand=\toks43
+\pgfmath@stack@operation=\toks44
 ) (/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.code.tex
-
+)
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.basic.code
 .tex)
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.trigonomet
@@ -495,181 +557,180 @@ tex)
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.misc.code.
 tex)
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.integerari
-thmetics.code.tex))) (/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmat
-hfloat.code.tex
-\c@pgfmathroundto@lastzeros=\count319
+thmetics.code.tex) (/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathc
+alc.code.tex) (/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfloat.
+code.tex
+\c@pgfmathroundto@lastzeros=\count326
 )) (/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfint.code.tex)
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepoints.code.te
 x
-File: pgfcorepoints.code.tex 2020/12/27 v3.1.8b (3.1.8b)
-\pgf@picminx=\dimen190
-\pgf@picmaxx=\dimen191
-\pgf@picminy=\dimen192
-\pgf@picmaxy=\dimen193
-\pgf@pathminx=\dimen194
-\pgf@pathmaxx=\dimen195
-\pgf@pathminy=\dimen196
-\pgf@pathmaxy=\dimen197
-\pgf@xx=\dimen198
-\pgf@xy=\dimen199
-Normal \dimen register pool exhausted, switching to extended pool.
-\pgf@yx=\dimen256
-\pgf@yy=\dimen257
-\pgf@zx=\dimen258
-\pgf@zy=\dimen259
+File: pgfcorepoints.code.tex 2023-01-15 v3.1.10 (3.1.10)
+\pgf@picminx=\dimen199
+\pgf@picmaxx=\dimen256
+\pgf@picminy=\dimen257
+\pgf@picmaxy=\dimen258
+\pgf@pathminx=\dimen259
+\pgf@pathmaxx=\dimen260
+\pgf@pathminy=\dimen261
+\pgf@pathmaxy=\dimen262
+\pgf@xx=\dimen263
+\pgf@xy=\dimen264
+\pgf@yx=\dimen265
+\pgf@yy=\dimen266
+\pgf@zx=\dimen267
+\pgf@zy=\dimen268
 )
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathconstruct.
 code.tex
-File: pgfcorepathconstruct.code.tex 2020/12/27 v3.1.8b (3.1.8b)
-\pgf@path@lastx=\dimen260
-\pgf@path@lasty=\dimen261
+File: pgfcorepathconstruct.code.tex 2023-01-15 v3.1.10 (3.1.10)
+\pgf@path@lastx=\dimen269
+\pgf@path@lasty=\dimen270
 )
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathusage.code
 .tex
-File: pgfcorepathusage.code.tex 2020/12/27 v3.1.8b (3.1.8b)
-\pgf@shorten@end@additional=\dimen262
-\pgf@shorten@start@additional=\dimen263
+File: pgfcorepathusage.code.tex 2023-01-15 v3.1.10 (3.1.10)
+\pgf@shorten@end@additional=\dimen271
+\pgf@shorten@start@additional=\dimen272
 )
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorescopes.code.te
 x
-File: pgfcorescopes.code.tex 2020/12/27 v3.1.8b (3.1.8b)
-\pgfpic=\box53
-\pgf@hbox=\box54
-\pgf@layerbox@main=\box55
-\pgf@picture@serial@count=\count320
+File: pgfcorescopes.code.tex 2023-01-15 v3.1.10 (3.1.10)
+\pgfpic=\box74
+\pgf@hbox=\box75
+\pgf@layerbox@main=\box76
+\pgf@picture@serial@count=\count327
 )
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoregraphicstate.c
 ode.tex
-File: pgfcoregraphicstate.code.tex 2020/12/27 v3.1.8b (3.1.8b)
-\pgflinewidth=\dimen264
+File: pgfcoregraphicstate.code.tex 2023-01-15 v3.1.10 (3.1.10)
+\pgflinewidth=\dimen273
 )
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoretransformation
 s.code.tex
-File: pgfcoretransformations.code.tex 2020/12/27 v3.1.8b (3.1.8b)
-\pgf@pt@x=\dimen265
-\pgf@pt@y=\dimen266
-\pgf@pt@temp=\dimen267
+File: pgfcoretransformations.code.tex 2023-01-15 v3.1.10 (3.1.10)
+\pgf@pt@x=\dimen274
+\pgf@pt@y=\dimen275
+\pgf@pt@temp=\dimen276
 )
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorequick.code.tex
-File: pgfcorequick.code.tex 2020/12/27 v3.1.8b (3.1.8b)
+File: pgfcorequick.code.tex 2023-01-15 v3.1.10 (3.1.10)
 )
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreobjects.code.t
 ex
-File: pgfcoreobjects.code.tex 2020/12/27 v3.1.8b (3.1.8b)
+File: pgfcoreobjects.code.tex 2023-01-15 v3.1.10 (3.1.10)
 )
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathprocessing
 .code.tex
-File: pgfcorepathprocessing.code.tex 2020/12/27 v3.1.8b (3.1.8b)
+File: pgfcorepathprocessing.code.tex 2023-01-15 v3.1.10 (3.1.10)
 )
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorearrows.code.te
 x
-File: pgfcorearrows.code.tex 2020/12/27 v3.1.8b (3.1.8b)
-\pgfarrowsep=\dimen268
+File: pgfcorearrows.code.tex 2023-01-15 v3.1.10 (3.1.10)
+\pgfarrowsep=\dimen277
 )
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreshade.code.tex
-File: pgfcoreshade.code.tex 2020/12/27 v3.1.8b (3.1.8b)
-\pgf@max=\dimen269
-\pgf@sys@shading@range@num=\count321
-\pgf@shadingcount=\count322
+File: pgfcoreshade.code.tex 2023-01-15 v3.1.10 (3.1.10)
+\pgf@max=\dimen278
+\pgf@sys@shading@range@num=\count328
+\pgf@shadingcount=\count329
 )
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreimage.code.tex
-File: pgfcoreimage.code.tex 2020/12/27 v3.1.8b (3.1.8b)
-
+File: pgfcoreimage.code.tex 2023-01-15 v3.1.10 (3.1.10)
+)
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreexternal.code.
 tex
-File: pgfcoreexternal.code.tex 2020/12/27 v3.1.8b (3.1.8b)
-\pgfexternal@startupbox=\box56
-))
+File: pgfcoreexternal.code.tex 2023-01-15 v3.1.10 (3.1.10)
+\pgfexternal@startupbox=\box77
+)
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorelayers.code.te
 x
-File: pgfcorelayers.code.tex 2020/12/27 v3.1.8b (3.1.8b)
+File: pgfcorelayers.code.tex 2023-01-15 v3.1.10 (3.1.10)
 )
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoretransparency.c
 ode.tex
-File: pgfcoretransparency.code.tex 2020/12/27 v3.1.8b (3.1.8b)
+File: pgfcoretransparency.code.tex 2023-01-15 v3.1.10 (3.1.10)
 )
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepatterns.code.
 tex
-File: pgfcorepatterns.code.tex 2020/12/27 v3.1.8b (3.1.8b)
+File: pgfcorepatterns.code.tex 2023-01-15 v3.1.10 (3.1.10)
 ) (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorerdf.code.tex
-File: pgfcorerdf.code.tex 2020/12/27 v3.1.8b (3.1.8b)
+File: pgfcorerdf.code.tex 2023-01-15 v3.1.10 (3.1.10)
 )))
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/modules/pgfmoduleshapes.code.tex
-File: pgfmoduleshapes.code.tex 2020/12/27 v3.1.8b (3.1.8b)
-\pgfnodeparttextbox=\box57
+File: pgfmoduleshapes.code.tex 2023-01-15 v3.1.10 (3.1.10)
+\pgfnodeparttextbox=\box78
 ) (/usr/share/texlive/texmf-dist/tex/generic/pgf/modules/pgfmoduleplot.code.tex
-File: pgfmoduleplot.code.tex 2020/12/27 v3.1.8b (3.1.8b)
+File: pgfmoduleplot.code.tex 2023-01-15 v3.1.10 (3.1.10)
 )
 (/usr/share/texlive/texmf-dist/tex/latex/pgf/compatibility/pgfcomp-version-0-65
 .sty
-Package: pgfcomp-version-0-65 2020/12/27 v3.1.8b (3.1.8b)
-\pgf@nodesepstart=\dimen270
-\pgf@nodesepend=\dimen271
+Package: pgfcomp-version-0-65 2023-01-15 v3.1.10 (3.1.10)
+\pgf@nodesepstart=\dimen279
+\pgf@nodesepend=\dimen280
 )
 (/usr/share/texlive/texmf-dist/tex/latex/pgf/compatibility/pgfcomp-version-1-18
 .sty
-Package: pgfcomp-version-1-18 2020/12/27 v3.1.8b (3.1.8b)
+Package: pgfcomp-version-1-18 2023-01-15 v3.1.10 (3.1.10)
 )) (/usr/share/texlive/texmf-dist/tex/latex/pgf/utilities/pgffor.sty (/usr/shar
 e/texlive/texmf-dist/tex/latex/pgf/utilities/pgfkeys.sty (/usr/share/texlive/te
 xmf-dist/tex/generic/pgf/utilities/pgfkeys.code.tex)) (/usr/share/texlive/texmf
 -dist/tex/latex/pgf/math/pgfmath.sty (/usr/share/texlive/texmf-dist/tex/generic
 /pgf/math/pgfmath.code.tex)) (/usr/share/texlive/texmf-dist/tex/generic/pgf/uti
 lities/pgffor.code.tex
-Package: pgffor 2020/12/27 v3.1.8b (3.1.8b)
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex)
-\pgffor@iter=\dimen272
-\pgffor@skip=\dimen273
-\pgffor@stack=\toks39
-\pgffor@toks=\toks40
+Package: pgffor 2023-01-15 v3.1.10 (3.1.10)
+\pgffor@iter=\dimen281
+\pgffor@skip=\dimen282
+\pgffor@stack=\toks45
+\pgffor@toks=\toks46
 ))
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/tikz.code.tex
-Package: tikz 2020/12/27 v3.1.8b (3.1.8b)
+Package: tikz 2023-01-15 v3.1.10 (3.1.10)
 
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/pgflibraryplothandlers
 .code.tex
-File: pgflibraryplothandlers.code.tex 2020/12/27 v3.1.8b (3.1.8b)
-\pgf@plot@mark@count=\count323
-\pgfplotmarksize=\dimen274
+File: pgflibraryplothandlers.code.tex 2023-01-15 v3.1.10 (3.1.10)
+\pgf@plot@mark@count=\count330
+\pgfplotmarksize=\dimen283
 )
-\tikz@lastx=\dimen275
-\tikz@lasty=\dimen276
-\tikz@lastxsaved=\dimen277
-\tikz@lastysaved=\dimen278
-\tikz@lastmovetox=\dimen279
-\tikz@lastmovetoy=\dimen280
-\tikzleveldistance=\dimen281
-\tikzsiblingdistance=\dimen282
-\tikz@figbox=\box58
-\tikz@figbox@bg=\box59
-\tikz@tempbox=\box60
-\tikz@tempbox@bg=\box61
-\tikztreelevel=\count324
-\tikznumberofchildren=\count325
-\tikznumberofcurrentchild=\count326
-\tikz@fig@count=\count327
+\tikz@lastx=\dimen284
+\tikz@lasty=\dimen285
+\tikz@lastxsaved=\dimen286
+\tikz@lastysaved=\dimen287
+\tikz@lastmovetox=\dimen288
+\tikz@lastmovetoy=\dimen289
+\tikzleveldistance=\dimen290
+\tikzsiblingdistance=\dimen291
+\tikz@figbox=\box79
+\tikz@figbox@bg=\box80
+\tikz@tempbox=\box81
+\tikz@tempbox@bg=\box82
+\tikztreelevel=\count331
+\tikznumberofchildren=\count332
+\tikznumberofcurrentchild=\count333
+\tikz@fig@count=\count334
 
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/modules/pgfmodulematrix.code.tex
-File: pgfmodulematrix.code.tex 2020/12/27 v3.1.8b (3.1.8b)
-\pgfmatrixcurrentrow=\count328
-\pgfmatrixcurrentcolumn=\count329
-\pgf@matrix@numberofcolumns=\count330
+File: pgfmodulematrix.code.tex 2023-01-15 v3.1.10 (3.1.10)
+\pgfmatrixcurrentrow=\count335
+\pgfmatrixcurrentcolumn=\count336
+\pgf@matrix@numberofcolumns=\count337
 )
-\tikz@expandcount=\count331
+\tikz@expandcount=\count338
 
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
 zlibrarytopaths.code.tex
-File: tikzlibrarytopaths.code.tex 2020/12/27 v3.1.8b (3.1.8b)
+File: tikzlibrarytopaths.code.tex 2023-01-15 v3.1.10 (3.1.10)
 ))) (/usr/share/texlive/texmf-dist/tex/latex/pgfplots/pgfplots.sty (/usr/share/
 texlive/texmf-dist/tex/generic/pgfplots/pgfplots.revision.tex)
-Package: pgfplots 2021/05/08 v1.18 Data Visualization (1.18)
+Package: pgfplots 2021/05/15 v1.18.1 Data Visualization (1.18.1)
 (/usr/share/texlive/texmf-dist/tex/generic/pgfplots/pgfplots.code.tex (/usr/sha
 re/texlive/texmf-dist/tex/generic/pgfplots/pgfplotscore.code.tex
-\t@pgfplots@toka=\toks41
-\t@pgfplots@tokb=\toks42
-\t@pgfplots@tokc=\toks43
-\pgfplots@tmpa=\dimen283
-\c@pgfplots@coordindex=\count332
-\c@pgfplots@scanlineindex=\count333
+\t@pgfplots@toka=\toks47
+\t@pgfplots@tokb=\toks48
+\t@pgfplots@tokc=\toks49
+\pgfplots@tmpa=\dimen292
+\c@pgfplots@coordindex=\count339
+\c@pgfplots@scanlineindex=\count340
 
 (/usr/share/texlive/texmf-dist/tex/generic/pgfplots/sys/pgfplotssysgeneric.code
 .tex))
@@ -678,22 +739,29 @@ ex)
 (/usr/share/texlive/texmf-dist/tex/generic/pgfplots/oldpgfcompatib/pgfplotsoldp
 gfsupp_loader.code.tex
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/pgflibraryfpu.code.tex
-)) (/usr/share/texlive/texmf-dist/tex/generic/pgfplots/util/pgfplotsutil.code.t
-ex
+)
+Package pgfplots: loading complementary utilities for your pgf version...
+\t@pgf@toka=\toks50
+\t@pgf@tokb=\toks51
+\t@pgf@tokc=\toks52
+
+(/usr/share/texlive/texmf-dist/tex/generic/pgfplots/oldpgfcompatib/pgfplotsoldp
+gfsupp_pgfutil-common-lists.tex)) (/usr/share/texlive/texmf-dist/tex/generic/pg
+fplots/util/pgfplotsutil.code.tex
 (/usr/share/texlive/texmf-dist/tex/generic/pgfplots/liststructure/pgfplotslists
 tructure.code.tex)
 (/usr/share/texlive/texmf-dist/tex/generic/pgfplots/liststructure/pgfplotslists
 tructureext.code.tex)
 (/usr/share/texlive/texmf-dist/tex/generic/pgfplots/liststructure/pgfplotsarray
 .code.tex
-\c@pgfplotsarray@tmp=\count334
+\c@pgfplotsarray@tmp=\count341
 )
 (/usr/share/texlive/texmf-dist/tex/generic/pgfplots/liststructure/pgfplotsmatri
 x.code.tex)
 (/usr/share/texlive/texmf-dist/tex/generic/pgfplots/numtable/pgfplotstableshare
 d.code.tex
-\c@pgfplotstable@counta=\count335
-\t@pgfplotstable@a=\toks44
+\c@pgfplotstable@counta=\count342
+\t@pgfplotstable@a=\toks53
 )
 (/usr/share/texlive/texmf-dist/tex/generic/pgfplots/liststructure/pgfplotsdeque
 .code.tex)
@@ -705,7 +773,7 @@ de.tex))
 .tex)
 (/usr/share/texlive/texmf-dist/tex/generic/pgfplots/libs/pgflibrarypgfplots.sur
 fshading.code.tex
-\c@pgfplotslibrarysurf@no=\count336
+\c@pgfplotslibrarysurf@no=\count343
 
 (/usr/share/texlive/texmf-dist/tex/generic/pgfplots/sys/pgflibrarypgfplots.surf
 shading.pgfsys-pdftex.def)))
@@ -732,16 +800,16 @@ e.tex)
 zlibrarydecorations.code.tex
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/modules/pgfmoduledecorations.cod
 e.tex
-\pgfdecoratedcompleteddistance=\dimen284
-\pgfdecoratedremainingdistance=\dimen285
-\pgfdecoratedinputsegmentcompleteddistance=\dimen286
-\pgfdecoratedinputsegmentremainingdistance=\dimen287
-\pgf@decorate@distancetomove=\dimen288
-\pgf@decorate@repeatstate=\count337
-\pgfdecorationsegmentamplitude=\dimen289
-\pgfdecorationsegmentlength=\dimen290
+\pgfdecoratedcompleteddistance=\dimen293
+\pgfdecoratedremainingdistance=\dimen294
+\pgfdecoratedinputsegmentcompleteddistance=\dimen295
+\pgfdecoratedinputsegmentremainingdistance=\dimen296
+\pgf@decorate@distancetomove=\dimen297
+\pgf@decorate@repeatstate=\count344
+\pgfdecorationsegmentamplitude=\dimen298
+\pgfdecorationsegmentlength=\dimen299
 )
-\tikz@lib@dec@box=\box62
+\tikz@lib@dec@box=\box83
 )
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
 zlibrarydecorations.pathmorphing.code.tex
@@ -753,57 +821,57 @@ zlibrarydecorations.pathreplacing.code.tex
 decorations.pathreplacing.code.tex))
 (/usr/share/texlive/texmf-dist/tex/generic/pgfplots/libs/tikzlibrarypgfplots.co
 ntourlua.code.tex)
-\pgfplots@numplots=\count338
-\pgfplots@xmin@reg=\dimen291
-\pgfplots@xmax@reg=\dimen292
-\pgfplots@ymin@reg=\dimen293
-\pgfplots@ymax@reg=\dimen294
-\pgfplots@zmin@reg=\dimen295
-\pgfplots@zmax@reg=\dimen296
+\pgfplots@numplots=\count345
+\pgfplots@xmin@reg=\dimen300
+\pgfplots@xmax@reg=\dimen301
+\pgfplots@ymin@reg=\dimen302
+\pgfplots@ymax@reg=\dimen303
+\pgfplots@zmin@reg=\dimen304
+\pgfplots@zmax@reg=\dimen305
 )
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
 zlibraryplotmarks.code.tex
-File: tikzlibraryplotmarks.code.tex 2020/12/27 v3.1.8b (3.1.8b)
+File: tikzlibraryplotmarks.code.tex 2023-01-15 v3.1.10 (3.1.10)
 
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/pgflibraryplotmarks.co
 de.tex
-File: pgflibraryplotmarks.code.tex 2020/12/27 v3.1.8b (3.1.8b)
+File: pgflibraryplotmarks.code.tex 2023-01-15 v3.1.10 (3.1.10)
 )))
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
 zlibraryshapes.code.tex
-File: tikzlibraryshapes.code.tex 2020/12/27 v3.1.8b (3.1.8b)
+File: tikzlibraryshapes.code.tex 2023-01-15 v3.1.10 (3.1.10)
 
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
 zlibraryshapes.geometric.code.tex
-File: tikzlibraryshapes.geometric.code.tex 2020/12/27 v3.1.8b (3.1.8b)
+File: tikzlibraryshapes.geometric.code.tex 2023-01-15 v3.1.10 (3.1.10)
 
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/shapes/pgflibraryshape
 s.geometric.code.tex
-File: pgflibraryshapes.geometric.code.tex 2020/12/27 v3.1.8b (3.1.8b)
+File: pgflibraryshapes.geometric.code.tex 2023-01-15 v3.1.10 (3.1.10)
 ))
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
 zlibraryshapes.misc.code.tex
-File: tikzlibraryshapes.misc.code.tex 2020/12/27 v3.1.8b (3.1.8b)
+File: tikzlibraryshapes.misc.code.tex 2023-01-15 v3.1.10 (3.1.10)
 
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/shapes/pgflibraryshape
 s.misc.code.tex
-File: pgflibraryshapes.misc.code.tex 2020/12/27 v3.1.8b (3.1.8b)
+File: pgflibraryshapes.misc.code.tex 2023-01-15 v3.1.10 (3.1.10)
 ))
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
 zlibraryshapes.symbols.code.tex
-File: tikzlibraryshapes.symbols.code.tex 2020/12/27 v3.1.8b (3.1.8b)
+File: tikzlibraryshapes.symbols.code.tex 2023-01-15 v3.1.10 (3.1.10)
 
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/shapes/pgflibraryshape
 s.symbols.code.tex
-File: pgflibraryshapes.symbols.code.tex 2020/12/27 v3.1.8b (3.1.8b)
+File: pgflibraryshapes.symbols.code.tex 2023-01-15 v3.1.10 (3.1.10)
 ))
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
 zlibraryshapes.arrows.code.tex
-File: tikzlibraryshapes.arrows.code.tex 2020/12/27 v3.1.8b (3.1.8b)
+File: tikzlibraryshapes.arrows.code.tex 2023-01-15 v3.1.10 (3.1.10)
 
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/shapes/pgflibraryshape
 s.arrows.code.tex
-File: pgflibraryshapes.arrows.code.tex 2020/12/27 v3.1.8b (3.1.8b)
+File: pgflibraryshapes.arrows.code.tex 2023-01-15 v3.1.10 (3.1.10)
 ))
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
 zlibraryshapes.callouts.code.tex
@@ -811,64 +879,64 @@ zlibraryshapes.callouts.code.tex
 s.callouts.code.tex))
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
 zlibraryshapes.multipart.code.tex
-File: tikzlibraryshapes.multipart.code.tex 2020/12/27 v3.1.8b (3.1.8b)
+File: tikzlibraryshapes.multipart.code.tex 2023-01-15 v3.1.10 (3.1.10)
 
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/shapes/pgflibraryshape
 s.multipart.code.tex
-File: pgflibraryshapes.multipart.code.tex 2020/12/27 v3.1.8b (3.1.8b)
-\pgfnodepartlowerbox=\box63
-\pgfnodeparttwobox=\box64
-\pgfnodepartthreebox=\box65
-\pgfnodepartfourbox=\box66
-\pgfnodeparttwentybox=\box67
-\pgfnodepartnineteenbox=\box68
-\pgfnodeparteighteenbox=\box69
-\pgfnodepartseventeenbox=\box70
-\pgfnodepartsixteenbox=\box71
-\pgfnodepartfifteenbox=\box72
-\pgfnodepartfourteenbox=\box73
-\pgfnodepartthirteenbox=\box74
-\pgfnodeparttwelvebox=\box75
-\pgfnodepartelevenbox=\box76
-\pgfnodeparttenbox=\box77
-\pgfnodepartninebox=\box78
-\pgfnodeparteightbox=\box79
-\pgfnodepartsevenbox=\box80
-\pgfnodepartsixbox=\box81
-\pgfnodepartfivebox=\box82
+File: pgflibraryshapes.multipart.code.tex 2023-01-15 v3.1.10 (3.1.10)
+\pgfnodepartlowerbox=\box84
+\pgfnodeparttwobox=\box85
+\pgfnodepartthreebox=\box86
+\pgfnodepartfourbox=\box87
+\pgfnodeparttwentybox=\box88
+\pgfnodepartnineteenbox=\box89
+\pgfnodeparteighteenbox=\box90
+\pgfnodepartseventeenbox=\box91
+\pgfnodepartsixteenbox=\box92
+\pgfnodepartfifteenbox=\box93
+\pgfnodepartfourteenbox=\box94
+\pgfnodepartthirteenbox=\box95
+\pgfnodeparttwelvebox=\box96
+\pgfnodepartelevenbox=\box97
+\pgfnodeparttenbox=\box98
+\pgfnodepartninebox=\box99
+\pgfnodeparteightbox=\box100
+\pgfnodepartsevenbox=\box101
+\pgfnodepartsixbox=\box102
+\pgfnodepartfivebox=\box103
 )))
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
 zlibrarycalc.code.tex
-File: tikzlibrarycalc.code.tex 2020/12/27 v3.1.8b (3.1.8b)
+File: tikzlibrarycalc.code.tex 2023-01-15 v3.1.10 (3.1.10)
 )
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
 zlibraryshadows.code.tex
-File: tikzlibraryshadows.code.tex 2020/12/27 v3.1.8b (3.1.8b)
+File: tikzlibraryshadows.code.tex 2023-01-15 v3.1.10 (3.1.10)
 
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
 zlibraryfadings.code.tex
-File: tikzlibraryfadings.code.tex 2020/12/27 v3.1.8b (3.1.8b)
+File: tikzlibraryfadings.code.tex 2023-01-15 v3.1.10 (3.1.10)
 
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/pgflibraryfadings.code
 .tex
-File: pgflibraryfadings.code.tex 2020/12/27 v3.1.8b (3.1.8b)
+File: pgflibraryfadings.code.tex 2023-01-15 v3.1.10 (3.1.10)
 )))
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
 zlibraryarrows.code.tex
-File: tikzlibraryarrows.code.tex 2020/12/27 v3.1.8b (3.1.8b)
+File: tikzlibraryarrows.code.tex 2023-01-15 v3.1.10 (3.1.10)
 
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/pgflibraryarrows.code.
 tex
-File: pgflibraryarrows.code.tex 2020/12/27 v3.1.8b (3.1.8b)
-\arrowsize=\dimen297
+File: pgflibraryarrows.code.tex 2023-01-15 v3.1.10 (3.1.10)
+\arrowsize=\dimen306
 ))
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
 zlibraryautomata.code.tex
-File: tikzlibraryautomata.code.tex 2020/12/27 v3.1.8b (3.1.8b)
+File: tikzlibraryautomata.code.tex 2023-01-15 v3.1.10 (3.1.10)
 )
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
 zlibrarypositioning.code.tex
-File: tikzlibrarypositioning.code.tex 2020/12/27 v3.1.8b (3.1.8b)
+File: tikzlibrarypositioning.code.tex 2023-01-15 v3.1.10 (3.1.10)
 )
 (/usr/share/texlive/texmf-dist/tex/latex/pgf/frontendlayer/libraries/tikzlibrar
 yexternal.code.tex
@@ -878,286 +946,165 @@ zexternalshared.code.tex))
 zlibrarydecorations.text.code.tex
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/decorations/pgflibrary
 decorations.text.code.tex
-\pgf@lib@dec@text@box=\box83
+\pgf@lib@dec@text@box=\box104
 )
-\tikz@lib@dec@te@box=\box84
+\tikz@lib@dec@te@box=\box105
 )
 No auxiliary output files.
 
 \w@pgfexternal@auxout=\write7
+Package TikZ externalization: calling \geometry{driver=none} during externaliza
+tion.
+
 
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
 zlibrarypatterns.code.tex
-File: tikzlibrarypatterns.code.tex 2020/12/27 v3.1.8b (3.1.8b)
+File: tikzlibrarypatterns.code.tex 2023-01-15 v3.1.10 (3.1.10)
 
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/pgflibrarypatterns.cod
 e.tex
-File: pgflibrarypatterns.code.tex 2020/12/27 v3.1.8b (3.1.8b)
+File: pgflibrarypatterns.code.tex 2023-01-15 v3.1.10 (3.1.10)
 ))
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
 zlibrarydecorations.markings.code.tex
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/decorations/pgflibrary
 decorations.markings.code.tex)) (/usr/share/texlive/texmf-dist/tex/latex/mathto
 ols/mathtools.sty
-Package: mathtools 2021/04/12 v1.27 mathematical typesetting tools
+Package: mathtools 2022/06/29 v1.29 mathematical typesetting tools
 (/usr/share/texlive/texmf-dist/tex/latex/tools/calc.sty
 Package: calc 2017/05/25 v4.3 Infix arithmetic (KKT,FJ)
-\calc@Acount=\count339
-\calc@Bcount=\count340
-\calc@Adimen=\dimen298
-\calc@Bdimen=\dimen299
-\calc@Askip=\skip77
-\calc@Bskip=\skip78
+\calc@Acount=\count346
+\calc@Bcount=\count347
+\calc@Adimen=\dimen307
+\calc@Bdimen=\dimen308
+\calc@Askip=\skip87
+\calc@Bskip=\skip88
 LaTeX Info: Redefining \setlength on input line 80.
 LaTeX Info: Redefining \addtolength on input line 81.
-\calc@Ccount=\count341
-\calc@Cskip=\skip79
+\calc@Ccount=\count348
+\calc@Cskip=\skip89
 ) (/usr/share/texlive/texmf-dist/tex/latex/mathtools/mhsetup.sty
 Package: mhsetup 2021/03/18 v1.4 programming setup (MH)
 )
-LaTeX Info: Thecontrolsequence`\('isalreadyrobust on input line 130.
-LaTeX Info: Thecontrolsequence`\)'isalreadyrobust on input line 130.
-LaTeX Info: Thecontrolsequence`\['isalreadyrobust on input line 130.
-LaTeX Info: Thecontrolsequence`\]'isalreadyrobust on input line 130.
-\g_MT_multlinerow_int=\count342
-\l_MT_multwidth_dim=\dimen300
-\origjot=\skip80
-\l_MT_shortvdotswithinadjustabove_dim=\dimen301
-\l_MT_shortvdotswithinadjustbelow_dim=\dimen302
-\l_MT_above_intertext_sep=\dimen303
-\l_MT_below_intertext_sep=\dimen304
-\l_MT_above_shortintertext_sep=\dimen305
-\l_MT_below_shortintertext_sep=\dimen306
-\xmathstrut@box=\box85
-\xmathstrut@dim=\dimen307
-) (/usr/share/texlive/texmf-dist/tex/latex/siunitx/siunitx.sty (/usr/share/texl
-ive/texmf-dist/tex/latex/l3kernel/expl3.sty
-Package: expl3 2021-05-07 L3 programming layer (loader) 
-(/usr/share/texlive/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
-File: l3backend-pdftex.def 2021-05-07 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count343
-\l__pdf_internal_box=\box86
-)) (/usr/share/texlive/texmf-dist/tex/latex/l3packages/xparse/xparse.sty
-(/usr/share/texlive/texmf-dist/tex/latex/l3packages/xparse/xparse-2020-10-01.st
-y (/usr/share/texlive/texmf-dist/tex/latex/l3packages/xparse/xparse-generic.tex
-)))
-Package: siunitx 2021-04-17 v2.8e A comprehensive (SI) units package
-(/usr/share/texlive/texmf-dist/tex/latex/tools/array.sty
-Package: array 2020/10/01 v2.5c Tabular extension package (FMi)
-\col@sep=\dimen308
-\ar@mcellbox=\box87
-\extrarowheight=\dimen309
-\NC@list=\toks45
-\extratabsurround=\skip81
-\backup@length=\skip82
-\ar@cellbox=\box88
-) (/usr/share/texlive/texmf-dist/tex/latex/l3packages/l3keys2e/l3keys2e.sty
-Package: l3keys2e 2021-05-07 LaTeX2e option processing using LaTeX3 keys
-)
-\l__siunitx_tmp_box=\box89
-\l__siunitx_tmp_dim=\dimen310
-\l__siunitx_tmp_int=\count344
-\l__siunitx_number_mantissa_length_int=\count345
-\l__siunitx_number_uncert_length_int=\count346
-\l__siunitx_round_int=\count347
-\l__siunitx_process_decimal_int=\count348
-\l__siunitx_process_uncertainty_int=\count349
-\l__siunitx_process_fixed_int=\count350
-\l__siunitx_process_integer_min_int=\count351
-\l__siunitx_process_precision_int=\count352
-\l__siunitx_group_min_int=\count353
-\l__siunitx_angle_marker_box=\box90
-\l__siunitx_angle_unit_box=\box91
-\l__siunitx_angle_marker_dim=\dimen311
-\l__siunitx_angle_unit_dim=\dimen312
-\l__siunitx_unit_int=\count354
-\l__siunitx_unit_denominator_int=\count355
-\l__siunitx_unit_numerator_int=\count356
-\l__siunitx_unit_prefix_int=\count357
-\l__siunitx_unit_prefix_base_int=\count358
-\l__siunitx_unit_prefix_gram_int=\count359
-\l__siunitx_number_product_int=\count360
-\c__siunitx_one_fill_skip=\skip83
-\l__siunitx_table_unit_align_skip=\skip84
-\l__siunitx_table_exponent_dim=\dimen313
-\l__siunitx_table_integer_dim=\dimen314
-\l__siunitx_table_mantissa_dim=\dimen315
-\l__siunitx_table_marker_dim=\dimen316
-\l__siunitx_table_result_dim=\dimen317
-\l__siunitx_table_uncert_dim=\dimen318
-\l__siunitx_table_fill_pre_dim=\dimen319
-\l__siunitx_table_fill_post_dim=\dimen320
-\l__siunitx_table_fill_mid_dim=\dimen321
-\l__siunitx_table_pre_box=\box92
-\l__siunitx_table_post_box=\box93
-\l__siunitx_table_mantissa_box=\box94
-\l__siunitx_table_result_box=\box95
-\l__siunitx_table_number_align_skip=\skip85
-\l__siunitx_table_text_align_skip=\skip86
-(/usr/share/texlive/texmf-dist/tex/latex/translator/translator.sty
-Package: translator 2020-08-03 v1.12c Easy translation of strings in LaTeX
+\g_MT_multlinerow_int=\count349
+\l_MT_multwidth_dim=\dimen309
+\origjot=\skip90
+\l_MT_shortvdotswithinadjustabove_dim=\dimen310
+\l_MT_shortvdotswithinadjustbelow_dim=\dimen311
+\l_MT_above_intertext_sep=\dimen312
+\l_MT_below_intertext_sep=\dimen313
+\l_MT_above_shortintertext_sep=\dimen314
+\l_MT_below_shortintertext_sep=\dimen315
+\xmathstrut@box=\box106
+\xmathstrut@dim=\dimen316
+) (/usr/share/texlive/texmf-dist/tex/latex/siunitx/siunitx.sty
+Package: siunitx 2023-03-14 v3.2.3 A comprehensive (SI) units package
+\l__siunitx_angle_tmp_dim=\dimen317
+\l__siunitx_angle_marker_box=\box107
+\l__siunitx_angle_unit_box=\box108
+\l__siunitx_compound_count_int=\count350
+(/usr/share/texlive/texmf-dist/tex/latex/translations/translations.sty
+Package: translations 2022/02/05 v1.12 internationalization of LaTeX2e packages
+ (CN)
+(/usr/share/texlive/texmf-dist/tex/latex/etoolbox/etoolbox.sty
+Package: etoolbox 2020/10/05 v2.5k e-TeX tools for LaTeX (JAW)
+\etb@tempcnta=\count351
 ))
-\c@thm=\count361
-\c@cor=\count362
-\c@lem=\count363
-\c@prop=\count364
-\c@defn=\count365
-\c@exmpl=\count366
-\c@rem=\count367
-\c@notn=\count368
+\l__siunitx_number_exponent_fixed_int=\count352
+\l__siunitx_number_min_decimal_int=\count353
+\l__siunitx_number_min_integer_int=\count354
+\l__siunitx_number_round_precision_int=\count355
+\l__siunitx_number_lower_threshold_int=\count356
+\l__siunitx_number_upper_threshold_int=\count357
+\l__siunitx_number_group_first_int=\count358
+\l__siunitx_number_group_size_int=\count359
+\l__siunitx_number_group_minimum_int=\count360
+\l__siunitx_table_tmp_box=\box109
+\l__siunitx_table_tmp_dim=\dimen318
+\l__siunitx_table_column_width_dim=\dimen319
+\l__siunitx_table_integer_box=\box110
+\l__siunitx_table_decimal_box=\box111
+\l__siunitx_table_uncert_box=\box112
+\l__siunitx_table_before_box=\box113
+\l__siunitx_table_after_box=\box114
+\l__siunitx_table_before_dim=\dimen320
+\l__siunitx_table_carry_dim=\dimen321
+\l__siunitx_unit_tmp_int=\count361
+\l__siunitx_unit_position_int=\count362
+\l__siunitx_unit_total_int=\count363
+(/usr/share/texlive/texmf-dist/tex/latex/tools/array.sty
+Package: array 2022/09/04 v2.5g Tabular extension package (FMi)
+\col@sep=\dimen322
+\ar@mcellbox=\box115
+\extrarowheight=\dimen323
+\NC@list=\toks54
+\extratabsurround=\skip91
+\backup@length=\skip92
+\ar@cellbox=\box116
+))
+\c@thm=\count364
+\c@cor=\count365
+\c@lem=\count366
+\c@prop=\count367
+\c@defn=\count368
+\c@exmpl=\count369
+\c@rem=\count370
+\c@notn=\count371
 (/usr/share/texlive/texmf-dist/tex/latex/algorithm2e/algorithm2e.sty
 Package: algorithm2e 2017/07/18 v5.2 algorithms environments
-\c@AlgoLine=\count369
-(/usr/share/texlive/texmf-dist/tex/latex/base/ifthen.sty
-Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
-)
-\algocf@hangindent=\skip87
+\c@AlgoLine=\count372
+\algocf@hangindent=\skip93
 (/usr/share/texlive/texmf-dist/tex/latex/ifoddpage/ifoddpage.sty
-Package: ifoddpage 2016/04/23 v1.1 Conditionals for odd/even page detection
-\c@checkoddpage=\count370
+Package: ifoddpage 2022/10/18 v1.2 Conditionals for odd/even page detection
+\c@checkoddpage=\count373
 ) (/usr/share/texlive/texmf-dist/tex/latex/tools/xspace.sty
 Package: xspace 2014/10/28 v1.13 Space after command names (DPC,MH)
 ) (/usr/share/texlive/texmf-dist/tex/latex/relsize/relsize.sty
 Package: relsize 2013/03/29 ver 4.1
 )
-\skiptotal=\skip88
-\skiplinenumber=\skip89
-\skiprule=\skip90
-\skiphlne=\skip91
-\skiptext=\skip92
-\skiplength=\skip93
-\algomargin=\skip94
-\skipalgocfslide=\skip95
-\algowidth=\dimen322
-\inoutsize=\dimen323
-\inoutindent=\dimen324
-\interspacetitleruled=\dimen325
-\interspacealgoruled=\dimen326
-\interspacetitleboxruled=\dimen327
-\algocf@ruledwidth=\skip96
-\algocf@inoutbox=\box96
-\algocf@inputbox=\box97
-\AlCapSkip=\skip97
-\AlCapHSkip=\skip98
-\algoskipindent=\skip99
-\algocf@nlbox=\box98
-\algocf@hangingbox=\box99
-\algocf@untilbox=\box100
-\algocf@skipuntil=\skip100
-\algocf@capbox=\box101
-\algocf@lcaptionbox=\skip101
-\algoheightruledefault=\skip102
-\algoheightrule=\skip103
-\algotitleheightruledefault=\skip104
-\algotitleheightrule=\skip105
-\c@algocfline=\count371
-\c@algocfproc=\count372
-\c@algocf=\count373
-\algocf@algoframe=\box102
-\algocf@algobox=\box103
-) (/usr/share/texlive/texmf-dist/tex/latex/txfonts/txfonts.sty
-Package: txfonts 2008/01/22 v3.2.1
-LaTeX Font Info:    Redeclaring symbol font `operators' on input line 21.
-LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
-(Font)                  OT1/cmr/m/n --> OT1/txr/m/n on input line 21.
-LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
-(Font)                  OT1/cmr/bx/n --> OT1/txr/m/n on input line 21.
-LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
-(Font)                  OT1/txr/m/n --> OT1/txr/bx/n on input line 22.
-\symitalic=\mathgroup8
-LaTeX Font Info:    Overwriting symbol font `italic' in version `bold'
-(Font)                  OT1/txr/m/it --> OT1/txr/bx/it on input line 26.
-LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 29.
-LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `normal'
-(Font)                  OT1/cmr/bx/n --> OT1/txr/bx/n on input line 29.
-LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `bold'
-(Font)                  OT1/cmr/bx/n --> OT1/txr/bx/n on input line 29.
-LaTeX Font Info:    Redeclaring math alphabet \mathit on input line 30.
-LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `normal'
-(Font)                  OT1/cmr/m/it --> OT1/txr/m/it on input line 30.
-LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
-(Font)                  OT1/cmr/bx/it --> OT1/txr/m/it on input line 30.
-LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
-(Font)                  OT1/txr/m/it --> OT1/txr/bx/it on input line 31.
-LaTeX Font Info:    Redeclaring math alphabet \mathsf on input line 40.
-LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `normal'
-(Font)                  OT1/cmss/m/n --> OT1/txss/m/n on input line 40.
-LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
-(Font)                  OT1/cmss/bx/n --> OT1/txss/m/n on input line 40.
-LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
-(Font)                  OT1/txss/m/n --> OT1/txss/b/n on input line 41.
-LaTeX Font Info:    Redeclaring math alphabet \mathtt on input line 50.
-LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `normal'
-(Font)                  OT1/cmtt/m/n --> OT1/txtt/m/n on input line 50.
-LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
-(Font)                  OT1/cmtt/m/n --> OT1/txtt/m/n on input line 50.
-LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
-(Font)                  OT1/txtt/m/n --> OT1/txtt/b/n on input line 51.
-LaTeX Font Info:    Redeclaring symbol font `letters' on input line 58.
-LaTeX Font Info:    Overwriting symbol font `letters' in version `normal'
-(Font)                  OML/cmm/m/it --> OML/txmi/m/it on input line 58.
-LaTeX Font Info:    Overwriting symbol font `letters' in version `bold'
-(Font)                  OML/cmm/b/it --> OML/txmi/m/it on input line 58.
-LaTeX Font Info:    Overwriting symbol font `letters' in version `bold'
-(Font)                  OML/txmi/m/it --> OML/txmi/bx/it on input line 59.
-\symlettersA=\mathgroup9
-LaTeX Font Info:    Overwriting symbol font `lettersA' in version `bold'
-(Font)                  U/txmia/m/it --> U/txmia/bx/it on input line 67.
-LaTeX Font Info:    Redeclaring math alphabet \mathfrak on input line 70.
-LaTeX Font Info:    Redeclaring symbol font `symbols' on input line 77.
-LaTeX Font Info:    Overwriting symbol font `symbols' in version `normal'
-(Font)                  OMS/cmsy/m/n --> OMS/txsy/m/n on input line 77.
-LaTeX Font Info:    Overwriting symbol font `symbols' in version `bold'
-(Font)                  OMS/cmsy/b/n --> OMS/txsy/m/n on input line 77.
-LaTeX Font Info:    Overwriting symbol font `symbols' in version `bold'
-(Font)                  OMS/txsy/m/n --> OMS/txsy/bx/n on input line 78.
-LaTeX Font Info:    Redeclaring symbol font `AMSa' on input line 93.
-LaTeX Font Info:    Overwriting symbol font `AMSa' in version `normal'
-(Font)                  U/msa/m/n --> U/txsya/m/n on input line 93.
-LaTeX Font Info:    Overwriting symbol font `AMSa' in version `bold'
-(Font)                  U/msa/m/n --> U/txsya/m/n on input line 93.
-LaTeX Font Info:    Overwriting symbol font `AMSa' in version `bold'
-(Font)                  U/txsya/m/n --> U/txsya/bx/n on input line 94.
-LaTeX Font Info:    Redeclaring symbol font `AMSb' on input line 102.
-LaTeX Font Info:    Overwriting symbol font `AMSb' in version `normal'
-(Font)                  U/msb/m/n --> U/txsyb/m/n on input line 102.
-LaTeX Font Info:    Overwriting symbol font `AMSb' in version `bold'
-(Font)                  U/msb/m/n --> U/txsyb/m/n on input line 102.
-LaTeX Font Info:    Overwriting symbol font `AMSb' in version `bold'
-(Font)                  U/txsyb/m/n --> U/txsyb/bx/n on input line 103.
-\symsymbolsC=\mathgroup10
-LaTeX Font Info:    Overwriting symbol font `symbolsC' in version `bold'
-(Font)                  U/txsyc/m/n --> U/txsyc/bx/n on input line 113.
-LaTeX Font Info:    Redeclaring symbol font `largesymbols' on input line 120.
-LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `normal'
-(Font)                  OMX/cmex/m/n --> OMX/txex/m/n on input line 120.
-LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `bold'
-(Font)                  OMX/cmex/m/n --> OMX/txex/m/n on input line 120.
-LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `bold'
-(Font)                  OMX/txex/m/n --> OMX/txex/bx/n on input line 121.
-\symlargesymbolsA=\mathgroup11
-LaTeX Font Info:    Overwriting symbol font `largesymbolsA' in version `bold'
-(Font)                  U/txexa/m/n --> U/txexa/bx/n on input line 129.
-LaTeX Font Info:    Redeclaring math symbol \mathsterling on input line 164.
-LaTeX Info: Redefining \not on input line 1043.
-LaTeX Info: Redefining \textsquare on input line 1063.
-LaTeX Info: Redefining \openbox on input line 1064.
-) (/usr/share/texlive/texmf-dist/tex/latex/base/fontenc.sty
-Package: fontenc 2020/08/10 v2.0s Standard LaTeX package
-LaTeX Font Info:    Trying to load font information for OT1+phv on input line 1
-12.
-(/usr/share/texlive/texmf-dist/tex/latex/psnfss/ot1phv.fd
-File: ot1phv.fd 2020/03/25 scalable font definitions for OT1/phv.
-)) (/usr/share/texlive/texmf-dist/tex/latex/eulervm/eulervm.sty
-Package: eulervm 2005/01/11 v4.0 (WaS)
+\skiptotal=\skip94
+\skiplinenumber=\skip95
+\skiprule=\skip96
+\skiphlne=\skip97
+\skiptext=\skip98
+\skiplength=\skip99
+\algomargin=\skip100
+\skipalgocfslide=\skip101
+\algowidth=\dimen324
+\inoutsize=\dimen325
+\inoutindent=\dimen326
+\interspacetitleruled=\dimen327
+\interspacealgoruled=\dimen328
+\interspacetitleboxruled=\dimen329
+\algocf@ruledwidth=\skip102
+\algocf@inoutbox=\box117
+\algocf@inputbox=\box118
+\AlCapSkip=\skip103
+\AlCapHSkip=\skip104
+\algoskipindent=\skip105
+\algocf@nlbox=\box119
+\algocf@hangingbox=\box120
+\algocf@untilbox=\box121
+\algocf@skipuntil=\skip106
+\algocf@capbox=\box122
+\algocf@lcaptionbox=\skip107
+\algoheightruledefault=\skip108
+\algoheightrule=\skip109
+\algotitleheightruledefault=\skip110
+\algotitleheightrule=\skip111
+\c@algocfline=\count374
+\c@algocfproc=\count375
+\c@algocf=\count376
+\algocf@algoframe=\box123
+\algocf@algobox=\box124
 )
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/pgflibraryarrows.meta.
 code.tex
-File: pgflibraryarrows.meta.code.tex 2020/12/27 v3.1.8b (3.1.8b)
-\pgfarrowinset=\dimen328
-\pgfarrowlength=\dimen329
-\pgfarrowwidth=\dimen330
-\pgfarrowlinewidth=\dimen331
+File: pgflibraryarrows.meta.code.tex 2023-01-15 v3.1.10 (3.1.10)
+\pgfarrowinset=\dimen330
+\pgfarrowlength=\dimen331
+\pgfarrowwidth=\dimen332
+\pgfarrowlinewidth=\dimen333
 )
 (/usr/share/texlive/texmf-dist/tex/generic/pgfplots/libs/tikzlibrarypgfplots.fi
 llbetween.code.tex
@@ -1167,7 +1114,7 @@ etween.code.tex
 zlibraryintersections.code.tex
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/pgflibraryintersection
 s.code.tex
-\pgf@intersect@solutions=\count374
+\pgf@intersect@solutions=\count377
 ))
 (/usr/share/texlive/texmf-dist/tex/generic/pgfplots/pgfcontrib/tikzlibrarydecor
 ations.softclip.code.tex
@@ -1179,17 +1126,14 @@ corations.softclip.code.tex))
 zlibrarymath.code.tex
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
 zlibraryfpu.code.tex)
-\tikz@math@for@depth=\count375
-\tikz@math@dimen=\dimen332
-\tikz@math@toks=\toks46
-) (/usr/share/texlive/texmf-dist/tex/latex/base/textcomp.sty
-Package: textcomp 2020/02/02 v2.0n Standard LaTeX package
+\tikz@math@for@depth=\count378
+\tikz@math@dimen=\dimen334
+\tikz@math@toks=\toks55
 ) (/usr/share/texlive/texmf-dist/tex/latex/colortbl/colortbl.sty
-Package: colortbl 2020/01/04 v1.0e Color table columns (DPC)
-\everycr=\toks47
-\minrowclearance=\skip106
-) (/usr/share/texlive/texmf-dist/tex/latex/psnfss/courier.sty
-Package: courier 2020/03/25 PSNFSS-v9.3 (WaS) 
+Package: colortbl 2022/06/20 v1.0f Color table columns (DPC)
+\everycr=\toks56
+\minrowclearance=\skip112
+\rownum=\count379
 ) (/usr/share/texlive/texmf-dist/tex/latex/psnfss/pifont.sty
 Package: pifont 2020/03/25 PSNFSS-v9.3 Pi font support (SPQR) 
 LaTeX Font Info:    Trying to load font information for U+pzd on input line 63.
@@ -1204,187 +1148,175 @@ File: upsy.fd 2001/06/04 font definitions for U/psy.
 ))
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
 zlibrarychains.code.tex
-File: tikzlibrarychains.code.tex 2020/12/27 v3.1.8b (3.1.8b)
+File: tikzlibrarychains.code.tex 2023-01-15 v3.1.10 (3.1.10)
 )
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
 zlibrarybackgrounds.code.tex
-File: tikzlibrarybackgrounds.code.tex 2020/12/27 v3.1.8b (3.1.8b)
-\pgf@layerbox@background=\box104
-\pgf@layerboxsaved@background=\box105
+File: tikzlibrarybackgrounds.code.tex 2023-01-15 v3.1.10 (3.1.10)
+\pgf@layerbox@background=\box125
+\pgf@layerboxsaved@background=\box126
 )
 (/usr/share/texlive/texmf-dist/tex/generic/pgfplots/libs/tikzlibrarypgfplots.gr
 oupplots.code.tex
-\pgfplots@group@current@plot=\count376
-\pgfplots@group@current@row=\count377
-\pgfplots@group@current@column=\count378
+\pgfplots@group@current@plot=\count380
+\pgfplots@group@current@row=\count381
+\pgfplots@group@current@column=\count382
 ) (/usr/share/texlive/texmf-dist/tex/latex/pgfplots/pgfplotstable.sty (/usr/sha
 re/texlive/texmf-dist/tex/generic/pgfplots/pgfplots.revision.tex)
-Package: pgfplotstable 2021/05/08 v1.18 Table typesetting and Pretty-printing (
-1.18)
+Package: pgfplotstable 2021/05/15 v1.18.1 Table typesetting and Pretty-printing
+ (1.18.1)
 
 (/usr/share/texlive/texmf-dist/tex/generic/pgfplots/numtable/pgfplotstable.code
 .tex
 (/usr/share/texlive/texmf-dist/tex/generic/pgfplots/numtable/pgfplotstable.colt
-ype.code.tex))) (/usr/share/texlive/texmf-dist/tex/latex/natbib/natbib.sty
-Package: natbib 2010/09/13 8.31b (PWD, AO)
-\bibhang=\skip107
-\bibsep=\skip108
-LaTeX Info: Redefining \cite on input line 694.
-\c@NAT@ctr=\count379
-) (/usr/share/texlive/texmf-dist/tex/latex/setspace/setspace.sty
-Package: setspace 2011/12/19 v6.7a set line spacing
-)
+ype.code.tex)))
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
 zlibrarymatrix.code.tex
-File: tikzlibrarymatrix.code.tex 2020/12/27 v3.1.8b (3.1.8b)
+File: tikzlibrarymatrix.code.tex 2023-01-15 v3.1.10 (3.1.10)
 ) (/usr/share/texlive/texmf-dist/tex/generic/xstring/xstring.sty (/usr/share/te
 xlive/texmf-dist/tex/generic/xstring/xstring.tex
-\integerpart=\count380
-\decimalpart=\count381
+\integerpart=\count383
+\decimalpart=\count384
 )
-Package: xstring 2019/02/06 v1.83 String manipulations (CT)
+Package: xstring 2023/01/14 v1.85 String manipulations (CT)
 ) (/usr/share/texlive/texmf-dist/tex/latex/sttools/flushend.sty
-Package: flushend 2020/10/16 v3.5 Balancing columns in twocolumn mode
-\flushend@@lastskip@a=\skip109
-\flushend@@lastskip@b=\skip110
-\flushend@@lastskip@c=\skip111
-\flushend@@penalty@a=\count382
-\var@@loop@iter=\count383
-\flushend@@lastkern@a=\dimen333
-\var@@temp@spread=\dimen334
-\var@@temp@a=\dimen335
-\var@@temp@loop=\dimen336
-\flushend@@page@rule=\dimen337
-\flushend@@varbox@a=\box106
-\flushend@@varbox@c=\box107
-\flushend@@tempbox@a=\box108
-\flushend@@tempbox@c=\box109
-\@viper=\box110
-\hold@viper=\box111
-\atColsBreak=\toks48
-\atColsEnd=\toks49
-(/usr/share/texlive/texmf-dist/tex/latex/etoolbox/etoolbox.sty
-Package: etoolbox 2020/10/05 v2.5k e-TeX tools for LaTeX (JAW)
-\etb@tempcnta=\count384
-)) (/usr/share/texlive/texmf-dist/tex/latex/booktabs/booktabs.sty
+Package: flushend 2021/10/04 v4.0 Balancing columns in twocolumn mode
+\flushend@@lastskip@a=\skip113
+\flushend@@lastskip@b=\skip114
+\flushend@@lastnode=\count385
+\var@@loop@iter=\count386
+\var@@temp@spread=\dimen335
+\var@@temp@a=\dimen336
+\var@@temp@loop=\dimen337
+\flushend@@page@rule=\dimen338
+\flushend@@varbox@lastpage=\box127
+\flushend@@varbox@a=\box128
+\flushend@@varbox@c=\box129
+\flushend@@tempbox@a=\box130
+\flushend@@tempbox@c=\box131
+\flushend@@floatbox=\box132
+\atColsBreak=\toks57
+\atColsEnd=\toks58
+\oldbreak@skip=\dimen339
+) (/usr/share/texlive/texmf-dist/tex/latex/booktabs/booktabs.sty
 Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
-\heavyrulewidth=\dimen338
-\lightrulewidth=\dimen339
-\cmidrulewidth=\dimen340
-\belowrulesep=\dimen341
-\belowbottomsep=\dimen342
-\aboverulesep=\dimen343
-\abovetopsep=\dimen344
-\cmidrulesep=\dimen345
-\cmidrulekern=\dimen346
-\defaultaddspace=\dimen347
-\@cmidla=\count385
-\@cmidlb=\count386
-\@aboverulesep=\dimen348
-\@belowrulesep=\dimen349
-\@thisruleclass=\count387
-\@lastruleclass=\count388
-\@thisrulewidth=\dimen350
+\heavyrulewidth=\dimen340
+\lightrulewidth=\dimen341
+\cmidrulewidth=\dimen342
+\belowrulesep=\dimen343
+\belowbottomsep=\dimen344
+\aboverulesep=\dimen345
+\abovetopsep=\dimen346
+\cmidrulesep=\dimen347
+\cmidrulekern=\dimen348
+\defaultaddspace=\dimen349
+\@cmidla=\count387
+\@cmidlb=\count388
+\@aboverulesep=\dimen350
+\@belowrulesep=\dimen351
+\@thisruleclass=\count389
+\@lastruleclass=\count390
+\@thisrulewidth=\dimen352
 ) (/usr/share/texlive/texmf-dist/tex/latex/multirow/multirow.sty
 Package: multirow 2021/03/15 v2.8 Span multiple rows of a table
-\multirow@colwidth=\skip112
-\multirow@cntb=\count389
-\multirow@dima=\skip113
-\bigstrutjot=\dimen351
-))
+\multirow@colwidth=\skip115
+\multirow@cntb=\count391
+\multirow@dima=\skip116
+\bigstrutjot=\dimen353
+)
+
+Package siunitx Info: Option "detect-all" has been deprecated in this release.
+(siunitx)             
+(siunitx)             Use "mode = match, propagate-math-font = true,
+(siunitx)             reset-math-version = false, reset-text-family = false,
+(siunitx)             reset-text-series = false, reset-text-shape = false,
+(siunitx)             text-family-to-math = true, text-series-to-math = true"
+(siunitx)             as a replacement.
+
+(/usr/share/texlive/texmf-dist/tex/latex/ncctools/manyfoot.sty
+Package: manyfoot 2019/08/03 v1.11 Many Footnote Levels Package (NCC)
+(/usr/share/texlive/texmf-dist/tex/latex/ncctools/nccfoots.sty
+Package: nccfoots 2005/02/03 v1.2 NCC Footnotes Package (NCC)
+)
+\MFL@columnwidth=\dimen354
+)
+\c@theorem=\count392
+\c@example=\count393
+\c@remark=\count394
+\c@definition=\count395
+Package translations Info: No language package found. I am going to use `englis
+h' as default language. on input line 297.
+(/usr/share/texlive/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
+File: l3backend-pdftex.def 2023-01-16 L3 backend support: PDF output (pdfTeX)
+\l__color_backend_stack_int=\count396
+\l__pdf_internal_box=\box133
+)
 No file ./Figures/External/figsim.aux.
-LaTeX Font Info:    Checking defaults for OML/txmi/m/it on input line 10.
-LaTeX Font Info:    Trying to load font information for OML+txmi on input line 
-10.
-(/usr/share/texlive/texmf-dist/tex/latex/txfonts/omltxmi.fd
-File: omltxmi.fd 2000/12/15 v3.1
-)
-LaTeX Font Info:    ... okay on input line 10.
-LaTeX Font Info:    Checking defaults for OMS/txsy/m/n on input line 10.
-LaTeX Font Info:    Trying to load font information for OMS+txsy on input line 
-10.
-(/usr/share/texlive/texmf-dist/tex/latex/txfonts/omstxsy.fd
-File: omstxsy.fd 2000/12/15 v3.1
-)
-LaTeX Font Info:    ... okay on input line 10.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 10.
-LaTeX Font Info:    ... okay on input line 10.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 10.
-LaTeX Font Info:    ... okay on input line 10.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 10.
-LaTeX Font Info:    ... okay on input line 10.
-LaTeX Font Info:    Checking defaults for OMX/txex/m/n on input line 10.
-LaTeX Font Info:    Trying to load font information for OMX+txex on input line 
-10.
-(/usr/share/texlive/texmf-dist/tex/latex/txfonts/omxtxex.fd
-File: omxtxex.fd 2000/12/15 v3.1
-)
-LaTeX Font Info:    ... okay on input line 10.
-LaTeX Font Info:    Checking defaults for U/txexa/m/n on input line 10.
-LaTeX Font Info:    Trying to load font information for U+txexa on input line 1
-0.
-(/usr/share/texlive/texmf-dist/tex/latex/txfonts/utxexa.fd
-File: utxexa.fd 2000/12/15 v3.1
-)
-LaTeX Font Info:    ... okay on input line 10.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 10.
-LaTeX Font Info:    ... okay on input line 10.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 10.
-LaTeX Font Info:    ... okay on input line 10.
-LaTeX Font Info:    Font shape `OT1/phv/m/it' in size <5.01874> not available
-(Font)              Font shape `OT1/phv/m/sl' tried instead on input line 10.
-LaTeX Font Info:    Font shape `OT1/phv/b/it' in size <5.01874> not available
-(Font)              Font shape `OT1/phv/b/sl' tried instead on input line 10.
-LaTeX Font Info:    Font shape `OT1/phv/m/it' in size <7.02625> not available
-(Font)              Font shape `OT1/phv/m/sl' tried instead on input line 10.
-LaTeX Font Info:    Font shape `OT1/phv/b/it' in size <7.02625> not available
-(Font)              Font shape `OT1/phv/b/sl' tried instead on input line 10.
-LaTeX Font Info:    Font shape `OT1/phv/m/it' in size <8.03> not available
-(Font)              Font shape `OT1/phv/m/sl' tried instead on input line 10.
-LaTeX Font Info:    Font shape `OT1/phv/b/it' in size <8.03> not available
-(Font)              Font shape `OT1/phv/b/sl' tried instead on input line 10.
-LaTeX Font Info:    Font shape `OT1/phv/m/it' in size <9.03374> not available
-(Font)              Font shape `OT1/phv/m/sl' tried instead on input line 10.
-LaTeX Font Info:    Font shape `OT1/phv/b/it' in size <9.03374> not available
-(Font)              Font shape `OT1/phv/b/sl' tried instead on input line 10.
-LaTeX Font Info:    Font shape `OT1/phv/m/it' in size <9.53561> not available
-(Font)              Font shape `OT1/phv/m/sl' tried instead on input line 10.
-LaTeX Font Info:    Font shape `OT1/phv/b/it' in size <9.53561> not available
-(Font)              Font shape `OT1/phv/b/sl' tried instead on input line 10.
-LaTeX Font Info:    Font shape `OT1/phv/m/it' in size <11.04124> not available
-(Font)              Font shape `OT1/phv/m/sl' tried instead on input line 10.
-LaTeX Font Info:    Font shape `OT1/phv/b/it' in size <11.04124> not available
-(Font)              Font shape `OT1/phv/b/sl' tried instead on input line 10.
-LaTeX Font Info:    Font shape `OT1/phv/m/it' in size <12.045> not available
-(Font)              Font shape `OT1/phv/m/sl' tried instead on input line 10.
-LaTeX Font Info:    Font shape `OT1/phv/b/it' in size <12.045> not available
-(Font)              Font shape `OT1/phv/b/sl' tried instead on input line 10.
-LaTeX Font Info:    Font shape `OT1/phv/m/it' in size <17.06374> not available
-(Font)              Font shape `OT1/phv/m/sl' tried instead on input line 10.
-LaTeX Font Info:    Font shape `OT1/phv/b/it' in size <17.06374> not available
-(Font)              Font shape `OT1/phv/b/sl' tried instead on input line 10.
-LaTeX Font Info:    Font shape `OT1/phv/m/it' in size <20.075> not available
-(Font)              Font shape `OT1/phv/m/sl' tried instead on input line 10.
-LaTeX Font Info:    Font shape `OT1/phv/b/it' in size <20.075> not available
-(Font)              Font shape `OT1/phv/b/sl' tried instead on input line 10.
-LaTeX Font Info:    Font shape `OT1/phv/m/it' in size <24.09> not available
-(Font)              Font shape `OT1/phv/m/sl' tried instead on input line 10.
-LaTeX Font Info:    Font shape `OT1/phv/b/it' in size <24.09> not available
-(Font)              Font shape `OT1/phv/b/sl' tried instead on input line 10.
--- Lines per column: 61 (exact).
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 297.
+LaTeX Font Info:    ... okay on input line 297.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 297.
+LaTeX Font Info:    ... okay on input line 297.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 297.
+LaTeX Font Info:    ... okay on input line 297.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 297.
+LaTeX Font Info:    ... okay on input line 297.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 297.
+LaTeX Font Info:    ... okay on input line 297.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 297.
+LaTeX Font Info:    ... okay on input line 297.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 297.
+LaTeX Font Info:    ... okay on input line 297.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 297.
+LaTeX Font Info:    ... okay on input line 297.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 297.
+LaTeX Font Info:    ... okay on input line 297.
+*geometry* detected driver: <none>
+*geometry* verbose mode - [ preamble ] result:
+* driver: \Gm@driver 
+* paper: custom
+* layout: <same size as paper>
+* layoutoffset:(h,v)=(0.0pt,0.0pt)
+* bindingoffset: 17.07164pt
+* modes: twoside 
+* h-part:(L,W,R)=(83.37448pt, 372.0pt, 125.06175pt)
+* v-part:(T,H,B)=(73.97716pt, 552.69478pt, 218.37491pt)
+* \paperwidth=597.50787pt
+* \paperheight=845.04684pt
+* \textwidth=372.0pt
+* \textheight=552.69478pt
+* \oddsidemargin=28.17613pt
+* \evensidemargin=52.79176pt
+* \topmargin=-19.72638pt
+* \headheight=5.5pt
+* \headsep=15.93355pt
+* \topskip=10.0pt
+* \footskip=28.45274pt
+* \marginparwidth=34.1433pt
+* \marginparsep=14.22636pt
+* \columnsep=14.22636pt
+* \skip\footins=8.0pt plus 4.0pt
+* \hoffset=0.0pt
+* \voffset=0.0pt
+* \mag=1000
+* \@twocolumnfalse
+* \@twosidetrue
+* \@mparswitchtrue
+* \@reversemargintrue
+* (1in=72.27pt=25.4mm, 1cm=28.453pt)
+
 (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count390
-\scratchdimen=\dimen352
-\scratchbox=\box112
-\nofMPsegments=\count391
-\nofMParguments=\count392
-\everyMPshowfont=\toks50
-\MPscratchCnt=\count393
-\MPscratchDim=\dimen353
-\MPnumerator=\count394
-\makeMPintoPDFobject=\count395
-\everyMPtoPDFconversion=\toks51
+\scratchcounter=\count397
+\scratchdimen=\dimen355
+\scratchbox=\box134
+\nofMPsegments=\count398
+\nofMParguments=\count399
+\everyMPshowfont=\toks59
+\MPscratchCnt=\count400
+\MPscratchDim=\dimen356
+\MPnumerator=\count401
+\makeMPintoPDFobject=\count402
+\everyMPtoPDFconversion=\toks60
 ) (/usr/share/texlive/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
@@ -1393,445 +1325,1139 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-Package hyperref Info: Link coloring ON on input line 10.
-(/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
-Package: nameref 2021-04-02 v2.47 Cross-referencing by name of section
-(/usr/share/texlive/texmf-dist/tex/latex/refcount/refcount.sty
-Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
-) (/usr/share/texlive/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty
-Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
-)
-\c@section@level=\count396
-)
-LaTeX Info: Redefining \ref on input line 10.
-LaTeX Info: Redefining \pageref on input line 10.
-LaTeX Info: Redefining \nameref on input line 10.
+LaTeX Info: Redefining \S on input line 297.
+LaTeX Font Info:    Redeclaring symbol font `AMSa' on input line 297.
+LaTeX Font Info:    Overwriting symbol font `AMSa' in version `normal'
+(Font)                  U/msa/m/n --> U/msa/m/n on input line 297.
+LaTeX Font Info:    Overwriting symbol font `AMSa' in version `bold'
+(Font)                  U/msa/m/n --> U/msa/m/n on input line 297.
+\providecommand\hyper@newdestlabel[2]{}
+Package hyperref Info: Link coloring ON on input line 297.
 
 Package pgfplots Warning: running in backwards compatibility mode (unsuitable t
 ick labels; missing features). Consider writing \pgfplotsset{compat=1.18} into 
 your preamble.
- on input line 10.
+ on input line 297.
 
-(/usr/share/texlive/texmf-dist/tex/latex/siunitx/siunitx-abbreviations.cfg
-File: siunitx-abbreviations.cfg 2021-04-17 v2.8e siunitx: Abbreviated units
-)
-(/usr/share/texlive/texmf-dist/tex/latex/translator/translator-basic-dictionary
--English.dict
-Dictionary: translator-basic-dictionary, Language: English 
-)
-LaTeX Font Info:    Calculating math sizes for size <9.53561> on input line 10.
 
-LaTeX Font Info:    Trying to load font information for T1+phv on input line 10
+(/usr/share/texlive/texmf-dist/tex/latex/translations/translations-basic-dictio
+nary-english.trsl
+File: translations-basic-dictionary-english.trsl (english translation file `tra
+nslations-basic-dictionary')
+)
+Package translations Info: loading dictionary `translations-basic-dictionary' f
+or `english'. on input line 297.
+LaTeX Font Info:    Calculating math sizes for size <12.045> on input line 322.
+
+LaTeX Font Info:    Trying to load font information for U+msa on input line 322
 .
-(/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1phv.fd
-File: t1phv.fd 2020/03/25 scalable font definitions for T1/phv.
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+zeur on input line 10
+LaTeX Font Info:    Trying to load font information for U+msb on input line 322
 .
-(/usr/share/texlive/texmf-dist/tex/latex/eulervm/uzeur.fd
-File: uzeur.fd 2005/01/11 v4.0 (WaS)
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-LaTeX Font Info:    Trying to load font information for U+zeus on input line 10
-.
-(/usr/share/texlive/texmf-dist/tex/latex/eulervm/uzeus.fd
-File: uzeus.fd 2005/01/11 v4.0 (WaS)
-)
-LaTeX Font Info:    Trying to load font information for U+zeuex on input line 1
-0.
-(/usr/share/texlive/texmf-dist/tex/latex/eulervm/uzeuex.fd
-File: uzeuex.fd 2005/01/11 v4.0 (WaS)
-)
-LaTeX Font Info:    Trying to load font information for U+txsya on input line 1
-0.
-(/usr/share/texlive/texmf-dist/tex/latex/txfonts/utxsya.fd
-File: utxsya.fd 2000/12/15 v3.1
-)
-LaTeX Font Info:    Trying to load font information for U+txsyb on input line 1
-0.
-(/usr/share/texlive/texmf-dist/tex/latex/txfonts/utxsyb.fd
-File: utxsyb.fd 2000/12/15 v3.1
-)
-LaTeX Font Info:    Trying to load font information for U+rsfs on input line 10
-.
+LaTeX Font Info:    Trying to load font information for U+rsfs on input line 32
+2.
 (/usr/share/texlive/texmf-dist/tex/latex/jknapltx/ursfs.fd
 File: ursfs.fd 1998/03/24 rsfs font definition file (jk)
 )
-LaTeX Font Info:    Trying to load font information for OT1+txr on input line 1
-0.
-(/usr/share/texlive/texmf-dist/tex/latex/txfonts/ot1txr.fd
-File: ot1txr.fd 2000/12/15 v3.1
-)
-LaTeX Font Info:    Trying to load font information for U+txmia on input line 1
-0.
-(/usr/share/texlive/texmf-dist/tex/latex/txfonts/utxmia.fd
-File: utxmia.fd 2000/12/15 v3.1
-)
-LaTeX Font Info:    Trying to load font information for U+txsyc on input line 1
-0.
-(/usr/share/texlive/texmf-dist/tex/latex/txfonts/utxsyc.fd
-File: utxsyc.fd 2000/12/15 v3.1
-)
-LaTeX Font Info:    Trying to load font information for T1+txtt on input line 1
-0.
-(/usr/share/texlive/texmf-dist/tex/latex/txfonts/t1txtt.fd
-File: t1txtt.fd 2000/12/15 v3.1
-)
-LaTeX Font Info:    Trying to load font information for OT1+pcr on input line 1
-1.
-(/usr/share/texlive/texmf-dist/tex/latex/psnfss/ot1pcr.fd
-File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
-)
+
+LaTeX Font Warning: Font shape `U/rsfs/m/n' in size <8.43146> not available
+(Font)              size <8> substituted on input line 322.
+
+LaTeX Font Info:    Calculating math sizes for size <11.04124> on input line 32
+2.
+
+LaTeX Font Warning: Font shape `U/rsfs/m/n' in size <5.52061> not available
+(Font)              size <6> substituted on input line 322.
+
+LaTeX Font Info:    Calculating math sizes for size <9.03374> on input line 322
+.
+
+LaTeX Font Warning: Font shape `U/rsfs/m/n' in size <4.51686> not available
+(Font)              size <5> substituted on input line 322.
+
+LaTeX Font Info:    Calculating math sizes for size <10.03749> on input line 32
+2.
 
 Package natbib Warning: Citation `halpern2016electronic' on page 1 undefined on
- input line 20.
+ input line 324.
 
 
-Package natbib Warning: Citation `ASDzed' on page 1 undefined on input line 20.
-
-
-
-Package natbib Warning: Citation `IPFzed' on page 1 undefined on input line 20.
-
-
-
-Package natbib Warning: Citation `JAHAzed' on page 1 undefined on input line 20
+Package natbib Warning: Citation `ASDzed' on page 1 undefined on input line 324
 .
 
 
-Package natbib Warning: Citation `ADRDzed' on page 1 undefined on input line 20
+Package natbib Warning: Citation `IPFzed' on page 1 undefined on input line 324
 .
+
+
+Package natbib Warning: Citation `JAHAzed' on page 1 undefined on input line 32
+4.
+
+
+Package natbib Warning: Citation `ADRDzed' on page 1 undefined on input line 32
+4.
 
 
 Package natbib Warning: Citation `choi2016retain' on page 1 undefined on input 
-line 20.
+line 324.
 
 
 Package natbib Warning: Citation `greenland1988sensitivity' on page 1 undefined
- on input line 20.
+ on input line 324.
 
 
-Package natbib Warning: Citation `lundberg17shap' on page 1 undefined on input 
-line 23.
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
-Package natbib Warning: Citation `slack2020fooling' on page 1 undefined on inpu
-t line 23.
+Package natbib Warning: Citation `lundberg17shap' on page 2 undefined on input 
+line 327.
 
 
-Package natbib Warning: Citation `greenland1988sensitivity' on page 1 undefined
- on input line 25.
+Package natbib Warning: Citation `slack2020fooling' on page 2 undefined on inpu
+t line 327.
 
 
-LaTeX Warning: Reference `thm:SPOR_collapse_J' on page 1 undefined on input lin
-e 30.
+Package natbib Warning: Citation `greenland1988sensitivity' on page 2 undefined
+ on input line 329.
 
 
-LaTeX Warning: Reference `lem:minimal' on page 1 undefined on input line 30.
+LaTeX Warning: Reference `cor:auc_collapse' on page 2 undefined on input line 3
+34.
 
 
-LaTeX Warning: Reference `lem:minimal' on page 1 undefined on input line 30.
+LaTeX Warning: Reference `lem:minimal' on page 2 undefined on input line 334.
 
 
-LaTeX Warning: Reference `corshap' on page 1 undefined on input line 30.
+LaTeX Warning: Reference `lem:minimal' on page 2 undefined on input line 334.
 
 
-LaTeX Warning: Reference `cor:auc_lipschitz' on page 1 undefined on input line 
-30.
+LaTeX Warning: Reference `corshap' on page 2 undefined on input line 334.
 
 
-LaTeX Warning: Reference `corshap' on page 1 undefined on input line 30.
+LaTeX Warning: Reference `cor:shap_misrank' on page 2 undefined on input line 3
+34.
 
 
-LaTeX Warning: Reference `corshap2' on page 1 undefined on input line 30.
+LaTeX Warning: Reference `lem:minimal' on page 2 undefined on input line 340.
 
 
-LaTeX Warning: Reference `lem:minimal' on page 1 undefined on input line 52.
+LaTeX Warning: Reference `corshap' on page 2 undefined on input line 340.
 
 
-LaTeX Warning: Reference `corshap' on page 1 undefined on input line 52.
+LaTeX Warning: Reference `cor:shap_misrank' on page 2 undefined on input line 3
+50.
 
 
-LaTeX Warning: Reference `corshap' on page 1 undefined on input line 62.
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
-LaTeX Warning: Reference `corshap2' on page 1 undefined on input line 62.
+LaTeX Warning: Reference `figvolcano' on page 3 undefined on input line 352.
 
 
-LaTeX Warning: Reference `figvolcano' on page 2 undefined on input line 64.
+LaTeX Warning: Reference `figvolcano' on page 3 undefined on input line 352.
 
 
-LaTeX Warning: Reference `figvolcano' on page 2 undefined on input line 64.
-
-
-LaTeX Warning: Reference `figvolcano' on page 2 undefined on input line 64.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 69.
+LaTeX Warning: Reference `figvolcano' on page 3 undefined on input line 352.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 69.
+(hyperref)                removing `math shift' on input line 357.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\lambda' on input line 69.
+(hyperref)                removing `math shift' on input line 357.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 69.
+(hyperref)                removing `\lambda' on input line 357.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 69.
-
-LaTeX Font Info:    Font shape `OT1/phv/m/it' in size <6.6749> not available
-(Font)              Font shape `OT1/phv/m/sl' tried instead on input line 120.
-LaTeX Font Info:    Font shape `OT1/phv/m/it' in size <4.7678> not available
-(Font)              Font shape `OT1/phv/m/sl' tried instead on input line 120.
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 181.
+(hyperref)                removing `math shift' on input line 357.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 181.
+(hyperref)                removing `math shift' on input line 357.
+
+
+Package hyperref Warning: Difference (2) between bookmark levels is greater 
+(hyperref)                than one, level fixed on input line 360.
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+Package hyperref Warning: Difference (2) between bookmark levels is greater 
+(hyperref)                than one, level fixed on input line 507.
+
+
+Package natbib Warning: Citation `xxx' on page 5 undefined on input line 515.
+
+
+Package natbib Warning: Citation `xxx' on page 5 undefined on input line 518.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\lambda' on input line 181.
+(hyperref)                removing `math shift' on input line 522.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 181.
+(hyperref)                removing `math shift' on input line 522.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 181.
+(hyperref)                removing `\lambda' on input line 522.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 215.
+(hyperref)                removing `math shift' on input line 522.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 215.
+(hyperref)                removing `math shift' on input line 522.
+
+
+Package natbib Warning: Citation `xxx' on page 5 undefined on input line 531.
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+LaTeX Warning: Reference `app:variance' on page 6 undefined on input line 540.
+
+
+LaTeX Warning: Reference `algo' on page 6 undefined on input line 571.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\lambda' on input line 215.
+(hyperref)                removing `math shift' on input line 573.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 215.
+(hyperref)                removing `math shift' on input line 573.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 215.
+(hyperref)                removing `\lambda' on input line 573.
 
 
-LaTeX Warning: Reference `eqcalib' on page 5 undefined on input line 431.
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 573.
 
 
-LaTeX Warning: Reference `lem:prevalence-gap' on page 5 undefined on input line
- 454.
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 573.
 
 
-LaTeX Warning: Reference `thm:SPOR_collapse_J' on page 6 undefined on input lin
-e 481.
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
-LaTeX Warning: Reference `lem:minimal' on page 6 undefined on input line 545.
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
-LaTeX Warning: Reference `SHAP-MA-Lin' on page 6 undefined on input line 558.
-
-
-LaTeX Warning: Reference `lem:minimal' on page 7 undefined on input line 579.
-
-
-LaTeX Warning: Reference `fig:spor_three_panel' on page 7 undefined on input li
-ne 617.
-
-(./Figures/figsim.tex
-PGFPlots: reading {Figures/bias.csv}
-
-Package pgfplots Warning: Table 'Figures/bias.csv' has an empty column name; re
-placing it by '0'' on input line 10.
-
- [warning /pgfplots/warning/empty column name]
-PGFPlots: reading {Figures/rmse.csv}
-
-Package pgfplots Warning: Table 'Figures/rmse.csv' has an empty column name; re
-placing it by '0'' on input line 11.
-
- [warning /pgfplots/warning/empty column name]
-PGFPlots: reading {Figures/coverage.csv}
-
-Package pgfplots Warning: Table 'Figures/coverage.csv' has an empty column name
-; replacing it by '0'' on input line 12.
-
- [warning /pgfplots/warning/empty column name]
-\openout7 = `./Figures/External/figsim.dpth'.
-
-[7
-\providecommand \oddpage@label [2]{}
-{/usr/share/texlive/texmf-var/fonts/map/pdftex/updmap/pdftex.map}])
-The command '\includegraphics [width=\textwidth ]{Figures/External/figvolcano}'
- has been optimized away. Use '/tikz/external/optimize=false' to disable this.
-LaTeX Font Info:    Calculating math sizes for size <8.03> on input line 697.
-
-Package natbib Warning: Citation `ASDzed' on page 7 undefined on input line 697
-.
-
-
-Package natbib Warning: Citation `IPFzed' on page 7 undefined on input line 697
-.
-
-
-Package natbib Warning: Citation `ADRDzed' on page 7 undefined on input line 69
-7.
-
-
-Package natbib Warning: Citation `ASDzed' on page 7 undefined on input line 697
-.
-
-
-Package natbib Warning: Citation `IPFzed' on page 7 undefined on input line 697
-.
-
-
-Package natbib Warning: Citation `ADRDzed' on page 7 undefined on input line 69
-7.
-
-
-LaTeX Warning: Reference `thm:SPOR_collapse_J' on page 7 undefined on input lin
-e 738.
-
-
-LaTeX Warning: Reference `cor:auc_lipschitz' on page 7 undefined on input line 
-738.
-
-
-LaTeX Warning: Reference `lem:minimal' on page 7 undefined on input line 738.
-
-
-LaTeX Warning: Reference `figvolcano' on page 7 undefined on input line 738.
-
-
-LaTeX Warning: Reference `figvolcano' on page 8 undefined on input line 741.
-
-
-LaTeX Warning: Reference `tabfrac' on page 8 undefined on input line 741.
-
-
-Package natbib Warning: Citation `HYPERPARATHYROIDISMmathur2022' on page 8 unde
-fined on input line 743.
-
-
-Package natbib Warning: Citation `SEPSISzeng2024' on page 8 undefined on input 
-line 743.
-
-
-Package natbib Warning: Citation `CKDkelly2022' on page 8 undefined on input li
-ne 743.
-
-
-Package natbib Warning: Citation `HYPERTENSIONcarey2023' on page 8 undefined on
- input line 743.
-
-
-Package natbib Warning: Citation `ATRIALFIBRpapanastasiou2021' on page 8 undefi
-ned on input line 743.
-
-
-Package natbib Warning: Citation `CEREBROVASCULARlove2016' on page 8 undefined 
-on input line 743.
-
-
-Package natbib Warning: Citation `ATHEROSCLEROSISnordestgaard2022' on page 8 un
-defined on input line 743.
-
-
-Package natbib Warning: Citation `TBIgu2022' on page 8 undefined on input line 
-743.
-
-
-Package natbib Warning: Citation `DEPRESSIONsaiz2021' on page 8 undefined on in
-put line 743.
-
-
-Package natbib Warning: Citation `HEARINGlitke2021' on page 8 undefined on inpu
-t line 743.
-
-
-Package natbib Warning: Citation `SLEEPchoe2022' on page 8 undefined on input l
-ine 743.
-
-
-Package natbib Warning: Citation `T2DMathanasaki2022' on page 8 undefined on in
-put line 743.
-
-
-Package natbib Warning: Citation `COPDwang2022' on page 8 undefined on input li
-ne 743.
-
-
-Package natbib Warning: Citation `HYPERLIPIDEMIAezkurdia2023' on page 8 undefin
-ed on input line 743.
-
-
-Package natbib Warning: Citation `OBESITYbeydoun2008' on page 8 undefined on in
-put line 743.
-
-
-Package natbib Warning: Citation `CATARACTjun2012' on page 8 undefined on input
- line 743.
-
-
-Overfull \hbox (24.45547pt too wide) in paragraph at lines 743--744
-[]\OT1/phv/m/n/9.53561 For a spe-cific ex-am-ple, $[]$ re-cov-ers es-tab-lished
- ADRD risk do-mains with strong variance-corrected sig-nals: en-docrine/metabol
-ic
+Underfull \hbox (badness 1092) in paragraph at lines 702--708
+\OT1/cmr/m/n/10 mine the ROC geom-e-try. Our pri-mary sep-a-ra-tion mea-sure is
+ the two-sample
  []
 
 
-Package natbib Warning: Citation `zarate2017role' on page 8 undefined on input 
-line 747.
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
-Package natbib Warning: Citation `Georgakis2016' on page 8 undefined on input l
-ine 747.
+LaTeX Warning: Reference `lem:prevalence-gap' on page 9 undefined on input line
+ 763.
 
-No file ./Figures/External/figsim.bbl.
+
+LaTeX Warning: Reference `lem:prevalence-gap' on page 9 undefined on input line
+ 811.
+
+
+LaTeX Warning: Reference `thm:SPOR_collapse_J' on page 9 undefined on input lin
+e 815.
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+LaTeX Warning: Reference `thm:SPOR_collapse_J' on page 10 undefined on input li
+ne 839.
+
+
+LaTeX Warning: Reference `thm:SPOR_collapse_J' on page 10 undefined on input li
+ne 862.
+
+
+LaTeX Warning: Reference `thm:SPOR_collapse_J' on page 10 undefined on input li
+ne 890.
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+LaTeX Warning: Reference `thm:SPOR_collapse_J' on page 11 undefined on input li
+ne 926.
+
+
+LaTeX Warning: Reference `thm:inherit_collapse' on page 11 undefined on input l
+ine 927.
+
+
+Package natbib Warning: Citation `Lundberg2017Unified' on page 11 undefined on 
+input line 969.
+
+
+Package natbib Warning: Citation `Lundberg2017Unified' on page 11 undefined on 
+input line 973.
+
+
+Package natbib Warning: Citation `Choi2016RETAIN' on page 11 undefined on input
+ line 973.
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+Package hyperref Warning: Difference (2) between bookmark levels is greater 
+(hyperref)                than one, level fixed on input line 1018.
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+LaTeX Warning: Reference `lem:minimal' on page 13 undefined on input line 1085.
+
+
+
+LaTeX Warning: Reference `lem:shap_lin_gauss' on page 13 undefined on input lin
+e 1089.
+
+
+LaTeX Warning: Reference `lem:shap_lin_gauss' on page 13 undefined on input lin
+e 1093.
+
+
+Overfull \hbox (26.52759pt too wide) detected at line 1305
+\OML/cmm/m/it/9 T \OT1/cmr/m/n/9 = [] \OML/cmm/m/it/9 ;  a \OT1/cmr/m/n/9 = #\O
+MS/cmsy/m/n/9 f\OML/cmm/m/it/9 X[]\OT1/cmr/m/n/9 1\OML/cmm/m/it/9 ; Y[]\OT1/cmr
+/m/n/9 1\OMS/cmsy/m/n/9 g\OML/cmm/m/it/9 ;  b \OT1/cmr/m/n/9 = #\OMS/cmsy/m/n/9
+ f\OML/cmm/m/it/9 X[]\OT1/cmr/m/n/9 0\OML/cmm/m/it/9 ; Y[]\OT1/cmr/m/n/9 1\OMS/
+cmsy/m/n/9 g\OML/cmm/m/it/9 ;  c \OT1/cmr/m/n/9 = #\OMS/cmsy/m/n/9 f\OML/cmm/m/
+it/9 X[]\OT1/cmr/m/n/9 1\OML/cmm/m/it/9 ; Y[]\OT1/cmr/m/n/9 0\OMS/cmsy/m/n/9 g\
+OML/cmm/m/it/9 ;  d \OT1/cmr/m/n/9 = #\OMS/cmsy/m/n/9 f\OML/cmm/m/it/9 X[]\OT1/
+cmr/m/n/9 0\OML/cmm/m/it/9 ; Y[]\OT1/cmr/m/n/9 0\OMS/cmsy/m/n/9 g\OML/cmm/m/it/
+9 ;
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+Overfull \hbox (26.52759pt too wide) detected at line 1336
+[] \OT1/cmr/m/n/9 = [] \OML/cmm/m/it/9 ;  [] \OT1/cmr/m/n/9 = #\OMS/cmsy/m/n/9 
+f\OML/cmm/m/it/9 X[]\OT1/cmr/m/n/9 1\OML/cmm/m/it/9 ; [][]\OT1/cmr/m/n/9 1\OMS/
+cmsy/m/n/9 g\OML/cmm/m/it/9 ;  [] \OT1/cmr/m/n/9 = #\OMS/cmsy/m/n/9 f\OML/cmm/m
+/it/9 X[]\OT1/cmr/m/n/9 0\OML/cmm/m/it/9 ; [][]\OT1/cmr/m/n/9 1\OMS/cmsy/m/n/9 
+g\OML/cmm/m/it/9 ;  [] \OT1/cmr/m/n/9 = #\OMS/cmsy/m/n/9 f\OML/cmm/m/it/9 X[]\O
+T1/cmr/m/n/9 1\OML/cmm/m/it/9 ; [][]\OT1/cmr/m/n/9 0\OMS/cmsy/m/n/9 g\OML/cmm/m
+/it/9 ;  [] \OT1/cmr/m/n/9 = #\OMS/cmsy/m/n/9 f\OML/cmm/m/it/9 X[]\OT1/cmr/m/n/
+9 0\OML/cmm/m/it/9 ; [][]\OT1/cmr/m/n/9 0\OMS/cmsy/m/n/9 g\OML/cmm/m/it/9 :
+ []
+
+
+LaTeX Warning: Reference `app:variance' on page 14 undefined on input line 1363
+.
+
+
+LaTeX Warning: Reference `app:variance' on page 14 undefined on input line 1363
+.
+
+
+Overfull \hbox (29.05083pt too wide) detected at line 1371
+[] \OT1/cmr/m/n/9 = [] []([] \OMS/cmsy/m/n/9 ^^@ \OML/cmm/m/it/9 ^^R\OT1/cmr/m/
+n/9 )\OML/cmm/m/it/9 ;  [] \OT1/cmr/m/n/9 = [][] []([] \OMS/cmsy/m/n/9 ^^@ \OML
+/cmm/m/it/9 ^^R\OT1/cmr/m/n/9 )[][][]\OML/cmm/m/it/9 ;  [] \OT1/cmr/m/n/9 = [] 
+[] \OT1/cmr/bx/n/9 1  [] \OML/cmm/m/it/9 :
+ []
+
+
+LaTeX Warning: Reference `fig:spor_eight_panel' on page 14 undefined on input l
+ine 1375.
+
+
+Underfull \hbox (badness 1728) in paragraph at lines 1377--1378
+\OT1/cmr/m/it/9 regime, with pre-dictable degra-da-tion as $[]\OT1/cmr/m/n/9 (\
+OML/cmm/m/it/9 K\OT1/cmr/m/n/9 )$ \OT1/cmr/m/it/9 decreases and inver-sion beco
+mes ill-
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+LaTeX Font Info:    Calculating math sizes for size <8.03> on input line 1383.
+
+LaTeX Font Warning: Font shape `U/rsfs/m/n' in size <4.015> not available
+(Font)              size <5> substituted on input line 1383.
+
+
+LaTeX Warning: Reference `app:variance' on page 15 undefined on input line 1389
+.
+
+
+LaTeX Warning: Reference `sec:sim' on page 15 undefined on input line 1405.
+
+
+Overfull \hbox (30.06418pt too wide) in paragraph at lines 1379--1406
+ [] 
+ []
+
+(./Figures/figsim.tex
+\openout7 = `./Figures/External/figsim.dpth'.
+
+PGFPlots: reading {../simulation/lambdaor_outputs/summary_qsweep.csv}
+\tikzexternal@dep@file=\write8
+\openout8 = `./Figures/External/figsim.dep'.
+
+NOTE: coordinate (1Y2.0e-2],-0.0001568773310176601) has been dropped because it
+ is unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y6.5e-2],-0.00021714989844015564) has been dropped because i
+t is unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y1.1e-1],0.0006356884766503348) has been dropped because it 
+is unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y1.55e-1],-0.0029323109989515092) has been dropped because i
+t is unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y2.0e-1],-0.0024918970970302374) has been dropped because it
+ is unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y2.45e-1],-0.0030423214814129006) has been dropped because i
+t is unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y2.9e-1],0.0006076945382336661) has been dropped because it 
+is unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y3.35e-1],-0.00965788403727489) has been dropped because it 
+is unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y3.8e-1],-0.0001317332128055655) has been dropped because it
+ is unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y4.25e-1],0.0037968465467649714) has been dropped because it
+ is unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y4.7e-1],-0.006546609853071482) has been dropped because it 
+is unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y5.15e-1],0.008482786798795924) has been dropped because it 
+is unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y5.6e-1],-0.005524873440568522) has been dropped because it 
+is unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y6.05e-1],0.0013295125618279268) has been dropped because it
+ is unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y6.5e-1],0.004858896854010146) has been dropped because it i
+s unbounded (in x). (see also unbounded coords=jump). 
+PGFPlots: reading {../simulation/lambdaor_outputs/summary_qsweep.csv}
+NOTE: coordinate (1Y2.0e-2],-0.06547979056798948) has been dropped because it i
+s unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y6.5e-2],-0.16391187200631113) has been dropped because it i
+s unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y1.1e-1],-0.2350830211274259) has been dropped because it is
+ unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y1.55e-1],-0.29264246601550076) has been dropped because it 
+is unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y2.0e-1],-0.33570287285719225) has been dropped because it i
+s unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y2.45e-1],-0.3710968093858223) has been dropped because it i
+s unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y2.9e-1],-0.3987613140400144) has been dropped because it is
+ unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y3.35e-1],-0.42775251112566137) has been dropped because it 
+is unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y3.8e-1],-0.44518216729880034) has been dropped because it i
+s unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y4.25e-1],-0.46342190989306814) has been dropped because it 
+is unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y4.7e-1],-0.4827347718818242) has been dropped because it is
+ unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y5.15e-1],-0.49443548047170177) has been dropped because it 
+is unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y5.6e-1],-0.5122606209092578) has been dropped because it is
+ unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y6.05e-1],-0.5232182564880182) has been dropped because it i
+s unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y6.5e-1],-0.533899197091615) has been dropped because it is 
+unbounded (in x). (see also unbounded coords=jump). 
+PGFPlots: reading {../simulation/lambdaor_outputs/summary_qsweep.csv}
+NOTE: coordinate (1Y2.0e-2],0.03993688349113993) has been dropped because it is
+ unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y6.5e-2],0.04671283883273752) has been dropped because it is
+ unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y1.1e-1],0.04980429013454592) has been dropped because it is
+ unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y1.55e-1],0.05188141824201551) has been dropped because it i
+s unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y2.0e-1],0.059252405487167176) has been dropped because it i
+s unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y2.45e-1],0.06956609352647483) has been dropped because it i
+s unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y2.9e-1],0.0730584721453509) has been dropped because it is 
+unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y3.35e-1],0.08119704444189323) has been dropped because it i
+s unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y3.8e-1],0.07909194939433692) has been dropped because it is
+ unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y4.25e-1],0.09024381247594046) has been dropped because it i
+s unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y4.7e-1],0.09663032769460692) has been dropped because it is
+ unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y5.15e-1],0.10778650004631882) has been dropped because it i
+s unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y5.6e-1],0.117683026485281) has been dropped because it is u
+nbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y6.05e-1],0.1334965442828995) has been dropped because it is
+ unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y6.5e-1],0.1401217935288886) has been dropped because it is 
+unbounded (in x). (see also unbounded coords=jump). 
+PGFPlots: reading {../simulation/lambdaor_outputs/summary_qsweep.csv}
+NOTE: coordinate (1Y2.0e-2],0.07464818710566459) has been dropped because it is
+ unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y6.5e-2],0.1675664560502806) has been dropped because it is 
+unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y1.1e-1],0.2371989596141669) has been dropped because it is 
+unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y1.55e-1],0.29403302440313145) has been dropped because it i
+s unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y2.0e-1],0.3369873679112083) has been dropped because it is 
+unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y2.45e-1],0.3723872280265379) has been dropped because it is
+ unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y2.9e-1],0.3998104758514144) has been dropped because it is 
+unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y3.35e-1],0.4287541717457124) has been dropped because it is
+ unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y3.8e-1],0.44600738859063566) has been dropped because it is
+ unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y4.25e-1],0.4642319078216421) has been dropped because it is
+ unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y4.7e-1],0.48352226705265683) has been dropped because it is
+ unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y5.15e-1],0.495246076369675) has been dropped because it is 
+unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y5.6e-1],0.5130824515011853) has been dropped because it is 
+unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y6.05e-1],0.524080707259882) has been dropped because it is 
+unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y6.5e-1],0.5347698513410197) has been dropped because it is 
+unbounded (in x). (see also unbounded coords=jump). 
+PGFPlots: reading {../simulation/lambdaor_outputs/summary_qsweep.csv}
+NOTE: coordinate (1Y2.0e-2],0.936) has been dropped because it is unbounded (in
+ x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y6.5e-2],0.872) has been dropped because it is unbounded (in
+ x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y1.1e-1],0.864) has been dropped because it is unbounded (in
+ x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y1.55e-1],0.836) has been dropped because it is unbounded (i
+n x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y2.0e-1],0.752) has been dropped because it is unbounded (in
+ x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y2.45e-1],0.732) has been dropped because it is unbounded (i
+n x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y2.9e-1],0.692) has been dropped because it is unbounded (in
+ x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y3.35e-1],0.6) has been dropped because it is unbounded (in 
+x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y3.8e-1],0.648) has been dropped because it is unbounded (in
+ x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y4.25e-1],0.572) has been dropped because it is unbounded (i
+n x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y4.7e-1],0.54) has been dropped because it is unbounded (in 
+x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y5.15e-1],0.468) has been dropped because it is unbounded (i
+n x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y5.6e-1],0.452) has been dropped because it is unbounded (in
+ x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y6.05e-1],0.408) has been dropped because it is unbounded (i
+n x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y6.5e-1],0.392) has been dropped because it is unbounded (in
+ x). (see also unbounded coords=jump). 
+PGFPlots: reading {../simulation/lambdaor_outputs/summary_qsweep.csv}
+NOTE: coordinate (1Y2.0e-2],0.544) has been dropped because it is unbounded (in
+ x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y6.5e-2],0.0) has been dropped because it is unbounded (in x
+). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y1.1e-1],0.0) has been dropped because it is unbounded (in x
+). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y1.55e-1],0.0) has been dropped because it is unbounded (in 
+x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y2.0e-1],0.0) has been dropped because it is unbounded (in x
+). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y2.45e-1],0.0) has been dropped because it is unbounded (in 
+x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y2.9e-1],0.0) has been dropped because it is unbounded (in x
+). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y3.35e-1],0.0) has been dropped because it is unbounded (in 
+x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y3.8e-1],0.0) has been dropped because it is unbounded (in x
+). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y4.25e-1],0.0) has been dropped because it is unbounded (in 
+x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y4.7e-1],0.0) has been dropped because it is unbounded (in x
+). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y5.15e-1],0.0) has been dropped because it is unbounded (in 
+x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y5.6e-1],0.0) has been dropped because it is unbounded (in x
+). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y6.05e-1],0.0) has been dropped because it is unbounded (in 
+x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y6.5e-1],0.0) has been dropped because it is unbounded (in x
+). (see also unbounded coords=jump). 
+PGFPlots: reading {../simulation/lambdaor_outputs/summary_qsweep.csv}
+NOTE: coordinate (1Y2.0e-2],0.9299999999999999) has been dropped because it is 
+unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y6.5e-2],0.885) has been dropped because it is unbounded (in
+ x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y1.1e-1],0.8399999999999999) has been dropped because it is 
+unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y1.55e-1],0.7949999999999999) has been dropped because it is
+ unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y2.0e-1],0.75) has been dropped because it is unbounded (in 
+x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y2.45e-1],0.7050000000000001) has been dropped because it is
+ unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y2.9e-1],0.6599999999999999) has been dropped because it is 
+unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y3.35e-1],0.615) has been dropped because it is unbounded (i
+n x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y3.8e-1],0.5699999999999998) has been dropped because it is 
+unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y4.25e-1],0.5249999999999999) has been dropped because it is
+ unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y4.7e-1],0.48) has been dropped because it is unbounded (in 
+x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y5.15e-1],0.43500000000000005) has been dropped because it i
+s unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y5.6e-1],0.3899999999999999) has been dropped because it is 
+unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y6.05e-1],0.345) has been dropped because it is unbounded (i
+n x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y6.5e-1],0.2999999999999998) has been dropped because it is 
+unbounded (in x). (see also unbounded coords=jump). 
+PGFPlots: reading {../simulation/lambdaor_outputs/summary_qsweep.csv}
+NOTE: coordinate (1Y2.0e-2],0.9299999999999999) has been dropped because it is 
+unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y6.5e-2],0.885) has been dropped because it is unbounded (in
+ x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y1.1e-1],0.8399999999999999) has been dropped because it is 
+unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y1.55e-1],0.7949999999999999) has been dropped because it is
+ unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y2.0e-1],0.75) has been dropped because it is unbounded (in 
+x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y2.45e-1],0.7050000000000001) has been dropped because it is
+ unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y2.9e-1],0.6599999999999999) has been dropped because it is 
+unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y3.35e-1],0.615) has been dropped because it is unbounded (i
+n x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y3.8e-1],0.5699999999999998) has been dropped because it is 
+unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y4.25e-1],0.5249999999999999) has been dropped because it is
+ unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y4.7e-1],0.48) has been dropped because it is unbounded (in 
+x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y5.15e-1],0.43500000000000005) has been dropped because it i
+s unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y5.6e-1],0.3899999999999999) has been dropped because it is 
+unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y6.05e-1],0.345) has been dropped because it is unbounded (i
+n x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y6.5e-1],0.2999999999999998) has been dropped because it is 
+unbounded (in x). (see also unbounded coords=jump). 
+PGFPlots: reading {../simulation/lambdaor_outputs/summary_symm.csv}
+NOTE: coordinate (1Y2.0e-2],0.0001910445712708646) has been dropped because it 
+is unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y4.35715e-2],-0.0016112940743021574) has been dropped becaus
+e it is unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y6.7143e-2],-0.0023538181680493684) has been dropped because
+ it is unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y9.07144e-2],0.006921489888791666) has been dropped because 
+it is unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y1.142857e-1],-0.0021251844398806905) has been dropped becau
+se it is unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y1.378572e-1],0.00031583881923424694) has been dropped becau
+se it is unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y1.614287e-1],-0.0012358710266214131) has been dropped becau
+se it is unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y1.85e-1],0.005334625058722293) has been dropped because it 
+is unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y2.085715e-1],-0.0011734696100505163) has been dropped becau
+se it is unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y2.32143e-1],-0.0008861222013483485) has been dropped becaus
+e it is unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y2.557144e-1],0.005309048201173224) has been dropped because
+ it is unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y2.792857e-1],0.006947073538950028) has been dropped because
+ it is unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y3.028572e-1],-0.0037189736279205155) has been dropped becau
+se it is unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y3.264287e-1],-0.005909008138978397) has been dropped becaus
+e it is unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y3.5e-1],0.01208452993222777) has been dropped because it is
+ unbounded (in x). (see also unbounded coords=jump). 
+PGFPlots: reading {../simulation/lambdaor_outputs/summary_symm.csv}
+NOTE: coordinate (1Y2.0e-2],-0.058380286454669895) has been dropped because it 
+is unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y4.35715e-2],-0.12063954935939329) has been dropped because 
+it is unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y6.7143e-2],-0.17482722485924593) has been dropped because i
+t is unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y9.07144e-2],-0.2162794456047323) has been dropped because i
+t is unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y1.142857e-1],-0.2656226412109689) has been dropped because 
+it is unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y1.378572e-1],-0.30300677895969025) has been dropped because
+ it is unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y1.614287e-1],-0.34036853674713496) has been dropped because
+ it is unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y1.85e-1],-0.3708019146096567) has been dropped because it i
+s unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y2.085715e-1],-0.40438672165027656) has been dropped because
+ it is unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y2.32143e-1],-0.4340048622697326) has been dropped because i
+t is unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y2.557144e-1],-0.4590534923232072) has been dropped because 
+it is unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y2.792857e-1],-0.48507576045544726) has been dropped because
+ it is unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y3.028572e-1],-0.5126848479799256) has been dropped because 
+it is unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y3.264287e-1],-0.5376011335120218) has been dropped because 
+it is unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y3.5e-1],-0.5569638252480973) has been dropped because it is
+ unbounded (in x). (see also unbounded coords=jump). 
+PGFPlots: reading {../simulation/lambdaor_outputs/summary_symm.csv}
+NOTE: coordinate (1Y2.0e-2],0.03564117852466551) has been dropped because it is
+ unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y4.35715e-2],0.04375800261852113) has been dropped because i
+t is unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y6.7143e-2],0.04707190227071751) has been dropped because it
+ is unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y9.07144e-2],0.05375259674818827) has been dropped because i
+t is unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y1.142857e-1],0.05169684039000147) has been dropped because 
+it is unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y1.378572e-1],0.05793098400024288) has been dropped because 
+it is unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y1.614287e-1],0.06511612031869639) has been dropped because 
+it is unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y1.85e-1],0.07180225644503416) has been dropped because it i
+s unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y2.085715e-1],0.08033429219462379) has been dropped because 
+it is unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y2.32143e-1],0.0804374992924018) has been dropped because it
+ is unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y2.557144e-1],0.09161381076539979) has been dropped because 
+it is unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y2.792857e-1],0.10478288536466017) has been dropped because 
+it is unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y3.028572e-1],0.11525768715953968) has been dropped because 
+it is unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y3.264287e-1],0.13304151230997172) has been dropped because 
+it is unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y3.5e-1],0.1608440438188326) has been dropped because it is 
+unbounded (in x). (see also unbounded coords=jump). 
+PGFPlots: reading {../simulation/lambdaor_outputs/summary_symm.csv}
+NOTE: coordinate (1Y2.0e-2],0.06675169968516922) has been dropped because it is
+ unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y4.35715e-2],0.12578813956638638) has been dropped because i
+t is unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y6.7143e-2],0.17818449738183043) has been dropped because it
+ is unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y9.07144e-2],0.21912574919587818) has been dropped because i
+t is unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y1.142857e-1],0.26740148690723314) has been dropped because 
+it is unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y1.378572e-1],0.3046195346526703) has been dropped because i
+t is unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y1.614287e-1],0.3418463824136018) has been dropped because i
+t is unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y1.85e-1],0.37211634444302566) has been dropped because it i
+s unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y2.085715e-1],0.40563958998542654) has been dropped because 
+it is unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y2.32143e-1],0.4349622350389048) has been dropped because it
+ is unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y2.557144e-1],0.45996801337640775) has been dropped because 
+it is unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y2.792857e-1],0.48595253297186713) has been dropped because 
+it is unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y3.028572e-1],0.513492965969498) has been dropped because it
+ is unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y3.264287e-1],0.5383330994359674) has been dropped because i
+t is unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y3.5e-1],0.5577146631327351) has been dropped because it is 
+unbounded (in x). (see also unbounded coords=jump). 
+PGFPlots: reading {../simulation/lambdaor_outputs/summary_symm.csv}
+NOTE: coordinate (1Y2.0e-2],0.96) has been dropped because it is unbounded (in 
+x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y4.35715e-2],0.892) has been dropped because it is unbounded
+ (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y6.7143e-2],0.888) has been dropped because it is unbounded 
+(in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y9.07144e-2],0.816) has been dropped because it is unbounded
+ (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y1.142857e-1],0.816) has been dropped because it is unbounde
+d (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y1.378572e-1],0.808) has been dropped because it is unbounde
+d (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y1.614287e-1],0.724) has been dropped because it is unbounde
+d (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y1.85e-1],0.692) has been dropped because it is unbounded (i
+n x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y2.085715e-1],0.648) has been dropped because it is unbounde
+d (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y2.32143e-1],0.612) has been dropped because it is unbounded
+ (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y2.557144e-1],0.536) has been dropped because it is unbounde
+d (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y2.792857e-1],0.516) has been dropped because it is unbounde
+d (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y3.028572e-1],0.468) has been dropped because it is unbounde
+d (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y3.264287e-1],0.432) has been dropped because it is unbounde
+d (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y3.5e-1],0.36) has been dropped because it is unbounded (in 
+x). (see also unbounded coords=jump). 
+PGFPlots: reading {../simulation/lambdaor_outputs/summary_symm.csv}
+NOTE: coordinate (1Y2.0e-2],0.632) has been dropped because it is unbounded (in
+ x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y4.35715e-2],0.072) has been dropped because it is unbounded
+ (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y6.7143e-2],0.0) has been dropped because it is unbounded (i
+n x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y9.07144e-2],0.0) has been dropped because it is unbounded (
+in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y1.142857e-1],0.0) has been dropped because it is unbounded 
+(in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y1.378572e-1],0.0) has been dropped because it is unbounded 
+(in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y1.614287e-1],0.0) has been dropped because it is unbounded 
+(in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y1.85e-1],0.0) has been dropped because it is unbounded (in 
+x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y2.085715e-1],0.0) has been dropped because it is unbounded 
+(in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y2.32143e-1],0.0) has been dropped because it is unbounded (
+in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y2.557144e-1],0.0) has been dropped because it is unbounded 
+(in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y2.792857e-1],0.0) has been dropped because it is unbounded 
+(in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y3.028572e-1],0.0) has been dropped because it is unbounded 
+(in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y3.264287e-1],0.0) has been dropped because it is unbounded 
+(in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y3.5e-1],0.0) has been dropped because it is unbounded (in x
+). (see also unbounded coords=jump). 
+PGFPlots: reading {../simulation/lambdaor_outputs/summary_symm.csv}
+NOTE: coordinate (1Y2.0e-2],0.96) has been dropped because it is unbounded (in 
+x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y4.35715e-2],0.9128571428571428) has been dropped because it
+ is unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y6.7143e-2],0.8657142857142857) has been dropped because it 
+is unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y9.07144e-2],0.8185714285714285) has been dropped because it
+ is unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y1.142857e-1],0.7714285714285714) has been dropped because i
+t is unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y1.378572e-1],0.7242857142857142) has been dropped because i
+t is unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y1.614287e-1],0.6771428571428573) has been dropped because i
+t is unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y1.85e-1],0.6300000000000001) has been dropped because it is
+ unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y2.085715e-1],0.582857142857143) has been dropped because it
+ is unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y2.32143e-1],0.5357142857142858) has been dropped because it
+ is unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y2.557144e-1],0.48857142857142843) has been dropped because 
+it is unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y2.792857e-1],0.4414285714285713) has been dropped because i
+t is unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y3.028572e-1],0.39428571428571435) has been dropped because 
+it is unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y3.264287e-1],0.3471428571428572) has been dropped because i
+t is unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y3.5e-1],0.30000000000000004) has been dropped because it is
+ unbounded (in x). (see also unbounded coords=jump). 
+PGFPlots: reading {../simulation/lambdaor_outputs/summary_symm.csv}
+NOTE: coordinate (1Y2.0e-2],0.96) has been dropped because it is unbounded (in 
+x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y4.35715e-2],0.9128571428571428) has been dropped because it
+ is unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y6.7143e-2],0.8657142857142857) has been dropped because it 
+is unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y9.07144e-2],0.8185714285714285) has been dropped because it
+ is unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y1.142857e-1],0.7714285714285714) has been dropped because i
+t is unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y1.378572e-1],0.7242857142857142) has been dropped because i
+t is unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y1.614287e-1],0.6771428571428573) has been dropped because i
+t is unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y1.85e-1],0.6300000000000001) has been dropped because it is
+ unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y2.085715e-1],0.582857142857143) has been dropped because it
+ is unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y2.32143e-1],0.5357142857142858) has been dropped because it
+ is unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y2.557144e-1],0.48857142857142843) has been dropped because 
+it is unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y2.792857e-1],0.4414285714285713) has been dropped because i
+t is unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y3.028572e-1],0.39428571428571435) has been dropped because 
+it is unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y3.264287e-1],0.3471428571428572) has been dropped because i
+t is unbounded (in x). (see also unbounded coords=jump). 
+NOTE: coordinate (1Y3.5e-1],0.30000000000000004) has been dropped because it is
+ unbounded (in x). (see also unbounded coords=jump). 
+[15
+
+\providecommand \oddpage@label [2]{}
+{/usr/share/texlive/texmf-var/fonts/map/pdftex/updmap/pdftex.map}])
+The command '\includegraphics [width=.9\textwidth ]{figvolcano}' has been optim
+ized away. Use '/tikz/external/optimize=false' to disable this.
+
+Package natbib Warning: Citation `ASDzed' on page 15 undefined on input line 17
+39.
+
+
+Package natbib Warning: Citation `IPFzed' on page 15 undefined on input line 17
+39.
+
+
+Package natbib Warning: Citation `ADRDzed' on page 15 undefined on input line 1
+739.
+
+
+LaTeX Warning: Reference `thm:inherit_collapse' on page 15 undefined on input l
+ine 1754.
+
+
+LaTeX Warning: Reference `cor:auc_collapse' on page 15 undefined on input line 
+1754.
+
+
+LaTeX Warning: Reference `lem:minimal' on page 15 undefined on input line 1754.
+
+
+
+LaTeX Warning: Reference `figvolcano' on page 15 undefined on input line 1754.
+
+
+LaTeX Warning: Reference `figvolcano' on page 15 undefined on input line 1757.
+
+
+LaTeX Warning: Reference `tabfrac' on page 15 undefined on input line 1757.
+
+
+Package natbib Warning: Citation `HYPERPARATHYROIDISMmathur2022' on page 15 und
+efined on input line 1759.
+
+
+Package natbib Warning: Citation `SEPSISzeng2024' on page 15 undefined on input
+ line 1759.
+
+
+Package natbib Warning: Citation `CKDkelly2022' on page 15 undefined on input l
+ine 1759.
+
+
+Package natbib Warning: Citation `HYPERTENSIONcarey2023' on page 15 undefined o
+n input line 1759.
+
+
+Package natbib Warning: Citation `ATRIALFIBRpapanastasiou2021' on page 15 undef
+ined on input line 1759.
+
+
+Package natbib Warning: Citation `CEREBROVASCULARlove2016' on page 15 undefined
+ on input line 1759.
+
+
+Package natbib Warning: Citation `ATHEROSCLEROSISnordestgaard2022' on page 15 u
+ndefined on input line 1759.
+
+
+Package natbib Warning: Citation `TBIgu2022' on page 15 undefined on input line
+ 1759.
+
+
+Package natbib Warning: Citation `DEPRESSIONsaiz2021' on page 15 undefined on i
+nput line 1759.
+
+
+Package natbib Warning: Citation `HEARINGlitke2021' on page 15 undefined on inp
+ut line 1759.
+
+
+Package natbib Warning: Citation `SLEEPchoe2022' on page 15 undefined on input 
+line 1759.
+
+
+Package natbib Warning: Citation `T2DMathanasaki2022' on page 15 undefined on i
+nput line 1759.
+
+
+Package natbib Warning: Citation `COPDwang2022' on page 15 undefined on input l
+ine 1759.
+
+
+Package natbib Warning: Citation `HYPERLIPIDEMIAezkurdia2023' on page 15 undefi
+ned on input line 1759.
+
+
+Package natbib Warning: Citation `OBESITYbeydoun2008' on page 15 undefined on i
+nput line 1759.
+
+
+Package natbib Warning: Citation `CATARACTjun2012' on page 15 undefined on inpu
+t line 1759.
+
+
+Underfull \hbox (badness 2035) in paragraph at lines 1759--1760
+\OT1/cmr/m/it/9 variance-corrected sig-nals: endocrine or metabolic (hyper-para
+thy-roidism, 14.118 [\OT1/cmr/bx/n/9 ? \OT1/cmr/m/it/9 ];
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+Package natbib Warning: Citation `zarate2017role' on page 16 undefined on input
+ line 1763.
+
+
+Package natbib Warning: Citation `Georgakis2016' on page 16 undefined on input 
+line 1763.
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1966--1976
+[]\OT1/cmr/m/n/10 Lundberg, S.M., Lee, S.-I.: A uni-fied approach to inter-pret
+-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1966--1976
+\OT1/cmr/m/n/10 ing model pre-dic-tions. In: Advances in Neu-ral Infor-ma-tion
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1966--1976
+\OT1/cmr/m/n/10 Pro-cess-ing Sys-tems (NeurIPS), vol. 30, pp. 4765--4774 (2017)
+.
+ []
+
+
+Overfull \hbox (13.16795pt too wide) in paragraph at lines 1966--1976
+\OT1/cmss/m/n/10.03749 https://proceedings.neurips.cc/paper/2017/file/8a20a8621
+978632d76c43dfd28b67767-
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+Underfull \hbox (badness 1082) in paragraph at lines 2185--2203
+[]\OT1/cmr/m/n/10 Athanasaki, A., Mela-nis, K., Tsantzali, I., Ste-fanou, M.I.,
+ Nty-menou, S.,
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+LaTeX Font Info:    Calculating math sizes for size <14.05249> on input line 23
+21.
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 2321.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\log' on input line 2321.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 2321.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\lambda' on input line 2321.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 2321.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `superscript' on input line 2321.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\lambda' on input line 2321.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 2321.
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
 
 Package natbib Warning: There were undefined citations.
 
 
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
 LaTeX Font Warning: Size substitutions with differences
-(Font)              up to 2.99251pt have occurred.
+(Font)              up to 2.74158pt have occurred.
 
 
 LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 47499 strings out of 478862
- 1075191 string characters out of 5858945
- 1651470 words of memory out of 12000000
- 64295 multiletter control sequences out of 15000+600000
- 558535 words of font info for 332 fonts, out of 8000000 for 9000
- 1137 hyphenation exceptions out of 8191
- 93i,24n,89p,1184b,2711s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texliv
-e/texmf-dist/fonts/type1/public/amsfonts/euler/eufm10.pfb></usr/share/texlive/t
-exmf-dist/fonts/type1/public/amsfonts/euler/eurm10.pfb></usr/share/texlive/texm
-f-dist/fonts/type1/public/amsfonts/euler/eurm7.pfb></usr/share/texlive/texmf-di
-st/fonts/type1/urw/helvetic/uhvr8a.pfb>
-Output written on ./Figures/External/figsim.pdf (1 page, 21551 bytes).
+ 49249 strings out of 476041
+ 1146372 string characters out of 5793163
+ 1962388 words of memory out of 12000000
+ 68901 multiletter control sequences out of 15000+600000
+ 588909 words of font info for 316 fonts, out of 8000000 for 9000
+ 1147 hyphenation exceptions out of 8191
+ 94i,27n,93p,1326b,3160s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr
+/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/
+texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texlive/
+texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-di
+st/fonts/type1/public/amsfonts/cm/cmsy8.pfb>
+Output written on ./Figures/External/figsim.pdf (1 page, 77667 bytes).
 PDF statistics:
- 59 PDF objects out of 1000 (max. 8388607)
- 33 compressed objects within 1 object stream
+ 75 PDF objects out of 1000 (max. 8388607)
+ 35 compressed objects within 1 object stream
  2 named destinations out of 1000 (max. 500000)
  109 words of extra memory for PDF output out of 10000 (max. 10000000)
 

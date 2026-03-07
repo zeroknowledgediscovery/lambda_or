@@ -28,100 +28,195 @@
 \FIGSfalse  
 % \FIGStrue
 
+
+
+
 \tikzexternalize[mode=list and make, prefix=Figures/External/]
 
 
-% --- deterministic, high-separation colors using dvipsnames ---
-\newcommand{\getcolor}[1]{%
-  \ifnum\pdfstrcmp{#1}{A}=0 Red\fi
-  \ifnum\pdfstrcmp{#1}{B}=0 RoyalBlue\fi
-  \ifnum\pdfstrcmp{#1}{C}=0 ForestGreen\fi
-  \ifnum\pdfstrcmp{#1}{D}=0 BurntOrange\fi
-  \ifnum\pdfstrcmp{#1}{E}=0 Magenta\fi
-  \ifnum\pdfstrcmp{#1}{F}=0 TealBlue\fi
-  \ifnum\pdfstrcmp{#1}{G}=0 Violet\fi
-  \ifnum\pdfstrcmp{#1}{H}=0 Goldenrod\fi
-  \ifnum\pdfstrcmp{#1}{I}=0 Turquoise\fi
-  \ifnum\pdfstrcmp{#1}{J}=0 Maroon\fi
-  \ifnum\pdfstrcmp{#1}{K}=0 OliveGreen\fi
-  \ifnum\pdfstrcmp{#1}{L}=0 Cerulean\fi
-  \ifnum\pdfstrcmp{#1}{M}=0 BrickRed\fi
-  \ifnum\pdfstrcmp{#1}{N}=0 SeaGreen\fi
-  \ifnum\pdfstrcmp{#1}{O}=0 Purple\fi
-  \ifnum\pdfstrcmp{#1}{P}=0 Dandelion\fi
-  \ifnum\pdfstrcmp{#1}{Q}=0 NavyBlue\fi
-  \ifnum\pdfstrcmp{#1}{R}=0 LimeGreen\fi
-  \ifnum\pdfstrcmp{#1}{S}=0 RubineRed\fi
-  \ifnum\pdfstrcmp{#1}{T}=0 CadetBlue\fi
-}
+\ExplSyntaxOn
+
+\cs_new:Npn \getcolor #1
+  {
+    \str_case:nnF {#1}
+      {
+        {A}{Red}
+        {B}{RoyalBlue}
+        {C}{ForestGreen}
+        {D}{BurntOrange}
+        {E}{Magenta}
+        {F}{TealBlue}
+        {G}{Violet}
+        {H}{Goldenrod}
+        {I}{Turquoise}
+        {J}{Maroon}
+        {K}{OliveGreen}
+        {L}{Cerulean}
+        {M}{BrickRed}
+        {N}{SeaGreen}
+        {O}{Purple}
+        {P}{Dandelion}
+        {Q}{NavyBlue}
+        {R}{LimeGreen}
+        {S}{RubineRed}
+        {T}{CadetBlue}
+      }
+      {Black}
+  }
+
+\cs_new:Npn \getmark #1
+  {
+    \str_case:nnF {#1}
+      {
+        {A}{*}
+        {B}{square*}
+        {C}{triangle*}
+        {D}{diamond*}
+        {E}{pentagon*}
+        {F}{star}
+        {G}{*}
+        {H}{square*}
+        {I}{triangle*}
+        {J}{diamond*}
+        {K}{*}
+        {L}{square*}
+        {M}{triangle*}
+        {N}{diamond*}
+        {O}{pentagon*}
+        {P}{star}
+        {Q}{*}
+        {R}{square*}
+        {S}{triangle*}
+        {T}{diamond*}
+      }
+      {*}
+  }
+
+\cs_new:Npn \getlabel #1
+  {
+    \str_case:nnF {#1}
+      {
+        {A}{Infectious \& parasitic diseases}
+        {B}{Infectious \& parasitic diseases}
+        {C}{Malignant neoplasms}
+        {D}{Blood disorders \& benign neoplasms}
+        {E}{Endocrine, nutritional, metabolic}
+        {F}{Mental \& behavioural disorders}
+        {G}{Nervous system diseases}
+        {H}{Eye, ear diseases}
+        {I}{Circulatory system diseases}
+        {J}{Respiratory diseases}
+        {K}{Digestive system diseases}
+        {L}{Skin \& subcutaneous tissue diseases}
+        {M}{Musculoskeletal diseases}
+        {N}{Genitourinary diseases}
+        {O}{Pregnancy \& childbirth}
+        {P}{Perinatal conditions}
+        {Q}{Congenital malformations}
+        {R}{Symptoms, signs, and abnormal findings}
+        {S}{Injuries to body regions}
+        {T}{Injuries, poisoning, external causes}
+        {Z}{Factors influencing health status}
+      }
+      {Unknown}
+  }
+
+\ExplSyntaxOff
+
+%% \usepackage{pdftexcmds}
+
+%% % --- deterministic, high-separation colors using dvipsnames ---
+%% \newcommand{\getcolor}[1]{%
+%%   \ifnum\pdfstrcmp{#1}{A}=0 Red\fi
+%%   \ifnum\pdfstrcmp{#1}{B}=0 RoyalBlue\fi
+%%   \ifnum\pdfstrcmp{#1}{C}=0 ForestGreen\fi
+%%   \ifnum\pdfstrcmp{#1}{D}=0 BurntOrange\fi
+%%   \ifnum\pdfstrcmp{#1}{E}=0 Magenta\fi
+%%   \ifnum\pdfstrcmp{#1}{F}=0 TealBlue\fi
+%%   \ifnum\pdfstrcmp{#1}{G}=0 Violet\fi
+%%   \ifnum\pdfstrcmp{#1}{H}=0 Goldenrod\fi
+%%   \ifnum\pdfstrcmp{#1}{I}=0 Turquoise\fi
+%%   \ifnum\pdfstrcmp{#1}{J}=0 Maroon\fi
+%%   \ifnum\pdfstrcmp{#1}{K}=0 OliveGreen\fi
+%%   \ifnum\pdfstrcmp{#1}{L}=0 Cerulean\fi
+%%   \ifnum\pdfstrcmp{#1}{M}=0 BrickRed\fi
+%%   \ifnum\pdfstrcmp{#1}{N}=0 SeaGreen\fi
+%%   \ifnum\pdfstrcmp{#1}{O}=0 Purple\fi
+%%   \ifnum\pdfstrcmp{#1}{P}=0 Dandelion\fi
+%%   \ifnum\pdfstrcmp{#1}{Q}=0 NavyBlue\fi
+%%   \ifnum\pdfstrcmp{#1}{R}=0 LimeGreen\fi
+%%   \ifnum\pdfstrcmp{#1}{S}=0 RubineRed\fi
+%%   \ifnum\pdfstrcmp{#1}{T}=0 CadetBlue\fi
+%% }
 
 
-\newcommand{\getmark}[1]{%
-  \ifnum\pdfstrcmp{#1}{A}=0 *\fi
-  \ifnum\pdfstrcmp{#1}{B}=0 square*\fi
-  \ifnum\pdfstrcmp{#1}{C}=0 triangle*\fi
-  \ifnum\pdfstrcmp{#1}{D}=0 diamond*\fi
-  \ifnum\pdfstrcmp{#1}{E}=0 pentagon*\fi
-  \ifnum\pdfstrcmp{#1}{F}=0 star\fi
-  \ifnum\pdfstrcmp{#1}{G}=0 *\fi
-  \ifnum\pdfstrcmp{#1}{H}=0 square*\fi
-  \ifnum\pdfstrcmp{#1}{I}=0 triangle*\fi
-  \ifnum\pdfstrcmp{#1}{J}=0 diamond*\fi
-  \ifnum\pdfstrcmp{#1}{K}=0 *\fi
-  \ifnum\pdfstrcmp{#1}{L}=0 square*\fi
-  \ifnum\pdfstrcmp{#1}{M}=0 triangle*\fi
-  \ifnum\pdfstrcmp{#1}{N}=0 diamond*\fi
-  \ifnum\pdfstrcmp{#1}{O}=0 pentagon*\fi
-  \ifnum\pdfstrcmp{#1}{P}=0 star\fi
-  \ifnum\pdfstrcmp{#1}{Q}=0 *\fi
-  \ifnum\pdfstrcmp{#1}{R}=0 square*\fi
-  \ifnum\pdfstrcmp{#1}{S}=0 triangle*\fi
-  \ifnum\pdfstrcmp{#1}{T}=0 diamond*\fi
-}
+%% \newcommand{\getmark}[1]{%
+%%   \ifnum\pdfstrcmp{#1}{A}=0 *\fi
+%%   \ifnum\pdfstrcmp{#1}{B}=0 square*\fi
+%%   \ifnum\pdfstrcmp{#1}{C}=0 triangle*\fi
+%%   \ifnum\pdfstrcmp{#1}{D}=0 diamond*\fi
+%%   \ifnum\pdfstrcmp{#1}{E}=0 pentagon*\fi
+%%   \ifnum\pdfstrcmp{#1}{F}=0 star\fi
+%%   \ifnum\pdfstrcmp{#1}{G}=0 *\fi
+%%   \ifnum\pdfstrcmp{#1}{H}=0 square*\fi
+%%   \ifnum\pdfstrcmp{#1}{I}=0 triangle*\fi
+%%   \ifnum\pdfstrcmp{#1}{J}=0 diamond*\fi
+%%   \ifnum\pdfstrcmp{#1}{K}=0 *\fi
+%%   \ifnum\pdfstrcmp{#1}{L}=0 square*\fi
+%%   \ifnum\pdfstrcmp{#1}{M}=0 triangle*\fi
+%%   \ifnum\pdfstrcmp{#1}{N}=0 diamond*\fi
+%%   \ifnum\pdfstrcmp{#1}{O}=0 pentagon*\fi
+%%   \ifnum\pdfstrcmp{#1}{P}=0 star\fi
+%%   \ifnum\pdfstrcmp{#1}{Q}=0 *\fi
+%%   \ifnum\pdfstrcmp{#1}{R}=0 square*\fi
+%%   \ifnum\pdfstrcmp{#1}{S}=0 triangle*\fi
+%%   \ifnum\pdfstrcmp{#1}{T}=0 diamond*\fi
+%% }
 
-\newcommand{\getlabel}[1]{%
-  \ifnum\pdfstrcmp{#1}{A}=0 Infectious \& parasitic diseases\fi
-  \ifnum\pdfstrcmp{#1}{B}=0 Infectious \& parasitic diseases\fi
-  \ifnum\pdfstrcmp{#1}{C}=0 Malignant neoplasms\fi
-  \ifnum\pdfstrcmp{#1}{D}=0 Blood disorders \& benign neoplasms\fi
-  \ifnum\pdfstrcmp{#1}{E}=0 Endocrine, nutritional, metabolic\fi
-  \ifnum\pdfstrcmp{#1}{F}=0 Mental \& behavioural disorders\fi
-  \ifnum\pdfstrcmp{#1}{G}=0 Nervous system diseases\fi
-  \ifnum\pdfstrcmp{#1}{H}=0 Eye, ear diseases\fi
-  \ifnum\pdfstrcmp{#1}{I}=0 Circulatory system diseases\fi
-  \ifnum\pdfstrcmp{#1}{J}=0 Respiratory diseases\fi
-  \ifnum\pdfstrcmp{#1}{K}=0 Digestive system diseases\fi
-  \ifnum\pdfstrcmp{#1}{L}=0 Skin \& subcutaneous tissue diseases\fi
-  \ifnum\pdfstrcmp{#1}{M}=0 Musculoskeletal diseases\fi
-  \ifnum\pdfstrcmp{#1}{N}=0 Genitourinary diseases\fi
-  \ifnum\pdfstrcmp{#1}{O}=0 Pregnancy \& childbirth\fi
-  \ifnum\pdfstrcmp{#1}{P}=0 Perinatal conditions\fi
-  \ifnum\pdfstrcmp{#1}{Q}=0 Congenital malformations\fi
-  \ifnum\pdfstrcmp{#1}{R}=0 Symptoms, signs, and abnormal findings\fi
-  \ifnum\pdfstrcmp{#1}{S}=0 Injuries to body regions\fi
-  \ifnum\pdfstrcmp{#1}{T}=0 Injuries, poisoning, external causes\fi
-  \ifnum\pdfstrcmp{#1}{Z}=0 Factors influencing health status\fi
-}
-\newcommand{\R}{\mathbb{R}}
-\newcommand{\indep}{\perp\!\!\!\perp}
-\newcommand{\SPOR}{\operatorname{SPOR}}
-\newcommand{\COR}{\operatorname{OR}}
-\newcommand{\logor}{\log\SPOR}
-\newcommand{\clogor}{\log\COR}
-\newcommand{\E}{\mathbb{E}}
-\newcommand{\AUC}{\operatorname{AUC}}
+%% \newcommand{\getlabel}[1]{%
+%%   \ifnum\pdfstrcmp{#1}{A}=0 Infectious \& parasitic diseases\fi
+%%   \ifnum\pdfstrcmp{#1}{B}=0 Infectious \& parasitic diseases\fi
+%%   \ifnum\pdfstrcmp{#1}{C}=0 Malignant neoplasms\fi
+%%   \ifnum\pdfstrcmp{#1}{D}=0 Blood disorders \& benign neoplasms\fi
+%%   \ifnum\pdfstrcmp{#1}{E}=0 Endocrine, nutritional, metabolic\fi
+%%   \ifnum\pdfstrcmp{#1}{F}=0 Mental \& behavioural disorders\fi
+%%   \ifnum\pdfstrcmp{#1}{G}=0 Nervous system diseases\fi
+%%   \ifnum\pdfstrcmp{#1}{H}=0 Eye, ear diseases\fi
+%%   \ifnum\pdfstrcmp{#1}{I}=0 Circulatory system diseases\fi
+%%   \ifnum\pdfstrcmp{#1}{J}=0 Respiratory diseases\fi
+%%   \ifnum\pdfstrcmp{#1}{K}=0 Digestive system diseases\fi
+%%   \ifnum\pdfstrcmp{#1}{L}=0 Skin \& subcutaneous tissue diseases\fi
+%%   \ifnum\pdfstrcmp{#1}{M}=0 Musculoskeletal diseases\fi
+%%   \ifnum\pdfstrcmp{#1}{N}=0 Genitourinary diseases\fi
+%%   \ifnum\pdfstrcmp{#1}{O}=0 Pregnancy \& childbirth\fi
+%%   \ifnum\pdfstrcmp{#1}{P}=0 Perinatal conditions\fi
+%%   \ifnum\pdfstrcmp{#1}{Q}=0 Congenital malformations\fi
+%%   \ifnum\pdfstrcmp{#1}{R}=0 Symptoms, signs, and abnormal findings\fi
+%%   \ifnum\pdfstrcmp{#1}{S}=0 Injuries to body regions\fi
+%%   \ifnum\pdfstrcmp{#1}{T}=0 Injuries, poisoning, external causes\fi
+%%   \ifnum\pdfstrcmp{#1}{Z}=0 Factors influencing health status\fi
+%% }
+
+%% \newcommand{\R}{\mathbb{R}}
+%% \newcommand{\indep}{\perp\!\!\!\perp}
+%% \newcommand{\SPOR}{\operatorname{SPOR}}
+%% \newcommand{\COR}{\operatorname{OR}}
+%% \newcommand{\logor}{\log\SPOR}
+%% \newcommand{\clogor}{\log\COR}
+%% \newcommand{\E}{\mathbb{E}}
+%% \newcommand{\AUC}{\operatorname{AUC}}
 
 \title{Robust Feature Attribution under Label Noise with Stabilized Posterior Odds Ratios}
 \author{D. Onishchenko and I. Chattopadhyay}
 \date{}
 % Data sources (adjust paths as needed)
-\def\datatableB{../ntb/paperADRDpriororresults.csv}
-\def\datatableC{../ntb/paperADRDshapresults.csv}
-\def\datatable {../ntb/paperADRDresultsplot100.csv}
+\def\datatableB{paperADRDpriororresults.csv}
+\def\datatableC{paperADRDshapresults.csv}
+\def\datatable {paperADRDresultsplot100.csv}
 
 \begin{document}
 
-\def\SKIP{15}   
+\def\SKIP{2}   
 \def\WDT{2.25in}
 \def\HGT{2in}
 \def\COLYY{Yellow2}
@@ -133,30 +228,28 @@
 %%   \tikzexternalenable
 %%   \tikzsetnextfilename{figcompsemilogADRD}
 
-
-
-\pgfplotsset{cycle list name=color list}
 \pgfplotsset{
-discard if/.style 2 args={
-x filter/.code={
-\edef\tempa{\thisrow{#1}}
-\edef\tempb{#2}
-\ifx\tempa\tempb
-\def\pgfmathresult{inf}
-\fi
+  discard if/.style 2 args={
+    x filter/.append code={
+      \edef\tempa{\thisrow{#1}}
+      \edef\tempb{#2}
+      \ifx\tempa\tempb
+        \def\pgfmathresult{inf}
+      \fi
+    }
+  },
+  discard if not/.style 2 args={
+    x filter/.append code={
+      \edef\tempa{\thisrow{#1}}
+      \edef\tempb{#2}
+      \ifx\tempa\tempb
+      \else
+        \def\pgfmathresult{inf}
+      \fi
+    }
+  }
 }
-},
-discard if not/.style 2 args={
-x filter/.code={
-\edef\tempa{\thisrow{#1}}
-\edef\tempb{#2}
-\ifx\tempa\tempb
-\else
-\def\pgfmathresult{inf}
-\fi
-}
-}
-} 
+ 
 % Define a basic list of markers
 \def\OPC{.5}
 
@@ -167,7 +260,7 @@ x filter/.code={
 \begin{semilogyaxis}[\AXISCOL,%anchor=north,at=(A.south),
 legend columns=3,
 legend style={column sep=1em,text=black,anchor=south west,
-at={(-.12,1.1750),},inner sep=1pt,draw=none,
+at={(-.12,1.175),},inner sep=1pt,draw=none,
 fill opacity=1,align=right,text opacity=1,text=\TEXTCOL},
 width=\WDT, height=\HGT,
 xlabel={Effect size ($\clogor$)},
@@ -225,7 +318,7 @@ scaled ticks=false,
 scale only axis=true,
 major tick length=0pt,
 minor tick length=0pt,
-enlargelimits=0.1,
+enlargelimits=0.10,
 % enlarge y limits=0.1,
 %enlarge x limits=0.05,
 %axis background/.style={
@@ -315,9 +408,9 @@ col sep=comma
 \tikzsetnextfilename{figcompsemilogADRD}
 \begin{tikzpicture}[font=\bfseries\sffamily\fontsize{10}{10}\selectfont]
   % Place prebuilt PDFs; the first run + make will produce these
-  \node[anchor=north west] (A) at (0,0.0)        {\includegraphics{Figures/External/ADRDpanelA.pdf}};
-  \node[anchor=north west] (B) at (A.north east)    {\includegraphics{Figures/External/ADRDpanelB.pdf}};
-  \node[anchor=north west] (C)  at (B.north east)    {\includegraphics{Figures/External/ADRDpanelC.pdf}};
+  \node[anchor=north west] (A) at (0,0.0)        {\includegraphics{ADRDpanelA.pdf}};
+  \node[anchor=north west] (B) at ([yshift=.0in]A.north east)    {\includegraphics{ADRDpanelB.pdf}};
+  \node[anchor=north west] (C)  at (B.north east)    {\includegraphics{ADRDpanelC.pdf}};
 
   % Panel labels (adjust positions as needed)
   \node[anchor=south west] (L1) at ([xshift=.5in]A.north west) {(g) Classical $\clogor$ (ADRD)};

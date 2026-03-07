@@ -1,0 +1,4 @@
+./sim2.pdf: full_results_50000.csv
+./sim2.pdf: full_results_50000.csv
+./sim2.pdf: full_results_750000.csv
+./sim2.pdf: full_results_750000.csv

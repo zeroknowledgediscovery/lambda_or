@@ -1,0 +1,87 @@
+This is BibTeX, Version 0.99d (TeX Live 2023/Fedora 39)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: mainBMC_steps1-5.aux
+The style file: sn-mathphys-num.bst
+Case mismatch error between cite keys Choi2016RETAIN and choi2016retain
+---line 58 of file mainBMC_steps1-5.aux
+ : \citation{Lundberg2017Unified,Choi2016RETAIN
+ :                                             }
+I'm skipping whatever remains of this command
+Illegal, another \bibstyle command---line 105 of file mainBMC_steps1-5.aux
+ : \bibstyle
+ :          {biometrika}
+I'm skipping whatever remains of this command
+Reallocated glb_str_ptr (elt_size=4) to 20 items from 10.
+Reallocated global_strs (elt_size=200001) to 20 items from 10.
+Reallocated glb_str_end (elt_size=4) to 20 items from 10.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Database file #1: spor.bib
+Database file #2: ad.bib
+Database file #3: adrd_risk_factors.bib
+Repeated entry---line 157 of file adrd_risk_factors.bib
+ : @comment @article{CATARACTjun2012
+ :                                  ,
+I'm skipping whatever remains of this entry
+Database file #4: zed.bib
+Warning--I didn't find a database entry for "Lundberg2017Unified"
+sn-mathphys-num.bst [2024/07/19 v1.1  bibliography style]
+Reallocated wiz_functions (elt_size=4) to 9000 items from 6000.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+You've used 37 entries,
+            7485 wiz_defined-function locations,
+            1471 strings with 19757 characters,
+and the built_in function-call counts, 354857 in all, are:
+= -- 58797
+> -- 1506
+< -- 667
++ -- 30605
+- -- 416
+* -- 13673
+:= -- 63914
+add.period$ -- 41
+call.type$ -- 37
+change.case$ -- 232
+chr.to.int$ -- 1833
+cite$ -- 37
+duplicate$ -- 1993
+empty$ -- 10601
+format.name$ -- 1108
+if$ -- 88381
+int.to.chr$ -- 2
+int.to.str$ -- 56
+missing$ -- 0
+newline$ -- 614
+num.names$ -- 185
+pop$ -- 906
+preamble$ -- 1
+purify$ -- 166
+quote$ -- 0
+skip$ -- 34957
+stack$ -- 0
+substring$ -- 38795
+swap$ -- 1166
+text.length$ -- 457
+text.prefix$ -- 0
+top$ -- 1
+type$ -- 1650
+warning$ -- 0
+while$ -- 1221
+width$ -- 0
+write$ -- 839
+(There were 3 error messages)

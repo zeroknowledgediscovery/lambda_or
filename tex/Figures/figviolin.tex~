@@ -1,0 +1,407 @@
+\def\WDTA{1.5in}
+\def\HGT{1.5in}
+\def\WDT{2.7in}
+\pgfplotsset{every axis/.append style={
+    width=\WDT,
+    height=\HGT,
+    xticklabel style={font=\bfseries\sffamily\fontsize{8}{8}\selectfont},
+    yticklabel style={font=\bfseries\sffamily\fontsize{8}{8}\selectfont},
+    ylabel style={yshift=6pt},
+}}
+
+\def\ROT{30}
+\def\COLVA{lightgray}
+\def\COLVB{lightgray}
+
+\tikzsetnextfilename{ViolinpanelAauc}
+  \begin{tikzpicture}[font=\bf\sffamily\fontsize{9}{9}\selectfont]
+    \def\AXISCOL{lightgray}
+
+    
+    \violinsetoptions[
+      averages,
+      data points,
+      scaled,every axis plot/.append style={line width=8pt}
+    ]{
+      \AXISCOL,ultra thick,
+      %-----------------
+      axis on top=false, 
+      %scaled ticks=false, 
+      major tick length=0pt,
+      minor tick length=0pt,
+      %axis background/.style={
+      %shade,top color=transparent!10,bottom color=transparent!0},
+      axis line style={\AXISCOL, thick},
+      grid=both,
+      minor tick num=2,
+      major grid style={opacity=.35,thick,\AXISCOL},
+      minor grid style={opacity=.3,thin,\AXISCOL!90!Green1},
+      %%%%%%%%%%%%%%%%%%%%%%%%
+      xmin=0.25, xmax=7.25,
+      ymin=0.74, ymax=0.96,
+      %%%%%%%%%%%%%%%%%%%%%%%%
+      xlabel style={yshift = -.2in},
+      ylabel style={yshift = -.2in},
+      ymajorgrids=true,
+      ylabel={AUC},
+    }
+  \pgfplotsset{
+    every axis plot/.append style={line width=1pt,  draw opacity=.15,
+    },
+  }
+\pgfplotsset{every axis/.append style={
+  xticklabel style={rotate=\ROT, anchor=east,xshift=.1in,yshift=-.1in},
+}}
+  
+  \tikzset{every mark/.append style={line width=0.6pt,black, opacity=.15}}
+  \violinplotwholefile[%
+      primary color=\COLVA,
+      secondary color=\COLVB,
+      indexes={A,B,C,D,E,F},
+      spacing=1.1,
+      labels={%
+        {National, 50+},
+        {National, 65+},
+        {Chicago, 50+},
+        {Chicago, 65+},
+        {All Of Us, 50+},
+        {All Of Us, 65+},
+      },
+      %col sep=comma,
+      dataset size=2pt,
+      dataset mark=*,
+      dataset fill=gray,
+      dataset fill opacity=.5,
+      average mark=x,
+      average size=8pt,
+    ]{Figures_2025/plotdata/violins/BASIC_AUC.dat}
+  \end{tikzpicture}
+
+ % \caption{AUC Scores for Dataset-Age subcohorts}\label{figviolin_auc}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% PPV - AGE-DATASET (b)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\tikzsetnextfilename{ViolinpanelBppv}
+  \begin{tikzpicture}[font=\bf\sffamily\fontsize{9}{9}\selectfont]
+      \def\AXISCOL{lightgray}
+    \violinsetoptions[
+      averages,
+      data points,
+      scaled,every axis plot/.append style={line width=8pt}
+    ]{
+      \AXISCOL,ultra thick,
+      %-----------------
+      axis on top=false, 
+      %scaled ticks=false, 
+      major tick length=0pt,
+      minor tick length=0pt,
+      %% axis background/.style={
+      %% shade,top color=transparent!10,bottom color=transparent!0},
+      axis line style={\AXISCOL, thick},
+      grid=both,
+      minor tick num=2,
+      major grid style={opacity=.35,thick,\AXISCOL},
+      minor grid style={opacity=.3,thin,\AXISCOL!90!Green1},
+      %%%%%%%%%%%%%%%%%%%%%%%%%
+      xmin=0.25, xmax=7.250,
+      ymin=0.34, ymax=0.79,
+      %%%%%%%%%%%%%%%%%%%%%%%%%
+      xlabel style={yshift = -.2in},
+      ylabel style={yshift = -.2in},
+      ymajorgrids=true,
+      ylabel={PPV},
+    }
+  \pgfplotsset{
+    every axis plot/.append style={line width=1pt,  draw opacity=.15},
+  }
+  
+\pgfplotsset{every axis/.append style={
+  xticklabel style={rotate=\ROT, anchor=east,xshift=.1in,yshift=-.1in},
+}}
+    \tikzset{every mark/.append style={line width=0.6pt,black, opacity=.15}}
+  \violinplotwholefile[%
+      primary color=\COLVA,
+      secondary color=\COLVB,
+      indexes={A,B,C,D,E,F},
+      spacing=1.1,
+      labels={%
+        {National, 50+},
+        {National, 65+},
+        {Chicago, 50+},
+        {Chicago, 65+},
+        {All Of Us, 50+},
+        {All Of Us, 65+},
+      },
+      %col sep=comma,
+      dataset size=2pt,
+      dataset mark=*,
+      dataset fill=gray,
+      dataset fill opacity=.5,
+      average mark=x,
+      average size=8pt,
+    ]{Figures_2025/plotdata/violins/BASIC_PPV.dat}
+  \end{tikzpicture}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% LR+ - AGE-DATASET (c)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\tikzsetnextfilename{ViolinpanelClr}
+  \begin{tikzpicture}[font=\bf\sffamily\fontsize{9}{9}\selectfont]
+      \def\AXISCOL{lightgray}
+    \violinsetoptions[
+      averages,
+      data points,
+      scaled,every axis plot/.append style={line width=8pt}
+    ]{
+      \AXISCOL,ultra thick,
+      %-----------------
+      axis on top=false, 
+      %scaled ticks=false, 
+      major tick length=0pt,
+      minor tick length=0pt,
+      %% axis background/.style={
+      %% shade,top color=transparent!10,bottom color=transparent!0},
+      axis line style={\AXISCOL, thick},
+      grid=both,
+      minor tick num=2,
+      major grid style={opacity=.35,thick,\AXISCOL},
+      minor grid style={opacity=.3,thin,\AXISCOL!90!Green1},
+      %%%%%%%%%%%%%%%%%%%%%%%%%
+      xmin=0.25, xmax=7.250,
+      ymin=2, ymax=16.5,
+      %%%%%%%%%%%%%%%%%%%%%%%%%
+      xlabel style={yshift = -.2in},
+      ylabel style={yshift = -.2in},
+      ymajorgrids=true,
+      ylabel={LR+},
+    }
+  \pgfplotsset{
+    every axis plot/.append style={line width=1pt,  draw opacity=.15},
+  }
+\pgfplotsset{every axis/.append style={
+  xticklabel style={rotate=\ROT, anchor=east,xshift=.1in,yshift=-.1in},
+}}
+    \tikzset{every mark/.append style={line width=0.6pt,black, opacity=.15}}
+  \violinplotwholefile[%
+      primary color=\COLVA,
+      secondary color=\COLVB,
+      indexes={A,B,C,D,E,F},
+      spacing=1.1,
+      labels={%
+        {National, 50+},
+        {National, 65+},
+        {Chicago, 50+},
+        {Chicago, 65+},
+        {All Of Us, 50+},
+        {All Of Us, 65+},
+      },
+      %col sep=comma,
+      dataset size=2pt,
+      dataset mark=*,
+      dataset fill=gray,
+      dataset fill opacity=.5,
+      average mark=x,
+      average size=8pt,
+    ]{Figures_2025/plotdata/violins/BASIC_LR+.dat}
+  \end{tikzpicture}
+
+  %% \caption{
+  %%   LR+ Scores for Dataset-Age subcohorts
+  %% }\label{figviolin_lrplus}
+
+\tikzsetnextfilename{ViolinpanelDaucdemo}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% AUC - RACE-ETHNCITY (d)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\pgfplotsset{every axis/.append style={
+    width=\WDTA,
+    height=\HGT,
+    %xticklabel style={font=\bfseries\sffamily\fontsize{7}{7}\selectfont},
+    %yticklabel style={font=\bfseries\sffamily\fontsize{7}{7}\selectfont},
+}}
+
+% axis-side safety (applies when plotting coordinates)
+\pgfplotsset{
+  unbounded coords=discard,
+  filter discard warning=false
+}
+  \begin{tikzpicture}[font=\bf\sffamily\fontsize{9}{9}\selectfont]
+      \def\AXISCOL{lightgray}
+    \violinsetoptions[
+      averages,
+      data points,
+      scaled,every axis plot/.append style={line width=8pt}
+    ]{
+      \AXISCOL,ultra thick,
+      %-----------------
+      axis on top=false, 
+      %scaled ticks=false, 
+      major tick length=0.0pt,
+      minor tick length=0pt,
+      %% axis background/.style={
+      %% shade,top color=transparent!10,bottom color=transparent!0},
+      axis line style={\AXISCOL, thick},
+      grid=both,
+      minor tick num=2,
+      major grid style={opacity=.35,thick,\AXISCOL},
+      minor grid style={opacity=.3,thin,\AXISCOL!90!Green1},
+      %%%%%%%%%%%%%%%%%%%%%%
+      xmin=0.3, xmax=2.950,
+      ymin=0.73, ymax=1.05,
+      %%%%%%%%%%%%%%%%%%%%%%%
+      xlabel style={yshift = -.2in},
+      ylabel style={yshift = -.3in},
+      ymajorgrids=true,
+      %ylabel={AUC},
+    }
+    \pgfplotsset{every axis/.append style={
+  xticklabel style={rotate=\ROT, anchor=east,xshift=.1in,yshift=-.1in},
+}}  \pgfplotsset{
+    every axis plot/.append style={line width=1pt,  draw opacity=.15},
+  }
+    \tikzset{every mark/.append style={line width=0.6pt,black, opacity=.15}}
+
+\violinplot[index=A,label={Chicago},relative position=1,col sep=comma,color=lightgray]{Figures_2025/plotdata/violins/DEMO_AUC_FULL.dat}
+
+\violinplot[index=B,label={All Of Us},relative position=2,col sep=comma,color=lightgray]{Figures_2025/plotdata/violins/DEMO_AUC.dat}
+  \end{tikzpicture}
+
+
+  \tikzsetnextfilename{ViolinpanelEppvdemo}
+  \begin{tikzpicture}[font=\bf\sffamily\fontsize{9}{9}\selectfont]
+      \def\AXISCOL{lightgray}
+    \violinsetoptions[
+      averages,
+      data points,
+      scaled,every axis plot/.append style={line width=8pt}
+    ]{
+      \AXISCOL,ultra thick,
+      %-----------------
+      axis on top=false, 
+      %scaled ticks=false, 
+      major tick length=0.0pt,
+      minor tick length=0pt,
+      %% axis background/.style={
+      %% shade,top color=transparent!10,bottom color=transparent!0},
+      axis line style={\AXISCOL, thick},
+      grid=both,
+      minor tick num=2,
+      major grid style={opacity=.35,thick,\AXISCOL},
+      minor grid style={opacity=.3,thin,\AXISCOL!90!Green1},
+      %%%%%%%%%%%%%%%%%%%%%%%%
+      xmin=0.3, xmax=2.95,
+      ymin=0.3, ymax=0.95,
+      %%%%%%%%%%%%%%%%%%%%%%%%%
+      xlabel style={yshift = -.2in},
+      ylabel style={yshift = -.3in},
+      ymajorgrids=true,
+      %ylabel={PPV},
+    }
+\pgfplotsset{every axis/.append style={
+  xticklabel style={rotate=\ROT, anchor=east,xshift=.1in,yshift=-.1in},
+}}  \pgfplotsset{
+    every axis plot/.append style={line width=1pt,  draw opacity=.15},
+  }
+  \tikzset{every mark/.append style={line width=0.6pt,black, opacity=.15}}
+\violinplot[index=A,label={Chicago},relative position=1,col sep=comma,color=lightgray]{Figures_2025/plotdata/violins/DEMO_PPV_FULL.dat}
+
+\violinplot[index=B,label={All Of Us},relative position=2,col sep=comma,color=lightgray]{Figures_2025/plotdata/violins/DEMO_PPV.dat}
+  \end{tikzpicture}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% LR+ - RACE-ETHNCITY (f)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\tikzsetnextfilename{ViolinpanelFlrdemo}
+  \begin{tikzpicture}[font=\bf\sffamily\fontsize{9}{9}\selectfont]
+      \def\AXISCOL{lightgray}
+    \violinsetoptions[
+      averages,
+      data points,
+      scaled,every axis plot/.append style={line width=8pt}
+    ]{
+      \AXISCOL,ultra thick,
+      %-----------------
+      axis on top=false, 
+      %scaled ticks=false, 
+      major tick length=0pt,
+      minor tick length=0pt,
+      %% axis background/.style={
+      %% shade,top color=transparent!10,bottom color=transparent!0},
+      axis line style={\AXISCOL, thick},
+      grid=both,
+      minor tick num=2,
+      major grid style={opacity=.35,thick,\AXISCOL},
+      minor grid style={opacity=.3,thin,\AXISCOL!90!Green1},
+      %%%%%%%%%%%%%%%%%%%%%%%%
+      xmin=0.3, xmax=2.950,
+      ymin=0, ymax=68,
+      %%%%%%%%%%%%%%%%%%%%%%%%%
+      xlabel style={yshift = -.2in},
+      ylabel style={yshift = -.3in},
+      ymajorgrids=true,
+      %ylabel={LR+},
+    }
+\pgfplotsset{every axis/.append style={
+  xticklabel style={rotate=\ROT, anchor=east,xshift=.1in,yshift=-.1in},
+}}  \pgfplotsset{
+    every axis plot/.append style={line width=1pt,  draw opacity=.15},
+  }
+  \tikzset{every mark/.append style={line width=0.6pt,black, opacity=.15}}
+\violinplot[index=A,label={Chicago},relative position=1,col sep=comma,color=lightgray]{Figures_2025/plotdata/violins/DEMO_LR+_FULL.dat}
+
+\violinplot[index=B,label={All Of Us},relative position=2,col sep=comma,color=lightgray]{Figures_2025/plotdata/violins/DEMO_LR+.dat}
+  \end{tikzpicture}
+
+\tikzsetnextfilename{pilot}
+\input{Figures_2025/pilot}
+  
+\tikzsetnextfilename{temporal}
+\input{Figures_2025/EARLY_PREDICTION_LINEPLOTS}
+
+ 
+% ================= Composite (single final figure) =================
+\tikzsetnextfilename{figpred2}
+\begin{tikzpicture}[font=\bfseries\sffamily\fontsize{10}{10}\selectfont]
+  % Place prebuilt PDFs; the first run + make will produce these
+  \node[anchor=north west] (A) at (0,0)        {\includegraphics{Figures_2025/External/ViolinpanelAauc}};
+  \node[anchor=north west] (B) at ([yshift=-.1in]A.south west)    {\includegraphics{Figures_2025/External/ViolinpanelBppv}};
+  \node[anchor=north west] (C)  at ([yshift=-.1in]B.south west)    {\includegraphics{Figures_2025/External/ViolinpanelClr}};
+  \node[anchor=north west] (D)  at ([yshift=-.025in]A.north east)    {\includegraphics{Figures_2025/External/ViolinpanelDaucdemo}};
+ \node[anchor=north west] (E)  at($(B.north)!(D.west)!(B.north east)$)   {\includegraphics{Figures_2025/External/ViolinpanelEppvdemo}};
+ \node[anchor=north west] (F)  at ($(C.north)!(D.west)!(C.north east)$)    {\includegraphics{Figures_2025/External/ViolinpanelFlrdemo}};
+
+ %\node[anchor=north east] (PL)  at ([yshift=.0in]A.north west)    {
+% \includegraphics{Figures_2025/External/pilot}};
+    
+  % Panel labels (adjust positions as needed)
+   \node[anchor=south west] (L1) at ([xshift=.1in,yshift=0in]A.north west) {{\large c.} };
+   \node[anchor=south west] (L2) at ([xshift=.1in,yshift=0in]B.north west) {{\large d.} };
+   \node[anchor=south west] (L3) at ([xshift=.1in,yshift=0in]C.north west) {{\large e.} };
+      \node[anchor=south west] (L4) at ([xshift=.1in,yshift=0in]D.north west) {{\large f.} };
+   \node[anchor=south west] (L5) at ([xshift=.1in,yshift=0in]E.north west) {{\large g.} };
+   \node[anchor=south west] (L6) at ([xshift=.1in,yshift=0in]F.north west) {{\large h.} };
+
+\node[
+  anchor=north east,
+  inner sep=0,
+  outer sep=0
+] (PL) at ([xshift=-.20in]L1.north west)
+     {\includegraphics{Figures_2025/External/pilot}};
+ 
+\node[anchor=north west] (TMP) at ([yshift=-0.20in]PL.south west)
+     {\includegraphics{Figures_2025/External/temporal}};
+ 
+
+   
+
+  %% \node[anchor=south west] (L2) at ([xshift=0.2in]$(L1.south)!(B.west)!(L1.south east)$)  {{\large b.} $SHAP$ (IPF)};
+  %% \node[anchor=south west] (L3) at ([xshift=0.2in]$(L1.south)!(C.west)!(L1.south east)$)  {{\large c.} $\logor$ (IPF)};
+\end{tikzpicture}

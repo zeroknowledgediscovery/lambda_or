@@ -1,0 +1,156 @@
+\relax 
+\bibstyle{sn-mathphys-num}
+\providecommand\hyper@newdestlabel[2]{}
+\providecommand\HyperFirstAtBeginDocument{\AtBeginDocument}
+\HyperFirstAtBeginDocument{\ifx\hyper@anchor\@undefined
+\global\let\oldnewlabel\newlabel
+\gdef\newlabel#1#2{\newlabelxx{#1}#2}
+\gdef\newlabelxx#1#2#3#4#5#6{\oldnewlabel{#1}{{#2}{#3}}}
+\AtEndDocument{\ifx\hyper@anchor\@undefined
+\let\newlabel\oldnewlabel
+\fi}
+\fi}
+\global\let\hyper@last\relax 
+\gdef\HyperFirstAtBeginDocument#1{#1}
+\providecommand\HyField@AuxAddToFields[1]{}
+\providecommand\HyField@AuxAddToCoFields[2]{}
+\citation{halpern2016electronic}
+\citation{ASDzed,IPFzed,JAHAzed,ADRDzed}
+\citation{choi2016retain}
+\citation{greenland1988sensitivity}
+\providecommand \oddpage@label [2]{}
+\Newlabel{1}{1}
+\@writefile{toc}{\contentsline {section}{\numberline {1}Introduction}{1}{section.1}\protected@file@percent }
+\citation{lundberg17shap,Ribeiro2016WhyTrust}
+\citation{slack2020fooling}
+\citation{copeland1977misclassification,greenland1988sensitivity}
+\citation{greenland1988variance,morrissey1999matrix}
+\citation{magder1997uncertainty,neuhaus1999bias}
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.1}Motivation: Illustration of OR blow-up and SHAP mis-attribution}{3}{subsection.1.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Inflation of odds ratios under differential misclassification.}{3}{section*.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Mis-ranking in post hoc attribution.}{3}{section*.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {2}Methods}{4}{section.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.1}$\textrm  {$\lambda $-OR}$ Formulation}{4}{subsection.2.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Tail selection and proxy labels.}{4}{section*.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Selection-conditional error rates.}{4}{section*.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Assumption A (Non-differential misclassification conditional on selection).}{5}{section*.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Interpretation of Assumption A.}{5}{section*.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.2}Ill-posed Inversion and the Need for Regularization}{5}{subsection.2.2}\protected@file@percent }
+\citation{tikhonov1963regularization}
+\citation{firth1993bias}
+\@writefile{toc}{\contentsline {paragraph}{Why regularization is required.}{6}{section*.8}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Ridge as regularized inversion.}{6}{section*.9}\protected@file@percent }
+\newlabel{eq:ridge_cell1_simple}{{13}{6}{Ridge as regularized inversion}{equation.2.13}{}}
+\newlabel{eq:ridge_cell0_simple}{{14}{6}{Ridge as regularized inversion}{equation.2.14}{}}
+\@writefile{toc}{\contentsline {paragraph}{Relation to Firth correction.}{6}{section*.10}\protected@file@percent }
+\citation{vanderVaart1998Asymptotic,oehlert1992delta}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.3}$\textrm  {$\lambda $-OR}$ Variance Estimation}{7}{subsection.2.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.4}Optimal selection of thresholds for estimating $\textrm  {$\lambda $-OR}$}{8}{subsection.2.4}\protected@file@percent }
+\newlabel{lemsel}{{1}{8}{Limiting selection}{lem.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.5}Corollary (Bias–variance trade-off and interior optimum)}{9}{subsection.2.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.6}Practical rule}{9}{subsection.2.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {3}Theoretical Guarantees}{9}{section.3}\protected@file@percent }
+\newlabel{eqcalib}{{30}{9}{Theoretical Guarantees}{equation.3.30}{}}
+\newlabel{lem:prevalence-gap}{{1}{10}{Extreme–strata prevalence gap}{theorem.1}{}}
+\newlabel{thm:SPOR_collapse_J}{{2}{10}{Stratification OR collapse as $J \to 0$}{theorem.2}{}}
+\newlabel{thm:inherit_collapse}{{3}{11}{Estimator targets the stratification OR and inherits collapse}{theorem.3}{}}
+\citation{Lundberg2017Unified}
+\citation{Lundberg2017Unified,Choi2016RETAIN}
+\newlabel{cor:auc_collapse}{{4}{12}{Lipschitz ROC implies collapse as AUC $\to 0.5$}{theorem.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Comparison against SHAP analysis}{13}{subsection.3.1}\protected@file@percent }
+\newlabel{SHAP-MA}{{47}{13}{Comparison against SHAP analysis}{equation.3.47}{}}
+\@writefile{toc}{\contentsline {paragraph}{Linear Gaussian special case.}{13}{section*.11}\protected@file@percent }
+\newlabel{SHAP-MA-Lin}{{48}{13}{Linear Gaussian special case}{equation.3.48}{}}
+\newlabel{lem:shap_lin_gauss}{{5}{13}{Mean-absolute SHAP under a linear Gaussian model}{theorem.5}{}}
+\newlabel{lem:minimal}{{6}{13}{Minimal inflation under differential error}{theorem.6}{}}
+\newlabel{corshap}{{7}{14}{Odds-ratio blow-up with tiny row difference}{theorem.7}{}}
+\newlabel{cor:shap_misrank}{{8}{14}{SHAP mis-ranking under heterogeneous feature variance}{theorem.8}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {4}Simulation Study}{14}{section.4}\protected@file@percent }
+\newlabel{sec:sim}{{4}{14}{Simulation Study}{section.4}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Finite-sample performance under two outcome-misclassification regimes. Top row (panels a--d): specificity degradation with fixed \(p_{\mathrm  {sel}}=0.95\) and varying false positive rate \(1-q_{\mathrm  {sel}}\). Bottom row (panels e--h): symmetric degradation with \(p_{\mathrm  {sel}}=q_{\mathrm  {sel}}\) and varying common misclassification rate \(m=1-p_{\mathrm  {sel}}=1-q_{\mathrm  {sel}}\). Panels (a,e) show bias, (b,f) RMSE, and (c,g) nominal 95\% Wald coverage for naive log-OR and \(\log (\lambda \text  {-OR})\). Panels (d,h) show the conditioning diagnostic \(\det (K)=p_{\mathrm  {sel}}+q_{\mathrm  {sel}}-1\).}}{15}{figure.1}\protected@file@percent }
+\newlabel{fig:spor_eight_panel}{{1}{15}{Finite-sample performance under two outcome-misclassification regimes. Top row (panels a--d): specificity degradation with fixed \(p_{\mathrm {sel}}=0.95\) and varying false positive rate \(1-q_{\mathrm {sel}}\). Bottom row (panels e--h): symmetric degradation with \(p_{\mathrm {sel}}=q_{\mathrm {sel}}\) and varying common misclassification rate \(m=1-p_{\mathrm {sel}}=1-q_{\mathrm {sel}}\). Panels (a,e) show bias, (b,f) RMSE, and (c,g) nominal 95\% Wald coverage for naive log-OR and \(\log (\lambda \text {-OR})\). Panels (d,h) show the conditioning diagnostic \(\det (K)=p_{\mathrm {sel}}+q_{\mathrm {sel}}-1\)}{figure.1}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces \textbf  {Simulation sweeps across misclassification, effect size, and sample size.} Finite-sample performance of the naive log-odds ratio computed from the misclassified outcome table (OR; gray) and the corrected estimator \(\textrm  {$\lambda $-OR}\) (red) obtained via ridge-stabilized inversion (Algorithm\nobreakspace  {}\ref {algo}). Each violin summarizes the distribution of bias, RMSE, or nominal 95\% Wald coverage (log scale) across \(R=250\) Monte Carlo replicates evaluated over randomly sampled combinations of simulation parameters drawn from predefined grids. Panels correspond to subsets of this grid emphasizing variation in the false negative rate \(1-p_{\mathrm  {sel}}\) (a,b), the false positive rate \(1-q_{\mathrm  {sel}}\) (c,d,i), the true log-odds effect \(\theta =\log (\mathrm  {OR})\) (e,f,g), and the sample size \(n\) (h). Across sampled regimes the naive estimator exhibits systematic attenuation and rapid coverage collapse under outcome misclassification, whereas \(\textrm  {$\lambda $-OR}\) remains substantially unbiased. Parameter grids and constants are listed in Tables\nobreakspace  {}\ref {tab:sim_params} and\nobreakspace  {}\ref {tab:sim_sweep_grids}.}}{16}{figure.2}\protected@file@percent }
+\newlabel{fig:sim_sweep_grid}{{2}{16}{\textbf {Simulation sweeps across misclassification, effect size, and sample size.} Finite-sample performance of the naive log-odds ratio computed from the misclassified outcome table (OR; gray) and the corrected estimator \(\SPOR \) (red) obtained via ridge-stabilized inversion (Algorithm~\ref {algo}). Each violin summarizes the distribution of bias, RMSE, or nominal 95\% Wald coverage (log scale) across \(R=250\) Monte Carlo replicates evaluated over randomly sampled combinations of simulation parameters drawn from predefined grids. Panels correspond to subsets of this grid emphasizing variation in the false negative rate \(1-p_{\mathrm {sel}}\) (a,b), the false positive rate \(1-q_{\mathrm {sel}}\) (c,d,i), the true log-odds effect \(\theta =\log (\mathrm {OR})\) (e,f,g), and the sample size \(n\) (h). Across sampled regimes the naive estimator exhibits systematic attenuation and rapid coverage collapse under outcome misclassification, whereas \(\SPOR \) remains substantially unbiased. Parameter grids and constants are listed in Tables~\ref {tab:sim_params} and~\ref {tab:sim_sweep_grids}}{figure.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Simulation analogue of the attribution volcano plots}{17}{subsection.4.1}\protected@file@percent }
+\newlabel{sec:sim-volcano}{{4.1}{17}{Simulation analogue of the attribution volcano plots}{subsection.4.1}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces }}{18}{figure.3}\protected@file@percent }
+\newlabel{figsim2}{{3}{18}{}{figure.3}{}}
+\@writefile{toc}{\contentsline {paragraph}{Simulation design.}{18}{section*.12}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Simulation results illustrating variation of FDR, true positives and false psitives with sample size}}{19}{figure.4}\protected@file@percent }
+\newlabel{figsim3}{{4}{19}{Simulation results illustrating variation of FDR, true positives and false psitives with sample size}{figure.4}{}}
+\@writefile{toc}{\contentsline {paragraph}{Cohort-size sweep.}{20}{section*.13}\protected@file@percent }
+\citation{ASDzed,IPFzed,ADRDzed}
+\citation{HYPERPARATHYROIDISMmathur2022}
+\citation{SEPSISzeng2024}
+\citation{CKDkelly2022}
+\citation{HYPERTENSIONcarey2023}
+\citation{ATRIALFIBRpapanastasiou2021}
+\citation{CEREBROVASCULARlove2016}
+\citation{ATHEROSCLEROSISnordestgaard2022}
+\citation{TBIgu2022}
+\citation{DEPRESSIONsaiz2021}
+\citation{HEARINGlitke2021}
+\citation{SLEEPchoe2022}
+\citation{T2DMathanasaki2022}
+\citation{COPDwang2022}
+\citation{HYPERLIPIDEMIAezkurdia2023}
+\citation{OBESITYbeydoun2008}
+\citation{CATARACTjun2012}
+\@writefile{toc}{\contentsline {section}{\numberline {5}Application to Large EHR Databases}{21}{section.5}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces \textbf  { Comparison of attribution methods (OR, mean SHAP, $\textrm  {$\lambda $-OR}$) applied to comorbidity profiles for IPF, ASD, and ADRD.} Each point is an ICD code (effect size on x; significance on y). OR and SHAP display pervasive significance and many spuriously ``protective'' codes due to label noise and large-n artifacts; $\textrm  {$\lambda $-OR}$ collapses this inflated cloud (Theorem\nobreakspace  {}S1), moderating significance and highlighting biologically credible modulators. Data: Merative Marketscan; $\textrm  {$\lambda $-OR}$ based on reported ZeBRA\xspace  models\nobreakspace  {}\cite  {ASDzed,IPFzed,ADRDzed}. Selection thresholds chosen at 97\% specificity (cases) and 75\% sensitivity. }}{22}{figure.5}\protected@file@percent }
+\newlabel{figvolcano}{{5}{22}{\textbf { Comparison of attribution methods (OR, mean SHAP, $\SPOR $) applied to comorbidity profiles for IPF, ASD, and ADRD.} Each point is an ICD code (effect size on x; significance on y). OR and SHAP display pervasive significance and many spuriously ``protective'' codes due to label noise and large-n artifacts; $\SPOR $ collapses this inflated cloud (Theorem~S1), moderating significance and highlighting biologically credible modulators. Data: Merative Marketscan; $\SPOR $ based on reported \zcor models~\cite {ASDzed,IPFzed,ADRDzed}. Selection thresholds chosen at 97\% specificity (cases) and 75\% sensitivity}{figure.5}{}}
+\citation{zarate2017role,Georgakis2016}
+\@writefile{toc}{\contentsline {section}{\numberline {6}Declarations}{23}{section.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.1}Consent for publication}{23}{subsection.6.1}\protected@file@percent }
+\bibstyle{biometrika}
+\bibdata{spor,ad,adrd_risk_factors,zed}
+\bibcite{halpern2016electronic}{{1}{2016}{{Halpern et~al.}}{{}}}
+\bibcite{ASDzed}{{2}{2021}{{Onishchenko et~al.}}{{}}}
+\bibcite{IPFzed}{{3}{2022a}{{Onishchenko et~al.}}{{}}}
+\bibcite{JAHAzed}{{4}{2022b}{{Onishchenko et~al.}}{{}}}
+\bibcite{ADRDzed}{{5}{2021}{{Onishchenko et~al.}}{{}}}
+\bibcite{choi2016retain}{{6}{2016}{{Choi et~al.}}{{}}}
+\bibcite{greenland1988sensitivity}{{7}{1996}{{GREENLAND}}{{}}}
+\bibcite{lundberg17shap}{{8}{2017}{{Lundberg and Lee}}{{}}}
+\bibcite{Ribeiro2016WhyTrust}{{9}{2016}{{Ribeiro et~al.}}{{}}}
+\bibcite{slack2020fooling}{{10}{2020}{{Slack et~al.}}{{}}}
+\bibcite{copeland1977misclassification}{{11}{1977}{{Copeland et~al.}}{{}}}
+\bibcite{greenland1988variance}{{12}{1988}{{Greenland}}{{}}}
+\bibcite{morrissey1999matrix}{{13}{1999}{{Morrissey and Spiegelman}}{{}}}
+\bibcite{magder1997uncertainty}{{14}{1997}{{Magder and Hughes}}{{}}}
+\bibcite{neuhaus1999bias}{{15}{1999}{{Neuhaus}}{{}}}
+\bibcite{tikhonov1963regularization}{{16}{1963}{{Tikhonov}}{{}}}
+\bibcite{firth1993bias}{{17}{1993}{{Firth}}{{}}}
+\bibcite{vanderVaart1998Asymptotic}{{18}{1998}{{van~der Vaart}}{{}}}
+\bibcite{oehlert1992delta}{{19}{1992}{{Oehlert}}{{}}}
+\bibcite{HYPERPARATHYROIDISMmathur2022}{{20}{2022}{{Mathur et~al.}}{{}}}
+\bibcite{SEPSISzeng2024}{{21}{2024}{{Zeng et~al.}}{{}}}
+\bibcite{CKDkelly2022}{{22}{2022}{{Kelly and Rothwell}}{{}}}
+\bibcite{HYPERTENSIONcarey2023}{{23}{2023}{{Carey and Fossati}}{{}}}
+\bibcite{ATRIALFIBRpapanastasiou2021}{{24}{2021}{{Papanastasiou et~al.}}{{}}}
+\bibcite{CEREBROVASCULARlove2016}{{25}{2016}{{Love and Miners}}{{}}}
+\bibcite{ATHEROSCLEROSISnordestgaard2022}{{26}{2022}{{Nordestgaard et~al.}}{{}}}
+\bibcite{TBIgu2022}{{27}{2022}{{Gu et~al.}}{{}}}
+\bibcite{DEPRESSIONsaiz2021}{{28}{2021}{{S{\'a}iz-V{\'a}zquez et~al.}}{{}}}
+\bibcite{HEARINGlitke2021}{{29}{2021}{{Litke et~al.}}{{}}}
+\bibcite{SLEEPchoe2022}{{30}{2022}{{Choe et~al.}}{{}}}
+\bibcite{T2DMathanasaki2022}{{31}{2022}{{Athanasaki et~al.}}{{}}}
+\bibcite{COPDwang2022}{{32}{2022}{{Wang et~al.}}{{}}}
+\bibcite{HYPERLIPIDEMIAezkurdia2023}{{33}{2023}{{Ezkurdia et~al.}}{{}}}
+\bibcite{OBESITYbeydoun2008}{{34}{2008}{{Beydoun et~al.}}{{}}}
+\bibcite{CATARACTjun2012}{{35}{2012}{{Jun et~al.}}{{}}}
+\bibcite{zarate2017role}{{36}{2017}{{Z{\'a}rate et~al.}}{{}}}
+\bibcite{Georgakis2016}{{37}{2016}{{Georgakis et~al.}}{{}}}
+\@writefile{toc}{\contentsline {section}{\numberline {Appendix 1.}Delta-method variance propagation for $\log \textrm  {$\lambda $-OR}^{(\lambda )}$}{28}{appendix.A}\protected@file@percent }
+\newlabel{app:variance}{{Appendix 1.}{28}{Delta-method variance propagation for $\logor ^{(\lambda )}$}{appendix.A}{}}
+\@writefile{loa}{\contentsline {algocf}{\numberline {1}{\ignorespaces $\textrm  {$\lambda $-OR}$ Estimation with p-value}}{31}{algocf.1}\protected@file@percent }
+\newlabel{algo}{{1}{31}{Interpretation of Assumption A}{algocf.1}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Fraction of significant \& protective codes for tested approaches}}{32}{table.1}\protected@file@percent }
+\newlabel{tabfrac}{{1}{32}{Fraction of significant \& protective codes for tested approaches}{table.1}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Fully specified simulation parameters and numerical safeguards used in Section\nobreakspace  {}\ref {sec:sim}.}}{32}{table.2}\protected@file@percent }
+\newlabel{tab:sim_params}{{2}{32}{Fully specified simulation parameters and numerical safeguards used in Section~\ref {sec:sim}}{table.2}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Additional sweep grids used in Figure\nobreakspace  {}\ref {fig:sim_sweep_grid}. All other constants and safeguards are as in Table\nobreakspace  {}\ref {tab:sim_params}.}}{33}{table.3}\protected@file@percent }
+\newlabel{tab:sim_sweep_grids}{{3}{33}{Additional sweep grids used in Figure~\ref {fig:sim_sweep_grid}. All other constants and safeguards are as in Table~\ref {tab:sim_params}}{table.3}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces Parameters used in the volcano simulation shown in Fig.\nobreakspace  {}\ref {figsim2}.}}{33}{table.4}\protected@file@percent }
+\newlabel{tab:sim-volcano-params}{{4}{33}{Parameters used in the volcano simulation shown in Fig.~\ref {figsim2}}{table.4}{}}
+\gdef \@abspage@last{33}

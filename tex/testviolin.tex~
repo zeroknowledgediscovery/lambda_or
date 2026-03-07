@@ -1,0 +1,56 @@
+\documentclass[tikz,border=5pt]{standalone}
+
+\usepackage{pgfplots}
+\usepgfplotslibrary{statistics}
+\pgfplotsset{compat=1.18}
+
+\definecolor{mygrey}{RGB}{150,150,150}
+\definecolor{mygreen}{RGB}{76,175,80}
+
+\begin{document}
+
+\begin{tikzpicture}
+
+\begin{axis}[
+    ylabel={bias\_mean},
+    xtick={1,2},
+    xticklabels={$e_p=1$, $e_p=2$},
+    width=10cm,
+    height=6cm,
+]
+
+% grey violin
+\addplot+[
+    violin,
+    fill=mygrey,
+    draw=mygrey,
+] table[row sep=\\,y index=0] {
+0.12\\
+0.15\\
+0.14\\
+0.10\\
+0.11\\
+0.16\\
+0.13\\
+};
+
+% green violin
+\addplot+[
+    violin,
+    fill=mygreen,
+    draw=mygreen,
+] table[row sep=\\,y index=0] {
+0.18\\
+0.20\\
+0.19\\
+0.17\\
+0.21\\
+0.22\\
+0.20\\
+};
+
+\end{axis}
+
+\end{tikzpicture}
+
+\end{document}

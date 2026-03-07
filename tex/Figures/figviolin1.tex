@@ -1,0 +1,52 @@
+\tikzsetnextfilename{figviolin1}
+\begin{tikzpicture}[font=\bf\sffamily\fontsize{9}{9}\selectfont]
+
+\definecolor{COLVA}{RGB}{150,150,150} % grey
+\definecolor{COLVB}{RGB}{76,175,80}   % green
+
+% IMPORTANT: keep this option list macro-free and color-mix-free
+\violinsetoptions[averages,scaled,every axis plot/.append style={line width=8pt}]{%
+  lightgray,ultra thick,
+  axis on top=false,
+  major tick length=0pt,
+  minor tick length=0pt,
+  axis line style={lightgray,thick},
+  grid=both,
+  minor tick num=2,
+  major grid style={opacity=.35,thick,lightgray},
+  minor grid style={opacity=.30,thin},
+  xmin=0.25,xmax=5.75,
+  ymin=-0.25,ymax=0.25,
+  xlabel style={yshift=-.2in},
+  ylabel style={yshift=-.2in},
+  ymajorgrids=true,
+  ylabel={bias\_mean}%
+}
+
+\pgfplotsset{every axis plot/.append style={line width=1pt,draw opacity=.15}}
+\pgfplotsset{every axis/.append style={xticklabel style={rotate=30,anchor=east,xshift=.1in,yshift=-.1in}}}
+
+\def\FILEA{Figures/A_wide.dat}
+\def\FILEB{Figures/B_wide.dat}
+
+% Use explicit numeric offsets (avoids expression parsing issues in some setups)
+% left positions: 0.82, 1.82, 2.82, 3.82, 4.82
+% right positions: 1.18, 2.18, 3.18, 4.18, 5.18
+
+\violinplot[index=A,label={0.01},relative position=0.82,col sep=comma,color=COLVA]{\FILEA}
+\violinplot[index=A,label={},    relative position=1.18,col sep=comma,color=COLVB]{\FILEB}
+
+\violinplot[index=B,label={0.04},relative position=1.82,col sep=comma,color=COLVA]{\FILEA}
+\violinplot[index=B,label={},    relative position=2.18,col sep=comma,color=COLVB]{\FILEB}
+
+\violinplot[index=C,label={0.07},relative position=2.82,col sep=comma,color=COLVA]{\FILEA}
+\violinplot[index=C,label={},    relative position=3.18,col sep=comma,color=COLVB]{\FILEB}
+
+\violinplot[index=D,label={0.10},relative position=3.82,col sep=comma,color=COLVA]{\FILEA}
+\violinplot[index=D,label={},    relative position=4.18,col sep=comma,color=COLVB]{\FILEB}
+
+\violinplot[index=E,label={0.15},relative position=4.82,col sep=comma,color=COLVA]{\FILEA}
+\violinplot[index=E,label={},    relative position=5.18,col sep=comma,color=COLVB]{\FILEB}
+
+\end{tikzpicture}
+ 
