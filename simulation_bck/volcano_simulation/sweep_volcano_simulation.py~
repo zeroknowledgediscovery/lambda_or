@@ -1,0 +1,303 @@
+#!/usr/bin/env python3
+import argparse
+import csv
+import os
+import re
+import subprocess
+import sys
+from pathlib import Path
+
+import matplotlib.pyplot as plt
+import pandas as pd
+
+
+NAIVE_RE = re.compile(
+    r"Naive OR FDR=([0-9eE+\-.]+)\s+\(discoveries=(\d+), TP=(\d+), FP=(\d+)\)"
+)
+LAMBDA_RE = re.compile(
+    r"Lambda-style FDR=([0-9eE+\-.]+)\s+\(discoveries=(\d+), TP=(\d+), FP=(\d+)\)"
+)
+VAR_RE = re.compile(
+    r"var_extra=([0-9eE+\-.]+)\s+\(SE floor=([0-9eE+\-.]+)\),\s+eps=([0-9eE+\-.]+),\s+n_val=(\d+)"
+)
+
+
+def parse_args():
+    ap = argparse.ArgumentParser(
+        description=(
+            "Sweep volcano_simulation_nulls.py over a range of n_case values, "
+            "set n_ctrl=n_case, collect FDR/discovery metrics into CSV, and "
+            "generate performance plots."
+        )
+    )
+    ap.add_argument(
+        "--sim_script",
+        type=str,
+        default="./volcano_simulation_nulls.py",
+        help="Path to volcano_simulation_nulls.py",
+    )
+    ap.add_argument(
+        "--out_dir",
+        type=str,
+        default="ncase_sweep",
+        help="Directory to write run outputs, summary CSV, and plots",
+    )
+    ap.add_argument(
+        "--n_cases",
+        type=int,
+        nargs="+",
+        default=[100, 250, 500, 1000, 2500, 5000, 10000, 25000, 50000, 100000, 1000000],
+        help="Grid of n_case values. n_ctrl is set equal to each n_case",
+    )
+
+    # Fixed parameters for each run
+    ap.add_argument("--seed", type=int, default=3)
+    ap.add_argument("--m", type=int, default=20000)
+    ap.add_argument("--null_frac", type=float, default=0.8)
+    ap.add_argument("--beta_mean", type=float, default=0.06)
+    ap.add_argument("--beta_sd", type=float, default=0.03)
+    ap.add_argument("--eps", type=float, default=0.8)
+    ap.add_argument("--n_val", type=int, default=1000)
+    ap.add_argument("--var_extra_scale", type=float, default=1.0)
+
+    # Optional passthroughs if you want to override script defaults explicitly
+    ap.add_argument("--prev0_mean", type=float, default=None)
+    ap.add_argument("--prev_sd", type=float, default=None)
+    ap.add_argument("--xlim", type=float, default=None)
+
+    return ap.parse_args()
+
+
+def run_one(sim_script, run_dir, args, n_case):
+    run_dir.mkdir(parents=True, exist_ok=True)
+    log_path = run_dir / "stdout.log"
+
+    cmd = [
+        sys.executable,
+        sim_script,
+        "--out_dir", str(run_dir),
+        "--seed", str(args.seed),
+        "--m", str(args.m),
+        "--null_frac", str(args.null_frac),
+        "--n_case", str(n_case),
+        "--n_ctrl", str(n_case*100),
+        "--beta_mean", str(args.beta_mean),
+        "--beta_sd", str(args.beta_sd),
+        "--eps", str(args.eps),
+        "--n_val", str(args.n_val),
+        "--var_extra_scale", str(args.var_extra_scale),
+    ]
+
+    if args.prev0_mean is not None:
+        cmd.extend(["--prev0_mean", str(args.prev0_mean)])
+    if args.prev_sd is not None:
+        cmd.extend(["--prev_sd", str(args.prev_sd)])
+    if args.xlim is not None:
+        cmd.extend(["--xlim", str(args.xlim)])
+
+    proc = subprocess.run(
+        cmd,
+        capture_output=True,
+        text=True,
+        check=True,
+    )
+
+    stdout = proc.stdout
+    stderr = proc.stderr
+
+    with open(log_path, "w", encoding="utf-8") as fh:
+        fh.write(stdout)
+        if stderr:
+            fh.write("\n[stderr]\n")
+            fh.write(stderr)
+
+    m_var = VAR_RE.search(stdout)
+    m_naive = NAIVE_RE.search(stdout)
+    m_lambda = LAMBDA_RE.search(stdout)
+
+    if not (m_var and m_naive and m_lambda):
+        raise RuntimeError(
+            f"Could not parse expected metrics for n_case={n_case}.\n"
+            f"See log: {log_path}\n\n"
+            f"Captured stdout:\n{stdout}"
+        )
+
+    row = {
+        "n_case": n_case,
+        "n_ctrl": n_case,
+        "seed": args.seed,
+        "m": args.m,
+        "null_frac": args.null_frac,
+        "beta_mean": args.beta_mean,
+        "beta_sd": args.beta_sd,
+        "eps": float(m_var.group(3)),
+        "n_val": int(m_var.group(4)),
+        "var_extra_scale": args.var_extra_scale,
+        "var_extra": float(m_var.group(1)),
+        "se_floor": float(m_var.group(2)),
+        "naive_fdr": float(m_naive.group(1)),
+        "naive_discoveries": int(m_naive.group(2)),
+        "naive_tp": int(m_naive.group(3)),
+        "naive_fp": int(m_naive.group(4)),
+        "lambda_fdr": float(m_lambda.group(1)),
+        "lambda_discoveries": int(m_lambda.group(2)),
+        "lambda_tp": int(m_lambda.group(3)),
+        "lambda_fp": int(m_lambda.group(4)),
+        "run_dir": str(run_dir),
+    }
+
+    print(
+        f"n_case={n_case}: "
+        f"naive_fdr={row['naive_fdr']:.4f}, lambda_fdr={row['lambda_fdr']:.4f}, "
+        f"naive_disc={row['naive_discoveries']}, lambda_disc={row['lambda_discoveries']}"
+    )
+    return row
+
+
+def plot_metric(df, xcol, y1, y2, ylabel, title, out_path):
+    plt.figure(figsize=(7.2, 5.2))
+    plt.plot(df[xcol], df[y1], marker="o", linewidth=2, label="Naive OR")
+    plt.plot(df[xcol], df[y2], marker="o", linewidth=2, label="Lambda-OR")
+    plt.xscale("log")
+    plt.xlabel(r"$n_{\mathrm{case}} = 0.01\times n_{\mathrm{ctrl}}$")
+    plt.ylabel(ylabel)
+    plt.title(title)
+    plt.grid(True, alpha=0.25)
+    plt.legend(frameon=False)
+    plt.tight_layout()
+    plt.savefig(out_path, dpi=220)
+    plt.close()
+
+
+def make_plots(df, out_dir):
+    plot_metric(
+        df, "n_case",
+        "naive_fdr", "lambda_fdr",
+        "False discovery rate",
+        "FDR versus cohort size",
+        out_dir / "fdr_vs_ncase.png",
+    )
+    plot_metric(
+        df, "n_case",
+        "naive_discoveries", "lambda_discoveries",
+        "Number of discoveries",
+        "Discoveries versus cohort size",
+        out_dir / "discoveries_vs_ncase.png",
+    )
+    plot_metric(
+        df, "n_case",
+        "naive_tp", "lambda_tp",
+        "True positives",
+        "True positives versus cohort size",
+        out_dir / "tp_vs_ncase.png",
+    )
+    plot_metric(
+        df, "n_case",
+        "naive_fp", "lambda_fp",
+        "False positives",
+        "False positives versus cohort size",
+        out_dir / "fp_vs_ncase.png",
+    )
+
+    # Combined panel for manuscript-style quick inspection
+    fig, axes = plt.subplots(2, 2, figsize=(11, 8.5))
+    axes = axes.ravel()
+
+    panels = [
+        ("naive_fdr", "lambda_fdr", "False discovery rate", "FDR"),
+        ("naive_discoveries", "lambda_discoveries", "Number of discoveries", "Discoveries"),
+        ("naive_tp", "lambda_tp", "True positives", "True positives"),
+        ("naive_fp", "lambda_fp", "False positives", "False positives"),
+    ]
+
+    for ax, (y1, y2, ylabel, title) in zip(axes, panels):
+        ax.plot(df["n_case"], df[y1], marker="o", linewidth=2, label="Naive OR")
+        ax.plot(df["n_case"], df[y2], marker="o", linewidth=2, label="Lambda-OR")
+        ax.set_xscale("log")
+        ax.set_xlabel(r"$n_{\mathrm{case}} = 0.01 \times n_{\mathrm{ctrl}}$")
+        ax.set_ylabel(ylabel)
+        ax.set_title(title)
+        ax.grid(True, alpha=0.25)
+
+    axes[0].legend(frameon=False)
+    fig.tight_layout()
+    fig.savefig(out_dir / "performance_summary_vs_ncase.png", dpi=220)
+    plt.close(fig)
+
+
+def write_command_recap(args, out_dir):
+    txt = [
+        "Sweep configuration",
+        "",
+        f"Simulation script: {args.sim_script}",
+        f"Output directory: {out_dir}",
+        "",
+        "Fixed per-run parameters:",
+        f"  seed={args.seed}",
+        f"  m={args.m}",
+        f"  null_frac={args.null_frac}",
+        f"  beta_mean={args.beta_mean}",
+        f"  beta_sd={args.beta_sd}",
+        f"  eps={args.eps}",
+        f"  n_val={args.n_val}",
+        f"  var_extra_scale={args.var_extra_scale}",
+    ]
+    if args.prev0_mean is not None:
+        txt.append(f"  prev0_mean={args.prev0_mean}")
+    if args.prev_sd is not None:
+        txt.append(f"  prev_sd={args.prev_sd}")
+    if args.xlim is not None:
+        txt.append(f"  xlim={args.xlim}")
+
+    txt.extend([
+        "",
+        "n_case grid:",
+        "  " + " ".join(str(x) for x in args.n_cases),
+        "",
+        "Example per-run command template:",
+        (
+            f"{sys.executable} {args.sim_script} "
+            f"--out_dir <run_dir> "
+            f"--seed {args.seed} "
+            f"--m {args.m} "
+            f"--null_frac {args.null_frac} "
+            f"--n_case <N> "
+            f"--n_ctrl <N> "
+            f"--beta_mean {args.beta_mean} "
+            f"--beta_sd {args.beta_sd} "
+            f"--eps {args.eps} "
+            f"--n_val {args.n_val} "
+            f"--var_extra_scale {args.var_extra_scale}"
+        ),
+        "",
+    ])
+
+    with open(out_dir / "sweep_metadata.txt", "w", encoding="utf-8") as fh:
+        fh.write("\n".join(txt))
+
+
+def main():
+    args = parse_args()
+    sim_script = os.path.abspath(args.sim_script)
+    out_dir = Path(args.out_dir)
+    out_dir.mkdir(parents=True, exist_ok=True)
+
+    rows = []
+    for n_case in args.n_cases:
+        run_dir = out_dir / f"n_{n_case}"
+        row = run_one(sim_script, run_dir, args, n_case)
+        rows.append(row)
+
+    df = pd.DataFrame(rows).sort_values("n_case").reset_index(drop=True)
+    csv_path = out_dir / "sweep_summary.csv"
+    df.to_csv(csv_path, index=False, quoting=csv.QUOTE_MINIMAL)
+
+    make_plots(df, out_dir)
+    write_command_recap(args, out_dir)
+
+    print(f"\nWrote summary CSV: {csv_path}")
+    print(f"Wrote plots to: {out_dir}")
+
+
+if __name__ == "__main__":
+    main()

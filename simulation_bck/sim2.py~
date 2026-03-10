@@ -1,0 +1,284 @@
+#!/usr/bin/env python3
+"""
+Goal: make the *naive* volcano plot look "non-volcano-like" (mostly a tall vertical cloud near logOR≈0)
+by combining:
+  (i) very large n (so SE collapses and p-values become tiny),
+  (ii) weak true effects,
+  (iii) outcome misclassification that attenuates observed OR toward 1.
+
+Then compute a simple lambda-corrected OR (ridge-stabilized inversion) and show that the lambda volcano
+re-expands the x-axis into a more standard volcano shape.
+
+This script:
+  - Simulates binary exposures X_j, with a subset being weak signals.
+  - Generates a true outcome Y from a logistic model with a small linear predictor.
+  - Applies misclassification to Y globally (no selection; this is the "shape demo").
+  - Computes per-feature log(OR) and analytic Wald p-values for:
+      * naive: using misclassified outcome Ytil
+      * lambda: ridge inverse correction using known (p,q)
+  - Saves volcano plots and a CSV.
+
+Defaults are chosen to produce the "vertical cloud" naive volcano and a more spread lambda volcano.
+"""
+
+import os
+import argparse
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from scipy.special import expit
+from scipy.stats import norm
+
+
+def ensure_dir(d: str) -> None:
+    os.makedirs(d, exist_ok=True)
+
+
+def apply_misclassification(y: np.ndarray, p: float, q: float, rng: np.random.Generator) -> np.ndarray:
+    """
+    Misclassification of outcome:
+      P(Ytil=1|Y=1)=p  (sensitivity)
+      P(Ytil=0|Y=0)=q  (specificity)
+    """
+    y = y.astype(int)
+    u = rng.random(y.shape[0])
+    ytil = y.copy()
+
+    m1 = (y == 1)
+    ytil[m1] = (u[m1] <= p).astype(int)
+
+    m0 = (y == 0)
+    ytil[m0] = (u[m0] > q).astype(int)
+    return ytil
+
+
+def compute_2x2_counts(x: np.ndarray, y: np.ndarray):
+    """
+    a = n(X=1,Y=1)
+    b = n(X=1,Y=0)
+    c = n(X=0,Y=1)
+    d = n(X=0,Y=0)
+    """
+    x = x.astype(int)
+    y = y.astype(int)
+    a = int(np.sum((x == 1) & (y == 1)))
+    b = int(np.sum((x == 1) & (y == 0)))
+    c = int(np.sum((x == 0) & (y == 1)))
+    d = int(np.sum((x == 0) & (y == 0)))
+    return a, b, c, d
+
+
+def log_or_and_p_wald(a: float, b: float, c: float, d: float, ha: float = 0.5):
+    """
+    Wald test on log OR with Haldane-Anscombe correction.
+    """
+    a2, b2, c2, d2 = a + ha, b + ha, c + ha, d + ha
+    logor = float(np.log((a2 * d2) / (b2 * c2)))
+    se = float(np.sqrt(1.0 / a2 + 1.0 / b2 + 1.0 / c2 + 1.0 / d2))
+    if not np.isfinite(se) or se <= 0:
+        return logor, np.nan, np.nan
+    z = logor / se
+    p = float(2.0 * norm.sf(abs(z)))
+    return logor, se, p
+
+
+def correction_matrix(p: float, q: float) -> np.ndarray:
+    """
+    For outcome axis [Y=0, Y=1]^T:
+      [obs0]   [ q      (1-p) ] [true0]
+      [obs1] = [ (1-q)   p    ] [true1]
+    """
+    return np.array([[q, 1.0 - p],
+                     [1.0 - q, p]], dtype=float)
+
+
+def lambda_corrected_counts_for_xlevel(obs0: float, obs1: float, p: float, q: float, lam: float):
+    """
+    Given observed counts for a fixed X level:
+      obs0 = n(Ytil=0), obs1 = n(Ytil=1)
+    Return corrected (true) counts [true0, true1] via (K+lam I)^{-1}.
+    """
+    K = correction_matrix(p, q)
+    inv = np.linalg.inv(K + lam * np.eye(2))
+    tru = inv @ np.array([obs0, obs1], dtype=float)
+    tru = np.clip(tru, 1e-6, None)
+    return float(tru[0]), float(tru[1])
+
+
+def lambda_log_or_and_p_wald(x: np.ndarray, ytil: np.ndarray, p: float, q: float, lam: float):
+    """
+    Build observed 2x2 table from (x, ytil), correct outcome counts separately within X=0 and X=1,
+    compute log OR on corrected counts, then a plug-in Wald p-value using corrected counts.
+
+    Note: This SE is a simple plug-in for shape demonstration (fast, scales to large n).
+    """
+    a, b, c, d = compute_2x2_counts(x, ytil)
+    # Observed by X level:
+    # X=1: obs0=b, obs1=a
+    # X=0: obs0=d, obs1=c
+    x1_true0, x1_true1 = lambda_corrected_counts_for_xlevel(b, a, p, q, lam)
+    x0_true0, x0_true1 = lambda_corrected_counts_for_xlevel(d, c, p, q, lam)
+
+    # corrected "a,b,c,d" in same layout as OR formula:
+    a2 = x1_true1
+    b2 = x1_true0
+    c2 = x0_true1
+    d2 = x0_true0
+
+    logor = float(np.log((a2 * d2) / (b2 * c2)))
+    se = float(np.sqrt(1.0 / a2 + 1.0 / b2 + 1.0 / c2 + 1.0 / d2))
+    if not np.isfinite(se) or se <= 0:
+        return logor, np.nan, np.nan
+    z = logor / se
+    pval = float(2.0 * norm.sf(abs(z)))
+    return logor, se, pval
+
+
+def volcano(x: np.ndarray, p: np.ndarray, is_signal: np.ndarray, title: str, out_png: str):
+    y = -np.log10(np.clip(p, 1e-300, 1.0))
+    plt.figure(figsize=(9, 7))
+    plt.scatter(x[~is_signal], y[~is_signal], s=10, alpha=0.6)
+    plt.scatter(x[is_signal], y[is_signal], s=16, alpha=0.9)
+    plt.axvline(0.0, linestyle=":", linewidth=1.0)
+    plt.axhline(-np.log10(0.05), linestyle="--", linewidth=1.0)
+    plt.xlabel("log(OR)")
+    plt.ylabel("-log10(p)")
+    plt.title(title)
+    plt.tight_layout()
+    plt.savefig(out_png, dpi=200)
+    plt.close()
+
+
+def main():
+    ap = argparse.ArgumentParser()
+
+    # sizes
+    ap.add_argument("--n", type=int, default=300000,
+                    help="Number of samples. Large n makes naive volcano a vertical cloud.")
+    ap.add_argument("--m", type=int, default=5000,
+                    help="Number of exposures/features scanned.")
+    ap.add_argument("--n_signal", type=int, default=200,
+                    help="Number of weak-signal exposures (rest are null).")
+
+    # exposure prevalence
+    ap.add_argument("--pi_low", type=float, default=0.10)
+    ap.add_argument("--pi_high", type=float, default=0.30)
+
+    # outcome model (true Y)
+    ap.add_argument("--beta0", type=float, default=-2.0,
+                    help="Outcome intercept; controls baseline prevalence of Y.")
+    ap.add_argument("--beta_signal", type=float, default=0.03,
+                    help="Per-signal-feature coefficient size. Small -> weak effects.")
+    ap.add_argument("--signal_sign_mix", action="store_true",
+                    help="If set, half signals have +beta, half have -beta (two-sided volcano arms).")
+
+    # misclassification (attenuate naive OR toward 0)
+    ap.add_argument("--p", type=float, default=0.75, help="Sensitivity in misclassification.")
+    ap.add_argument("--q", type=float, default=0.65, help="Specificity in misclassification.")
+
+    # lambda correction
+    ap.add_argument("--lam", type=float, default=0.05, help="Ridge lambda for (K+lam I)^{-1}.")
+
+    # misc
+    ap.add_argument("--seed", type=int, default=7)
+    ap.add_argument("--out_dir", type=str, default="./volcano_shape_demo_outputs")
+
+    args = ap.parse_args()
+    ensure_dir(args.out_dir)
+
+    rng = np.random.default_rng(args.seed)
+
+    # Choose signal indices
+    if args.n_signal > args.m:
+        raise ValueError("n_signal must be <= m")
+    signal_idx = np.sort(rng.choice(args.m, size=args.n_signal, replace=False))
+    is_signal = np.zeros(args.m, dtype=bool)
+    is_signal[signal_idx] = True
+
+    # Exposure matrix (binary)
+    pi = rng.uniform(args.pi_low, args.pi_high, size=args.m)
+    X = (rng.random((args.n, args.m)) < pi[None, :]).astype(np.int8)
+
+    # True outcome Y from logistic model with weak signals
+    beta = np.zeros(args.m, dtype=float)
+    if args.signal_sign_mix:
+        half = args.n_signal // 2
+        signs = np.ones(args.n_signal, dtype=float)
+        signs[:half] = -1.0
+        rng.shuffle(signs)
+        beta[signal_idx] = signs * args.beta_signal
+    else:
+        beta[signal_idx] = args.beta_signal
+
+    lin = args.beta0 + X @ beta  # n-vector
+    pY = expit(lin)
+    Y = (rng.random(args.n) < pY).astype(int)
+
+    # Misclassified outcome
+    Ytil = apply_misclassification(Y, args.p, args.q, rng)
+
+    # Scan
+    naive_logor = np.empty(args.m, dtype=float)
+    naive_p = np.empty(args.m, dtype=float)
+
+    lam_logor = np.empty(args.m, dtype=float)
+    lam_p = np.empty(args.m, dtype=float)
+
+    for j in range(args.m):
+        xj = X[:, j].astype(int)
+
+        a, b, c, d = compute_2x2_counts(xj, Ytil)
+        lo, se, pv = log_or_and_p_wald(a, b, c, d, ha=0.5)
+        naive_logor[j] = lo
+        naive_p[j] = pv
+
+        lo2, se2, pv2 = lambda_log_or_and_p_wald(xj, Ytil, p=args.p, q=args.q, lam=args.lam)
+        lam_logor[j] = lo2
+        lam_p[j] = pv2
+
+    # Save CSV
+    df = pd.DataFrame({
+        "feature": np.arange(args.m),
+        "is_signal": is_signal.astype(int),
+        "naive_logOR": naive_logor,
+        "naive_p": naive_p,
+        "lambda_logOR": lam_logor,
+        "lambda_p": lam_p,
+    })
+    out_csv = os.path.join(args.out_dir, "scan_results.csv")
+    df.to_csv(out_csv, index=False)
+
+    # Volcano plots
+    out_naive = os.path.join(args.out_dir, "volcano_naive.png")
+    out_lam = os.path.join(args.out_dir, "volcano_lambda.png")
+
+    detK = args.p + args.q - 1.0
+    volcano(naive_logor, naive_p, is_signal,
+            f"Naive volcano (misclassified Y), n={args.n}, det(K)={detK:.2f}",
+            out_naive)
+    volcano(lam_logor, lam_p, is_signal,
+            f"Lambda volcano (ridge inverse), lam={args.lam}, n={args.n}, det(K)={detK:.2f}",
+            out_lam)
+
+    # Brief stdout summary to confirm you are in the intended regime
+    # Intended: many tiny p-values, but naive logOR clustered near 0.
+    finite = np.isfinite(naive_p)
+    frac_tiny = float(np.mean(naive_p[finite] < 1e-6)) if finite.any() else np.nan
+    naive_abs_med = float(np.median(np.abs(naive_logor[np.isfinite(naive_logor)])))
+    lam_abs_med = float(np.median(np.abs(lam_logor[np.isfinite(lam_logor)])))
+
+    print("Run summary:")
+    print(f"  n={args.n}, m={args.m}, n_signal={args.n_signal}")
+    print(f"  beta0={args.beta0}, beta_signal={args.beta_signal}, signal_sign_mix={bool(args.signal_sign_mix)}")
+    print(f"  pi in [{args.pi_low},{args.pi_high}]")
+    print(f"  misclassification p={args.p}, q={args.q}, det(K)={detK:.3f}")
+    print(f"  naive median |logOR|={naive_abs_med:.4f} ; lambda median |logOR|={lam_abs_med:.4f}")
+    print(f"  fraction of p<1e-6 (naive) = {frac_tiny:.3f}")
+    print(f"Outputs written to: {os.path.abspath(args.out_dir)}")
+    print(f"  - {out_csv}")
+    print(f"  - {out_naive}")
+    print(f"  - {out_lam}")
+
+
+if __name__ == "__main__":
+    main()

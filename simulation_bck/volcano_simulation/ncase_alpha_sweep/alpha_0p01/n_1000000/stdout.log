@@ -1,0 +1,25 @@
+Original rows: 20000
+Retained rows: 4779
+Dropped rows : 15221
+Drop fraction: 0.7611
+Context columns: ['is_null']
+x column: log_or_naive, eps_x=0.01
+y column: p_naive, eps_y=0.01
+Original rows: 20000
+Retained rows: 534
+Dropped rows : 19466
+Drop fraction: 0.9733
+Context columns: ['is_null']
+x column: log_or_naive, eps_x=0.01
+y column: p_lambda, eps_y=0.01
+var_extra=0.0015625 (SE floor=0.03953), eps=0.8, n_val=1000
+Naive OR FDR=0.044768 (discoveries=3842, TP=3670, FP=172)
+Lambda-style FDR=0.000000 (discoveries=323, TP=323, FP=0)
+Wrote CSV: /home/ishanu/Dropbox/ZED/Research/lambda_or/simulation/volcano_simulation/ncase_alpha_sweep/alpha_0p01/n_1000000/full_results_1000000_lambda_0.01.csv
+Wrote: /home/ishanu/Dropbox/ZED/Research/lambda_or/simulation/volcano_simulation/ncase_alpha_sweep/alpha_0p01/n_1000000
+
+[stderr]
+/home/ishanu/Dropbox/ZED/Research/lambda_or/simulation/volcano_simulation/volcano_simulation_nulls.py:654: RuntimeWarning: divide by zero encountered in log10
+  "p_naive": -np.log10(p_naive),
+/home/ishanu/Dropbox/ZED/Research/lambda_or/simulation/volcano_simulation/volcano_simulation_nulls.py:211: RuntimeWarning: invalid value encountered in cast
+  work["_y_bin"] = np.floor(work[y_col].to_numpy() / eps_y).astype(np.int64)

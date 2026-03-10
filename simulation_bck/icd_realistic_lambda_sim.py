@@ -1,0 +1,316 @@
+#!/usr/bin/env python3
+import os, argparse
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from scipy.stats import norm
+
+def ensure_dir(d): os.makedirs(d, exist_ok=True)
+
+def bh_threshold(pvals, q=0.05):
+    p = np.asarray(pvals)
+    m = p.size
+    order = np.argsort(p)
+    p_sorted = p[order]
+    thresh_line = q * (np.arange(1, m+1) / m)
+    ok = p_sorted <= thresh_line
+    if not np.any(ok):
+        return None
+    k = int(np.max(np.where(ok)[0]))
+    return float(p_sorted[k])
+
+def fdr_tpr(pvals, is_signal, alpha):
+    called = (pvals < alpha)
+    tp = int(np.sum(called & is_signal))
+    fp = int(np.sum(called & (~is_signal)))
+    disc = tp + fp
+    fdr = (fp / disc) if disc > 0 else np.nan
+    tpr = tp / max(int(np.sum(is_signal)), 1)
+    return tp, fp, disc, fdr, tpr
+
+def logor_wald_from_abcd(a,b,c,d,ha=0.5):
+    a = a.astype(float) + ha
+    b = b.astype(float) + ha
+    c = c.astype(float) + ha
+    d = d.astype(float) + ha
+    logor = np.log((a*d)/(b*c))
+    se = np.sqrt(1/a + 1/b + 1/c + 1/d)
+    z = logor / se
+    p = 2.0 * norm.sf(np.abs(z))
+    return logor, se, p
+
+def Kmat(p,q):
+    return np.array([[q, 1.0-p],[1.0-q, p]], dtype=float)
+
+def lambda_correct_stats_with_cov(aT,bT,cT,dT,p,q,lam,n_val):
+    A = np.linalg.inv(Kmat(p,q) + lam*np.eye(2))
+
+    obs1 = np.stack([bT.astype(float), aT.astype(float)], axis=0)  # [b,a]
+    obs0 = np.stack([dT.astype(float), cT.astype(float)], axis=0)  # [d,c]
+
+    tru1 = A @ obs1
+    tru0 = A @ obs0
+    tru1 = np.clip(tru1, 1e-6, None)
+    tru0 = np.clip(tru0, 1e-6, None)
+
+    b_hat = tru1[0,:]; a_hat = tru1[1,:]
+    d_hat = tru0[0,:]; c_hat = tru0[1,:]
+
+    logor = np.log((a_hat*d_hat)/(b_hat*c_hat))
+
+    n1 = np.maximum((aT + bT).astype(float), 1.0)
+    n0 = np.maximum((cT + dT).astype(float), 1.0)
+
+    pa = aT.astype(float)/n1
+    pb = bT.astype(float)/n1
+    pc = cT.astype(float)/n0
+    pd = dT.astype(float)/n0
+
+    v1 = n1 * (pa*pb)
+    v0 = n0 * (pc*pd)
+
+    u = (A[:,0] - A[:,1]).reshape(2,1)  # 2x1
+
+    g1_0 = -1.0 / b_hat
+    g1_1 =  1.0 / a_hat
+    dot1 = g1_0 * u[0,0] + g1_1 * u[1,0]
+    var1 = v1 * (dot1**2)
+
+    g0_0 =  1.0 / d_hat
+    g0_1 = -1.0 / c_hat
+    dot0 = g0_0 * u[0,0] + g0_1 * u[1,0]
+    var0 = v0 * (dot0**2)
+
+    var_counts = var1 + var0
+
+    detK = (p + q - 1.0)
+    detK2 = np.maximum(detK*detK, 1e-12)
+    n_val = max(int(n_val), 1)
+    var_extra = ((1.0 - q)/detK2)**2 * (p*(1.0-p))/n_val + ((1.0 - p)/detK2)**2 * (q*(1.0-q))/n_val
+
+    var_total = var_counts + var_extra
+    se = np.sqrt(var_total)
+    z = logor / se
+    pval = 2.0 * norm.sf(np.abs(z))
+    return logor, se, pval, var_counts, var_extra, (a_hat,b_hat,c_hat,d_hat)
+
+def volcano(x, p, c, out_png, title, xlim=(-1,1)):
+    y = -np.log10(np.clip(p, 1e-300, 1.0))
+    plt.figure(figsize=(8.2, 6.2))
+    c_clip = np.clip(c, 0.0, np.quantile(c, 0.99))
+    c_norm = c_clip / (c_clip.max() + 1e-12)
+    sizes = 3.0 + 18.0 * (c_norm**1.2)
+    sc = plt.scatter(x, y, c=c, s=sizes, alpha=0.65, cmap="RdBu_r")
+    plt.colorbar(sc, label="|true logOR|")
+    plt.axvline(0.0, color="black", lw=1)
+    plt.axhline(-np.log10(0.05), ls="--", lw=1)
+    plt.xlim(xlim[0], xlim[1])
+    plt.ylim(-2, 10)
+    plt.xlabel("log(OR)")
+    plt.ylabel("-log10(p)")
+    plt.title(title)
+    plt.tight_layout()
+    plt.savefig(out_png, dpi=220)
+    plt.close()
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--out_dir", type=str, default="./icd_realistic_out")
+    ap.add_argument("--seed", type=int, default=7)
+    ap.add_argument("--N", type=int, default=60000)
+    ap.add_argument("--m", type=int, default=20000)
+    ap.add_argument("--signal_frac", type=float, default=0.08)
+    ap.add_argument("--signal_tail_frac", type=float, default=0.35, help="Signals drawn from rarest tail fraction by rank.")
+    ap.add_argument("--eff_inv_alpha", type=float, default=0.65, help="Outcome weight scale ~ (freq proxy)^(-alpha).")
+    ap.add_argument("--eff_cap", type=float, default=1.5, help="Cap on per-code outcome weight.")
+    ap.add_argument("--zipf_a", type=float, default=1.15)
+    ap.add_argument("--util_mu", type=float, default=0.0)
+    ap.add_argument("--util_sigma", type=float, default=1.0)
+    ap.add_argument("--mean_codes", type=float, default=12.0)
+    ap.add_argument("--sev_sigma", type=float, default=1.0)
+    ap.add_argument("--eta0", type=float, default=-1.4)
+    ap.add_argument("--etaU", type=float, default=0.55)
+    ap.add_argument("--etaS", type=float, default=1.25)
+    ap.add_argument("--w_scale", type=float, default=0.25)
+    ap.add_argument("--signal_boost", type=float, default=1.8)
+    ap.add_argument("--sev_boost", type=float, default=0.55)
+    ap.add_argument("--p0", type=float, default=1.15)
+    ap.add_argument("--pU", type=float, default=0.55)
+    ap.add_argument("--q0", type=float, default=0.85)
+    ap.add_argument("--qU", type=float, default=-0.35)
+    ap.add_argument("--n_val", type=int, default=6000)
+    ap.add_argument("--lam", type=float, default=0.08)
+    ap.add_argument("--xlim_lo", type=float, default=-1.0)
+    ap.add_argument("--xlim_hi", type=float, default=1.0)
+    args = ap.parse_args()
+    ensure_dir(args.out_dir)
+    rng = np.random.default_rng(args.seed)
+
+    N = args.N; m = args.m
+    ranks = np.arange(1, m+1, dtype=float)
+    w_base = 1.0 / (ranks ** args.zipf_a)
+    w_base = w_base / w_base.sum()
+
+    n_sig = int(round(args.signal_frac * m))
+
+    # Preferentially choose signals from the rare tail (high ranks => rare under Zipf).
+    tail_start = int(np.floor((1.0 - args.signal_tail_frac) * m))
+    tail_start = int(np.clip(tail_start, 0, m-1))
+    tail_indices = np.arange(tail_start, m, dtype=int)
+
+    sig_idx = rng.choice(tail_indices, size=n_sig, replace=False)
+    is_signal = np.zeros(m, dtype=bool)
+    is_signal[sig_idx] = True
+
+    # Effect sizes inversely related to frequency proxy (w_base).
+    w_sig = np.zeros(m, dtype=float)
+    freq_proxy = np.maximum(w_base[sig_idx], 1e-18)
+    inv_scale = (freq_proxy ** (-args.eff_inv_alpha))
+    inv_scale = inv_scale / (np.median(inv_scale) + 1e-12)
+
+    raw = rng.lognormal(mean=np.log(args.w_scale), sigma=0.35, size=n_sig) * inv_scale
+    raw = np.clip(raw, 0.0, args.eff_cap)
+    w_sig[sig_idx] = raw
+
+    U = rng.lognormal(mean=args.util_mu, sigma=args.util_sigma, size=N)
+    S = rng.normal(0.0, args.sev_sigma, size=N)
+    U_std = (np.log(U) - np.mean(np.log(U))) / (np.std(np.log(U)) + 1e-12)
+
+    lam_codes = args.mean_codes * U
+    K = rng.poisson(lam_codes).astype(int)
+    K = np.clip(K, 0, 200)
+
+    code_sets = []
+    for i in range(N):
+        ki = K[i]
+        if ki <= 0:
+            code_sets.append(np.empty(0, dtype=np.int32)); continue
+        idx = rng.choice(m, size=ki, replace=True, p=w_base)
+        code_sets.append(np.unique(idx).astype(np.int32))
+
+    # provisional outcome
+    pY0 = 1.0/(1.0+np.exp(-(args.eta0 + args.etaU*U_std + args.etaS*S)))
+    Y = (rng.random(N) < pY0).astype(np.int8)
+
+    w_sig_base = (w_base[sig_idx] * (w_sig[sig_idx] + 1e-12)); w_sig_base = w_sig_base / w_sig_base.sum()
+
+    for i in range(N):
+        extra = int(rng.poisson(2.0 * np.sqrt(U[i])))
+        if extra <= 0: continue
+        mult = np.exp(args.sev_boost * S[i]) * (args.signal_boost if Y[i] == 1 else 1.0)
+        extra_eff = int(np.clip(np.round(extra * mult), 0, 80))
+        if extra_eff <= 0: continue
+        idx_sig = rng.choice(sig_idx, size=extra_eff, replace=True, p=w_sig_base)
+        if code_sets[i].size == 0:
+            code_sets[i] = np.unique(idx_sig).astype(np.int32)
+        else:
+            code_sets[i] = np.unique(np.concatenate([code_sets[i], idx_sig.astype(np.int32)])).astype(np.int32)
+
+    sig_score = np.zeros(N, dtype=float)
+    for i in range(N):
+        idx = code_sets[i]
+        if idx.size == 0: continue
+        sig_score[i] = float(np.sum(w_sig[idx]))
+
+    pY = 1.0/(1.0+np.exp(-(args.eta0 + args.etaU*U_std + args.etaS*S + sig_score)))
+    Y = (rng.random(N) < pY).astype(np.int8)
+
+    def expit(x): return 1.0/(1.0+np.exp(-x))
+    p_sens_i = expit(args.p0 + args.pU*U_std)
+    q_spec_i = expit(args.q0 + args.qU*U_std)
+
+    Ytilde = Y.copy()
+    flip_pos = (Y == 1) & (rng.random(N) < (1.0 - p_sens_i)); Ytilde[flip_pos] = 0
+    flip_neg = (Y == 0) & (rng.random(N) < (1.0 - q_spec_i)); Ytilde[flip_neg] = 1
+
+    n_val = min(args.n_val, N)
+    val_idx = rng.choice(N, size=n_val, replace=False)
+    Yv = Y[val_idx]; Tv = Ytilde[val_idx]
+    denom_p = max(int(np.sum(Yv==1)), 1)
+    denom_q = max(int(np.sum(Yv==0)), 1)
+    p_hat = float(np.sum((Yv==1) & (Tv==1)) / denom_p)
+    q_hat = float(np.sum((Yv==0) & (Tv==0)) / denom_q)
+
+    n_case_true = int(np.sum(Y==1)); n_ctrl_true = N - n_case_true
+    n_case_obs  = int(np.sum(Ytilde==1)); n_ctrl_obs = N - n_case_obs
+
+    exp_case_true = np.zeros(m, dtype=np.int64)
+    exp_ctrl_true = np.zeros(m, dtype=np.int64)
+    exp_case_obs  = np.zeros(m, dtype=np.int64)
+    exp_ctrl_obs  = np.zeros(m, dtype=np.int64)
+
+    for i in range(N):
+        idx = code_sets[i]
+        if idx.size == 0: continue
+        if Y[i] == 1: exp_case_true[idx] += 1
+        else: exp_ctrl_true[idx] += 1
+        if Ytilde[i] == 1: exp_case_obs[idx] += 1
+        else: exp_ctrl_obs[idx] += 1
+
+    a_true = exp_case_true
+    b_true = exp_ctrl_true
+    c_true = (n_case_true - a_true).astype(np.int64)
+    d_true = (n_ctrl_true - b_true).astype(np.int64)
+    logor_true, se_true, p_true = logor_wald_from_abcd(a_true,b_true,c_true,d_true,ha=0.5)
+
+    aT = exp_case_obs
+    bT = exp_ctrl_obs
+    cT = (n_case_obs - aT).astype(np.int64)
+    dT = (n_ctrl_obs - bT).astype(np.int64)
+    logor_noisy, se_noisy, p_noisy = logor_wald_from_abcd(aT,bT,cT,dT,ha=0.5)
+
+    logor_lam, se_lam, p_lam, var_counts, var_extra, (a_hat,b_hat,c_hat,d_hat) = lambda_correct_stats_with_cov(
+        aT,bT,cT,dT,p_hat,q_hat,args.lam,n_val
+    )
+
+    c_eff = np.abs(logor_true)
+    xlim = (args.xlim_lo, args.xlim_hi)
+
+    volcano(logor_true, p_true, c_eff, os.path.join(args.out_dir,"volcano_true.png"),
+            f"True volcano (ICD-like; N={N}, m={m})", xlim=xlim)
+    volcano(logor_noisy, p_noisy, c_eff, os.path.join(args.out_dir,"volcano_noisy_naive.png"),
+            f"Noisy naive (Y~; p_hat={p_hat:.3f}, q_hat={q_hat:.3f}, detK={p_hat+q_hat-1:.3f})", xlim=xlim)
+    volcano(logor_lam, p_lam, c_eff, os.path.join(args.out_dir,"volcano_lambda.png"),
+            f"Lambda-OR (cov-prop + var_extra; lam={args.lam})", xlim=xlim)
+
+    alpha_grid = np.array([1e-6,1e-5,1e-4,1e-3,1e-2,0.05])
+    rows=[]
+    for alevel in alpha_grid:
+        tp, fp, disc, fdr, tpr = fdr_tpr(p_noisy, is_signal, alevel)
+        rows.append({"method":"noisy_naive","alpha":float(alevel),"TP":tp,"FP":fp,"discoveries":disc,"FDR":fdr,"TPR":tpr})
+        tp, fp, disc, fdr, tpr = fdr_tpr(p_lam, is_signal, alevel)
+        rows.append({"method":"lambda_corrected","alpha":float(alevel),"TP":tp,"FP":fp,"discoveries":disc,"FDR":fdr,"TPR":tpr})
+
+    bh_noisy = bh_threshold(p_noisy, q=0.05)
+    bh_lam = bh_threshold(p_lam, q=0.05)
+    if bh_noisy is not None:
+        tp, fp, disc, fdr, tpr = fdr_tpr(p_noisy, is_signal, bh_noisy+1e-18)
+        rows.append({"method":"noisy_naive_BH","alpha":bh_noisy,"TP":tp,"FP":fp,"discoveries":disc,"FDR":fdr,"TPR":tpr})
+    if bh_lam is not None:
+        tp, fp, disc, fdr, tpr = fdr_tpr(p_lam, is_signal, bh_lam+1e-18)
+        rows.append({"method":"lambda_BH","alpha":bh_lam,"TP":tp,"FP":fp,"discoveries":disc,"FDR":fdr,"TPR":tpr})
+
+    perf = pd.DataFrame(rows)
+    perf.to_csv(os.path.join(args.out_dir,"perf_fdr_tpr.csv"), index=False)
+
+    df = pd.DataFrame({
+        "j": np.arange(m),
+        "is_signal": is_signal.astype(int),
+        "w_base": w_base,
+        "logOR_true": logor_true,
+        "p_true": p_true,
+        "logOR_noisy": logor_noisy,
+        "p_noisy": p_noisy,
+        "logOR_lambda": logor_lam,
+        "p_lambda": p_lam,
+        "se_lambda": se_lam,
+        "var_counts_lambda": var_counts,
+        "var_extra_lambda": var_extra,
+    })
+    df.to_csv(os.path.join(args.out_dir,"scan.csv"), index=False)
+
+    print("Wrote:", os.path.abspath(args.out_dir))
+    print(f"Estimated p_hat={p_hat:.4f}, q_hat={q_hat:.4f}, detK={p_hat+q_hat-1.0:.4f}")
+
+if __name__ == "__main__":
+    main()

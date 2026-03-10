@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Fedora 39) (preloaded format=pdflatex 2025.10.30)  6 MAR 2026 17:26
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Fedora 39) (preloaded format=pdflatex 2025.10.30)  8 MAR 2026 01:22
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -1162,23 +1162,14 @@ Package: etoolbox 2020/10/05 v2.5k e-TeX tools for LaTeX (JAW)
 \l__siunitx_unit_position_int=\count389
 \l__siunitx_unit_total_int=\count390
 )
-\c@thm=\count391
-\c@cor=\count392
-\c@lem=\count393
-\c@prop=\count394
-\c@defn=\count395
-\c@exmpl=\count396
-\c@rem=\count397
-\c@notn=\count398
-
 (/usr/share/texlive/texmf-dist/tex/latex/algorithm2e/algorithm2e.sty
 Package: algorithm2e 2017/07/18 v5.2 algorithms environments
-\c@AlgoLine=\count399
+\c@AlgoLine=\count391
 \algocf@hangindent=\skip93
 
 (/usr/share/texlive/texmf-dist/tex/latex/ifoddpage/ifoddpage.sty
 Package: ifoddpage 2022/10/18 v1.2 Conditionals for odd/even page detection
-\c@checkoddpage=\count400
+\c@checkoddpage=\count392
 )
 (/usr/share/texlive/texmf-dist/tex/latex/tools/xspace.sty
 Package: xspace 2014/10/28 v1.13 Space after command names (DPC,MH)
@@ -1216,9 +1207,9 @@ Package: relsize 2013/03/29 ver 4.1
 \algoheightrule=\skip109
 \algotitleheightruledefault=\skip110
 \algotitleheightrule=\skip111
-\c@algocfline=\count401
-\c@algocfproc=\count402
-\c@algocf=\count403
+\c@algocfline=\count393
+\c@algocfproc=\count394
+\c@algocf=\count395
 \algocf@algoframe=\box123
 \algocf@algobox=\box124
 )
@@ -1238,7 +1229,7 @@ etween.code.tex
 zlibraryintersections.code.tex
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/pgflibraryintersection
 s.code.tex
-\pgf@intersect@solutions=\count404
+\pgf@intersect@solutions=\count396
 ))
 (/usr/share/texlive/texmf-dist/tex/generic/pgfplots/pgfcontrib/tikzlibrarydecor
 ations.softclip.code.tex
@@ -1250,7 +1241,7 @@ corations.softclip.code.tex))
 zlibrarymath.code.tex
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
 zlibraryfpu.code.tex)
-\tikz@math@for@depth=\count405
+\tikz@math@for@depth=\count397
 \tikz@math@dimen=\dimen334
 \tikz@math@toks=\toks55
 )
@@ -1258,7 +1249,7 @@ zlibraryfpu.code.tex)
 Package: colortbl 2022/06/20 v1.0f Color table columns (DPC)
 \everycr=\toks56
 \minrowclearance=\skip112
-\rownum=\count406
+\rownum=\count398
 )
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/pifont.sty
 Package: pifont 2020/03/25 PSNFSS-v9.3 Pi font support (SPQR) 
@@ -1286,9 +1277,9 @@ File: tikzlibrarybackgrounds.code.tex 2023-01-15 v3.1.10 (3.1.10)
 )
 (/usr/share/texlive/texmf-dist/tex/generic/pgfplots/libs/tikzlibrarypgfplots.gr
 oupplots.code.tex
-\pgfplots@group@current@plot=\count407
-\pgfplots@group@current@row=\count408
-\pgfplots@group@current@column=\count409
+\pgfplots@group@current@plot=\count399
+\pgfplots@group@current@row=\count400
+\pgfplots@group@current@column=\count401
 )
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
 zlibrarymatrix.code.tex
@@ -1296,8 +1287,8 @@ File: tikzlibrarymatrix.code.tex 2023-01-15 v3.1.10 (3.1.10)
 )
 (/usr/share/texlive/texmf-dist/tex/generic/xstring/xstring.sty
 (/usr/share/texlive/texmf-dist/tex/generic/xstring/xstring.tex
-\integerpart=\count410
-\decimalpart=\count411
+\integerpart=\count402
+\decimalpart=\count403
 )
 Package: xstring 2023/01/14 v1.85 String manipulations (CT)
 )
@@ -1305,8 +1296,8 @@ Package: xstring 2023/01/14 v1.85 String manipulations (CT)
 Package: flushend 2021/10/04 v4.0 Balancing columns in twocolumn mode
 \flushend@@lastskip@a=\skip113
 \flushend@@lastskip@b=\skip114
-\flushend@@lastnode=\count412
-\var@@loop@iter=\count413
+\flushend@@lastnode=\count404
+\var@@loop@iter=\count405
 \var@@temp@spread=\dimen335
 \var@@temp@a=\dimen336
 \var@@temp@loop=\dimen337
@@ -1333,18 +1324,18 @@ Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
 \cmidrulesep=\dimen347
 \cmidrulekern=\dimen348
 \defaultaddspace=\dimen349
-\@cmidla=\count414
-\@cmidlb=\count415
+\@cmidla=\count406
+\@cmidlb=\count407
 \@aboverulesep=\dimen350
 \@belowrulesep=\dimen351
-\@thisruleclass=\count416
-\@lastruleclass=\count417
+\@thisruleclass=\count408
+\@lastruleclass=\count409
 \@thisrulewidth=\dimen352
 )
 (/usr/share/texlive/texmf-dist/tex/latex/multirow/multirow.sty
 Package: multirow 2021/03/15 v2.8 Span multiple rows of a table
 \multirow@colwidth=\skip115
-\multirow@cntb=\count418
+\multirow@cntb=\count410
 \multirow@dima=\skip116
 \bigstrutjot=\dimen353
 )
@@ -1366,39 +1357,39 @@ Package: nccfoots 2005/02/03 v1.2 NCC Footnotes Package (NCC)
 )
 \MFL@columnwidth=\dimen354
 )
-\c@theorem=\count419
-\c@example=\count420
-\c@remark=\count421
-\c@definition=\count422
+\c@theorem=\count411
+\c@example=\count412
+\c@remark=\count413
+\c@definition=\count414
 Package translations Info: No language package found. I am going to use `englis
-h' as default language. on input line 298.
+h' as default language. on input line 297.
 
 (/usr/share/texlive/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2023-01-16 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count423
+\l__color_backend_stack_int=\count415
 \l__pdf_internal_box=\box133
 )
 (./mainBMC_steps1-5.aux)
 \openout1 = `mainBMC_steps1-5.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 298.
-LaTeX Font Info:    ... okay on input line 298.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 298.
-LaTeX Font Info:    ... okay on input line 298.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 298.
-LaTeX Font Info:    ... okay on input line 298.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 298.
-LaTeX Font Info:    ... okay on input line 298.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 298.
-LaTeX Font Info:    ... okay on input line 298.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 298.
-LaTeX Font Info:    ... okay on input line 298.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 298.
-LaTeX Font Info:    ... okay on input line 298.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 298.
-LaTeX Font Info:    ... okay on input line 298.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 298.
-LaTeX Font Info:    ... okay on input line 298.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 297.
+LaTeX Font Info:    ... okay on input line 297.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 297.
+LaTeX Font Info:    ... okay on input line 297.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 297.
+LaTeX Font Info:    ... okay on input line 297.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 297.
+LaTeX Font Info:    ... okay on input line 297.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 297.
+LaTeX Font Info:    ... okay on input line 297.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 297.
+LaTeX Font Info:    ... okay on input line 297.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 297.
+LaTeX Font Info:    ... okay on input line 297.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 297.
+LaTeX Font Info:    ... okay on input line 297.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 297.
+LaTeX Font Info:    ... okay on input line 297.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -1437,16 +1428,16 @@ LaTeX Font Info:    ... okay on input line 298.
 
 (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count424
+\scratchcounter=\count416
 \scratchdimen=\dimen355
 \scratchbox=\box134
-\nofMPsegments=\count425
-\nofMParguments=\count426
+\nofMPsegments=\count417
+\nofMParguments=\count418
 \everyMPshowfont=\toks59
-\MPscratchCnt=\count427
+\MPscratchCnt=\count419
 \MPscratchDim=\dimen356
-\MPnumerator=\count428
-\makeMPintoPDFobject=\count429
+\MPnumerator=\count420
+\makeMPintoPDFobject=\count421
 \everyMPtoPDFconversion=\toks60
 ) (/usr/share/texlive/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
@@ -1457,13 +1448,13 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-LaTeX Info: Redefining \S on input line 298.
-LaTeX Font Info:    Redeclaring symbol font `AMSa' on input line 298.
+LaTeX Info: Redefining \S on input line 297.
+LaTeX Font Info:    Redeclaring symbol font `AMSa' on input line 297.
 LaTeX Font Info:    Overwriting symbol font `AMSa' in version `normal'
-(Font)                  U/msa/m/n --> U/msa/m/n on input line 298.
+(Font)                  U/msa/m/n --> U/msa/m/n on input line 297.
 LaTeX Font Info:    Overwriting symbol font `AMSa' in version `bold'
-(Font)                  U/msa/m/n --> U/msa/m/n on input line 298.
-Package hyperref Info: Link coloring ON on input line 298.
+(Font)                  U/msa/m/n --> U/msa/m/n on input line 297.
+Package hyperref Info: Link coloring ON on input line 297.
 
 (./mainBMC_steps1-5.out) (./mainBMC_steps1-5.out)
 \@outlinefile=\write7
@@ -1474,7 +1465,7 @@ Package hyperref Info: Link coloring ON on input line 298.
 Package pgfplots Warning: running in backwards compatibility mode (unsuitable t
 ick labels; missing features). Consider writing \pgfplotsset{compat=1.18} into 
 your preamble.
- on input line 298.
+ on input line 297.
 
 
 (/usr/share/texlive/texmf-dist/tex/latex/translations/translations-basic-dictio
@@ -1483,44 +1474,44 @@ File: translations-basic-dictionary-english.trsl (english translation file `tra
 nslations-basic-dictionary')
 )
 Package translations Info: loading dictionary `translations-basic-dictionary' f
-or `english'. on input line 298.
-LaTeX Font Info:    Calculating math sizes for size <12.045> on input line 323.
+or `english'. on input line 297.
+LaTeX Font Info:    Calculating math sizes for size <12.045> on input line 322.
 
-LaTeX Font Info:    Trying to load font information for U+msa on input line 323
+LaTeX Font Info:    Trying to load font information for U+msa on input line 322
 .
  (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 323
+LaTeX Font Info:    Trying to load font information for U+msb on input line 322
 .
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 LaTeX Font Info:    Trying to load font information for U+rsfs on input line 32
-3.
+2.
 
 (/usr/share/texlive/texmf-dist/tex/latex/jknapltx/ursfs.fd
 File: ursfs.fd 1998/03/24 rsfs font definition file (jk)
 )
 
 LaTeX Font Warning: Font shape `U/rsfs/m/n' in size <8.43146> not available
-(Font)              size <8> substituted on input line 323.
+(Font)              size <8> substituted on input line 322.
 
 LaTeX Font Info:    Calculating math sizes for size <11.04124> on input line 32
-3.
+2.
 
 LaTeX Font Warning: Font shape `U/rsfs/m/n' in size <5.52061> not available
-(Font)              size <6> substituted on input line 323.
+(Font)              size <6> substituted on input line 322.
 
-LaTeX Font Info:    Calculating math sizes for size <9.03374> on input line 323
+LaTeX Font Info:    Calculating math sizes for size <9.03374> on input line 322
 .
 
 LaTeX Font Warning: Font shape `U/rsfs/m/n' in size <4.51686> not available
-(Font)              size <5> substituted on input line 323.
+(Font)              size <5> substituted on input line 322.
 
 LaTeX Font Info:    Calculating math sizes for size <10.03749> on input line 32
-3.
+2.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
@@ -1532,7 +1523,7 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
  [2]
 
 Package hyperref Warning: Difference (2) between bookmark levels is greater 
-(hyperref)                than one, level fixed on input line 364.
+(hyperref)                than one, level fixed on input line 363.
 
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
@@ -1540,27 +1531,27 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
  [3]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 385.
+(hyperref)                removing `math shift' on input line 457.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 385.
+(hyperref)                removing `math shift' on input line 457.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\lambda' on input line 385.
+(hyperref)                removing `\lambda' on input line 457.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 385.
+(hyperref)                removing `math shift' on input line 457.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 385.
+(hyperref)                removing `math shift' on input line 457.
 
 
 Package hyperref Warning: Difference (2) between bookmark levels is greater 
-(hyperref)                than one, level fixed on input line 388.
+(hyperref)                than one, level fixed on input line 465.
 
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
@@ -1571,7 +1562,7 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
  [5]
 
 Package hyperref Warning: Difference (2) between bookmark levels is greater 
-(hyperref)                than one, level fixed on input line 538.
+(hyperref)                than one, level fixed on input line 565.
 
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
@@ -1579,43 +1570,43 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
  [6]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 652.
+(hyperref)                removing `math shift' on input line 596.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 652.
+(hyperref)                removing `math shift' on input line 596.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\lambda' on input line 652.
+(hyperref)                removing `\lambda' on input line 596.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 652.
+(hyperref)                removing `math shift' on input line 596.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 652.
+(hyperref)                removing `math shift' on input line 596.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 703.
+(hyperref)                removing `math shift' on input line 647.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 703.
+(hyperref)                removing `math shift' on input line 647.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\lambda' on input line 703.
+(hyperref)                removing `\lambda' on input line 647.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 703.
+(hyperref)                removing `math shift' on input line 647.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 703.
+(hyperref)                removing `math shift' on input line 647.
 
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
@@ -1624,7 +1615,12 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [8]
-Underfull \hbox (badness 1092) in paragraph at lines 832--838
+
+Package hyperref Warning: Difference (2) between bookmark levels is greater 
+(hyperref)                than one, level fixed on input line 717.
+
+
+Underfull \hbox (badness 1092) in paragraph at lines 768--774
 \OT1/cmr/m/n/10 mine the ROC geom-e-try. Our pri-mary sep-a-ra-tion mea-sure is
  the two-sample
  []
@@ -1639,142 +1635,97 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [11]
-
-Package natbib Warning: Citation `Lundberg2017Unified' on page 12 undefined on 
-input line 1071.
-
-
-Package natbib Warning: Citation `Lundberg2017Unified' on page 12 undefined on 
-input line 1075.
-
-
-Package natbib Warning: Citation `Choi2016RETAIN' on page 12 undefined on input
- line 1075.
-
-
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [12]
 
 Package hyperref Warning: Difference (2) between bookmark levels is greater 
-(hyperref)                than one, level fixed on input line 1110.
+(hyperref)                than one, level fixed on input line 1051.
 
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [13]
-<Figures/External/figsim.pdf, id=350, 384.81165pt x 232.28581pt>
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [14]
+<Figures/External/figsim.pdf, id=355, 384.81165pt x 232.28581pt>
 File: Figures/External/figsim.pdf Graphic file (type pdf)
 <use Figures/External/figsim.pdf>
-Package pdftex.def Info: Figures/External/figsim.pdf  used on input line 1223.
+Package pdftex.def Info: Figures/External/figsim.pdf  used on input line 1164.
 (pdftex.def)             Requested size: 372.0pt x 224.56909pt.
-<../simulation/simulation_violin_grid.pdf, id=351, 882.03429pt x 757.00627pt>
+<../simulation/simulation_violin_grid.pdf, id=356, 882.03429pt x 757.00627pt>
 File: ../simulation/simulation_violin_grid.pdf Graphic file (type pdf)
 <use ../simulation/simulation_violin_grid.pdf>
 Package pdftex.def Info: ../simulation/simulation_violin_grid.pdf  used on inpu
-t line 1237.
+t line 1178.
 (pdftex.def)             Requested size: 390.60114pt x 335.23227pt.
 
-Overfull \hbox (3.60114pt too wide) in paragraph at lines 1237--1239
+Overfull \hbox (3.60114pt too wide) in paragraph at lines 1178--1180
 [] [] 
  []
 
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [14]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
  [15 <./Figures/External/figsim.pdf>]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [16 <../simulation/simulation_violin_grid.pdf>]
-LaTeX Font Info:    Calculating math sizes for size <8.03> on input line 1473.
+LaTeX Font Info:    Calculating math sizes for size <8.03> on input line 1319.
 
 
 LaTeX Font Warning: Font shape `U/rsfs/m/n' in size <4.015> not available
-(Font)              size <5> substituted on input line 1473.
+(Font)              size <5> substituted on input line 1319.
 
 
-Underfull \hbox (badness 1565) in paragraph at lines 1488--1489
+Underfull \hbox (badness 1565) in paragraph at lines 1334--1335
 []|\OT1/cmr/m/n/8.03 Independent flips: $[]([][]1 \OMS/cmsy/m/n/8.03 j \OML/cmm
 /m/it/8.03 Y[]\OT1/cmr/m/n/8.03 1) = \OML/cmm/m/it/8.03 p[]$\OT1/cmr/m/n/8.03 ,
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1493--1493
+Underfull \hbox (badness 10000) in paragraph at lines 1339--1339
 []|\OT1/cmr/m/n/8.03 Top-row grid (speci-ficity
  []
 
-<Figures/sim2.pdf, id=473, 662.32643pt x 425.4585pt>
-File: Figures/sim2.pdf Graphic file (type pdf)
-<use Figures/sim2.pdf>
-Package pdftex.def Info: Figures/sim2.pdf  used on input line 1540.
-(pdftex.def)             Requested size: 372.0pt x 238.96275pt.
-<Figures/performance_summary_alpha_0p05.png, id=474, 867.24pt x 650.43pt>
-File: Figures/performance_summary_alpha_0p05.png Graphic file (type png)
-<use Figures/performance_summary_alpha_0p05.png>
-Package pdftex.def Info: Figures/performance_summary_alpha_0p05.png  used on in
-put line 1550.
-(pdftex.def)             Requested size: 372.0pt x 279.00456pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [17]
-
-Package hyperref Warning: Difference (2) between bookmark levels is greater 
-(hyperref)                than one, level fixed on input line 1581.
-
+<Figures/sim2.pdf, id=475, 662.32643pt x 425.4585pt>
+File: Figures/sim2.pdf Graphic file (type pdf)
+<use Figures/sim2.pdf>
+Package pdftex.def Info: Figures/sim2.pdf  used on input line 1376.
+(pdftex.def)             Requested size: 372.0pt x 238.96275pt.
+<Figures/performance_summary_alpha_0p05.png, id=477, 867.24pt x 650.43pt>
+File: Figures/performance_summary_alpha_0p05.png Graphic file (type png)
+<use Figures/performance_summary_alpha_0p05.png>
+Package pdftex.def Info: Figures/performance_summary_alpha_0p05.png  used on in
+put line 1382.
+(pdftex.def)             Requested size: 372.0pt x 279.00456pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [18 <./Figures/sim2.pdf>]
+
+Package hyperref Warning: Difference (2) between bookmark levels is greater 
+(hyperref)                than one, level fixed on input line 1408.
+
+
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [19 <./Figures/performance_summary_alpha_0p05.png>]
-
-LaTeX Warning: Reference `eq:lambda_var' on page 20 undefined on input line 165
-2.
-
-
-LaTeX Warning: Reference `sec:methods' on page 20 undefined on input line 1659.
-
-
-
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [20]
-<Figures/External/figvolcano.pdf, id=550, 378.6657pt x 429.16837pt>
+<Figures/External/figvolcano.pdf, id=553, 378.6657pt x 429.16837pt>
 File: Figures/External/figvolcano.pdf Graphic file (type pdf)
 <use Figures/External/figvolcano.pdf>
-Package pdftex.def Info: Figures/External/figvolcano.pdf  used on input line 17
-23.
+Package pdftex.def Info: Figures/External/figvolcano.pdf  used on input line 21
+60.
 (pdftex.def)             Requested size: 372.0pt x 421.6168pt.
-
-Underfull \hbox (badness 1158) in paragraph at lines 1755--1756
-\OT1/cmr/m/n/10 strong variance-corrected sig-nals: endocrine or metabolic (hyp
-er-parathy-roidism,
- []
-
-
-Underfull \hbox (badness 1132) in paragraph at lines 1755--1756
-\OT1/cmr/m/n/10 14.118 [[]]; hypo/hyperparathyroidism), sep-sis (10.535 [[]]), 
-cardio- and cere-
- []
-
-
-Underfull \hbox (badness 2368) in paragraph at lines 1755--1756
-\OT1/cmr/m/n/10 or-der, 5.432 [[]]; hear-ing loss, 4.693 [[]]; sleep dis-or-der
-s, 2.277 [[]]), and
- []
-
-
-Underfull \hbox (badness 1226) in paragraph at lines 1755--1756
-\OT1/cmr/m/n/10 metabolic/respiratory/systemic con-di-tions (type 2 dia-betes, 
-4.434 [[]]; COPD,
- []
-
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
@@ -1782,13 +1733,37 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [22 <./Figures/External/figvolcano.pdf>]
+Underfull \hbox (badness 1158) in paragraph at lines 2219--2220
+\OT1/cmr/m/n/10 strong variance-corrected sig-nals: endocrine or metabolic (hyp
+er-parathy-roidism,
+ []
+
+
+Underfull \hbox (badness 1132) in paragraph at lines 2219--2220
+\OT1/cmr/m/n/10 14.118 [[]]; hypo/hyperparathyroidism), sep-sis (10.535 [[]]), 
+cardio- and cere-
+ []
+
+
+Underfull \hbox (badness 2368) in paragraph at lines 2219--2220
+\OT1/cmr/m/n/10 or-der, 5.432 [[]]; hear-ing loss, 4.693 [[]]; sleep dis-or-der
+s, 2.277 [[]]), and
+ []
+
+
+Underfull \hbox (badness 1226) in paragraph at lines 2219--2220
+\OT1/cmr/m/n/10 metabolic/respiratory/systemic con-di-tions (type 2 dia-betes, 
+4.434 [[]]; COPD,
+ []
+
+
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [23]
-(./mainBMC_steps1-5.bbl
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [24]
+(./mainBMC_steps1-5.bbl
 Underfull \hbox (badness 10000) in paragraph at lines 169--179
 []\OT1/cmr/m/n/10 Lundberg, S.M., Lee, S.-I.: A uni-fied approach to inter-pret
 -
@@ -1818,49 +1793,49 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [26]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [27]
 Underfull \hbox (badness 1082) in paragraph at lines 534--552
 []\OT1/cmr/m/n/10 Athanasaki, A., Mela-nis, K., Tsantzali, I., Ste-fanou, M.I.,
  Nty-menou, S.,
  []
 
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [27])
-LaTeX Font Info:    Calculating math sizes for size <14.05249> on input line 23
-19.
+)
+LaTeX Font Info:    Calculating math sizes for size <14.05249> on input line 27
+83.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 2319.
+(hyperref)                removing `math shift' on input line 2783.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\log' on input line 2319.
+(hyperref)                removing `\log' on input line 2783.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 2319.
+(hyperref)                removing `math shift' on input line 2783.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\lambda' on input line 2319.
+(hyperref)                removing `\lambda' on input line 2783.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 2319.
+(hyperref)                removing `math shift' on input line 2783.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `superscript' on input line 2319.
+(hyperref)                removing `superscript' on input line 2783.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\lambda' on input line 2319.
+(hyperref)                removing `\lambda' on input line 2783.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 2319.
+(hyperref)                removing `math shift' on input line 2783.
 
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
@@ -1869,10 +1844,6 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [29]
-
-Package natbib Warning: There were undefined citations.
-
-
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [30]
@@ -1885,25 +1856,25 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [33]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [34]
 (./mainBMC_steps1-5.aux)
 
 LaTeX Font Warning: Size substitutions with differences
 (Font)              up to 2.74158pt have occurred.
 
-
-LaTeX Warning: There were undefined references.
-
 Package rerunfilecheck Info: File `mainBMC_steps1-5.out' has not changed.
-(rerunfilecheck)             Checksum: C2F5F1C2ED7D14651BBC7CAD8AFD3A70;6576.
+(rerunfilecheck)             Checksum: 85EA28E840BBEF0D57B757CFE46E783F;5653.
  ) 
 Here is how much of TeX's memory you used:
- 49849 strings out of 476041
- 1151300 string characters out of 5793163
+ 49796 strings out of 476041
+ 1150989 string characters out of 5793163
  1895388 words of memory out of 12000000
- 69271 multiletter control sequences out of 15000+600000
- 587951 words of font info for 313 fonts, out of 8000000 for 9000
+ 69209 multiletter control sequences out of 15000+600000
+ 587253 words of font info for 311 fonts, out of 8000000 for 9000
  1147 hyphenation exceptions out of 8191
- 90i,19n,90p,1444b,1143s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 90i,19n,90p,1444b,1131s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbsy10.pfb></u
 sr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/sha
 re/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/tex
@@ -1942,10 +1913,10 @@ i7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti9.pfb>
 hare/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/sh
 are/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/sha
 re/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm7.pfb>
-Output written on mainBMC_steps1-5.pdf (33 pages, 7894371 bytes).
+Output written on mainBMC_steps1-5.pdf (34 pages, 7897039 bytes).
 PDF statistics:
- 1256 PDF objects out of 1440 (max. 8388607)
- 1020 compressed objects within 11 object streams
- 219 named destinations out of 1000 (max. 500000)
- 366 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1264 PDF objects out of 1440 (max. 8388607)
+ 1027 compressed objects within 11 object streams
+ 228 named destinations out of 1000 (max. 500000)
+ 334 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -1,0 +1,22 @@
+Sweep configuration
+
+Simulation script: ./volcano_simulation_nulls.py
+Output directory: ncase_alpha_sweep
+
+Fixed per-run parameters:
+  seed=3
+  m=20000
+  null_frac=0.8
+  beta_mean=0.06
+  beta_sd=0.03
+  eps=0.8
+  n_val=1000
+  var_extra_scale=1.0
+  ctrl_case_ratio=100.0
+  alphas=0.05 0.01
+
+n_case grid:
+  100 251 631 1585 3981 10000 25119 63096 158489 398107 1000000
+
+Example per-run command template:
+/usr/bin/python3 ./volcano_simulation_nulls.py --out_dir <run_dir> --seed 3 --m 20000 --null_frac 0.8 --n_case <N> --n_ctrl <100*N> --beta_mean 0.06 --beta_sd 0.03 --eps 0.8 --n_val 1000 --var_extra_scale 1.0 --alpha <ALPHA>

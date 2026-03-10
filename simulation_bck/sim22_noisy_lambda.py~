@@ -1,0 +1,309 @@
+#!/usr/bin/env python3
+"""
+Naive-only volcano designed to look like a "blob" (vertical column near logOR ~ 0).
+
+Mechanism:
+  - Latent Z drives outcome Y strongly enough to create structure.
+  - Each exposure X_j depends on Z with the SAME small gamma (tiny effect size ~ constant).
+  - Each exposure has a very different intercept alpha_j (wide prevalence spread),
+    causing the SE of logOR to vary a lot across features.
+  - Large n collapses SE enough that many tiny effects become significant.
+Result:
+  - logOR values cluster tightly near 0 (x-axis compressed).
+  - -log10(p) varies widely (y-axis spread) mostly because SE varies with prevalence.
+  - Volcano looks like a blob/vertical smear rather than classic arms.
+
+Outputs:
+  - volcano_naive_blob.png
+  - scan_naive_blob.csv
+"""
+
+import os
+import argparse
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from scipy.special import expit
+from scipy.stats import norm
+
+
+def ensure_dir(d: str) -> None:
+    os.makedirs(d, exist_ok=True)
+
+
+def counts_2x2(x: np.ndarray, y: np.ndarray):
+    x = x.astype(np.int8)
+    y = y.astype(np.int8)
+    a = int(np.sum((x == 1) & (y == 1)))
+    b = int(np.sum((x == 1) & (y == 0)))
+    c = int(np.sum((x == 0) & (y == 1)))
+    d = int(np.sum((x == 0) & (y == 0)))
+    return a, b, c, d
+
+
+def logor_wald_p(a: int, b: int, c: int, d: int, ha: float = 0.5):
+    a2, b2, c2, d2 = a + ha, b + ha, c + ha, d + ha
+    logor = float(np.log((a2 * d2) / (b2 * c2)))
+    se = float(np.sqrt(1.0 / a2 + 1.0 / b2 + 1.0 / c2 + 1.0 / d2))
+    if not np.isfinite(se) or se <= 0:
+        return logor, np.nan, np.nan
+    z = logor / se
+    p = float(2.0 * norm.sf(abs(z)))
+    return logor, se, p
+
+
+def misclassify_table_counts(a: int, b: int, c: int, d: int, p: float, q: float, rng: np.random.Generator):
+    """
+    Apply outcome misclassification directly to 2x2 table counts, stratified by X.
+
+    True table (X by Y):
+      a=n(X=1,Y=1), b=n(X=1,Y=0), c=n(X=0,Y=1), d=n(X=0,Y=0)
+
+    Misclassification on Y:
+      P(Y~ =1 | Y=1)=p (sensitivity)
+      P(Y~ =0 | Y=0)=q (specificity)
+
+    Returns observed counts (a_t,b_t,c_t,d_t) for (X by Y~).
+    """
+    # X=1 stratum
+    tp1 = rng.binomial(a, p)           # Y=1 stays 1
+    fp1 = rng.binomial(b, 1.0 - q)     # Y=0 flips to 1
+    a_t = int(tp1 + fp1)
+    b_t = int((a - tp1) + (b - fp1))
+
+    # X=0 stratum
+    tp0 = rng.binomial(c, p)
+    fp0 = rng.binomial(d, 1.0 - q)
+    c_t = int(tp0 + fp0)
+    d_t = int((c - tp0) + (d - fp0))
+
+    return a_t, b_t, c_t, d_t
+
+
+def correction_matrix(p: float, q: float) -> np.ndarray:
+    """
+    Misclassification operator K mapping true outcome counts -> observed outcome counts
+    for a fixed X stratum, on outcome axis [Y=0, Y=1]^T:
+      [obs0]   [ q      (1-p) ] [true0]
+      [obs1] = [ (1-q)   p    ] [true1]
+    """
+    return np.array([[q, 1.0 - p],
+                     [1.0 - q, p]], dtype=float)
+
+
+def lambda_corrected_log_or(a_t: int, b_t: int, c_t: int, d_t: int, p: float, q: float, lam: float) -> float:
+    """
+    Compute lambda-corrected log OR from observed (misclassified) table counts.
+
+    Observed table (X by Y~):
+      a_t=n(X=1,Y~=1), b_t=n(X=1,Y~=0), c_t=n(X=0,Y~=1), d_t=n(X=0,Y~=0)
+
+    Correction is applied separately within X=1 and X=0 strata:
+      true_vec ≈ (K + lam I)^{-1} obs_vec, where obs_vec=[obs0, obs1]^T.
+
+    Returns log(OR) computed from corrected counts.
+    """
+    K = correction_matrix(p, q)
+    inv = np.linalg.inv(K + lam * np.eye(2))
+
+    # X=1: obs outcome vector is [obs0=b_t, obs1=a_t]
+    tru1 = inv @ np.array([float(b_t), float(a_t)])
+    # X=0: obs outcome vector is [obs0=d_t, obs1=c_t]
+    tru0 = inv @ np.array([float(d_t), float(c_t)])
+
+    tru1 = np.clip(tru1, 1e-6, None)
+    tru0 = np.clip(tru0, 1e-6, None)
+
+    a2 = float(tru1[1])
+    b2 = float(tru1[0])
+    c2 = float(tru0[1])
+    d2 = float(tru0[0])
+
+    return float(np.log((a2 * d2) / (b2 * c2)))
+
+
+def recovery_scatter(true_logor: np.ndarray, naive_logor: np.ndarray, lam_logor: np.ndarray, out_png: str, title: str):
+    plt.figure(figsize=(7.5, 7.0))
+    plt.scatter(true_logor, naive_logor, s=6, alpha=0.35, label="naive (noisy table)")
+    plt.scatter(true_logor, lam_logor, s=6, alpha=0.35, label="lambda-corrected")
+    mn = float(np.nanmin(true_logor))
+    mx = float(np.nanmax(true_logor))
+    plt.plot([mn, mx], [mn, mx], linestyle="--", linewidth=1.0)
+    plt.xlabel("true log(OR)")
+    plt.ylabel("estimated log(OR)")
+    plt.title(title)
+    plt.legend(frameon=False, markerscale=2)
+    plt.tight_layout()
+    plt.savefig(out_png, dpi=220)
+    plt.close()
+
+
+def volcano_plot(logor: np.ndarray, p: np.ndarray, out_png: str, title: str):
+    y = -np.log10(np.clip(p, 1e-300, 1.0))
+    plt.figure(figsize=(9, 7))
+    plt.scatter(logor, y, s=8, alpha=0.6)
+    plt.axvline(0.0, linestyle=":", linewidth=1.0)
+    plt.axhline(-np.log10(0.05), linestyle="--", linewidth=1.0)
+    plt.xlabel("log(OR)")
+    plt.ylabel("-log10(p)")
+    plt.title(title)
+    plt.tight_layout()
+    plt.savefig(out_png, dpi=220)
+    plt.close()
+
+
+def main():
+    ap = argparse.ArgumentParser()
+
+    ap.add_argument("--out_dir", type=str, default="./naive_blob_outputs")
+    ap.add_argument("--seed", type=int, default=1)
+
+    ap.add_argument("--n", type=int, default=600000,
+                    help="Large n makes tiny effects very significant (vertical blob).")
+    ap.add_argument("--m", type=int, default=4000,
+                    help="Number of exposures/features scanned.")
+
+    ap.add_argument("--eta0", type=float, default=-1.6,
+                    help="Outcome intercept.")
+    ap.add_argument("--eta1", type=float, default=1.2,
+                    help="Z->Y strength.")
+
+    ap.add_argument("--alpha_mean", type=float, default=-1.2,
+                    help="Mean exposure intercept.")
+    ap.add_argument("--alpha_sd", type=float, default=3.0,
+                    help="Large alpha_sd creates huge prevalence heterogeneity (drives blob).")
+
+    ap.add_argument("--gamma", type=float, default=0.02,
+                    help="Constant small Z->X coupling for ALL features. Smaller -> tighter x blob.")
+    ap.add_argument("--signed", action="store_true",
+                    help="If set, random sign per feature (two-sided blob around 0).")
+
+    ap.add_argument("--min_prev", type=float, default=0.001,
+                    help="Clip exposure probabilities from below (avoid ultra-rare).")
+    ap.add_argument("--max_prev", type=float, default=0.999,
+                    help="Clip exposure probabilities from above.")
+
+    
+    ap.add_argument("--p", type=float, default=0.80,
+                    help="Sensitivity used to corrupt (a,b,c,d) into noisy counts.")
+    ap.add_argument("--q", type=float, default=0.70,
+                    help="Specificity used to corrupt (a,b,c,d) into noisy counts.")
+    ap.add_argument("--lam", type=float, default=0.05,
+                    help="Ridge parameter for lambda correction (K + lam I)^{-1}.")
+    ap.add_argument("--no_table_noise", action="store_true",
+                    help="If set, do NOT corrupt tables; lambda should match naive closely.")
+
+    args = ap.parse_args()
+    ensure_dir(args.out_dir)
+    rng = np.random.default_rng(args.seed)
+
+    n, m = args.n, args.m
+
+    # Latent Z and outcome Y
+    Z = rng.normal(0.0, 1.0, size=n)
+    pY = expit(args.eta0 + args.eta1 * Z)
+    Y = (rng.random(n) < pY).astype(np.int8)
+
+    # Feature intercepts with very wide spread -> prevalence heterogeneity -> SE heterogeneity
+    alpha = args.alpha_mean + rng.normal(0.0, args.alpha_sd, size=m)
+
+    # Constant tiny coupling; optionally random sign per feature
+    gamma = np.full(m, args.gamma, dtype=float)
+    if args.signed:
+        gamma *= rng.choice([-1.0, 1.0], size=m)
+
+    logor_true = np.empty(m, dtype=float)
+    logor_naive = np.empty(m, dtype=float)
+    logor_lambda = np.empty(m, dtype=float)
+    se = np.empty(m, dtype=float)
+    pval = np.empty(m, dtype=float)
+    prev = np.empty(m, dtype=float)
+
+    # Generate each X_j on the fly (no n x m allocation)
+    u = rng.random(n)  # reused buffer for speed; we will refresh per feature
+    for j in range(m):
+        # p(X=1|Z) = sigmoid(alpha_j + gamma_j Z)
+        pX = expit(alpha[j] + gamma[j] * Z)
+        pX = np.clip(pX, args.min_prev, args.max_prev)
+
+        # refresh randomness per feature without allocating a new vector
+        u[:] = rng.random(n)
+        Xj = (u < pX).astype(np.int8)
+
+        prev[j] = float(Xj.mean())
+        a, b, c, d = counts_2x2(Xj, Y)
+
+        # True log OR from the uncontaminated table
+        logor_true[j] = logor_wald_p(a, b, c, d, ha=0.5)[0]
+
+        # Corrupt the table directly using (p,q), unless disabled
+        if args.no_table_noise:
+            a_t, b_t, c_t, d_t = a, b, c, d
+        else:
+            a_t, b_t, c_t, d_t = misclassify_table_counts(a, b, c, d, p=args.p, q=args.q, rng=rng)
+
+        # Naive estimate from the noisy table (this is what you would observe)
+        lo, s, p = logor_wald_p(a_t, b_t, c_t, d_t, ha=0.5)
+        logor_naive[j] = lo
+        se[j] = s
+        pval[j] = p
+
+        # Lambda-corrected estimate from the noisy table
+        logor_lambda[j] = lambda_corrected_log_or(a_t, b_t, c_t, d_t, p=args.p, q=args.q, lam=args.lam)
+
+    df = pd.DataFrame({
+        "feature": np.arange(m),
+        "logOR_true": logor_true,
+        "logOR_naive_noisy": logor_naive,
+        "logOR_lambda": logor_lambda,
+        "se_wald_noisy": se,
+        "p_wald_noisy": pval,
+        "neglog10p": -np.log10(np.clip(pval, 1e-300, 1.0)),
+        "alpha": alpha,
+        "gamma": gamma,
+        "prev": prev,
+        "p": args.p,
+        "q": args.q,
+        "lam": args.lam,
+        "table_noise_disabled": int(args.no_table_noise),
+    })
+
+
+    out_csv = os.path.join(args.out_dir, "scan_noisy_lambda.csv")
+    df.to_csv(out_csv, index=False)
+
+    out_png = os.path.join(args.out_dir, "volcano_naive_noisy.png")
+    detK = args.p + args.q - 1.0
+    title = f"Naive volcano on noisy table: n={n}, m={m}, det(K)={detK:.3f}"
+    volcano_plot(logor_naive, pval, out_png, title)
+
+    out_png_lam = os.path.join(args.out_dir, "volcano_lambda.png")
+    title_lam = f"Lambda-corrected volcano: n={n}, m={m}, det(K)={detK:.3f}, lam={args.lam}"
+    volcano_plot(logor_lambda, pval, out_png_lam, title_lam)
+
+    out_scatter = os.path.join(args.out_dir, "recovery_scatter.png")
+    recovery_scatter(logor_true, logor_naive, logor_lambda, out_scatter,
+                     title=f"Recovery: det(K)={detK:.3f}, lam={args.lam}")
+
+
+    med_abs = float(np.median(np.abs(logor_naive[np.isfinite(logor_naive)])))
+    q90_abs = float(np.quantile(np.abs(logor_naive[np.isfinite(logor_naive)]), 0.90))
+    frac_hi = float(np.mean(np.isfinite(pval) & (pval < 1e-12)))
+
+    print("Run summary:")
+    print(f"  n={n}, m={m}, seed={args.seed}")
+    print(f"  eta0={args.eta0}, eta1={args.eta1}")
+    print(f"  alpha_mean={args.alpha_mean}, alpha_sd={args.alpha_sd}")
+    print(f"  gamma={args.gamma}, signed={bool(args.signed)}")
+    print(f"  table-noise p={args.p}, q={args.q}, det(K)={args.p+args.q-1.0:.3f}, lam={args.lam}, disabled={bool(args.no_table_noise)}")
+    print(f"  median |logOR|={med_abs:.6f}, 90% |logOR|={q90_abs:.6f}")
+    print(f"  fraction p<1e-12 = {frac_hi:.3f}")
+    print(f"Outputs written to: {os.path.abspath(args.out_dir)}")
+    print(f"  - {out_csv}")
+    print(f"  - {out_png}")
+    print(f"  - {out_png_lam}")
+    print(f"  - {out_scatter}")
+
+
+if __name__ == "__main__":
+    main()

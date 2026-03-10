@@ -1,0 +1,568 @@
+%TODOD
+% 1. add spor for IPF and ASD
+% 2. Add naive OR (currentlt it is hi/low OR
+% 3. Add discussiona dn and match with known comorbidities, and show some ridiculous examples
+% one figure / one table
+% traget PNAS breif report: strategy i sto have sections I , II and Figure/table + discussion in main, and compariosn/guaarntee math in SI Methods
+%  we need an example of bad attribution and a good attrbution
+% and make the case that this is AFTER we have a predictive model
+% this is a paper on explainability. so competing with SHAP
+% can we do individual?
+% risk profile (maybe a polyscore for individual as
+% polyscore(M) = \sum_i spor(X_j) : X_j is present in patient M
+% we also need to show that average SHAP is bad.. have a figure for that
+\documentclass[twocolumn,10pt]{IEEEtran}
+\let\labelindent\relax
+\usepackage{enumitem}
+\input{preamble.tex}
+\tikzexternalenable
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+%\pagestyle{fancy}
+\def\COLA{black}
+\newif\iftikzX
+\tikzXtrue
+\tikzXfalse
+%\def\jobname{polar}
+\newif\ifFIGS 
+\FIGSfalse  
+% \FIGStrue
+
+\tikzexternalize[mode=list and make, prefix=./Figures/External]
+
+
+% --- deterministic, high-separation colors using dvipsnames ---
+%% \newcommand{\R}{\mathbb{R}}
+%% \newcommand{\indep}{\perp\!\!\!\perp}
+%% \newcommand{\SPOR}{\operatorname{SPOR}}
+%% \newcommand{\COR}{\operatorname{OR}}
+%% \newcommand{\logor}{\log\SPOR}
+%% \newcommand{\clogor}{\log\COR}
+%% \newcommand{\E}{\mathbb{E}}
+%% \newcommand{\AUC}{\operatorname{AUC}}
+
+\title{Robust Feature Attribution under Label Noise with Stabilized Posterior Odds Ratios}
+\author{D. Onishchenko and I. Chattopadhyay}
+\date{}
+% Data sources (adjust paths as needed)
+
+\begin{document}
+
+\def\SKIP{0}   
+\def\WDT{2.25in}
+\def\HGT{2in}
+\def\COLYY{Yellow2}
+\def\TEXTCOL{gray}
+\def\AXISCOL{gray}
+%% \begin{figure*}[!ht]
+
+%% \centering 
+%%   \tikzexternalenable
+%%   \tikzsetnextfilename{figcompsemilogADRD}
+
+
+
+\pgfplotsset{cycle list name=color list}
+\pgfplotsset{
+discard if/.style 2 args={
+x filter/.code={
+\edef\tempa{\thisrow{#1}}
+\edef\tempb{#2}
+\ifx\tempa\tempb
+\def\pgfmathresult{inf}
+\fi
+} 
+},
+discard if not/.style 2 args={
+x filter/.code={
+\edef\tempa{\thisrow{#1}}
+\edef\tempb{#2}
+\ifx\tempa\tempb
+\else
+\def\pgfmathresult{inf}
+\fi
+}
+}
+} 
+% Define a basic list of markers
+\def\OPC{.5}
+
+
+\tikzsetnextfilename{sim2}
+%\begin{document}
+
+
+\begin{tikzpicture}
+\def\datatableA{full_results_50000.csv}
+
+\node[] (nA) at (0,0){
+\begin{tikzpicture}[anchor=center]
+\begin{semilogyaxis}[\AXISCOL,%anchor=north,at=(A.south),
+legend columns=3,
+legend style={column sep=1em,text=black,anchor=south west,
+at={(-.12,1.1750),font=\fontsize{9}{9}\selectfont},inner sep=1pt,draw=none,
+fill opacity=1,align=right,text opacity=1,text=\TEXTCOL},
+width=\WDT, height=\HGT,
+xlabel={Effect size ($\clogor$)},
+ylabel={significance ($-\log_{10} p$)},
+%-----------------
+axis on top=false, 
+scaled ticks=false, 
+scale only axis=true,  
+major tick length=0pt,
+minor tick length=0pt,
+enlargelimits=0.10,
+% enlarge y limits=0.1,
+%enlarge x limits=0.05,
+%axis background/.style={
+%shade,top color=transparent!10,bottom color=transparent!0},
+axis line style={\AXISCOL, thick},
+grid=both,
+% xtick=data,
+minor tick num=2,
+major grid style={opacity=.35,thick,\AXISCOL},
+minor grid style={opacity=.1,thin,\AXISCOL!90!Green1},
+% -------------------
+%point meta=explicit symbolic,_
+%table/meta=group,  
+]
+\addplot+[%% each nth point={\SKIP},
+  filter discard warning=false, unbounded coords=discard,
+only marks,  mark=*,%\getmark{#1},
+mark size=1pt, mark options={Blue1,draw=black!30,fill opacity=\OPC,    %fill=\getcolor{#1},
+opacity=\OPC,}    ,
+%discard if not={group}{#1},
+%cycle list name=mymarkers
+]table[
+x=log_or_naive,
+y=p_naive, 
+col sep=comma
+] {\datatableA};
+%\addlegendentry{\getlabel{#1}}
+\draw[Red1,dashed, ultra thick] (axis cs:-6,2) -- (axis cs:3,2);
+\end{semilogyaxis}
+\end{tikzpicture}
+};
+
+
+\node[anchor=south west] (nB) at ([xshift=.2in]nA.south east){
+\begin{tikzpicture}[anchor=center]
+\begin{semilogyaxis}[\AXISCOL,%anchor=north,at=(A.south),
+legend columns=3,
+legend style={column sep=1em,text=black,anchor=south west,
+at={(-.12,1.1750),font=\fontsize{9}{9}\selectfont},inner sep=1pt,draw=none,
+fill opacity=1,align=right,text opacity=1,text=\TEXTCOL},
+width=\WDT, height=\HGT,
+xlabel={Effect size ($\logor$)},
+ylabel={significance ($-\log_{10} p$)},
+%-----------------
+axis on top=false, 
+scaled ticks=false, 
+scale only axis=true,  
+major tick length=0pt,
+minor tick length=0pt,
+enlargelimits=0.1,
+% enlarge y limits=0.1,
+%enlarge x limits=0.05,
+%axis background/.style={
+%shade,top color=transparent!10,bottom color=transparent!0},
+axis line style={\AXISCOL, thick},
+grid=both,
+% xtick=data,
+minor tick num=2,
+major grid style={opacity=.35,thick,\AXISCOL},
+minor grid style={opacity=.1,thin,\AXISCOL!90!Green1},
+% -------------------
+%point meta=explicit symbolic,
+%table/meta=group,  
+]
+\addplot+[%% each nth point={\SKIP},
+  filter discard warning=false, unbounded coords=discard,
+only marks,  mark=*,%\getmark{#1},
+mark size=1pt, mark options={DodgerBlue1,draw=black!30,fill opacity=\OPC,    %fill=\getcolor{#1},
+opacity=\OPC,}    ,
+%discard if not={group}{#1},
+%cycle list name=mymarkers
+]table[
+x=log_or_naive,
+y=p_lambda, 
+col sep=comma
+] {\datatableA};
+%\addlegendentry{\getlabel{#1}}
+\draw[Red1,dashed, ultra thick] (axis cs:-6,1.3) -- (axis cs:3,1.3);
+\end{semilogyaxis}
+\end{tikzpicture}
+};
+
+
+
+
+
+
+
+\def\datatableB{full_results_750000.csv}
+
+\node[anchor=north west] (nC) at ([yshift=-.3in]nA.south west){
+\begin{tikzpicture}[anchor=center]
+\begin{semilogyaxis}[\AXISCOL,%anchor=north,at=(A.south),
+legend columns=3,
+legend style={column sep=1em,text=black,anchor=south west,
+at={(-.12,1.1750),font=\fontsize{9}{9}\selectfont},inner sep=1pt,draw=none,
+fill opacity=1,align=right,text opacity=1,text=\TEXTCOL},
+width=\WDT, height=\HGT,
+xlabel={Effect size ($\clogor$)},
+ylabel={significance ($-\log_{10} p$)},
+%-----------------
+axis on top=false, 
+scaled ticks=false, 
+scale only axis=true,  
+major tick length=0pt,
+minor tick length=0pt,
+enlargelimits=0.10,
+% enlarge y limits=0.1,
+%enlarge x limits=0.05,
+%axis background/.style={
+%shade,top color=transparent!10,bottom color=transparent!0},
+axis line style={\AXISCOL, thick},
+grid=both,
+% xtick=data,
+minor tick num=2,
+major grid style={opacity=.35,thick,\AXISCOL},
+minor grid style={opacity=.1,thin,\AXISCOL!90!Green1},
+% -------------------
+%point meta=explicit symbolic,_
+%table/meta=group,  
+]
+\addplot+[%% each nth point={\SKIP},
+  filter discard warning=false, unbounded coords=discard,
+only marks,  mark=*,%\getmark{#1},
+mark size=1pt, mark options={Blue1,draw=black!30,fill opacity=\OPC,    %fill=\getcolor{#1},
+opacity=\OPC,}    ,
+%discard if not={group}{#1},
+%cycle list name=mymarkers
+]table[
+x=log_or_naive,
+y=p_naive, 
+col sep=comma
+] {\datatableB};
+%\addlegendentry{\getlabel{#1}}
+\draw[Red1,dashed, ultra thick] (axis cs:-6,2) -- (axis cs:3,2);
+\end{semilogyaxis}
+\end{tikzpicture}
+};
+
+
+\node[anchor=south west] (nD) at ([xshift=.2in]nC.south east){
+\begin{tikzpicture}[anchor=center]
+\begin{semilogyaxis}[\AXISCOL,%anchor=north,at=(A.south),
+legend columns=3,
+legend style={column sep=1em,text=black,anchor=south west,
+at={(-.12,1.1750),font=\fontsize{9}{9}\selectfont},inner sep=1pt,draw=none,
+fill opacity=1,align=right,text opacity=1,text=\TEXTCOL},
+width=\WDT, height=\HGT,
+xlabel={Effect size ($\logor$)},
+ylabel={significance ($-\log_{10} p$)},
+%-----------------
+axis on top=false, 
+scaled ticks=false, 
+scale only axis=true,  
+major tick length=0pt,
+minor tick length=0pt,
+enlargelimits=0.1,
+% enlarge y limits=0.1,
+%enlarge x limits=0.05,
+%axis background/.style={
+%shade,top color=transparent!10,bottom color=transparent!0},
+axis line style={\AXISCOL, thick},
+grid=both,
+% xtick=data,
+minor tick num=2,
+major grid style={opacity=.35,thick,\AXISCOL},
+minor grid style={opacity=.1,thin,\AXISCOL!90!Green1},
+% -------------------
+%point meta=explicit symbolic,
+%table/meta=group,  
+]
+\addplot+[%% each nth point={\SKIP},
+  filter discard warning=false, unbounded coords=discard,
+only marks,  mark=*,%\getmark{#1},
+mark size=1pt, mark options={DodgerBlue1,draw=black!30,fill opacity=\OPC,    %fill=\getcolor{#1},
+opacity=\OPC,}    ,
+%discard if not={group}{#1},
+%cycle list name=mymarkers
+]table[
+x=log_or_naive,
+y=p_lambda, 
+col sep=comma
+] {\datatableB};
+%\addlegendentry{\getlabel{#1}}
+\draw[Red1,dashed, ultra thick] (axis cs:-6,1.3) -- (axis cs:3,1.3);
+\end{semilogyaxis}
+\end{tikzpicture}
+};
+
+
+\node[anchor=south west] (LA) at (nA.north west) {{\large a.} $\clogor$ for $n=50,000$};
+\node[anchor=south west] (LB) at ($(LA.south west)!(nB.west)!(LA.south)$) {{\large b.} $\logor$ for $n=100,000$};
+\node[anchor=south west] (LC) at (nC.north west) {{\large c.} $\clogor$ for $n=750,000$};
+\node[anchor=south west] (LD) at ($(LC.south west)!(LB.west)!(LC.south)$) {{\large d.} $\logor$ for $n=750,000$};
+
+
+
+
+
+
+
+\end{tikzpicture}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%% \tikzsetnextfilename{SimPanelB}
+%% \def\datatableB{full_results_500000.csv}
+
+
+%% \begin{tikzpicture}
+
+%% \node[] (nA) at (0,0){
+%% \begin{tikzpicture}[anchor=center]
+%% \begin{semilogyaxis}[\AXISCOL,%anchor=north,at=(A.south),
+%% legend columns=3,
+%% legend style={column sep=1em,text=black,anchor=south west,
+%% at={(-.12,1.1750),font=\fontsize{9}{9}\selectfont},inner sep=1pt,draw=none,
+%% fill opacity=1,align=right,text opacity=1,text=\TEXTCOL},
+%% width=\WDT, height=\HGT,
+%% xlabel={Effect size ($\clogor$)},
+%% ylabel={significance ($-\log_{10} p$)},
+%% %-----------------
+%% axis on top=false, 
+%% scaled ticks=false, 
+%% scale only axis=true,  
+%% major tick length=0pt,
+%% minor tick length=0pt,
+%% enlargelimits=0.1,
+%% % enlarge y limits=0.1,
+%% %enlarge x limits=0.05,
+%% %axis background/.style={
+%% %shade,top color=transparent!10,bottom color=transparent!0},
+%% axis line style={\AXISCOL, thick},
+%% grid=both,
+%% % xtick=data,
+%% minor tick num=2,
+%% major grid style={opacity=.35,thick,\AXISCOL},
+%% minor grid style={opacity=.1,thin,\AXISCOL!90!Green1},
+%% % -------------------
+%% %point meta=explicit symbolic,
+%% %table/meta=group,  
+%% ]
+%% \addplot+[each nth point={\SKIP},filter discard warning=false, unbounded coords=discard,
+%% only marks,  mark=*,%\getmark{#1},
+%% mark size=1pt, mark options={Blue1,draw=black!30,fill opacity=\OPC,    %fill=\getcolor{#1},
+%% opacity=\OPC,}    ,
+%% %discard if not={group}{#1},
+%% %cycle list name=mymarkers
+%% ]table[
+%% x=log_or_naive,
+%% y=p_naive, 
+%% col sep=comma
+%% ] {\datatableB};
+%% %\addlegendentry{\getlabel{#1}}
+%% \draw[Red1,dashed, ultra thick] (axis cs:-6,1.3) -- (axis cs:3,1.3);
+%% \end{semilogyaxis}
+%% \end{tikzpicture}
+%% };
+
+
+%% \node[anchor=south west] (nB) at (nA.south east){
+%% \begin{tikzpicture}[anchor=center]
+%% \begin{semilogyaxis}[\AXISCOL,%anchor=north,at=(A.south),
+%% legend columns=3,
+%% legend style={column sep=1em,text=black,anchor=south west,
+%% at={(-.12,1.1750),font=\fontsize{9}{9}\selectfont},inner sep=1pt,draw=none,
+%% fill opacity=1,align=right,text opacity=1,text=\TEXTCOL},
+%% width=\WDT, height=\HGT,
+%% xlabel={Effect size ($\clogor$)},
+%% ylabel={significance ($-\log_{10} p$)},
+%% %-----------------
+%% axis on top=false, 
+%% scaled ticks=false, 
+%% scale only axis=true,  
+%% major tick length=0pt,
+%% minor tick length=0pt,
+%% enlargelimits=0.1,
+%% % enlarge y limits=0.1,
+%% %enlarge x limits=0.05,
+%% %axis background/.style={
+%% %shade,top color=transparent!10,bottom color=transparent!0},
+%% axis line style={\AXISCOL, thick},
+%% grid=both,
+%% % xtick=data,
+%% minor tick num=2,
+%% major grid style={opacity=.35,thick,\AXISCOL},
+%% minor grid style={opacity=.1,thin,\AXISCOL!90!Green1},
+%% % -------------------
+%% %point meta=explicit symbolic,
+%% %table/meta=group,  
+%% ]
+%% \addplot+[each nth point={\SKIP},filter discard warning=false, unbounded coords=discard,
+%% only marks,  mark=*,%\getmark{#1},
+%% mark size=1pt, mark options={DodgerBlue1,draw=black!30,fill opacity=\OPC,    %fill=\getcolor{#1},
+%% opacity=\OPC,}    ,
+%% %discard if not={group}{#1},
+%% %cycle list name=mymarkers
+%% ]table[
+%% x=log_or_naive,
+%% y=p_lambda, 
+%% col sep=comma
+%% ] {\datatableB};
+%% %\addlegendentry{\getlabel{#1}}
+%% \draw[Red1,dashed, ultra thick] (axis cs:-6,1.3) -- (axis cs:3,1.3);
+%% \end{semilogyaxis}
+%% \end{tikzpicture}
+%% };
+%% \end{tikzpicture}
+
+
+
+
+
+
+%% \tikzsetnextfilename{SimPanelC}
+%% \def\datatableC{full_results_750000.csv}
+
+
+%% \begin{tikzpicture}
+
+%% \node[] (nA) at (0,0){
+%% \begin{tikzpicture}[anchor=center]
+%% \begin{semilogyaxis}[\AXISCOL,%anchor=north,at=(A.south),
+%% legend columns=3,
+%% legend style={column sep=1em,text=black,anchor=south west,
+%% at={(-.12,1.1750),font=\fontsize{9}{9}\selectfont},inner sep=1pt,draw=none,
+%% fill opacity=1,align=right,text opacity=1,text=\TEXTCOL},
+%% width=\WDT, height=\HGT,
+%% xlabel={Effect size ($\clogor$)},
+%% ylabel={significance ($-\log_{10} p$)},
+%% %-----------------
+%% axis on top=false, 
+%% scaled ticks=false, 
+%% scale only axis=true,  
+%% major tick length=0pt,
+%% minor tick length=0pt,
+%% enlargelimits=0.1,
+%% % enlarge y limits=0.1,
+%% %enlarge x limits=0.05,
+%% %axis background/.style={
+%% %shade,top color=transparent!10,bottom color=transparent!0},
+%% axis line style={\AXISCOL, thick},
+%% grid=both,
+%% % xtick=data,
+%% minor tick num=2,
+%% major grid style={opacity=.35,thick,\AXISCOL},
+%% minor grid style={opacity=.1,thin,\AXISCOL!90!Green1},
+%% % -------------------
+%% %point meta=explicit symbolic,
+%% %table/meta=group,  
+%% ]
+%% \addplot+[each nth point={\SKIP},filter discard warning=false, unbounded coords=discard,
+%% only marks,  mark=*,%\getmark{#1},
+%% mark size=1pt, mark options={Blue1,draw=black!30,fill opacity=\OPC,    %fill=\getcolor{#1},
+%% opacity=\OPC,}    ,
+%% %discard if not={group}{#1},
+%% %cycle list name=mymarkers
+%% ]table[
+%% x=log_or_naive,
+%% y=p_naive, 
+%% col sep=comma
+%% ] {\datatableC};
+%% %\addlegendentry{\getlabel{#1}}
+%% \draw[Red1,dashed, ultra thick] (axis cs:-6,1.3) -- (axis cs:3,1.3);
+%% \end{semilogyaxis}
+%% \end{tikzpicture}
+%% };
+
+
+%% \node[anchor=south west] (nB) at (nA.south east){
+%% \begin{tikzpicture}[anchor=center]
+%% \begin{semilogyaxis}[\AXISCOL,%anchor=north,at=(A.south),
+%% legend columns=3,
+%% legend style={column sep=1em,text=black,anchor=south west,
+%% at={(-.12,1.1750),font=\fontsize{9}{9}\selectfont},inner sep=1pt,draw=none,
+%% fill opacity=1,align=right,text opacity=1,text=\TEXTCOL},
+%% width=\WDT, height=\HGT,
+%% xlabel={Effect size ($\clogor$)},
+%% ylabel={significance ($-\log_{10} p$)},
+%% %-----------------
+%% axis on top=false, 
+%% scaled ticks=false, 
+%% scale only axis=true,  
+%% major tick length=0pt,
+%% minor tick length=0pt,
+%% enlargelimits=0.1,
+%% % enlarge y limits=0.1,
+%% %enlarge x limits=0.05,
+%% %axis background/.style={
+%% %shade,top color=transparent!10,bottom color=transparent!0},
+%% axis line style={\AXISCOL, thick},
+%% grid=both,
+%% % xtick=data,
+%% minor tick num=2,
+%% major grid style={opacity=.35,thick,\AXISCOL},
+%% minor grid style={opacity=.1,thin,\AXISCOL!90!Green1},
+%% % -------------------
+%% %point meta=explicit symbolic,
+%% %table/meta=group,  
+%% ]
+%% \addplot+[each nth point={\SKIP},filter discard warning=false, unbounded coords=discard,
+%% only marks,  mark=*,%\getmark{#1},
+%% mark size=1pt, mark options={DodgerBlue1,draw=black!30,fill opacity=\OPC,    %fill=\getcolor{#1},
+%% opacity=\OPC,}    ,
+%% %discard if not={group}{#1},
+%% %cycle list name=mymarkers
+%% ]table[
+%% x=log_or_naive,
+%% y=p_lambda, 
+%% col sep=comma
+%% ] {\datatableC};
+%% %\addlegendentry{\getlabel{#1}}
+%% \draw[Red1,dashed, ultra thick] (axis cs:-6,1.3) -- (axis cs:3,1.3);
+%% \end{semilogyaxis}
+%% \end{tikzpicture}
+%% };
+%% \end{tikzpicture}
+
+
+
+
+% ================= Composite (single final figure) =================
+%% \tikzsetnextfilename{figcompsemilogIPF}
+%% \begin{tikzpicture}[font=\bfseries\sffamily\fontsize{10}{10}\selectfont]
+%%   % Place prebuilt PDFs; the first run + make will produce these
+%%   \node[anchor=north west] (A) at (0,0.0)        {\includegraphics{Figures/External/IPFpanelA.pdf}};
+%%   \node[anchor=south west] (B) at ([xshift=-4.8in]A.south east)    {\includegraphics{Figures/External/IPFpanelB.pdf}};
+%%   \node[anchor=north west] (C)  at (B.north east)    {\includegraphics{Figures/External/IPFpanelC.pdf}};
+
+%%   % Panel labels (adjust positions as needed)
+%%   \node[anchor=south west] (L1) at ([xshift=.5in,yshift=-1.6in]A.north west) {{\large a.} Classical $\clogor$ (IPF)};
+%%   \node[anchor=south west] (L2) at ([xshift=0.2in]$(L1.south)!(B.west)!(L1.south east)$)  {{\large b.} $SHAP$ (IPF)};
+%%   \node[anchor=south west] (L3) at ([xshift=0.2in]$(L1.south)!(C.west)!(L1.south east)$)  {{\large c.} $\logor$ (IPF)};
+%% \end{tikzpicture}
+
+
+  
+
+\end{document}
+
