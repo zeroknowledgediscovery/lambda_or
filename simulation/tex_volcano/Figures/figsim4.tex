@@ -1,0 +1,141 @@
+%===================================                                              
+ \pgfplotsset{                                                                
+    discard if/.style 2 args={                                                  
+        x filter/.append code={                                                 
+            \edef\tempa{\thisrow{#1}}                                           
+            \edef\tempb{#2}                                                     
+            \ifx\tempa\tempb                                                    
+                \def\pgfmathresult{inf}                                         
+            \fi                                                                 
+        }                                                                       
+    },                                                                          
+    discard if not/.style 2 args={                                              
+        x filter/.append code={                                                 
+            \edef\tempa{\thisrow{#1}}                                           
+            \edef\tempb{#2}                                                     
+            \ifx\tempa\tempb                                                    
+            \else                                                               
+                \def\pgfmathresult{inf}                                         
+            \fi                                                                 
+        }                                                                       
+    }                                                                           
+} %===================================                                                                           
+\pgfplotsset{
+  naive mark/.style={
+    mark=*,
+    mark options={
+      solid,
+      scale=.75,
+      line width=0.5pt
+    }
+  },
+  spor mark/.style={
+    mark=*,
+    mark options={
+      solid,
+      fill=white,
+      scale=.95,
+      line width=0.5pt
+    }
+  }
+}
+% ---- file names (change paths if needed) ----
+\def\datafile{../ncase_alpha_sweep/sweep_summary.csv} % uses the name you provided
+
+\begin{tikzpicture}[font=\fontsize{8}{7}\selectfont]
+\begin{groupplot}[
+  group style = {group size=3 by 2, horizontal sep=.65in, vertical sep=.75in},
+  width=0.28\textwidth, height=0.28\textwidth,
+  %xlabel = {Misclassification rate ($1-q_{sel}$)},
+  legend style={draw=none, fill=white,at={(0.5,1.25)}, anchor=south, legend columns=-1, /tikz/every even column/.style={column sep=6pt}},
+  legend cell align=left, ylabel style={yshift=-.1in},
+xmode=log,ymode=log]
+
+% -------- Panel 1: Bias --------
+\nextgroupplot[very thick,scaled ticks=false,             % turn off 10^k scaling note
+  %tick label style={/pgf/number format/fixed} % print full numbers
+  %xtick=data,
+  ylabel = {False Discovery Rate},  tick label style={/pgf/number format/.cd, fixed}, xlabel={$n_\textrm{cae}$},% <- note the /.cd
+  title = {\large a. ($\alpha=0.05$)}
+]
+\addplot[smooth, naive mark,thick] table[col sep=comma,y expr=\thisrow{naive_fdr}, x=n_case,discard if not={alpha}{0.05},]{\datafile};
+\addlegendentry{Naive}
+\addplot[smooth,  spor mark, thick] table[col sep=comma,y expr=\thisrow{lambda_fdr}, x=n_case,discard if not={alpha}{0.05}]{\datafile};
+\addlegendentry{$\SPOR$}
+
+% -------- Panel 2: True Positives --------
+\nextgroupplot[very thick,scaled ticks=false,             % turn off 10^k scaling note
+  %tick label style={/pgf/number format/fixed} % print full numbers
+  %xtick=data,
+  ylabel = {True Positives},  tick label style={/pgf/number format/.cd, fixed}, xlabel={$n_\textrm{cae}$},% <- note the /.cd
+  title = {\large b.  ($\alpha=0.05$)}
+]
+%\addlegendentry{$\SPOR$}
+\addplot[smooth,  naive mark, thick] table[col sep=comma,y expr=\thisrow{naive_tp}, x=n_case,discard if not={alpha}{0.05}]{\datafile};
+%\addlegendentry{Naive}
+\addplot[smooth, spor mark,thick] table[col sep=comma,y expr=\thisrow{lambda_tp}, x=n_case,discard if not={alpha}{0.05},]{\datafile};
+
+% -------- Panel 3: False Positives --------
+\nextgroupplot[very thick,scaled ticks=false,             % turn off 10^k scaling note
+  %tick label style={/pgf/number format/fixed} % print full numbers
+  %xtick=data,
+  ylabel = {False Positives},  tick label style={/pgf/number format/.cd, fixed}, xlabel={$n_\textrm{cae}$},% <- note the /.cd
+  title = {\large c.  ($\alpha=0.05$)}
+]
+%\addlegendentry{$\SPOR$}
+\addplot[smooth,  naive mark, thick] table[col sep=comma,y expr=\thisrow{naive_fp}, x=n_case,discard if not={alpha}{0.05}]{\datafile};
+%\addlegendentry{Naive}
+\addplot[smooth, spor mark,thick] table[col sep=comma,y expr=\thisrow{lambda_fp}, x=n_case,discard if not={alpha}{0.05},]{\datafile};
+
+%=====================================
+
+
+% -------- Panel 1: Bias --------
+\nextgroupplot[very thick,scaled ticks=false,             % turn off 10^k scaling note
+  %tick label style={/pgf/number format/fixed} % print full numbers
+  %xtick=data,
+  ylabel = {False Discovery Rate},  tick label style={/pgf/number format/.cd, fixed}, xlabel={$n_\textrm{cae}$},% <- note the /.cd
+  title = {\large d.  ($\alpha=0.01$)}
+]
+\addplot[smooth, naive mark,thick] table[col sep=comma,y expr=\thisrow{naive_fdr}, x=n_case,discard if not={alpha}{0.01},]{\datafile};
+%\addlegendentry{Naive}
+\addplot[smooth,  spor mark, thick] table[col sep=comma,y expr=\thisrow{lambda_fdr}, x=n_case,discard if not={alpha}{0.01}]{\datafile};
+%\addlegendentry{$\SPOR$}
+
+% -------- Panel 2: True Positives --------
+\nextgroupplot[very thick,scaled ticks=false,             % turn off 10^k scaling note
+  %tick label style={/pgf/number format/fixed} % print full numbers
+  %xtick=data,
+  ylabel = {True Positives},  tick label style={/pgf/number format/.cd, fixed}, xlabel={$n_\textrm{cae}$},% <- note the /.cd
+  title = {\large e.  ($\alpha=0.01$)}
+]
+%\addlegendentry{$\SPOR$}
+\addplot[smooth,  naive mark, thick] table[col sep=comma,y expr=\thisrow{naive_tp}, x=n_case,discard if not={alpha}{0.01}]{\datafile};
+%\addlegendentry{Naive}
+\addplot[smooth, spor mark,thick] table[col sep=comma,y expr=\thisrow{lambda_tp}, x=n_case,discard if not={alpha}{0.01},]{\datafile};
+
+% -------- Panel 3: False Positives --------
+\nextgroupplot[very thick,scaled ticks=false,             % turn off 10^k scaling note
+  %tick label style={/pgf/number format/fixed} % print full numbers
+  %xtick=data,
+  ylabel = {False Positives},  tick label style={/pgf/number format/.cd, fixed}, xlabel={$n_\textrm{cae}$},% <- note the /.cd
+  title = {\large f.  ($\alpha=0.01$)}
+]
+%\addlegendentry{$\SPOR$}
+\addplot[smooth,  naive mark, thick] table[col sep=comma,y expr=\thisrow{naive_fp}, x=n_case,discard if not={alpha}{0.01}]{\datafile};
+%\addlegendentry{Naive}
+\addplot[smooth, spor mark,thick] table[col sep=comma,y expr=\thisrow{lambda_fp}, x=n_case,discard if not={alpha}{0.01},]{\datafile};
+
+%=====================================
+
+
+
+
+\end{groupplot}
+
+
+
+%\node at ($(group c1r1.south)!0.5!(group c4r1.south)$) [below=.15in] {Mis-classification rate $1 - p_{\mathrm{sel}}$ (with $p_{\mathrm{sel}}=q_{\mathrm{sel}}$)};
+
+
+\end{tikzpicture}

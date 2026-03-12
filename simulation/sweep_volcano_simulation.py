@@ -26,7 +26,7 @@ VAR_RE = re.compile(
 
 def default_n_case_grid():
     # 11 logarithmically spaced points from 1e2 to 1e6 inclusive.
-    vals = np.logspace(2, 6, 11)
+    vals = np.logspace(2, 6, 15)
     vals = np.round(vals).astype(int)
     # guard against accidental duplicates after rounding
     vals = np.unique(vals)

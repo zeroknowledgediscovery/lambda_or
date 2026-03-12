@@ -1,0 +1,37 @@
+Simulation: naive OR vs lambda-style variance floor
+
+Full command used:
+/home/ishanu/Dropbox/ZED/Research/lambda_or/simulation/volcano_simulation_nulls.py --out_dir ncase_alpha_sweep/alpha_0p01/n_631 --seed 3 --m 20000 --null_frac 0.8 --n_case 631 --n_ctrl 63100 --beta_mean 0.06 --beta_sd 0.03 --eps 0.8 --n_val 1000 --var_extra_scale 1.0 --alpha 0.01
+
+Default manuscript replication command:
+python naive_vs_lambda_variance.py --out_dir yfloor_demo --seed 3 --m 20000 --n_case 600000 --n_ctrl 600000 --beta_mean 0.06 --beta_sd 0.03 --eps 0.5 --n_val 1000 --var_extra_scale 1.0
+
+Resolved parameter values:
+out_dir=ncase_alpha_sweep/alpha_0p01/n_631
+seed=3
+m=20000
+n_case=631
+n_ctrl=63100
+prev0_mean=-3.5
+prev_sd=1.0
+beta_mean=0.06
+beta_sd=0.03
+null_frac=0.8
+eps=0.8
+n_val=1000
+alpha=0.01
+var_extra_scale=1.0
+xlim=0.35
+
+Derived quantities:
+var_extra=0.0015625
+se_floor=0.0395284707521
+
+Interpretation:
+- var_extra is the added variance component used in the lambda-style
+  inference analogue.
+- se_floor = sqrt(var_extra) is the sample-size-independent lower bound on
+  the standard error induced by finite validation uncertainty.
+- In this simplified demonstration, the naive log-OR estimate itself is
+  unchanged; only the inferential variance differs between the naive and
+  lambda-style analyses.

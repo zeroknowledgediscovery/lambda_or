@@ -7,7 +7,7 @@ import matplotlib as mpl
 # =============================
 # USER OPTIONS
 # =============================
-CSV_PATH = "./multisweep_summary.csv"
+CSV_PATH = "./lambdaor_outputs/multisweep_summary.csv"
 
 # Method colors (fill + edge will match)
 COLOR_SPOR = "#ff8822"   # lambda-OR

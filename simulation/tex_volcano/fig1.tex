@@ -1,0 +1,502 @@
+%TODOD
+% 1. add spor for IPF and ASD
+% 2. Add naive OR (currentlt it is hi/low OR
+% 3. Add discussiona dn and match with known comorbidities, and show some ridiculous examples
+% one figure / one table
+% traget PNAS breif report: strategy i sto have sections I , II and Figure/table + discussion in main, and compariosn/guaarntee math in SI Methods
+%  we need an example of bad attribution and a good attrbution
+% and make the case that this is AFTER we have a predictive model
+% this is a paper on explainability. so competing with SHAP
+% can we do individual?
+% risk profile (maybe a polyscore for individual as
+% polyscore(M) = \sum_i spor(X_j) : X_j is present in patient M
+% we also need to show that average SHAP is bad.. have a figure for that
+\documentclass[twocolumn,10pt]{IEEEtran}
+\let\labelindent\relax
+\usepackage{enumitem}
+\input{preamble.tex}
+\tikzexternalenable
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+%\pagestyle{fancy}
+\def\COLA{black}
+\newif\iftikzX
+\tikzXtrue
+\tikzXfalse
+%\def\jobname{polar}
+\newif\ifFIGS 
+\FIGSfalse  
+% \FIGStrue
+
+\tikzexternalize[mode=list and make, prefix=./Figures/External]
+
+
+% --- deterministic, high-separation colors using dvipsnames ---
+%% \newcommand{\R}{\mathbb{R}}
+%% \newcommand{\indep}{\perp\!\!\!\perp}
+%% \newcommand{\SPOR}{\operatorname{SPOR}}
+%% \newcommand{\COR}{\operatorname{OR}}
+%% \newcommand{\logor}{\log\SPOR}
+%% \newcommand{\clogor}{\log\COR}
+%% \newcommand{\E}{\mathbb{E}}
+%% \newcommand{\AUC}{\operatorname{AUC}}
+
+\title{Robust Feature Attribution under Label Noise with Stabilized Posterior Odds Ratios}
+\author{D. Onishchenko and I. Chattopadhyay}
+\date{}
+% Data sources (adjust paths as needed)
+
+\begin{document}
+
+\def\WDT{2.25in}
+\def\HGT{2in}
+\def\COLYY{Yellow2}
+\def\TEXTCOL{gray}
+\def\AXISCOL{gray}
+%% \begin{figure*}[!ht]
+
+%% \centering 
+%%   \tikzexternalenable
+%%   \tikzsetnextfilename{figcompsemilogADRD}
+
+
+
+\pgfplotsset{cycle list name=color list}
+\pgfplotsset{
+discard if/.style 2 args={
+x filter/.code={
+\edef\tempa{\thisrow{#1}}
+\edef\tempb{#2}
+\ifx\tempa\tempb
+\def\pgfmathresult{inf}
+\fi
+} 
+},
+discard if not/.style 2 args={
+x filter/.code={
+\edef\tempa{\thisrow{#1}}
+\edef\tempb{#2}
+\ifx\tempa\tempb
+\else
+\def\pgfmathresult{inf}
+\fi
+}
+}
+} 
+
+
+\tikzsetnextfilename{sim2}
+
+
+\begin{tikzpicture}
+\def\SKIP{2}   
+\def\OPC{.5}
+\def\OPCB{.7}
+\def\COLA{Green1}
+\def\COLB{Red1}
+\def\SCALEA{.6}
+\def\SCALEB{.5}
+
+%@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+\node[] (nA) at (0,0){
+\def\datatableA{full_results_50000_naive.csv}
+\def\datatableB{full_results_50000_lambda.csv}
+\begin{tikzpicture}[anchor=center]
+\begin{semilogyaxis}[\AXISCOL,%anchor=north,at=(A.south),
+legend columns=3,
+legend style={column sep=1em,text=black,anchor=south west,
+at={(-.12,1.1750),font=\fontsize{9}{9}\selectfont},inner sep=1pt,draw=none,
+fill opacity=1,align=right,text opacity=1,text=\TEXTCOL},
+width=\WDT, height=\HGT,
+xlabel={Effect size ($\clogor$)},
+ylabel={significance ($-\log_{10} p$)},
+%-----------------
+axis on top=false, 
+scaled ticks=false, 
+scale only axis=true,  
+major tick length=0pt,
+minor tick length=0pt,
+enlargelimits=0.1,
+axis line style={\AXISCOL, thick},
+grid=both,
+minor tick num=2,
+major grid style={opacity=.350,thick,\AXISCOL},
+minor grid style={opacity=.1,thin,\AXISCOL!90!Green1},
+]
+%------------------------
+\addplot[%each nth point={\SKIP},
+  filter discard warning=false, unbounded coords=discard,
+only marks,  mark=*,
+mark options={scale=\SCALEA,\COLB,fill=\COLB!50,fill opacity=\OPCB,    %fill=\getcolor{#1},
+opacity=\OPCB,}    ,
+discard if not={is_null}{False},
+]table[
+x=log_or_naive,
+y=p_naive, 
+col sep=comma
+] {\datatableA};
+\addlegendentry{non-Null feature}
+%------------------------
+\addplot[%each nth point={\SKIP},
+  filter discard warning=false, unbounded coords=discard,
+only marks,  mark=*,
+ mark options={scale=\SCALEB,black,fill=\COLA,fill opacity=\OPC,    %fill=\getcolor{#1},
+opacity=\OPCB,}    ,
+discard if not={is_null}{True},
+]table[
+x=log_or_naive,
+y=p_naive, 
+col sep=comma
+] {\datatableB};
+%------------------------
+\addlegendentry{Null feature}
+\draw[Red1,dashed, ultra thick] (axis cs:-6,2) -- (axis cs:3,2);
+\end{semilogyaxis}
+\end{tikzpicture}
+};
+%@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+\node[anchor=north west] (nB) at ([yshift=-.2in]nA.south west){
+\def\datatableA{full_results_50000.csv}
+\def\datatableB{full_results_50000_lambda.csv}
+\begin{tikzpicture}[anchor=center]
+\begin{semilogyaxis}[\AXISCOL,%anchor=north,at=(A.south),
+legend columns=3,
+legend style={column sep=1em,text=black,anchor=south west,
+at={(-.12,1.1750),font=\fontsize{9}{9}\selectfont},inner sep=1pt,draw=none,
+fill opacity=1,align=right,text opacity=1,text=\TEXTCOL},
+width=\WDT, height=\HGT,
+xlabel={Effect size ($\logor$)},
+ylabel={significance ($-\log_{10} p$)},
+%-----------------
+axis on top=false, 
+scaled ticks=false, 
+scale only axis=true,  
+major tick length=0pt,
+minor tick length=0pt,
+enlargelimits=0.10,
+axis line style={\AXISCOL, thick},
+grid=both,
+minor tick num=2,
+major grid style={opacity=.350,thick,\AXISCOL},
+minor grid style={opacity=.1,thin,\AXISCOL!90!Green1},
+]
+%------------------------
+\addplot[%each nth point={\SKIP},
+  filter discard warning=false, unbounded coords=discard,
+only marks,  mark=*,
+mark options={scale=\SCALEA,\COLB,fill=\COLB!50,fill opacity=\OPCB,    %fill=\getcolor{#1},
+opacity=\OPCB,}    ,
+discard if not={is_null}{False},
+]table[
+x=log_or_naive,
+y=p_lambda, 
+col sep=comma
+] {\datatableA};
+%------------------------
+\addplot[%each nth point={\SKIP},
+  filter discard warning=false, unbounded coords=discard,
+only marks,  mark=*,
+ mark options={scale=\SCALEB,black,fill=\COLA,fill opacity=\OPC,    %fill=\getcolor{#1},
+opacity=\OPCB,}    ,
+discard if not={is_null}{True},
+]table[
+x=log_or_naive,
+y=p_lambda, 
+col sep=comma
+] {\datatableB};
+%------------------------
+%\addlegendentry{\getlabel{#1}}
+\draw[Red1,dashed, ultra thick] (axis cs:-6,2) -- (axis cs:3,2);
+\end{semilogyaxis}
+\end{tikzpicture}
+};
+%@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+\node[anchor=south west] (nC) at (nA.south east){
+\def\datatableA{full_results_50000.csv}
+\def\datatableB{full_results_50000_lambda.csv}
+\begin{tikzpicture}[anchor=center]
+\begin{semilogyaxis}[\AXISCOL,%anchor=north,at=(A.south),
+legend columns=3,
+legend style={column sep=1em,text=black,anchor=south west,
+at={(-.12,1.1750),font=\fontsize{9}{9}\selectfont},inner sep=1pt,draw=none,
+fill opacity=1,align=right,text opacity=1,text=\TEXTCOL},
+width=\WDT, height=\HGT,
+xlabel={Effect size ($\clogor$)},
+ylabel={significance ($-\log_{10} p$)},
+%-----------------
+axis on top=false, 
+scaled ticks=false, 
+scale only axis=true,  
+major tick length=0pt,
+minor tick length=0pt,
+enlargelimits=0.10,
+axis line style={\AXISCOL, thick},
+grid=both,
+minor tick num=2,
+major grid style={opacity=.350,thick,\AXISCOL},
+minor grid style={opacity=.1,thin,\AXISCOL!90!Green1},
+]
+%------------------------
+\addplot[%each nth point={\SKIP},
+  filter discard warning=false, unbounded coords=discard,
+only marks,  mark=*,
+mark options={scale=\SCALEA,\COLB,fill=\COLB!50,fill opacity=\OPCB,    %fill=\getcolor{#1},
+opacity=\OPCB,}    ,
+discard if not={is_null}{False},
+]table[
+x=log_or_naive,
+y=p_naive, 
+col sep=comma
+] {\datatableA};
+%------------------------
+\addplot[%each nth point={\SKIP},
+  filter discard warning=false, unbounded coords=discard,
+only marks,  mark=*,
+ mark options={scale=\SCALEB,black,fill=\COLA,fill opacity=\OPC,    %fill=\getcolor{#1},
+opacity=\OPCB,}    ,
+discard if not={is_null}{True},
+]table[
+x=log_or_naive,
+y=p_naive, 
+col sep=comma
+] {\datatableB};
+%------------------------
+%\addlegendentry{\getlabel{#1}}
+\draw[Red1,dashed, ultra thick] (axis cs:-6,2) -- (axis cs:3,2);
+\end{semilogyaxis}
+\end{tikzpicture}
+};
+%@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+\node[anchor=north west] (nD) at ([yshift=-.2in]nC.south west){
+\def\datatableA{full_results_100000.csv}
+\def\datatableB{full_results_100000_lambda.csv}
+\begin{tikzpicture}[anchor=center]
+\begin{semilogyaxis}[\AXISCOL,%anchor=north,at=(A.south),
+legend columns=3,
+legend style={column sep=1em,text=black,anchor=south west,
+at={(-.12,1.1750),font=\fontsize{9}{9}\selectfont},inner sep=1pt,draw=none,
+fill opacity=1,align=right,text opacity=1,text=\TEXTCOL},
+width=\WDT, height=\HGT,
+xlabel={Effect size ($\logor$)},
+ylabel={significance ($-\log_{10} p$)},
+%-----------------
+axis on top=false, 
+scaled ticks=false, 
+scale only axis=true,  
+major tick length=0pt,
+minor tick length=0pt,
+enlargelimits=0.10,
+axis line style={\AXISCOL, thick},
+grid=both,
+minor tick num=2,
+major grid style={opacity=.350,thick,\AXISCOL},
+minor grid style={opacity=.1,thin,\AXISCOL!90!Green1},
+]
+%------------------------
+\addplot[%each nth point={\SKIP},
+  filter discard warning=false, unbounded coords=discard,
+only marks,  mark=*,
+mark options={scale=\SCALEA,\COLB,fill=\COLB!50,fill opacity=\OPCB,    %fill=\getcolor{#1},
+opacity=\OPCB,}    ,
+discard if not={is_null}{False},
+]table[
+x=log_or_naive,
+y=p_lambda, 
+col sep=comma
+] {\datatableA};
+%------------------------
+\addplot[%each nth point={\SKIP},
+  filter discard warning=false, unbounded coords=discard,
+only marks,  mark=*,
+ mark options={scale=\SCALEB,black,fill=\COLA,fill opacity=\OPC,    %fill=\getcolor{#1},
+opacity=\OPCB,}    ,
+discard if not={is_null}{True},
+]table[
+x=log_or_naive,
+y=p_lambda, 
+col sep=comma
+] {\datatableB};
+%------------------------
+%\addlegendentry{\getlabel{#1}}
+\draw[Red1,dashed, ultra thick] (axis cs:-6,2) -- (axis cs:3,2);
+\end{semilogyaxis}
+\end{tikzpicture}
+};
+%@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+
+
+
+
+
+
+%@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+\node[anchor=south west] (nE) at (nC.south east){
+\def\datatableA{full_results_1000000_naive.csv}
+\def\datatableB{full_results_1000000.csv}
+\begin{tikzpicture}[anchor=center]
+\begin{semilogyaxis}[\AXISCOL,%anchor=north,at=(A.south),
+legend columns=3,
+legend style={column sep=1em,text=black,anchor=south west,
+at={(-.12,1.1750),font=\fontsize{9}{9}\selectfont},inner sep=1pt,draw=none,
+fill opacity=1,align=right,text opacity=1,text=\TEXTCOL},
+width=\WDT, height=\HGT,
+xlabel={Effect size ($\clogor$)},
+ylabel={significance ($-\log_{10} p$)},
+%-----------------
+axis on top=false, 
+scaled ticks=false, 
+scale only axis=true,  
+major tick length=0pt,
+minor tick length=0pt,
+enlargelimits=0.10,
+axis line style={\AXISCOL, thick},
+grid=both,
+minor tick num=2,
+major grid style={opacity=.350,thick,\AXISCOL},
+minor grid style={opacity=.1,thin,\AXISCOL!90!Green1},
+]
+%------------------------
+\addplot[%each nth point={\SKIP},
+  filter discard warning=false, unbounded coords=discard,
+only marks,  mark=*,
+mark options={scale=.4,\COLB,fill=\COLB!50,fill opacity=\OPCB,    %fill=\getcolor{#1},
+opacity=\OPCB,}    ,
+discard if not={is_null}{False},
+]table[
+x=log_or_naive,
+y=p_naive, 
+col sep=comma
+] {\datatableA};
+%------------------------
+\addplot[%each nth point={\SKIP},
+  filter discard warning=false, unbounded coords=discard,
+only marks,  mark=*,
+ mark options={scale=.4,black,fill=\COLA,fill opacity=\OPC,    %fill=\getcolor{#1},
+opacity=\OPCB,}    ,
+discard if not={is_null}{True},
+]table[
+x=log_or_naive,
+y=p_naive, 
+col sep=comma
+] {\datatableB};
+%------------------------
+%\addlegendentry{\getlabel{#1}}
+\draw[Red1,dashed, ultra thick] (axis cs:-6,2) -- (axis cs:3,2);
+\end{semilogyaxis}
+\end{tikzpicture}
+};
+%@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+\node[anchor=north west] (nF) at ([yshift=-.2in]nE.south west){
+\def\datatableA{full_results_1000000.csv}
+\def\datatableB{full_results_1000000.csv}
+\begin{tikzpicture}[anchor=center]
+\begin{semilogyaxis}[\AXISCOL,%anchor=north,at=(A.south),
+legend columns=3,
+legend style={column sep=1em,text=black,anchor=south west,
+at={(-.12,1.1750),font=\fontsize{9}{9}\selectfont},inner sep=1pt,draw=none,
+fill opacity=1,align=right,text opacity=1,text=\TEXTCOL},
+width=\WDT, height=\HGT,
+xlabel={Effect size ($\logor$)},
+ylabel={significance ($-\log_{10} p$)},
+%-----------------
+axis on top=false, 
+scaled ticks=false, 
+scale only axis=true,  
+major tick length=0pt,
+minor tick length=0pt,
+enlargelimits=0.10,
+axis line style={\AXISCOL, thick},
+grid=both,
+minor tick num=2,
+major grid style={opacity=.350,thick,\AXISCOL},
+minor grid style={opacity=.1,thin,\AXISCOL!90!Green1},
+]
+%------------------------
+\addplot[%each nth point={\SKIP},
+  filter discard warning=false, unbounded coords=discard,
+only marks,  mark=*,
+mark options={scale=.4,\COLB,fill=\COLB!50,fill opacity=\OPCB,    %fill=\getcolor{#1},
+opacity=\OPCB,}    ,
+discard if not={is_null}{False},
+]table[
+x=log_or_naive,
+y=p_lambda, 
+col sep=comma
+] {\datatableA};
+%------------------------
+\addplot[%each nth point={\SKIP},
+  filter discard warning=false, unbounded coords=discard,
+only marks,  mark=*,
+ mark options={scale=.4,black,fill=\COLA,fill opacity=\OPC,    %fill=\getcolor{#1},
+opacity=\OPCB,}    ,
+discard if not={is_null}{True},
+]table[
+x=log_or_naive,
+y=p_lambda, 
+col sep=comma
+] {\datatableB};
+%------------------------
+%\addlegendentry{\getlabel{#1}}
+\draw[Red1,dashed, ultra thick] (axis cs:-6,2) -- (axis cs:3,2);
+\end{semilogyaxis}
+\end{tikzpicture}
+};
+%@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+
+
+
+
+
+
+
+\node[anchor=south west] (LA) at ([xshift=.2in,yshift=-.6in]nA.north west) {{\large a.} $\clogor$ for $n=50,000$};
+\node[anchor=south west] (LB) at ([xshift=.2in]nB.north west) {{\large b.} $\logor$ for $n=50,000$};
+\node[anchor=south west] (LC) at ([xshift=.2in]$(LA.south west)!(nC.west)!(LA.south)$) {{\large c.} $\clogor$ for $n=100,000$};
+\node[anchor=south west] (LD) at ([xshift=.2in]$(LB.south west)!(nD.west)!(LB.south)$) {{\large d.} $\logor$ for $n=100,000$};
+\node[anchor=south west] (LE) at ([xshift=.2in]$(LA.south west)!(nE.west)!(LA.south)$) {{\large e.} $\clogor$ for $n=1,000,000$};
+\node[anchor=south west] (LF) at ([xshift=.2in]$(LB.south west)!(nF.west)!(LB.south)$) {{\large f.} $\logor$ for $n=1,000,000$};
+
+
+
+
+
+
+
+\end{tikzpicture}
+
+
+
+
+
+
+
+\begin{figure}
+\centering
+\tikzsetnextfilename{sim4}
+
+\input{Figures/figsim4}
+
+\caption{}\label{figsim4}
+\end{figure}
+
+
+\end{document}
+

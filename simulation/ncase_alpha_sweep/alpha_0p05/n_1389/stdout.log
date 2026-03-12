@@ -1,0 +1,19 @@
+Original rows: 20000
+Retained rows: 7548
+Dropped rows : 12452
+Drop fraction: 0.6226
+Context columns: ['is_null']
+x column: log_or_naive, eps_x=0.01
+y column: p_naive, eps_y=0.01
+Original rows: 20000
+Retained rows: 7149
+Dropped rows : 12851
+Drop fraction: 0.6425
+Context columns: ['is_null']
+x column: log_or_naive, eps_x=0.01
+y column: p_lambda, eps_y=0.01
+var_extra=0.0015625 (SE floor=0.03953), eps=0.8, n_val=1000
+Naive OR FDR=0.694772 (discoveries=1186, TP=362, FP=824)
+Lambda-style FDR=0.692857 (discoveries=980, TP=301, FP=679)
+Wrote CSV: /home/ishanu/Dropbox/ZED/Research/lambda_or/simulation/ncase_alpha_sweep/alpha_0p05/n_1389/full_results_1389_lambda_0.05.csv
+Wrote: /home/ishanu/Dropbox/ZED/Research/lambda_or/simulation/ncase_alpha_sweep/alpha_0p05/n_1389
