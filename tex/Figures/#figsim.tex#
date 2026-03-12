@@ -1,0 +1,200 @@
+%===================================                                              
+ \pgfplotsset{                                                                
+    discard if/.style 2 args={                                                  
+        x filter/.append code={                                                 
+            \edef\tempa{\thisrow{#1}}                                           
+            \edef\tempb{#2}                                                     
+            \ifx\tempa\tempb                                                    
+                \def\pgfmathresult{inf}                                         
+            \fi                                                                 
+        }                                                                       
+    },                                                                          
+    discard if not/.style 2 args={                                              
+        x filter/.append code={                                                 
+            \edef\tempa{\thisrow{#1}}                                           
+            \edef\tempb{#2}                                                     
+            \ifx\tempa\tempb                                                    
+            \else                                                               
+                \def\pgfmathresult{inf}                                         
+            \fi                                                                 
+        }                                                                       
+    }                                                                           
+} %===================================                                                                           
+\pgfplotsset{
+  naive mark/.style={
+    mark=*,
+    mark options={
+      solid,
+      scale=.75,
+      line width=0.5pt
+    }
+  },
+  spor mark/.style={
+    mark=*,
+    mark options={
+      solid,
+      fill=white,
+      scale=.95,
+      line width=0.5pt
+    }
+  }
+}
+% ---- file names (change paths if needed) ----
+%% \def\biasfile{Figures/bias.csv}
+%% \def\rmsefile{Figures/rmse.csv}
+%% \def\covfile{Figures/coverage.csv} % uses the name you provided
+\def\datafile{../simulation/lambdaor_outputs/summary_qsweep.csv} % uses the name you provided
+
+% labels for the x-axis ticks (row order of the CSVs)
+
+\begin{tikzpicture}[font=\fontsize{8}{7}\selectfont]
+
+\node[] (A) at (0,0){
+\def\datafile{../simulation/lambdaor_outputs/summary_qsweep.csv} % uses the name you provided
+\begin{tikzpicture}[anchor=center]
+\begin{groupplot}[
+  group style = {group size=4 by 1, horizontal sep=36pt, vertical sep=0pt},
+  width=0.28\textwidth, height=0.28\textwidth,
+  %xlabel = {Misclassification rate ($1-q_{sel}$)},
+  legend style={draw=none, fill=white,at={(0.5,1.25)}, anchor=south, legend columns=-1, /tikz/every even column/.style={column sep=6pt}},
+  legend cell align=left, ylabel style={yshift=-.145in},
+]
+
+% -------- Panel 1: Bias --------
+\nextgroupplot[very thick,scaled ticks=false,             % turn off 10^k scaling note
+  %tick label style={/pgf/number format/fixed} % print full numbers
+  %xtick=data,
+  ylabel = {Bias},  tick label style={/pgf/number format/.cd, fixed}, % <- note the /.cd
+  title = {\large a.}
+]
+\addplot[smooth, naive mark,thick] table[col sep=comma,x expr=1-\thisrow{q_sel}, y=bias,discard if not={method}{naive},]{\datafile};
+\addlegendentry{Naive OR}
+\addplot[smooth,  spor mark, thick] table[col sep=comma,x expr=1-\thisrow{q_sel}, y=bias,discard if not={method}{lambda-OR}]{\datafile};
+\addlegendentry{$\SPOR$}
+
+% -------- Panel 2: rmse --------
+\nextgroupplot[very thick,scaled ticks=false,             % turn off 10^k scaling note
+  %tick label style={/pgf/number format/fixed} % print full numbers
+  %xtick=data,
+  ylabel = {RMSE},  tick label style={/pgf/number format/.cd, fixed}, % <- note the /.cd
+  title = {\large b.}
+]
+\addplot[smooth, naive mark,thick] table[col sep=comma,x expr=1-\thisrow{q_sel}, y=rmse,discard if not={method}{naive},]{\datafile};
+%\addlegendentry{Naive OR}
+\addplot[ smooth, spor mark, thick] table[col sep=comma,x expr=1-\thisrow{q_sel}, y=rmse,discard if not={method}{lambda-OR}]{\datafile};
+%\addlegendentry{$\SPOR$}
+
+% -------- Panel 3: coverage --------
+\nextgroupplot[very thick,scaled ticks=false,             % turn off 10^k scaling note
+  %tick label style={/pgf/number format/fixed} % print full numbers
+  %xtick=data,
+  ylabel = {coverage},  tick label style={/pgf/number format/.cd, fixed}, % <- note the /.cd
+  title = {\large c.}
+]
+\addplot[smooth, naive mark,thick] table[col sep=comma,x expr=1-\thisrow{q_sel}, y=coverage,discard if not={method}{naive},]{\datafile};
+%\addlegendentry{Naive OR}
+\addplot[ smooth, spor mark,thick] table[col sep=comma,x expr=1-\thisrow{q_sel}, y=coverage,discard if not={method}{lambda-OR}]{\datafile};
+%\addlegendentry{$\SPOR$}
+
+% -------- Panel 4: detk --------
+\nextgroupplot[very thick,scaled ticks=false,             % turn off 10^k scaling note
+  %tick label style={/pgf/number format/fixed} % print full numbers
+  %xtick=data,
+  ylabel = {$det(K)$},  tick label style={/pgf/number format/.cd, fixed}, % <- note the /.cd
+  title = {\large a.}
+]
+\addplot[smooth, naive mark, thick] table[col sep=comma,x expr=1-\thisrow{q_sel}, y=detK,discard if not={method}{naive},]{\datafile};
+%\addlegendentry{Naive OR}
+\addplot[smooth, spor mark, thick] table[col sep=comma,x expr=1-\thisrow{q_sel}, y=detK,discard if not={method}{lambda-OR}]{\datafile};
+%\addlegendentry{$\SPOR$}
+
+
+
+\end{groupplot}
+
+
+
+
+\node at ($(group c1r1.south)!0.5!(group c4r1.south)$)
+  [below=.15in]
+  {Fasle positive rate $1 - q_{\mathrm{sel}}$ (with $p_{\mathrm{sel}}=0.95$)};
+
+
+\end{tikzpicture}};
+
+
+
+
+\node[anchor=north] (B) at ([yshift=0in]A.south){
+\def\datafile{../simulation/lambdaor_outputs/summary_symm.csv} % uses the name you provided
+\begin{tikzpicture}[anchor=center]
+\begin{groupplot}[
+  group style = {group size=4 by 1, horizontal sep=36pt, vertical sep=0pt},
+  width=0.28\textwidth, height=0.28\textwidth,
+  %xlabel = {Misclassification rate ($1-q_{sel}$)},
+  legend style={draw=none, fill=white,at={(0.5,1.25)}, anchor=south, legend columns=-1, /tikz/every even column/.style={column sep=6pt}},
+  legend cell align=left, ylabel style={yshift=-.145in},
+]
+
+% -------- Panel 1: Bias --------
+\nextgroupplot[very thick,scaled ticks=false,             % turn off 10^k scaling note
+  %tick label style={/pgf/number format/fixed} % print full numbers
+  %xtick=data,
+  ylabel = {Bias},  tick label style={/pgf/number format/.cd, fixed}, % <- note the /.cd
+  title = {\large e.}
+]
+\addplot[smooth, naive mark,thick] table[col sep=comma,x expr=1-\thisrow{q_sel}, y=bias,discard if not={method}{naive},]{\datafile};
+%\addlegendentry{Naive OR}
+\addplot[smooth,  spor mark, thick] table[col sep=comma,x expr=1-\thisrow{q_sel}, y=bias,discard if not={method}{lambda-OR}]{\datafile};
+%\addlegendentry{$\SPOR$}
+
+% -------- Panel 2: rmse --------
+\nextgroupplot[very thick,scaled ticks=false,             % turn off 10^k scaling note
+  %tick label style={/pgf/number format/fixed} % print full numbers
+  %xtick=data,
+  ylabel = {RMSE},  tick label style={/pgf/number format/.cd, fixed}, % <- note the /.cd
+  title = {\large f.}
+]
+\addplot[smooth, naive mark,thick] table[col sep=comma,x expr=1-\thisrow{q_sel}, y=rmse,discard if not={method}{naive},]{\datafile};
+%\addlegendentry{Naive OR}
+\addplot[ smooth, spor mark, thick] table[col sep=comma,x expr=1-\thisrow{q_sel}, y=rmse,discard if not={method}{lambda-OR}]{\datafile};
+%\addlegendentry{$\SPOR$}
+
+% -------- Panel 3: coverage --------
+\nextgroupplot[very thick,scaled ticks=false,             % turn off 10^k scaling note
+  %tick label style={/pgf/number format/fixed} % print full numbers
+  %xtick=data,
+  ylabel = {coverage},  tick label style={/pgf/number format/.cd, fixed}, % <- note the /.cd
+  title = {\large g.}
+]
+\addplot[smooth, naive mark,thick] table[col sep=comma,x expr=1-\thisrow{q_sel}, y=coverage,discard if not={method}{naive},]{\datafile};
+%\addlegendentry{Naive OR}
+\addplot[ smooth, spor mark,thick] table[col sep=comma,x expr=1-\thisrow{q_sel}, y=coverage,discard if not={method}{lambda-OR}]{\datafile};
+%\addlegendentry{$\SPOR$}
+
+% -------- Panel 4: detk --------
+\nextgroupplot[very thick,scaled ticks=false,             % turn off 10^k scaling note
+  %tick label style={/pgf/number format/fixed} % print full numbers
+  %xtick=data,
+  ylabel = {$det(K)$},  tick label style={/pgf/number format/.cd, fixed}, % <- note the /.cd
+  title = {\large h.}
+]
+\addplot[smooth, naive mark, thick] table[col sep=comma,x expr=1-\thisrow{q_sel}, y=detK,discard if not={method}{naive},]{\datafile};
+%\addlegendentry{Naive OR}
+\addplot[smooth, spor mark, thick] table[col sep=comma,x expr=1-\thisrow{q_sel}, y=detK,discard if not={method}{lambda-OR}]{\datafile};
+%\addlegendentry{$\SPOR$}
+
+
+
+\end{groupplot}
+
+
+
+
+\node at ($(group c1r1.south)!0.5!(group c4r1.south)$)
+  [below=.15in]
+  {Mis-classification rate $1 - p_{\mathrm{sel}}$ (with $p_{\mathrm{sel}}=q_{\mathrm{sel}}$)};
+
+
+\end{tikzpicture}};
+\end{tikzpicture}

@@ -196,3 +196,37 @@
   round-precision=4,
   detect-all
 }
+\makeatletter
+% Section
+\renewcommand\section{\@startsection {section}{1}{\z@}%
+  {-.5ex \@plus -.1ex \@minus -.1ex}% space above
+  {.5ex \@plus .1ex}% space below
+  {\selectfont\bfseries}}
+
+% Subsection
+\renewcommand\subsection{\@startsection {subsection}{2}{\z@}%
+  {-.3ex \@plus -.1ex \@minus -.1ex}%
+  {.3ex \@plus .1ex}%
+  {\selectfont\bfseries\color{Red3}}}
+
+% Subsubsection
+\renewcommand\subsubsection{\@startsection {subsubsection}{3}{\z@}%
+  {-.2ex \@plus -.1ex \@minus -.1ex}%
+  {.2ex \@plus .1ex}%
+  {\selectfont\bfseries\color{MediumBlue}}}
+
+% Paragraph
+\renewcommand\paragraph{\@startsection {paragraph}{4}{\z@}%
+  {0ex \@plus -.1ex \@minus -.1ex}%
+  {0ex \@plus .1ex}%
+  {\selectfont\bfseries\itshape\color{Red4!80}}}
+
+
+%\renewcommand{\thesubsection}{\thesection.\arabic{subsection}}
+\renewcommand{\thesubsectiondis}{\arabic{subsection}.}
+\renewcommand{\thesectiondis}{\arabic{section}.}
+\renewcommand{\thesection}{\arabic{section}}
+
+\renewcommand{\thetable}{\arabic{table}}
+
+\makeatother

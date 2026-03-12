@@ -320,41 +320,20 @@ spurious attribution; biobanks; electronic health records; label noise.
 
 \maketitle
 
+\section{Introduction}
+Label noise hinders AI-driven Electronic Healthcare Record (EHR) and biobank studies from recovering mechanistic insight. The diagnostic and procedure codes mined in such studies are generated primarily for billing and clinical workflow rather than research, and therefore contain delayed, missed, and systematically biased assignments \cite{halpern2016electronic}. Several recently reported screening platforms nevertheless achieve excellent discrimination, $e.g.$ \zcor\ for Autism Spectrum Disorder (ASD), Idiopathic Pulmonary Fibrosis (IPF), perioperative cardiac events, and Alzheimer's Disease and Related Dementia (ADRD) \cite{ASDzed,IPFzed,JAHAzed,ADRDzed}. Other approaches, $e.g.$ RETAIN, provide attention-based saliency weights to support interpretation of predictions~\cite{choi2016retain}. But attention weights are not causal attributions, and they do not correct misclassified outcomes in training. Thus, attribution in large observational datasets faces two distinct challenges: systematic outcome misclassification, and the large-sample variance collapse that can make weak or chance associations appear highly significant or even spuriously protective~\cite{greenland1988sensitivity}.
 
+Odds-ratio-based measures have historically been useful because they summarize association through an interpretable contrast and, in randomized settings, can be linked to causal effects under relatively weak assumptions. In large-scale observational EHR settings, however, outcomes are often only approximately identifiable through International Classification of Diseases (ICD-10-CM) (ICD) code sets or related proxy definitions. As a result, classical odds ratios computed directly from raw exposure--outcome tables inherit outcome misclassification and can become misleadingly significant as sample size grows. Post hoc attribution methods such as SHapley Additive exPlanations (SHAP) and Local Interpretable Model-agnostic Explanations (LIME)~\cite{lundberg17shap,Ribeiro2016WhyTrust} do not solve this problem: they are useful descriptive attribution tools, but they do not correct misclassified outcomes and therefore do not address inflation driven by noisy labels in large observational cohorts~\cite{slack2020fooling}.
 
-\section{Introduction} 
-Label noise hinders AI-driven Electronic Healthcare Record (EHR) and biobank studies from recovering mechanistic insights: diagnostic and procedure codes that such studies  mine, are generated for billing workflow rather than research, and thus contain delayed, missed, and systematically biased assignments \cite{halpern2016electronic}.  Several recently reported  high-performing screening platforms  achieve excellent discrimination, $e.g.$ \zcor for Autism Spectrum Disorder (ASD), Idiopathic Pulmonary Fibrosis (IPF), perioperative cardiac events, and Alzheimer's Disease and Related Dementia (ADRD) \cite{ASDzed,IPFzed,JAHAzed,ADRDzed}. Other methods $e.g.$, RETAIN, provide attention-based saliency weights for interpretability in predictions~\cite{choi2016retain}. But attention weights are not causal attributions, and do not correct misclassified outcomes in training. Consequently, attribution in large observational datasets faces two problems: systematic label noise and variance collapse, making chance associations appear significant or even spuriously protective~\cite{greenland1988sensitivity}.
+Outcome misclassification and its impact on odds ratios and regression coefficients have been studied extensively in epidemiology and biostatistics. Classical analyses characterize how bias in relative risk and odds ratio depends on sensitivity, specificity, and prevalence, and provide corrections when these quantities are known or can be estimated \cite{copeland1977misclassification,greenland1988sensitivity}. Closely related work develops matrix and inverse-matrix adjustments that correct observed $2\times 2$ exposure--outcome tables using misclassification transition matrices, together with variance propagation when classification rates are externally estimated or measured in internal validation subsamples \cite{greenland1988variance,morrissey1999matrix}. Likelihood-based approaches likewise incorporate sensitivity and specificity directly into logistic regression, yielding consistent coefficient estimates under nondifferential misclassification assumptions \cite{magder1997uncertainty,neuhaus1999bias}. In practice, however, these methods typically require external adjudication, chart review, or dedicated validation subsamples to supply the misclassification parameters, resources that are rarely available at the scale of modern EHR and biobank analyses.
 
-In randomized trials, Odds Ratio based measures (OR) have been historically used to  reveal causal contrasts under minimal assumptions. However, in large scale observational settings, especially where we cannot identify cases precisely beyond looking for  International Classification of Diseases (ICD-10-CM) (ICD) code sets,  classical ORs computed on raw exposure-outcome tables exaggerate significance. And this worsens as $n$ grows. Post hoc attribution methods such as SHapley Additive exPlanations (SHAP) and Local Interpretable Model-agnostic Explanations (LIME)~\cite{lundberg17shap,Ribeiro2016WhyTrust} are model-agnostic but do not address outcome misclassification~\cite{slack2020fooling}, so instability under label noise and large-n inflation remains.
+This is precisely the gap that motivates this work. In many modern observational pipelines, although gold-standard labels are unavailable, a reasonably well-calibrated predictive model is already available from prior screening or risk-stratification work. The key observation is that the extreme score regions of such a model define proxy case and control groups whose expected purity is governed by the model's Receiver Operating Characteristic (ROC) operating characteristics. Thus, rather than treating the noisy observed labels as ground truth, one can use the predictive model itself to estimate the misclassification structure and approximately recover the underlying exposure--outcome contingency table before computing association.
 
+In this work, we introduce the lambda-Odds Ratio ($\SPOR$), which uses sensitivity--specificity pairs read from the ROC curve of a chosen pre-existing predictive model to correct the noisy exposure--outcome matrix and thereby estimate the odds ratio that would have been obtained from the latent true table. The purpose of $\SPOR$ is therefore not merely to rescale a conventional odds ratio, but to prevent large observational studies from converting tiny asymmetries in noisy labels into apparently strong mechanistic signals. In settings where only proxy outcomes are available, such correction is necessary if one seeks effect-size-based attribution rather than apparent significance driven mainly by sample size and coding noise.
 
-Outcome misclassification and its impact on odds ratios and regression coefficients have been studied extensively in epidemiology and biostatistics. Classical analyses characterize how bias in relative risk and odds ratio depends on sensitivity, specificity, and prevalence, and provide corrections when these quantities are known or can be estimated \cite{copeland1977misclassification,greenland1988sensitivity}. A closely related line of work develops matrix and inverse-matrix adjustments that correct the observed $2\times 2$ exposure-outcome table using misclassification transition matrices, with careful variance propagation when classification rates are externally estimated or measured in internal validation subsamples \cite{greenland1988variance,morrissey1999matrix}. Likelihood-based approaches likewise incorporate known sensitivity and specificity directly into logistic regression, yielding consistent coefficient estimates under nondifferential misclassification assumptions \cite{magder1997uncertainty,neuhaus1999bias}. In practice, these approaches typically require external adjudication, chart review, or dedicated validation subsamples to supply misclassification parameters, resources that are rarely available at the scale of modern EHR and biobank analyses. This motivates methods that can exploit information already produced by existing prediction infrastructure.
-
-With the advent of biobanks and AI-enabled analyses, large-scale observational pipelines increasingly have access to well-calibrated predictive models even when gold-standard outcome labels are unavailable. In particular, extreme regions of the model score correspond to the most confident predictions. By selecting high and low score tails, we obtain proxy case and control groups whose expected purity is governed by the model’s Receiver Operating Characteristic (ROC) operating characteristics.
-
-In this work, we introduce the lambda-Odds Ratio ($\SPOR$), which corrects feature attribution by approximately recovering the true contingency table from the noisy exposure--outcome matrix using sensitivity--specificity value pairs read from the ROC curve of a chosen pre-existing predictive model. Thus, $\SPOR$ accounts for outcome misclassification before computing odds ratios. The key insight is that when a reliable predictive model is available, its sensitivity--specificity trade-off can be used to correct the label noise that otherwise inflates association estimates in large observational studies.
-
-As a mathematical guarantee, $\SPOR$ is shown to collapse under non-informative predictors (Corollary~\ref{cor:auc_collapse}). Additionally, we can show that with baseline sensitivity $p$ and specificity $q$, while  a tiny row-wise error asymmetry $\delta>0$ can make classical estimates of  $\mathrm{OR}$  arbitrarily large when the  $\mathrm{OR}_{\text{true}}\approx 1$ (Lemma~\ref{lem:minimal}), $\SPOR$ resists  this potential  inflation  (Lemma~\ref{lem:minimal} and Corollary~\ref{corshap}). Likewise, mean-absolute SHAP can mis-rank a vanishing coefficient when feature variances differ substantially, a pathology formalized in the Gaussian case; $\SPOR$’s collapse property prevents such mis-ranking when the underlying score is uninformative (Corollary~\ref{cor:shap_misrank}).
-
-
-%% \section{Introduction} 
-%% Label noise hinders AI-driven EHR and biobank studies from recovering mechanistic insights: diagnostic and procedure codes that such studies  mine, are generated for billing workflow rather than research, and thus contain delayed, missed, and systematically biased assignments \cite{halpern2016electronic}.  Several recently reported  high-performing screening platforms  achieve excellent discrimination, $e.g.$ \zcor for ASD, IPF, perioperative cardiac events, and ADRD \cite{ASDzed,IPFzed,JAHAzed,ADRDzed}. Other methods $e.g.$, RETAIN, provide attention-based saliency weights for interpretability in predictions~\cite{choi2016retain}. But attention weights are not causal attributions, and do not correct misclassified outcomes in training. Consequently, attribution in large observational datasets faces two problems: systematic label noise and variance collapse, making chance associations appear significant or even spuriously protective~\cite{greenland1988sensitivity}.
-
-
-%% In randomized trials, ORs have been historically used to  reveal causal contrasts under minimal assumptions. However, in large scale observational settings, especially where we cannot identify cases precisely beyond looking for ICD code sets,  classical ORs computed on raw exposure-outcome tables exaggerate significance. And this worsens as $n$ grows. Post hoc attribution methods such as SHAP and LIME~\cite{lundberg17shap} are model-agnostic but do not address outcome misclassification~\cite{slack2020fooling}, so instability under label noise and large-n inflation remains.
-
-%% Classical label-noise corrections to OR mainly target small-sample misclassification~\cite{greenland1988sensitivity} or require external gold-standard cohorts that are rarely available at scale.
-
-%% In this work, we introduce the lambda-Odds Ratio ($\SPOR$), which corrects feature  attribution by approximately recovering the true contigency table from   the noisy exposure-outcome matrix using sensitivity-specificity value-pairs read  from the ROC curve of a chosen pre-existing  predictive model, thus  explicitly accounting for misclassification before computing odds ratios. The \textit{key insight} here is that if we have a good predictive model at hand (which is increasingly the case), the attribution problem can take advantage of the specifity-sensitivity trade-off achieved by the model to correct for expected  label noise.
-
-
-%% As a mathematical guarantee, $\SPOR$ is shown to collapse under non-informative predictors (Corollary~\ref{cor:auc_collapse}). Additionally, we can show that with baseline sensitivity $p$ and specificity $q$, while  a tiny row-wise error asymmetry $\delta>0$ can make classical estimates of  $\mathrm{OR}$  arbitrarily large when the  $\mathrm{OR}_{\text{true}}\approx 1$ (Lemma~\ref{lem:minimal}), $\SPOR$ resists  this potential  inflation  (Lemma~\ref{lem:minimal} and Corollary~\ref{corshap}). Likewise, mean-absolute SHAP can mis-rank a vanishing coefficient when feature variances differ substantially, a pathology formalized in the Gaussian case; $\SPOR$’s collapse property prevents such mis-ranking when the underlying score is uninformative (Corollary~\ref{cor:shap_misrank}).
-   
+In addition, the revised theory establishes that $\SPOR$ has the right limiting behavior when the predictive signal is weak. In particular, $\SPOR$ collapses under non-informative predictors (Corollary~\ref{cor:auc_collapse}). We also show that when baseline sensitivity and specificity are \(p\) and \(q\), a tiny row-wise error asymmetry \(\delta>0\) can make the classical \(\mathrm{OR}\) arbitrarily large even when \(\mathrm{OR}_{\text{true}}\approx 1\) (Lemma~\ref{lem:minimal}), whereas $\SPOR$ resists this inflation (Lemma~\ref{lem:minimal} and Corollary~\ref{corshap}). Because our broader goal is post hoc attribution, we also need to compare against methods designed to explain a trained predictive model after fitting by assigning importance scores to its input features. Such methods are widely used in practice to identify which variables appear most influential in a model's predictions, even though they do not estimate odds ratios or direct measures of association. SHAP is one of the most widely used examples of this class, and therefore provides a natural practical benchmark in our setting. We show, however, that  SHAP can mis-rank a vanishing coefficient when feature variances differ substantially. By contrast, $\SPOR$'s collapse property prevents this type of mis-ranking when the underlying score is uninformative (Corollary~\ref{cor:shap_misrank}).
 %##########################################################################
 %##########################################################################
-
-
-
 %##########################################################################
 \subsection{Motivation: Illustration of OR blow-up and SHAP mis-attribution}
 
@@ -732,34 +711,12 @@ for constants $C_1,C_2>0$ depending on prevalence and exposure margins.
 As $t_{\mathrm{hi}}$ and $t_{\mathrm{lo}}$ approach the ROC axes,
 $(1-J)\downarrow0$ (bias decreases) but $n_{\text{eff}}\downarrow0$
 (variance increases). Thus the two-threshold design induces a natural
-bias–variance trade-off, implying that the optimal thresholds lie in
+bias-variance trade-off, implying that the optimal thresholds lie in
 the interior of the ROC curve rather than at the extremes.
 
-In practice we therefore select thresholds that achieve high label
-purity while retaining adequate effective sample size, using the ROC
-operating points described above.
+\paragraph{Practical recipe for threshold selection}
+In practice, threshold selection may be carried out as follows. (i) Fix a high-specificity target for the upper tail, for example \(\approx 97\%\), and set \(t_{hi}\) to the least restrictive threshold meeting that target. (ii) Fix a sensitivity target for the lower tail, for example in the range \(70\%-80\%\), and choose \(t_{lo}\) to meet that target while retaining sufficient selected-sample size. (iii) Among admissible pairs \((t_{hi}, t_{lo})\), select the pair that maximizes effective sample size subject to stable corrected counts and acceptable conditioning of the correction operator. This yields a practical interior-point choice on the ROC curve, balancing purity against variance.
 
-
-
-%% \subsection{Corollary (Bias–variance trade-off and interior optimum)}
-%% Let $J=p_{\text{sel}}+q_{\text{sel}}-1$. For thresholds near the axes,
-%% the leading misclassification bias of $\log\mathrm{OR}$ is $O((1-J))$, while the variance scales as
-%% $O\!\big(1/n_{\text{eff}}\big)$ with $n_{\text{eff}}=n\cdot\min\{\pi_H^{(1)}+\pi_L^{(1)},\,\pi_H^{(0)}+\pi_L^{(0)}\}$.
-%% Hence the mean-squared error admits the proxy
-%% \[
-%% \mathrm{MSE}(\log\mathrm{OR}) \;\approx\; C_1\,(1-J)^2 \;+\; \frac{C_2}{n_{\text{eff}}}\,,
-%% \]
-%% for constants $C_1,C_2>0$ depending on prevalences and exposure margins. As $t_{\mathrm{hi}}$ and $t_{\mathrm{lo}}$
-%% approach the axes, $(1-J)\downarrow 0$ (bias $\to 0$) but $n_{\text{eff}}\downarrow 0$ (variance $\to\infty$),
-%% and conversely for looser thresholds. Therefore, there exists an interior choice of $(t_{\mathrm{hi}},t_{\mathrm{lo}})$
-%% that minimizes this proxy MSE, i.e., an \emph{optimal} pair of cut-offs given the available sample size $n$.
-
-%% This result formalizes the bias–variance trade-off inherent in the two-threshold design. In practice we therefore select thresholds that achieve high label purity while retaining adequate effective sample size, using the ROC operating points described above.
-
-%% \subsection{Practical rule}
-%% Choose $(t_{\mathrm{hi}},t_{\mathrm{lo}})$ to maximize $J$ subject to a minimum $n_{\text{eff}}$ constraint
-%% (e.g., each cell count exceeding a preset floor), or equivalently, minimize
-%% $(1-J)^2 + \kappa/n_{\text{eff}}$ for a user-specified $\kappa$ reflecting desired precision.
 
 \section{Theoretical Guarantees}
 In the following we assume our risk scores are calibrated,
@@ -1128,29 +1085,34 @@ $\sigma_j/\sigma_k>|\beta_k|/|\beta_j|$.
 \end{proof}
 
 %% %###################################
-
+%###################################
 \begin{table*}[t]
 \centering
-\caption{Fraction of significant \& protective codes for tested  approaches}\label{tabfrac}
-\begin{tabular}{llrrr}
+\caption{Fraction and number of significant and protective codes for the tested approaches.}
+\label{tabfrac}
+\begin{tabular}{llrrrrrr}
 \toprule
-Type & DIS & ASD & IPF & ADRD \\\hline
+Type & Method 
+& \multicolumn{2}{c}{ASD} 
+& \multicolumn{2}{c}{IPF} 
+& \multicolumn{2}{c}{ADRD} \\
+& 
+& Fraction & Count 
+& Fraction & Count 
+& Fraction & Count \\
 \midrule
-\multirow{3}{*}{protective} 
-  &  $\SPOR$ & 0.000000 & 0.000000 & 0.001552 \\
-  & shap    & 0.133609 & 0.019460 & 0.393471 \\
-  & OR      & 0.021319 & 0.005457 & 0.023589 \\
+\multirow{3}{*}{protective}
+  & $\SPOR$ & 0.000000 & 0     & 0.000000 & 0    & 0.001552 & 33    \\
+  & shap    & 0.133609 & 241   & 0.019460 & 321  & 0.393471 & 8,290 \\
+  & OR      & 0.021319 & 39    & 0.005457 & 90   & 0.023589 & 497   \\
 \addlinespace
-\multirow{3}{*}{significant} 
-  & $\SPOR$ & 0.071788 & 0.036725 & 0.863051 \\
-  & shap    & 0.424242 & 0.024432 & 0.644419 \\
-  & OR      & 0.365343 & 0.348754 & 0.624027 \\
+\multirow{3}{*}{significant}
+  & $\SPOR$ & 0.071788 & 130   & 0.036725 & 606  & 0.863051 & 18,182 \\
+  & shap    & 0.424242 & 766   & 0.024432 & 403  & 0.644419 & 13,577 \\
+  & OR      & 0.365343 & 660   & 0.348754 & 5,752 & 0.624027 & 13,148 \\
 \bottomrule
 \end{tabular}
 \end{table*}
-
-%###################################
-
 %################################### 
 \begin{figure}[t]
 \centering 
@@ -1175,7 +1137,7 @@ Panels (d,h) show the conditioning diagnostic \(\det(K)=p_{\mathrm{sel}}+q_{\mat
 %###################################
 
 \begin{figure}
-\hspace{-15pt}\includegraphics[width=1.05\textwidth]{../simulation/simulation_violin_grid.pdf}
+\hspace{-15pt}\includegraphics[width=1.05\textwidth]{Figures/simulation_violin_grid.pdf}
 \caption{\textbf{Simulation sweeps across misclassification, effect size, and sample size.}
 Finite-sample performance of the naive log-odds ratio computed from the misclassified outcome table (OR; gray) and the corrected estimator \(\SPOR\) (red) obtained via ridge-stabilized inversion  (Algorithm~\ref{algo}). Each violin summarizes the distribution of bias, RMSE, or nominal 95\% Wald coverage (log scale) across \(R=250\) Monte Carlo replicates evaluated over randomly sampled combinations of simulation parameters drawn from predefined grids. Panels correspond to subsets of this grid emphasizing variation in the false negative rate \(1-p_{\mathrm{sel}}\) (a,b), the false positive rate \(1-q_{\mathrm{sel}}\) (c,d,i), the true log-odds effect \(\theta=\log(\mathrm{OR})\) (e,f,g), and the sample size \(n\) (h). Across sampled regimes the naive estimator exhibits systematic attenuation and rapid coverage collapse under outcome misclassification, whereas \(\SPOR\) remains substantially unbiased. Parameter grids and constants are listed in Tables~\ref{tab:sim_params} and~\ref{tab:sim_sweep_grids}.}\label{fig:sim_sweep_grid}\end{figure}
 
@@ -1379,8 +1341,8 @@ Sample size sweep & \(n\in\{5000,10000,20000,35000,50000\}\) (with \(\theta\) an
 \end{figure}
 
 \begin{figure}
-  \includegraphics[width=\textwidth]{Figures/performance_summary_alpha_0p05.png}
-  \caption{Simulation results illustrating the dependence of total discoveries, true positives (TP), false positives (FP), and false discovery rate (FDR) on cohort size at significance level \(\alpha=0.05\). As cohort size increases, the naive estimator accumulates many false positives, whereas the \(\lambda\)-OR estimator yields substantially improved false discovery control because the validation-induced variance component prevents uncontrolled significance inflation.}
+  \includegraphics[width=\textwidth]{Figures/sim4}
+   \caption{Cohort-size sweep illustrating false discovery behavior for naive odds-ratio inference and the proposed $\SPOR$ procedure under outcome misclassification. Panels (a)--(c) show, at significance level \(\alpha=0.05\), the false discovery rate (FDR), true positives (TP), and false positives (FP), respectively, as functions of case cohort size \(n_{\mathrm{case}}\). Panels (d)--(f) show the corresponding quantities at \(\alpha=0.01\). Across the sweep, the naive estimator accumulates a substantial false-positive burden as cohort size increases, leading to persistently elevated FDR despite increased apparent power. In contrast, \(\lambda\)-OR exhibits markedly improved false discovery control because the validation-induced variance component prevents uncontrolled significance inflation. True positives continue to increase with cohort size for both methods, but \(\lambda\)-OR yields a smaller and more reliable discovery set. The simulation design is described in Section~\ref{sec:sim-volcano}, and the fixed simulation parameters are listed in Table~\ref{tab:sim-volcano-params}.} 
   \label{figsim3}
 \end{figure}
 
@@ -1551,596 +1513,6 @@ Random seed & Simulation RNG seed & \(3\) \\
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-%\clearpage                      %
-
-%% %###################################
-%% %###################################
-%% \section{Simulation Study}\label{sec:sim}
-
-%% \textbf{Purpose.}
-%% We evaluate finite-sample behavior of the proposed misclassification-corrected odds ratio
-%% (\(\SPOR\); Algorithm~\ref{algo}) against the naive log-odds ratio computed on the
-%% misclassified outcome. The simulation isolates outcome misclassification and links
-%% performance degradation to the conditioning of the misclassification operator,
-%% summarized by \(\det(K)=p_{\mathrm{sel}}+q_{\mathrm{sel}}-1\) (Youden's \(J\)).
-%% This connects directly to the collapse mechanism as \(J\to0\) formalized in
-%% Theorems~\ref{thm:SPOR_collapse_J} and~\ref{thm:inherit_collapse}.
-
-%% \textbf{Data-generating process (DGP) and target effect.}
-%% Each replicate generates i.i.d.\ pairs \((X_i,Y_i)\) with \(X,Y\in\{0,1\}\).
-%% We draw \(X\sim\mathrm{Bernoulli}(\varphi)\).
-%% To enforce a prespecified target effect
-%% \(\theta=\log(\mathrm{OR})\) and marginal outcome prevalence
-%% \(\pi=\Pr(Y=1)\), we draw
-%% \cgather{
-%% Y\mid X \sim \mathrm{Bernoulli}\!\left(\mathrm{logit}^{-1}(\alpha+\theta X)\right),
-%% }
-%% with \(\alpha\) chosen numerically so that \(\Pr(Y=1)=\pi\).
-%% From each replicate we form the latent \(2\times2\) contingency table
-%% \(
-%% T=\begin{bmatrix}
-%% a & b\\
-%% c & d
-%% \end{bmatrix}
-%% \)
-%% using the indexing convention of Algorithm~\ref{algo}:
-%% rows index \(X\in\{1,0\}\) and columns index the true outcome state
-%% \(Y\in\{1,0\}\), i.e.,
-%% \(a=\#\{X{=}1,Y{=}1\}\),
-%% \(b=\#\{X{=}1,Y{=}0\}\),
-%% \(c=\#\{X{=}0,Y{=}1\}\),
-%% \(d=\#\{X{=}0,Y{=}0\}\).
-
-%% \textbf{Outcome misclassification.}
-%% Observed outcomes \(\tilde Y\) are generated from \(Y\) via independent,
-%% non-differential flips with
-%% \(p_{\mathrm{sel}}=\Pr(\tilde Y=1\mid Y=1)\)
-%% and
-%% \(q_{\mathrm{sel}}=\Pr(\tilde Y=0\mid Y=0)\),
-%% using the same misclassification operator \(K\) as in the Methods
-%% (Algorithm~\ref{algo}).
-%% The observed table
-%% \(
-%% \tilde T=\begin{bmatrix}
-%% \tilde a & \tilde b\\
-%% \tilde c & \tilde d
-%% \end{bmatrix}
-%% \)
-%% uses the same row/column convention.
-%% Under Assumption~A, the mapping between \(T\) and \(\tilde T\) holds in expectation with a single operator \(K\),
-%% whose conditioning is summarized by
-%% \(\det(K)=p_{\mathrm{sel}}+q_{\mathrm{sel}}-1\).
-
-%% \textbf{Estimators and uncertainty.}
-%% The naive estimator is the classical log-odds ratio computed from
-%% \(\tilde T\) with a \(0.5\) continuity correction.
-%% The corrected estimator \(\SPOR\) is computed exactly as in
-%% Algorithm~\ref{algo} by applying the stabilized right-inverse based on \(K\).
-%% The smallest \(\lambda\) on the feasibility grid yielding corrected cells above
-%% the numerical floor \(\varepsilon\) is selected
-%% (Table~\ref{tab:sim_params}); if none satisfies the constraint,
-%% the largest \(\lambda\) is used and remaining sub-\(\varepsilon\)
-%% cells are floored.
-%% Nominal Wald standard errors for coverage are computed from the corrected cell counts.
-%% The additional delta-method contribution arising when
-%% \((p_{\mathrm{sel}},q_{\mathrm{sel}})\) are estimated from validation data is derived
-%% separately in Appendix~\ref{app:variance}; in the experiments below these
-%% quantities are treated as fixed.
-
-%% \textbf{Performance metrics.}
-%% Across \(R\) replicates, for an estimator \(\widehat\ell\) of \(\theta\),
-%% we compute bias, Root Mean Square Error (RMSE), and nominal \(95\%\) Wald coverage on the log scale.
-%% We also report the conditioning diagnostic
-%% \(\det(K)=p_{\mathrm{sel}}+q_{\mathrm{sel}}-1\).
-%% All constants, numerical safeguards, and base grids are specified in
-%% Table~\ref{tab:sim_params}.
-
-%% \textbf{Structured conditioning sweeps.}
-%% Figure~\ref{fig:spor_eight_panel} presents two structured sweeps designed to
-%% illustrate the theoretical conditioning mechanism.
-%% In the specificity-degradation regime (top row),
-%% we fix \(p_{\mathrm{sel}}=0.95\) and increase the false positive rate
-%% \(1-q_{\mathrm{sel}}\).
-%% As \(\det(K)\) decreases, the naive log-OR exhibits increasing attenuation,
-%% RMSE inflation, and near-zero nominal coverage.
-%% In contrast, \(\SPOR\) remains approximately unbiased and retains
-%% substantially improved coverage over the well-conditioned regime,
-%% with gradual variance-driven degradation as operator conditioning worsens.
-%% In the symmetric-degradation regime (bottom row),
-%% we impose \(p_{\mathrm{sel}}=q_{\mathrm{sel}}\) and sweep the common
-%% misclassification rate
-%% \(m=1-p_{\mathrm{sel}}=1-q_{\mathrm{sel}}\),
-%% so that
-%% \(\det(K)=1-2m\) decreases linearly.
-%% This sweep makes the conditioning–performance relationship explicit,
-%% and instability emerges as \(J\to0\),
-%% consistent with the collapse mechanism proved in
-%% Theorems~\ref{thm:SPOR_collapse_J} and~\ref{thm:inherit_collapse}.
-
-%% \textbf{Expanded grid experiments.}
-%% Figure~\ref{fig:sim_sweep_grid} extends the analysis by aggregating results
-%% across a larger set of simulation runs generated by randomly sampling
-%% parameter combinations
-%% \((p_{\mathrm{sel}},q_{\mathrm{sel}},\theta,n)\)
-%% from the grids listed in Table~\ref{tab:sim_sweep_grids}.
-%% For each sampled configuration we generate \(R=250\) replicates and compute
-%% the performance metrics above.
-%% The violin plots therefore summarize variability across both Monte Carlo
-%% replicates and sampled parameter configurations.
-%% Panels group results according to the dominant varying quantity,
-%% emphasizing the effects of the false negative rate \(1-p_{\mathrm{sel}}\),
-%% the false positive rate \(1-q_{\mathrm{sel}}\),
-%% the true log-odds effect \(\theta=\log(\mathrm{OR})\),
-%% and the sample size \(n\).
-%% Across these sampled regimes the naive estimator consistently exhibits
-%% attenuation and rapid coverage collapse under outcome misclassification,
-%% whereas \(\SPOR\) remains approximately unbiased over the well-conditioned
-%% region and degrades gradually as \(\det(K)\to0\).
-%% %###################################
-%% %###################################
-
-
-
-
-
-
-
-
-%% %################################### 
-
-%% \begin{table}[t]
-%% \centering
-%% \caption{Fully specified simulation parameters and numerical safeguards used in Section~\ref{sec:sim}.}
-%% \label{tab:sim_params}
-%% \begin{tabular}{p{0.3\textwidth} p{0.5\textwidth}}
-%% \hline
-%% Quantity & Value / description \\
-%% \hline
-%% Replicates per grid point & \(R=250\) \\
-%% Sample size per replicate & \(n=20{,}000\) \\
-%% Outcome prevalence & \(\pi=\Pr(Y=1)=0.2\) \\
-%% Exposure prevalence & \(\varphi=\Pr(X=1)=0.5\) \\
-%% Target effect & \(\theta=\log(\mathrm{OR})=\log 2\) \\
-%% DGP for \(X\) & \(X\sim\mathrm{Bernoulli}(\varphi)\) \\
-%% DGP for \(Y\mid X\) &
-%% \(Y\mid X\sim\mathrm{Bernoulli}(\mathrm{logit}^{-1}(\alpha+\theta X))\), \(\alpha\) chosen so \(\Pr(Y=1)=\pi\) \\
-%% How \(\alpha\) is chosen &
-%% Deterministic numeric solve (grid search / root-find) to match \(\Pr(Y=1)=\pi\) \\
-%% Misclassification model &
-%% Independent flips: \(\Pr(\tilde Y{=}1\mid Y{=}1)=p_{\mathrm{sel}}\), \(\Pr(\tilde Y{=}0\mid Y{=}0)=q_{\mathrm{sel}}\) \\
-%% Non-differential assumption &
-%% \((p_{\mathrm{sel}},q_{\mathrm{sel}})\) do not depend on \(X\) \\
-%% Conditioning diagnostic &
-%% \(\det(K)=p_{\mathrm{sel}}+q_{\mathrm{sel}}-1\) (plotted in panels d and h of Fig.~\ref{fig:spor_eight_panel}) \\
-%% Top-row grid (specificity sweep) &
-%% Fix \(p_{\mathrm{sel}}=0.95\); 15 points for \(1-q_{\mathrm{sel}}\in[0.02,0.65]\) \\
-%% Bottom-row grid (symmetric sweep) &
-%% Set \(p_{\mathrm{sel}}=q_{\mathrm{sel}}\); 15 points for \(m=1-p_{\mathrm{sel}}\in[0.02,0.35]\) \\
-%% Naive continuity correction &
-%% Add \(0.5\) to each observed cell \((\tilde a,\tilde b,\tilde c,\tilde d)\) \\
-%% Feasibility floor &
-%% \(\varepsilon=10^{-9}\) (corrected cells required \(\ge \varepsilon\)) \\
-%% Ridge grid &
-%% \(\lambda\in\{0,10^{-6},10^{-5},10^{-4},10^{-3}\}\) \\
-%% Ridge selection rule &
-%% Choose smallest \(\lambda\) on grid yielding all corrected cells \(\ge\varepsilon\);
-%% if none, use \(\max\lambda\) and floor remaining sub-\(\varepsilon\) cells to \(\varepsilon\) \\
-%% Validation size (variance propagation) &
-%% \(n_{\mathrm{val}}=5{,}000\) (used only for the delta-method experiment in Appendix~\ref{app:variance}) \\
-%% RNG seed & 20251005 \\
-%% \hline
-%% \end{tabular}
-%% \end{table}
-%% %################################### 
-%% \begin{table}[t]
-%% \centering
-%% \caption{Additional sweep grids used in Figure~\ref{fig:sim_sweep_grid}. All other constants and safeguards are as in Table~\ref{tab:sim_params}.}
-%% \label{tab:sim_sweep_grids}
-%% \begin{tabular}{p{0.35\textwidth} p{0.55\textwidth}}
-%% \hline
-%% Sweep dimension & Grid (held-fixed quantities) \\
-%% \hline
-%% False negative rate sweep & \(1-p_{\mathrm{sel}}\in\{0.01,0.04,0.07,0.10,0.15\}\) (with \(q_{\mathrm{sel}}\) fixed) \\
-%% False positive rate sweep & \(1-q_{\mathrm{sel}}\in\{0.05,0.10,0.20,0.30,0.40\}\) with \(p_{\mathrm{sel}}=0.95\) fixed \\
-%% Target effect sweep & \(\theta=\log(\mathrm{OR})\in\{0.25,0.40,0.70,1.10,1.40\}\) (with \(n\) and \((p_{\mathrm{sel}},q_{\mathrm{sel}})\) fixed) \\
-%% Sample size sweep & \(n\in\{5000,10000,20000,35000,50000\}\) (with \(\theta\) and \((p_{\mathrm{sel}},q_{\mathrm{sel}})\) fixed) \\
-%% \hline
-%% \end{tabular}
-%% \end{table}
-%% %################################### 
-%% %################################### 
-%% %################################### 
-%% %################################### 
-%% %################################### 
-%% %################################### 
-%% %==================================================
-%% %second sim study in Rev request
-%% %==================================================
-
-%% \begin{figure}
-
-%%   \includegraphics[width=\textwidth]{Figures/sim2.pdf}
-
-%%   \caption{}\label{figsim2}
-
-%% \end{figure}
-
-
-
-%% \begin{figure}
-
-%%   \includegraphics[width=\textwidth]{Figures/performance_summary_alpha_0p05.png}
-
-%% \caption{Simulation results illustrating variation of FDR, true positives and false psitives with sample size}\label{figsim3}
-
-%% \end{figure}
-
-%====================================================
-%====================================================
-%%!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-%%!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-%%!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-%%!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-%====================================================
-%====================================================
-
-
-
-%==================================================
-% Additional simulation requested in revision
-%==================================================
-
-%% \begin{figure}[t]
-%%   \centering
-%%   \includegraphics[width=\textwidth]{Figures/sim2.pdf}
-%%   \caption{
-%%   Simulation analogue of attribution volcano plots under naive and $\lambda$-OR inference.
-%%   Each point represents one simulated binary feature; red points denote non-null features
-%%   and green points denote null features. The horizontal axis is the estimated log-effect,
-%%   and the vertical axis is statistical significance measured by $-\log_{10}(p)$ from a Wald
-%%   test. Panels (a,c,e) show naive log-odds-ratio inference using only the classical
-%%   sampling variance, while panels (b,d,f) show $\lambda$-OR inference using the augmented
-%%   variance that includes the validation-driven uncertainty contribution. Results are shown
-%%   for three cohort sizes: $n_{\mathrm{case}}=n_{\mathrm{ctrl}}=5\times 10^{4}$ in panels
-%%   (a,b), $10^{5}$ in panels (c,d), and $10^{6}$ in panels (e,f). As sample size increases,
-%%   the naive analysis produces increasingly inflated significance even for weak effects,
-%%   whereas $\lambda$-OR compresses the vertical scale through the additional variance term
-%%   and preserves a more stable separation between null and non-null features.
-%%   }
-%%   \label{figsim2}
-%% \end{figure}
-
-%% \begin{figure}[t]
-%%   \centering
-%%   \includegraphics[width=\textwidth]{Figures/performance_summary_alpha_0p05.png}
-%%   \caption{
-%%   Cohort-size sweep at significance level $\alpha=0.05$. The number of cases
-%%   $n_{\mathrm{case}}$ is varied logarithmically from $10^{2}$ to $10^{6}$ using 11
-%%   evenly spaced points on the log scale, with $n_{\mathrm{ctrl}}=100\,n_{\mathrm{case}}$
-%%   throughout. Panels show the false discovery rate (FDR), the number of true positives
-%%   (TP), and the number of false positives (FP) for naive odds-ratio inference and
-%%   $\lambda$-OR inference. As cohort size increases, naive inference accumulates a large
-%%   and persistent false-positive burden, whereas $\lambda$-OR sharply reduces false
-%%   positives and correspondingly lowers FDR while still increasing the number of true
-%%   positives.}
-%%   \label{figsim3}
-%% \end{figure}
-
-%% \subsection{Simulation analogue of the attribution volcano plots}\label{sec:sim-volcano}
-
-%% To complement the finite-sample misclassification experiments above, we performed an
-%% additional simulation designed to reproduce the geometry of the attribution volcano
-%% plots used in the empirical analyses. The purpose of this experiment is not to study
-%% bias of the corrected point estimator itself, but to isolate the inferential consequence
-%% of the variance expansion developed in Section~2.3. In particular, the experiment
-%% illustrates how the additional uncertainty induced by estimation of
-%% $(p_{\mathrm{sel}},q_{\mathrm{sel}})$ prevents the collapse of standard errors that occurs
-%% under classical odds-ratio inference in very large cohorts.
-
-%% We simulated $m=20{,}000$ binary exposures representing candidate diagnostic features.
-%% A fraction $0.8$ of these were designated null features, with true effect
-%% $\beta_j=0$, and the remaining features were assigned non-null effects drawn from
-%% \[
-%% \beta_j \sim \mathcal{N}(0.06,\,0.03^2).
-%% \]
-%% Baseline exposure prevalence among controls was generated on the logit scale as
-%% \[
-%% \operatorname{logit}(p_{0j}) \sim \mathcal{N}(-3.5,\,1.0^2),
-%% \]
-%% and case prevalence was then defined by
-%% \[
-%% p_{1j}=\operatorname{expit}\!\bigl(\operatorname{logit}(p_{0j})+\beta_j\bigr).
-%% \]
-%% For each feature $j$, counts $(a_j,b_j,c_j,d_j)$ were sampled from independent
-%% case and control cohorts, and the naive log-odds ratio
-%% \[
-%% \widehat{\ell}^{\,\mathrm{naive}}_j
-%% =
-%% \log\!\left(\frac{a_j d_j}{b_j c_j}\right)
-%% \]
-%% was computed in the usual way.
-
-%% We then evaluated statistical significance under two variance models. In the naive
-%% analysis, the Wald statistic uses only the classical large-sample variance of the
-%% log-odds ratio. In the $\lambda$-OR analysis, inference uses the total variance obtained
-%% by augmenting the classical term with the additional contribution arising from
-%% uncertainty in the selection-conditional misclassification rates
-%% $(p_{\mathrm{sel}},q_{\mathrm{sel}})$. In the simulation, this extra term was parameterized
-%% through the conditioning quantity
-%% \[
-%% \det(K)=p_{\mathrm{sel}}+q_{\mathrm{sel}}-1
-%% \]
-%% and a finite validation cohort of size $n_{\mathrm{val}}$, yielding a validation-driven
-%% standard-error floor that does not vanish with the primary cohort size.
-
-%% Figure~\ref{figsim2} shows the resulting volcano plots for three cohort sizes:
-%% $n_{\mathrm{case}}=n_{\mathrm{ctrl}}=5\times10^{4}$,
-%% $n_{\mathrm{case}}=n_{\mathrm{ctrl}}=10^{5}$, and
-%% $n_{\mathrm{case}}=n_{\mathrm{ctrl}}=10^{6}$.
-%% Under naive inference, the increasing cohort size drives the Wald variance toward
-%% zero, so even modest effect sizes produce increasingly large test statistics and a broad
-%% cloud of apparently significant findings. This inflation affects null and non-null
-%% features alike, obscuring the distinction between weak signal and spurious discovery.
-%% In contrast, under $\lambda$-OR inference the validation-induced variance component
-%% imposes a lower bound on the achievable standard error. The resulting volcano plots
-%% therefore exhibit a markedly compressed vertical scale in which significance grows much
-%% more slowly with cohort size and remains more tightly coupled to effect magnitude.
-
-%% This experiment isolates the core inferential mechanism of the method. The benefit
-%% does not come from altering the basic odds-ratio geometry of the feature tables, but
-%% from propagating uncertainty in the misclassification correction into the final test
-%% statistic. In very large observational datasets, this additional variance component
-%% prevents the pathological over-certainty that otherwise turns weak or null associations
-%% into apparently overwhelming discoveries.
-
-%% \paragraph{Cohort-size sweep at fixed significance threshold.}
-%% To quantify the large-sample behavior more directly, we next performed a cohort-size
-%% sweep while holding all other simulation parameters fixed and evaluating discoveries at
-%% significance level $\alpha=0.05$. The number of cases was varied logarithmically from
-%% $10^{2}$ to $10^{6}$ using 11 evenly spaced points on the log scale, with
-%% $n_{\mathrm{ctrl}} = 100\,n_{\mathrm{case}}$ for each configuration. The total number of
-%% candidate features remained fixed at $m=20{,}000$, with null fraction $0.8$, non-null
-%% effect distribution $\mathcal{N}(0.06,0.03^2)$, conditioning level $\det(K)=0.8$,
-%% validation sample size $n_{\mathrm{val}}=1000$, and variance scaling factor $1.0$.
-
-%% For each cohort size we recorded the number of discoveries, true positives (TP), false
-%% positives (FP), and the resulting false discovery rate
-%% \[
-%% \mathrm{FDR}=\frac{\mathrm{FP}}{\mathrm{TP}+\mathrm{FP}}
-%% \]
-%% under both naive odds-ratio inference and $\lambda$-OR inference. The results are
-%% summarized in Fig.~\ref{figsim3}.
-
-%% The naive analysis exhibits the characteristic large-sample failure mode anticipated by
-%% the variance calculation. As $n_{\mathrm{case}}$ increases, the number of true positives
-%% does rise, but this is accompanied by a persistently large false-positive burden.
-%% Consequently, the false discovery rate remains high over much of the sweep, indicating
-%% that the apparent gain in power is achieved largely through significance inflation.
-%% By contrast, $\lambda$-OR inference shows a different scaling regime. Because the
-%% validation-driven variance component does not shrink with the main cohort size, false
-%% positives decline sharply as $n_{\mathrm{case}}$ increases, and the false discovery rate
-%% falls correspondingly. At the same time, the number of true positives continues to
-%% increase, although more gradually than under the naive analysis.
-
-%% Taken together, Figs.~\ref{figsim2} and~\ref{figsim3} show that the additional
-%% variance term is not merely a technical correction. It changes the qualitative
-%% large-sample behavior of the inference procedure. Classical odds-ratio inference on
-%% misclassification-corrected tables can still produce severe over-significance when the
-%% primary cohort is extremely large, whereas $\lambda$-OR inference stabilizes the test
-%% statistic by retaining the uncertainty associated with estimation of the correction
-%% itself.
-
-%% \begin{table}[!ht]
-%% \centering
-%% \caption{Parameters used in the additional volcano-style simulation and the associated
-%% cohort-size sweep in Section~\ref{sec:sim-volcano}. Unless otherwise noted, the same
-%% values are used for both experiments.}
-%% \label{tab:sim-volcano-params}
-%% \begin{tabular}{p{0.34\textwidth} p{0.56\textwidth}}
-%% \hline
-%% Parameter / quantity & Value / description \\
-%% \hline
-%% Number of simulated exposures & $m=20{,}000$ \\
-%% Null fraction & $0.8$ \\
-%% Non-null effect distribution & $\beta_j \sim \mathcal{N}(0.06,\,0.03^2)$ \\
-%% Null effect & $\beta_j = 0$ \\
-%% Baseline exposure prevalence & $\operatorname{logit}(p_{0j}) \sim \mathcal{N}(-3.5,\,1.0^2)$ \\
-%% Case prevalence for feature $j$ & $p_{1j}=\operatorname{expit}(\operatorname{logit}(p_{0j})+\beta_j)$ \\
-%% Conditioning of misclassification operator & $\det(K)=0.8$ \\
-%% Validation cohort size & $n_{\mathrm{val}}=1000$ \\
-%% Variance scaling factor & $1.0$ \\
-%% Random seed & $3$ \\
-%% Volcano-plot cohort sizes & $n_{\mathrm{case}}=n_{\mathrm{ctrl}} \in \{5\times10^{4},\,10^{5},\,10^{6}\}$ \\
-%% Cohort-size sweep & $n_{\mathrm{case}} \in [10^{2},10^{6}]$ on a log scale with 11 points \\
-%% Control size in sweep & $n_{\mathrm{ctrl}} = 100\,n_{\mathrm{case}}$ \\
-%% Significance threshold for sweep & $\alpha = 0.05$ \\
-%% Reported sweep metrics & discoveries, TP, FP, FDR \\
-%% \hline
-%% \end{tabular}
-%% \end{table}
-
-
-
-
-
-
-
-
-
-
-
-
-
-%====================================================
-%====================================================
-%%!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-%%!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-%%!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-%%!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-%%!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-%%!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-%%!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-%%!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-%%!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-%%!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-%%!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-%%!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-%====================================================
-%====================================================
-%====================================================
-%====================================================
-
-%% \subsection{Simulation analogue of the attribution volcano plots}\label{sec:sim-volcano}
-%% To illustrate the statistical implications of the variance expansion developed in
-%% Section~2.3, we performed an additional simulation designed to reproduce the
-%% structure of the attribution volcano plots shown in Fig.~\ref{figsim2}.  The
-%% objective of this experiment is to isolate the variance mechanism implied by the
-%% $\lambda$-OR formulation and compare it to classical odds-ratio inference under
-%% very large sample sizes.
-
-%% Recall that the $\lambda$-OR estimator is obtained from the corrected contingency
-%% table in Eq.~(7), while inference for the log-scale estimator uses the variance
-%% expression derived in Section~2.3.  Specifically, the classical sampling variance
-%% of the log-odds ratio is given by Eq.~(8), while the additional uncertainty arising
-%% from estimation of the selection--conditional misclassification rates
-%% $(p_{\mathrm{sel}},q_{\mathrm{sel}})$ is captured by the delta-method term in
-%% Eq.~(9).  The total variance used for inference is therefore the sum in Eq.~(10).
-%% In the volcano plots below, the horizontal coordinate is the estimated
-%% log-effect $\log(\mathrm{OR})$ and statistical significance is computed from the
-%% Wald statistic $Z=\frac{\log(\mathrm{OR})}{SE}$, where $SE$ is computed either using only the classical variance in Eq.~(8)
-%% (naive OR) or the total variance in Eq.~(10) ($\lambda$-OR inference).
-
-%% \paragraph{Simulation design.}
-%% We simulated $m=20{,}000$ binary exposures representing candidate diagnostic
-%% features.  For each feature $j$, a true log-odds ratio
-%% \[
-%% \beta_j
-%% \]
-%% was drawn from a small-effect distribution
-%% \[
-%% \beta_j \sim |\mathcal{N}(0.06,0.03^2)|.
-%% \]
-%% Baseline exposure prevalence among controls was generated on the logit scale
-%% \[
-%% \mathrm{logit}(p_{0j}) \sim \mathcal{N}(-3.5,1.0^2),
-%% \]
-%% and case prevalence was defined by
-%% \[
-%% p_{1j}=\mathrm{expit}\bigl(\mathrm{logit}(p_{0j})+\beta_j\bigr).
-%% \]
-
-%% Counts were then sampled from a large cohort consisting of
-%% \[
-%% n_{\mathrm{case}} = 5\times 10^{5},
-%% \qquad
-%% n_{\mathrm{ctrl}} = 5\times 10^{5},
-%% \]
-%% yielding contingency tables $(a_j,b_j,c_j,d_j)$ for each feature.
-%% For each table we computed the classical log-odds ratio
-%% \[
-%% \widehat{\log(\mathrm{OR})}_j=\log\!\left(\frac{a_j d_j}{b_j c_j}\right)
-%% \]
-%% and evaluated significance using the two variance estimators described above.
-
-%% To determine the magnitude of the delta-method variance term in
-%% Eq.~(9), we fixed the conditioning of the misclassification operator
-%% \[
-%% \det(K)=p_{\mathrm{sel}}+q_{\mathrm{sel}}-1
-%% \]
-%% and the validation cohort size $n_{\mathrm{val}}$ that governs estimation
-%% uncertainty in $(p_{\mathrm{sel}},q_{\mathrm{sel}})$.  The parameters used in the
-%% simulation are summarized in Table~\ref{tab:sim-volcano-params}.
-
-
-%% %\paragraph{Results.}
-%% The resulting volcano plots are shown in Fig.~\ref{figsim2}.  Panel
-%% \ref{figsim2}a displays the naive analysis using the classical variance
-%% (Eq.~(8)), while panel \ref{figsim2}b shows significance computed using the
-%% total variance from Eq.~(10).
-
-%% Under the classical estimator (Fig.~\ref{figsim2}a), the extremely large cohort
-%% size causes the Wald variance to shrink toward zero, producing extremely large
-%% test statistics even for modest effect sizes.  As a result, a broad cloud of
-%% features appears highly significant despite the small underlying effects.
-
-%% In contrast, the $\lambda$-OR variance formulation incorporates the additional
-%% delta-method term arising from estimation of $(p_{\mathrm{sel}},q_{\mathrm{sel}})$.
-%% Because this component depends on the validation cohort rather than the primary
-%% cohort, it imposes a lower bound on the achievable standard error.  Consequently,
-%% the volcano plot in Fig.~\ref{figsim2}b exhibits a substantially compressed
-%% vertical scale in which statistical significance increases smoothly with effect
-%% magnitude rather than diverging with sample size.
-
-%% This experiment therefore provides a controlled demonstration of the mechanism
-%% highlighted in Section~2.3: the variance expansion in Eq.~(10) introduces a
-%% sample-size–independent variance component that prevents the collapse of
-%% standard errors characteristic of classical odds-ratio inference in very large
-%% observational datasets.
-
-
-%% \paragraph{Cohort-size sweep.}
-%% To examine how cohort size influences false discovery behavior under outcome misclassification, we performed a sweep over case cohort sizes while holding all other simulation parameters fixed. The number of cases was varied logarithmically from $10^{2}$ to $10^{6}$ using 11 evenly spaced points on the log scale. For each configuration, the control cohort size was set to $n_{\mathrm{ctrl}} = 100\, n_{\mathrm{case}}$. The total number of candidate features was fixed at $m=20{,}000$, of which a fraction $0.8$ were null features. Non-null effect sizes were sampled from $\mathcal{N}(0.06,\,0.03^{2})$. %Baseline prevalences were drawn from the distribution described in Section~\ref{sec:sim}.
-
-%% Outcome misclassification parameters and validation sample size were held constant across the sweep. Specifically, we used $\epsilon = 0.8$, $n_{\mathrm{val}} = 1000$, and variance scaling factor $1.0$, resulting in a validation-induced variance floor of the form described in Eq.~(\ref{eq:lambda_var}). Statistical significance was evaluated at level $\alpha = 0.05$.
-
-%% For each cohort size, we computed discoveries using both the naive log-odds ratio and the proposed misclassification-corrected estimator $\log(\lambda\text{-OR})$. We recorded the total number of discoveries, true positives (TP), false positives (FP), and the resulting false discovery rate (FDR). Results are summarized in Fig.~\ref{figsim3}.
-
-%% %% \paragraph{Observed behavior.}  %
-%% The naive estimator exhibits a characteristic large-sample pathology. As $n_{\mathrm{case}}$ increases, the number of discoveries grows rapidly, driven primarily by a large and persistent number of false positives. Consequently, although statistical power increases with sample size, the associated FDR remains elevated across much of the sweep.
-
-%% In contrast, the $\lambda$-OR estimator shows markedly different scaling behavior. Because the estimator incorporates the validation-induced variance floor described in Section~\ref{sec:methods}, significance cannot increase arbitrarily with cohort size. As $n_{\mathrm{case}}$ increases, the number of false positives declines sharply, approaching zero at the largest cohort sizes examined. The resulting FDR correspondingly decreases and approaches the nominal significance level.
-
-%% %% \paragraph{Power and error tradeoff.}
-%% While the naive estimator achieves higher apparent power due to aggressive significance inflation, this gain is accompanied by a large false positive burden. The $\lambda$-OR estimator yields fewer total discoveries but substantially improves error control, producing a smaller and more reliable set of detected signals. Importantly, true positives continue to increase with cohort size under $\lambda$-OR, albeit at a slower rate than the naive estimator, reflecting the stabilizing effect of the validation-based variance component.
-
-%% %% \paragraph{Interpretation.}
-%% These results illustrate the central motivation for the $\lambda$-OR correction. In large observational cohorts with outcome misclassification, classical odds-ratio inference can produce spurious significance driven purely by sample size. By incorporating the variance contribution arising from estimation of misclassification parameters, the $\lambda$-OR estimator prevents uncontrolled significance inflation and yields substantially improved false discovery behavior as cohort size increases.
-
-
-%% \begin{table}[t]
-%% \centering
-%% \caption{Parameters used in the volcano simulation shown in
-%% Fig.~\ref{figsim2}.}
-%% \label{tab:sim-volcano-params}
-%% \begin{tabular}{lll}
-%% \hline
-%% Parameter & Description & Value \\
-%% \hline
-%% $m$ & Number of simulated exposures & $20{,}000$ \\
-%% $n_{\mathrm{case}}$ & Number of cases & $5\times10^{5}$ \\
-%% $n_{\mathrm{ctrl}}$ & Number of controls & $5\times10^{5}$ \\
-%% $\beta_j$ distribution & True log-OR effects & $|\mathcal{N}(0.06,0.03^2)|$ \\
-%% $\mathrm{logit}(p_0)$ distribution & Baseline exposure prevalence & $\mathcal{N}(-3.5,1.0^2)$ \\
-%% $\det(K)$ & Conditioning of misclassification operator & $0.8$ \\
-%% $n_{\mathrm{val}}$ & Validation cohort size & $1000$ \\
-%% Random seed & Simulation RNG seed & $3$ \\
-%% \hline
-%% \end{tabular}
-%% \end{table}
-
-
-
-
-
-
-
-
-
-
-
 %################################### 
 %################################### 
 \begin{figure}[!ht]
@@ -2167,13 +1539,7 @@ Random seed & Simulation RNG seed & \(3\) \\
 %################################### 
 %################################### 
 %################################### 
-
-
-%################################### 
-%################################### 
-%################################### 
-%################################### 
-%###################################
+%==================================================
 
 
 %==================================================
@@ -2184,49 +1550,84 @@ $\SPOR$ addresses the principal failure modes of attribution at EHR and biobank 
 
 For the analyses below, diagnoses are represented using ICD-10-CM codes recorded in the EHR. In this setting, exposures are defined as binary indicators of recorded ICD diagnosis codes. A code either appears in a patient's record or it does not, so there is no concept of missingness in the conventional sense. Rather, the number of such observations per patient is typically limited, i.e., the data are sparse and potentially noise-corrupted.
 
-Fig.~\ref{figvolcano} and Table~\ref{tabfrac} illustrate the implications of these guarantees. The volcano plots display effect size (log $\SPOR$) against $-\log_{10}(p)$, where $p$ is computed from the Wald statistic using the variance estimator described above. Consequently, the vertical position of each exposure is determined by the estimated uncertainty of the corrected estimator, so the plot directly reflects which associations cross significance thresholds and are prioritized for follow-up investigation. Exposures with large positive $\lambda$-OR values and stable uncertainty correspond to candidate risk factors for the target condition, whereas exposures with negative $\lambda$-OR values that remain significant after correction indicate candidate protective associations, which may be clinically important when modifiable. In contrast, naive odds ratios and SHAP values attribute significance to a wide cloud of diagnostic codes, with a substantial fraction appearing spuriously protective, while $\SPOR$ retains only a narrower set of plausible modulators. Across ASD, IPF, and ADRD, the fraction of codes deemed significant by classical OR or SHAP is reduced several-fold, while the protective codes, often biologically implausible, are almost entirely eliminated.
+To make the scale of these analyses explicit, Table~\ref{tab:realdata_summary} summarizes the out-of-sample cohort sizes, case-control counts, training cohort sizes, feature counts, and the two-gate $\SPOR$ operating parameters for each application. The out-of-sample cohorts in Table~\ref{tab:realdata_summary} also served as the held-out validation cohorts for estimation of the operating characteristics entering the correction. Specifically, after fitting the upstream prediction model on the training cohort, the score \(S=f(\mathbf Z)\) was evaluated on the held-out out-of-sample cohort, ROC analysis on this held-out cohort was used to determine the low- and high-risk score thresholds, and the resulting two-gate selected sample was then used to estimate the corresponding selection-conditional sensitivity and specificity \((p_{\mathrm{sel}}, q_{\mathrm{sel}})\). Prior to tail selection, the out-of-sample cohorts comprised 594,442 patients for ASD, 616,722 for IPF, and 5,104,357 for ADRD, with corresponding feature spaces of 1,806, 16,493, and 21,070 ICD-10-CM codes, respectively. For the volcano-plot analyses in Fig.~\ref{figvolcano}, the effective $\SPOR$ analysis set was the union of the high-risk and low-risk score-tail samples, yielding 35,704 selected subjects for ASD, 26,574 for IPF, and 415,186 for ADRD.
+
+Fig.~\ref{figvolcano}, Table~\ref{tabfrac}, and Table~\ref{tab:protective_examples} illustrate the implications of these guarantees. The volcano plots display effect size (log $\SPOR$) against $-\log_{10}(p)$, where $p$ is computed from the Wald statistic using the variance estimator described above. Consequently, the vertical position of each exposure is determined by the estimated uncertainty of the corrected estimator, so the plot directly reflects which associations cross significance thresholds and are prioritized for follow-up investigation. In particular, unlike the naive OR whose uncertainty contracts primarily with cohort size, the $\SPOR$ volcano plots incorporate the additional validation-induced variance component arising from estimation and inversion of the misclassification operator, so significance reflects both effect size and correction uncertainty. Exposures with large positive $\lambda$-OR values and stable uncertainty correspond to candidate risk factors for the target condition, whereas exposures with negative $\lambda$-OR values that remain significant after correction indicate candidate protective associations, which may be clinically important when modifiable.
+
+Table~\ref{tabfrac} reports both fractions and absolute counts of significant and protective codes, making clear that $\SPOR$ yields a substantially smaller and more selective discovery set than naive OR or SHAP across all three applications. The retained $\SPOR$ signals are also more clinically plausible: for ASD, the surviving associations are concentrated among neurodevelopmental and psychiatric comorbidities; for IPF, the retained signals are enriched for chronic pulmonary and cardiopulmonary diagnoses; and for ADRD, the dominant retained associations align with known age-related neurocognitive and systemic comorbidity patterns. For a specific example, $\SPOR$ recovers established ADRD risk domains with strong variance-corrected signals: endocrine or metabolic (hyperparathyroidism, 14.118~\cite{HYPERPARATHYROIDISMmathur2022}; hypo/hyperparathyroidism), sepsis (10.535~\cite{SEPSISzeng2024}), cardio- and cerebrovascular (hypertensive heart and kidney, 9.718~\cite{CKDkelly2022}; hypertension, 6.180~\cite{HYPERTENSIONcarey2023}; atrial fibrillation, 5.511~\cite{ATRIALFIBRpapanastasiou2021}; cerebrovascular, 5.395~\cite{CEREBROVASCULARlove2016}; atherosclerosis, 4.620~\cite{ATHEROSCLEROSISnordestgaard2022}), neurologic/psychiatric (traumatic brain injury, 8.841~\cite{TBIgu2022}; major depressive disorder, 5.432~\cite{DEPRESSIONsaiz2021}; hearing loss, 4.693~\cite{HEARINGlitke2021}; sleep disorders, 2.277~\cite{SLEEPchoe2022}), and metabolic/respiratory/systemic conditions (type 2 diabetes, 4.434~\cite{T2DMathanasaki2022}; COPD, 4.427~\cite{COPDwang2022}; hyperlipidemia, 6.000~\cite{HYPERLIPIDEMIAezkurdia2023}; obesity, 2.791~\cite{OBESITYbeydoun2008}; age-related cataract, 3.930~\cite{CATARACTjun2012}).
+
+In contrast, naive odds ratios and SHAP values attribute significance to a wide cloud of diagnostic codes, with a substantial fraction appearing spuriously protective, while $\SPOR$ retains only a narrower set of plausible modulators. Across ASD, IPF, and ADRD, the fraction of codes deemed significant by classical OR or SHAP is reduced several-fold, while the protective codes, often biologically implausible, are almost entirely eliminated. The small residual cluster of apparently ``protective'' ADRD-associated codes lies largely in reproductive and gynecologic conditions (menstrual irregularities N91--N92, endometriosis N80.9, uterine/breast benign neoplasms D25--D26, cervical findings N84--N88, R87.61, R87.82), consistent with extensive evidence that cumulative estrogen exposure is neuroprotective. Women with longer reproductive spans (later menopause, later age at last childbirth) exhibit reduced dementia risk, whereas abrupt estrogen loss (surgical oophorectomy, premature menopause) is consistently associated with heightened risk. Mechanistically, estrogen supports synaptic and mitochondrial function, reduces $\beta$-amyloid aggregation, buffers oxidative stress, and dampens inflammation, all central to Alzheimer’s pathogenesis~\cite{zarate2017role,Georgakis2016}. Thus, the appearance of these gynecologic codes as ``protective'' is biologically consistent with estrogen-mediated resilience against neurodegeneration. A few seemingly unrelated codes also emerged, including attention-deficit hyperactivity disorder (F90), lateral epicondylitis (M77.11), and chronic viral hepatitis C (B18.2), wherein further investigation is warranted.
+
+\paragraph{Concrete examples of protective associations removed by \texorpdfstring{$\SPOR$}{SPOR}.}
+A central purpose of $\SPOR$ is to correct attribution in the presence of score-induced outcome misclassification, so that apparently strong associations driven by tail-selection artifacts do not survive as putative biological signals when the upstream predictor is otherwise informative. Table~\ref{tab:protective_examples} provides representative real-data examples of this behavior. Under the naive odds ratio analysis, these codes appear significantly protective, often at extremely small nominal $p$-values. However, after $\SPOR$ correction, the estimated effects remain negative but no longer meet significance, indicating that the apparent protective signal is not stable once uncertainty from the misclassification correction is propagated.
+
+Several of these examples are particularly implausible as genuine protective factors for the target condition. For example,  ovarian dysfunction (E28), and other benign neoplasm of corpus uteri (D26.1) appear strongly protective under naive OR, yet lose significance after $\SPOR$ correction. Likewise, clinically implausible indications such  acne vulgaris (L70.0), streptococcal pharyngitis (J02.0), and abnormal weight gain (R63.5) emerge as significantly protective in the naive analysis but are eliminated  by $\SPOR$. These are precisely the kinds of attribution artifacts that the proposed method is designed to suppress: given a reasonably informative prediction model, $\SPOR$ should preserve robust modulators while eliminating clinically dubious signals that arise from proxy-label distortion rather than true biology.
 
 
-
-{\color{red} In these runs, the total number of features (ICD codes) used were as follows: IPF 3279, ASD 1459 and ADRD 11678.}
-
-
-%% %==================================================
-%% \section{Application to Large EHR Databases}
-%% %==================================================
+Finally, we note that as discussed before, the dependence of $\SPOR$ on upstream model quality follows from  analytical reasoning (Corollary~\ref{cor:auc_collapse}). As the predictive score becomes less informative and discrimination approaches chance, the correction operator will become increasingly ill-conditioned; accordingly, $\SPOR$ will  collapse conservatively rather than producing spuriously confident associations, $i.e.$, less and less features will cross the significance threshold. 
 
 
-%% $\SPOR$ addresses the principal failure modes of attribution at EHR and biobank scale. It collapses under non-predictive stratification (Theorem~\ref{thm:inherit_collapse} and Corollary~\ref{cor:auc_collapse}), resists amplification of vanishing effects (Lemma~\ref{lem:minimal} together with Corollaries~\ref{corshap} and~\ref{cor:shap_misrank}), and stabilizes correction under explicit label noise via ridge-regularized inversion across plausible $(p,q)$ ranges. The practical upshot is that signals appearing ubiquitous and highly significant under classical OR or SHAP contract markedly when evaluated with $\SPOR$, while biologically credible modulators persist (cf.\ Fig.~\ref{figvolcano}). Intuitively, $\SPOR$ computes exposure odds contrasts across calibrated risk strata and then corrects for outcome misclassification: if the score is uninformative the strata are indistinguishable and the contrast vanishes, whereas true modulators yield consistent separation that survives the correction.
-
-
-%% For the analyses below, diagnoses are represented using ICD-10-CM codes recorded in the EHR. In this setting, exposures are defined as binary indicators of recorded ICD diagnosis codes. A code either appears in a patient's record or it does not, so there is no concept of missingness in the conventional sense. Rather, the number of such observations per patient is typically limited, i.e., the data are sparse and potentially noise-corrupted.
-
-
-%% Fig.~\ref{figvolcano} and Table~\ref{tabfrac} illustrate the implications of these guarantees. The volcano plots display effect size (log $\SPOR$) against $-\log_{10}(p)$, where $p$ is computed from the Wald statistic using the variance estimator described above; thus the vertical axis is equivalent to ranking associations by the corresponding confidence intervals. Naïve odds ratios and SHAP values attribute significance to a wide cloud of diagnostic codes, with a substantial fraction appearing spuriously “protective,” while $\SPOR$ retains only a narrow set of plausible modulators. Across ASD, IPF, and ADRD, the fraction of codes deemed significant by classical OR or SHAP is reduced several-fold, while the protective codes (often biologically implausible) are almost entirely eliminated.
-
-%% {\color{red} In these runs, the total number of features (ICD codes) used were as follows: IPF 3279, ASD 1459 and ADRD 11678.}
-
-
-
-%% In the volcano plots, the vertical position of each exposure is determined by the Wald statistic, which depends on the estimated variance of the $\lambda$-OR estimator. Consequently, the uncertainty of the corrected estimator directly governs which signals cross significance thresholds and are prioritized for follow-up investigation. Exposures with large positive $\lambda$-OR values and stable uncertainty correspond to candidate risk factors for the target condition. Conversely, exposures with negative $\lambda$-OR values that remain significant after correction may indicate potentially protective associations. Identification of such protective exposures may be clinically important, particularly when the exposure is modifiable. Thus the $\lambda$-OR variance provides an uncertainty-aware mechanism for prioritizing signals in large-scale screening analyses.
-
-
-
-
-
- %% Fig.~\ref{figvolcano} and Table~\ref{tabfrac}  illustrates the implications of these guarantees:   naïve odds ratios and SHAP values attribute significance to a wide cloud of diagnostic codes, with a substantial fraction appearing spuriously “protective.”, while  $\SPOR$  retains only a narrow set of plausible modulators. Across ASD, IPF, and ADRD, the fraction of codes deemed significant by classical OR or SHAP is reduced several-fold, while the protective codes (often biologically implausible) are almost entirely eliminated.
-
- For a specific example, $\SPOR$  recovers established ADRD risk domains with strong variance-corrected signals: endocrine or metabolic (hyperparathyroidism, 14.118~\cite{HYPERPARATHYROIDISMmathur2022}; hypo/hyperparathyroidism), sepsis (10.535~\cite{SEPSISzeng2024}), cardio- and cerebrovascular (hypertensive heart and kidney, 9.718~\cite{CKDkelly2022}; hypertension, 6.180~\cite{HYPERTENSIONcarey2023}; atrial fibrillation, 5.511~\cite{ATRIALFIBRpapanastasiou2021}; cerebrovascular, 5.395~\cite{CEREBROVASCULARlove2016}; atherosclerosis, 4.620~\cite{ATHEROSCLEROSISnordestgaard2022}), neurologic/psychiatric (traumatic brain injury, 8.841~\cite{TBIgu2022}; major depressive disorder, 5.432~\cite{DEPRESSIONsaiz2021}; hearing loss, 4.693~\cite{HEARINGlitke2021}; sleep disorders, 2.277~\cite{SLEEPchoe2022}), and metabolic/respiratory/systemic conditions (type 2 diabetes, 4.434~\cite{T2DMathanasaki2022}; COPD, 4.427~\cite{COPDwang2022}; hyperlipidemia, 6.000~\cite{HYPERLIPIDEMIAezkurdia2023}; obesity, 2.791~\cite{OBESITYbeydoun2008}; age-related cataract, 3.930~\cite{CATARACTjun2012}).
-
-
-
-The small cluster of apparently ``protective’’ codes lies in reproductive and gynecologic conditions (menstrual irregularities N91–N92, endometriosis N80.9, uterine/breast benign neoplasms D25–D26, cervical findings N84–N88, R87.61, R87.82), consistent with extensive evidence that cumulative estrogen exposure is neuroprotective. Women with longer reproductive spans (later menopause, later age at last childbirth) exhibit reduced dementia risk, whereas abrupt estrogen loss (surgical oophorectomy, premature menopause) is consistently associated with heightened risk. Mechanistically, estrogen supports synaptic and mitochondrial function, reduces $\beta$-amyloid aggregation, buffers oxidative stress, and dampens inflammation, all central to Alzheimer’s pathogenesis~\cite{zarate2017role,Georgakis2016}. Thus, the appearance of these gynecologic codes as “protective’’ is biologically consistent with estrogen-mediated resilience against neurodegeneration.  
-A few seemingly unrelated codes also emerged, including attention-deficit hyperactivity disorder (F90), lateral epicondylitis (M77.11), and chronic viral hepatitis C (B18.2),
-wherein further investigation is warranted.
- 
 \subsection*{Concluding remarks}
-We have shown that a two–gate selection on a predictive score, combined with a minimal–feasible ridge inversion of the misclassification operator, yields a corrected log-odds ratio with simple Wald inference that removes classical attenuation from non-differential outcome noise. Across controlled simulations, the estimator remains essentially unbiased and sustains markedly higher coverage than the naive alternative over realistic misclassification levels, trading only modest variance. In EHR-scale applications (ADRD, IPF, ASD), it curbs inflated discoveries and spurious “protective” findings seen with naive ORs and model attributions, while surfacing biologically credible modulators. 
+We have shown that a two-gate selection on a predictive score, combined with a minimal-feasible ridge inversion of the misclassification operator, yields a corrected log-odds ratio with simple Wald inference that removes classical attenuation from non-differential outcome noise. Across controlled simulations, the estimator remains essentially unbiased and sustains markedly higher coverage than the naive alternative over realistic misclassification levels, trading only modest variance. In EHR-scale applications (ADRD, IPF, ASD), it curbs inflated discoveries and spurious ``protective'' findings seen with naive ORs and model attributions, while surfacing biologically credible modulators.
 
+In practice, $\SPOR$ is straightforward to implement once a predictive model is available. The procedure requires only a held-out labeled cohort to choose the low- and high-risk score thresholds and estimate \((p_{\mathrm{sel}},q_{\mathrm{sel}})\), followed by construction of the selected-set contingency tables for the exposures of interest. It is therefore particularly well suited to large observational EHR settings, where labels are often induced indirectly through risk stratification and where naive odds-ratio screening or post hoc attribution methods can overstate significance. By propagating uncertainty from the misclassification correction, $\SPOR$ yields a more conservative but substantially more reliable set of candidate modulators for downstream interpretation and validation.
+
+
+
+
+
+
+\begin{table*}[t]
+\centering
+\caption{Summary of cohort sizes, feature counts, and two-gate selection parameters for the real-data $\SPOR$ analyses shown in Fig.~\ref{figvolcano}. Out-of-sample counts refer to the full evaluation cohort prior to tail selection. The training cohort is the cohort used to fit the upstream predictive model. Here \(m\) denotes the number of subjects sampled from each score tail, so the selected analysis size is \(2m\). The quantities \(p_{\mathrm{sel}}\) and \(q_{\mathrm{sel}}\) are the selection-conditional sensitivity and specificity used in the misclassification correction.}
+\label{tab:realdata_summary}
+\begin{tabular}{lccc}
+\toprule
+Parameter & ASD & IPF & ADRD \\
+\midrule
+Out-of-sample cases      & 8,615     & 883       & 152,710   \\
+Out-of-sample controls   & 585,799   & 615,839   & 4,951,647 \\
+Out-of-sample total      & 594,442   & 616,722   & 5,104,357 \\
+Features                 & 1,806     & 16,493    & 21,070    \\
+Training cases           & 12,853    & 1,577     & 332,011   \\
+Training controls        & 885,384   & 853,408   & 7,433,112 \\
+Training total           & 898,237   & 854,985   & 7,765,123 \\
+Low threshold            & 0.0126989 & 0.0013777 & 0.0312294 \\
+Low quantile             & 0.7428493 & 0.7488415 & 0.7293767 \\
+High threshold           & 0.0317458 & 0.0032839 & 0.0880355 \\
+High quantile            & 0.9699671 & 0.9784554 & 0.9593302 \\
+\(m\)                    & 17,852    & 13,287    & 207,593   \\
+Selected analysis size (\(2m\)) & 35,704 & 26,574 & 415,186 \\
+\(p_{\mathrm{sel}}\)     & 0.7358    & 0.8827    & 0.9348    \\
+\(q_{\mathrm{sel}}\)     & 0.6535    & 0.4383    & 0.4612    \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+\begin{table*}[t]
+\centering
+\caption{Representative examples of codes that appear significantly protective under naive OR but are  no longer significant after $\SPOR$ correction. Here, the naive significance is summarized by $-\log_{10}(p)$ from the classical odds-ratio analysis, while the corrected significance is summarized by $-\log_{10}(p)$ from the $\SPOR$ analysis.}
+\label{tab:protective_examples}
+\begin{tabular}{>{\raggedright\arraybackslash}p{.4in}>{\raggedright\arraybackslash}p{.8in}>{\raggedright\arraybackslash}p{.8in}p{.4in}p{.4in}p{.6in}p{.4in}}
+\toprule
+Code & Description & ICD group & $\clogor$ & naive sig. & $\logor$ & $\SPOR$ sig. \\
+\midrule
+D26.1 & Benign neoplasm of corpus uteri & Benign neoplasms & -0.71 & 9.82 & -2.49 & 1.13 \\
+K01 & Impacted teeth & Injury & -0.92 & 2.71 & -2.47 & 1.00 \\
+E28 & Ovarian dysfunction & Endocrine diseases& -0.15 & 5.64 & -2.66 & 1.23 \\
+H18.82 & Corneal disorder from contact lens & Eye diseases & -0.81 & 6.16 & -2.41 & 0.92 \\
+%N95 & Menopausal  disorder & Genitourinary diseases & -0.21 & 102.11 & -2.11 & 0.92 \\
+B18 & Chronic viral hepatitis & Infectious \& parasitic diseases & -0.36 & 13.95 & -1.75 & 0.71 \\
+S83.50 & Sprain of  cruciate ligament right knee & Injuries  & -0.30 & 5.23 & -2.11 & 0.84 \\
+F90.0 & Attention-deficit hyperactivity disorder & Mental  disorders & -0.73 & 42.14 & -2.28 & 1.17 \\
+M53.1 & Cervico- brachial syndrome & Musculo- skeletal  & -0.55 & 42.67 & -2.43 & 0.99 \\
+G47.25 & Circadian rhythm  disorder & Nervous system  diseases& -1.16 & 1.63 & -1.99 & 0.31 \\
+J02.0 & Streptococcal pharyngitis & Respiratory diseases & -0.40 & 27.43 & -2.94 & 1.22 \\
+L70.0 & Acne vulgaris & Skin  diseases & -0.31 & 6.24 & -2.11 & 1.04 \\
+R63.5 & Abnormal weight gain & Abnormal findings & -0.32 & 40.90 & -2.58 & 1.07 \\
+\bottomrule
+\end{tabular}
+\end{table*}
 
 \section{Declarations}
 
