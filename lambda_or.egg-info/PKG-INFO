@@ -1,9 +1,9 @@
 Metadata-Version: 2.1
 Name: lambda-or
-Version: 0.0.6
+Version: 0.0.7
 Summary: Lambda Odds Ratio
 Home-page: https://github.com/zeroknowledgediscovery/lambda_or
-Download-URL: https://github.com/zeroknowledgediscovery/lambda_or/archive/0.0.6.tar.gz
+Download-URL: https://github.com/zeroknowledgediscovery/lambda_or/archive/0.0.7.tar.gz
 Author: Ishanu Chattopadhyay
 Author-email: zeroknowledgediscovery@gmail.com
 License: LICENSE
