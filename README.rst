@@ -19,12 +19,13 @@ Lambda-OR
 .. code-block::
 
     from lambda_or import lambda_or, pq_from_two_gates
-
+    from lambda_or import lambda_or, neglog10_p_from_z
     tilde = np.array([[100, 50],[ 80, 70]], dtype=float)
-    # Suppose selection-conditional rates from two-gate ROC:
-    p_sel, q_sel = 0.92, 0.90
-    res = lambda_or(tilde, p_sel, q_sel, n_val=2000)
-    
-    print(res.log_or, res.neglog10_p, res.z, res.se)
-    print(res.counts)   # corrected a,b,c,d
 
+    # lambda-OR
+    res = lambda_or(
+    tilde_counts=tilde,
+    p_sel=0.92,
+    q_sel=0.88,
+    n_val=1000
+    )
