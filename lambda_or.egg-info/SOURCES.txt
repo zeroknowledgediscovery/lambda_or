@@ -4,6 +4,7 @@ README.rst
 setup.py
 version.py
 lambda_or/__init__.py
+lambda_or/example.py
 lambda_or/lambda_or.py
 lambda_or.egg-info/PKG-INFO
 lambda_or.egg-info/SOURCES.txt
