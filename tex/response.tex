@@ -1,300 +1,351 @@
-\documentclass[onecolumn,compsoc,10pt]{IEEEtran}
+\documentclass[onecolumn,11pt]{IEEEtran}
 \let\labelindent\relax
 \input{preamble.tex}
 
 \def\TITLE{Correcting Label-noise Corruption     with   lambda-Odds Ratio}
 \title{Reviewer Response: \TITLE}
 
-
+\usepackage{xr}
+\externaldocument{mainBMCrevised}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\indep}{\perp\!\!\!\perp}
+\newcommand{\SPOR}{\textrm{$\lambda$-OR}}
+\newcommand{\COR}{\operatorname{OR}}
+\newcommand{\logor}{\log\SPOR}
+\newcommand{\clogor}{\log\COR}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\AUC}{\operatorname{AUC}}
 
 \begin{document}
 
-\section{Response to Editor and Revision Summary}
+\maketitle
 
+% Custom command for reviewer comments
+\newcommand{\revcommnt}[1]{%
+\par\medskip\noindent{\color{MediumBlue}\colorbox{black}{\color{yellow}\bf Reviewer comment:} \bf #1}\par\smallskip\noindent\textbf{Author response. }%
+}
 
+\section*{Response Overview}
 
+We thank the reviewers and the editor for the careful reading of the manuscript and for the constructive suggestions. We have revised the manuscript extensively in response to these comments. The revised draft is substantially clearer in notation, more complete in methodological detail, broader in simulation coverage, and more explicit in the presentation of the real-data applications.
 
+\subsection*{Summary of structural changes} 
 
+\begin{itemize}
+\item The original submission contained \textbf{2 figures} and \textbf{1 table}. The revised manuscript contains \textbf{5 figures} and \textbf{6 tables}.
+\item The original submission had \textbf{no appendix}. The revised manuscript adds \textbf{Appendix 1}, providing the full delta-method variance derivation for $\log \lambda$-OR.
+\item The original theorem/lemma numbering was difficult to follow. In the revised manuscript, the theoretical results have been renumbered and cited consistently throughout.
+\item The revised manuscript includes substantial new simulation material, including additional parameter sweeps, volcano-style simulation figures, and explicit FDR analyses.
+\item The real-data application section now includes detailed cohort summaries, thresholding parameters, and concrete examples of implausible protective findings that are corrected by $\lambda$-OR.
+\end{itemize}
 
+\subsection*{Brief summary of substantive revisions}
 
+\begin{itemize}
+\item The introduction was substantially rewritten so that the problem setup, notation, and motivation appear before the technical development.
+\item Section~\ref{sec:formulation} now introduces the notation more explicitly, including the distinction between the exposure of interest $X_j$ and the full feature set $\mathbf{Z}$ used by the predictive model.
+\item The methods section now labels the contingency tables explicitly and provides clearer assumptions for the correction operator.
+\item The theory section was reorganized and expanded, including clearer proofs, explicit assumptions, and corrected internal references.
+\item The simulation section was expanded to specify all design constants and to examine sensitivity to multiple conditioning regimes, effect sizes, and sample sizes.
+\item The real-data section was expanded with cohort sizes, feature counts, gate parameters, and explicit examples of codes that lose implausible significance after correction.
+\item Appendix 1 was added to provide a full step-by-step derivation of the variance contribution induced by estimation of $(p_{\mathrm{sel}}, q_{\mathrm{sel}})$.
+\item Abbreviations, notation, algorithm references, and figure labels were standardized throughout.
+\end{itemize}
 
+\subsection*{Notes on presentational choices}
 
-\section*{Response to Reviewer 1}
+Most reviewer requests led to direct revisions in the manuscript. In a few cases, we retained a presentational choice while revising the surrounding explanation. In particular, we retained the motivating numerical examples in Section~\ref{sec:motivation}, but we rewrote the surrounding text and added explicit forward references to the formal results. We also chose not to add exhaustive per-feature confidence interval tables in the real-data analysis, because the revised volcano plots already encode the same uncertainty structure graphically through the total variance term.
 
-\paragraph{Comment.}
-The motivation of the study is unclear because of the poor presentation. Description of the introduction is not adequate for readers to understand the problem setup and what situation the authors consider. The brief summary in section 1.1 does not help understanding because of the lack of detailed explanations for readers without prior knowledge.
+\section*{Reviewer 1}
 
-\paragraph{Response.}
-We thank the reviewer for this assessment. In response, we substantially rewrote the Introduction and the opening of Section 1.1 to make the problem setup more explicit and easier to follow for readers encountering the framework for the first time. The revised text now explains earlier and more clearly what setting we consider, why proxy-labeling arises naturally in this setting, and what practical problem the proposed estimator is intended to solve. We also reduced the density of the opening exposition and moved the intuitive interpretation ahead of the more formal discussion so that the reader can understand the objective of the method before encountering the technical details.
+\revcommnt{The motivation of the study is unclear because of the poor presentation. Description of the introduction is not adequate for readers to understand the problem setup and what situation the authors consider. The brief summary in section 1.1 does not help understanding because of the lack of detailed explanations for readers without prior knowledge.%% The motivation of the study is unclear because of the poor presentation. Description of the introduction is not adequate.
+}
+We have substantially rewritten the introduction (pp.~1--3). We now lay out the problem setup before Section~\ref{sec:motivation}: the variables $X$, $Y$, and $\tilde Y$ are introduced formally in Eq.~\eqref{eq1}, and the central challenge of estimating odds ratios under proxy-label noise is stated before any examples. We also rewrote the opening paragraphs to explain more clearly why this problem arises in EHR studies and why a correction based on score-conditioned purity is useful. We hope this makes the motivation and scope of the paper much clearer.
 
-\paragraph{Comment.}
-``Consider retrospective dataset with binary case/control labels where we have on hand a predictive model \(f\), and a corresponding ROC curve.'' I cannot understand what the setup is. What do the binary case/control labels mean? According to the following description, \(Y\) seems to be not the binary case/control labels. Then, it is unclear how the binary case/control labels is used.
+\revcommnt{``Consider retrospective dataset with binary case/control labels\ldots'' --- I cannot understand the setup. Why is there now another true outcome $Y$?}
+We have restructured Section~\ref{sec:formulation} (p.~5) to make the setup unambiguous. We now state explicitly that the observed retrospective labels may be noisy proxy labels, whereas $Y$ denotes the latent true binary outcome of interest. The score $S=f(\mathbf{Z})$ is used to define selected high-risk and low-risk tails, from which proxy case/control groups are constructed. The opening paragraph of Section~\ref{sec:formulation} now introduces the data-generating setup before presenting the contingency table formalism. 
 
-\paragraph{Response.}
-We agree that the original wording was ambiguous. We revised the setup in Section 2.1 so that the roles of the true outcome \(Y\), the predictive score \(S=f(\mathbf{Z})\), the proxy labels induced from the score tails, and the selected sample are now separated explicitly. In the revised manuscript, the reader is told directly which quantity is latent, which quantity is observed, and how the pre-existing predictive model is used to construct high-purity proxy strata. This clarification was added precisely to remove the confusion between the true case/control status and the score-derived proxy labeling mechanism.
+We have replaced the vague wording with explicit assumptions and notation in Section~\ref{sec:formulation}. In particular, we now define the role of $X_j$, $\mathbf{Z}$, $S$, the selected set $I=1$, the proxy label $\tilde Y$, and the misclassification operator $K$ before invoking them in the derivation. We also formalize the assumptions later used in the correction, including the non-differential misclassification assumption and the conditional independence assumption used in the theory section.
 
-\paragraph{Comment.}
-Definition of eq. (2) is imcomplete. In particular, in the sentence after equation (2), ``where \(\tilde{a}\) is the count with \(X = 1\) and labeled positive, and so on'', the important definitions of \(\tilde{b}\), \(\tilde{c}\) and \(\tilde{d}\) are omitted, which makes understanding of the statistical model impossible. Moreover, what is the probability that the \(\tilde{T}\) is observed? Is this from the retrospective sampling? The population versions of \(T\) and \(\tilde{T}\) are needed.
+\revcommnt{In eq. (4), T is unclearly defined. What does "the unknow true count matrix" mean?
+From eq. (4), for example, the (1,1)-element of $\tilde{T}, \tilde{T}_{11}$, can be written as:
+$\tilde{T}_{11} = {T K^T}_{11} = T_{11} p_{sel} + T_{12} (1-p_{sel}) = T_{11} P(\tilde{Y}=1 | Y=1,I=1) + T_{12} P(\tilde{Y}=0 | Y=1,I=1)$. Given the above expression, I cannot understand what the $\tilde{T}_{11}$ means and what $T_{11}$ and $T_{12}$ are appropriate.}
 
-\paragraph{Response.}
-We thank the reviewer for identifying this omission. In the revised manuscript, all entries of both the observed proxy contingency table and the latent true contingency table are now defined explicitly. We also labeled rows and columns directly and added text clarifying the expected-count relationship between the latent table and the observed proxy table through the misclassification operator. This revision makes clear that the key relationship is formulated at the population or expectation level within the selected set, which is the level at which the correction is derived. These additions were made specifically to ensure that the table construction is fully interpretable without relying on implicit notation.
+%\authorresponse{
+We thank the reviewer for pointing out that the meaning of the matrices $T$ and $\tilde{T}$ was not sufficiently clear in the original manuscript. In the revised manuscript we have rewritten the surrounding text in Section~2.1 to define these quantities explicitly.
 
-\paragraph{Comment.}
-In eq. (4), \(T\) is unclearly defined. What does ``the unknow true count matrix'' mean?
-From eq. (4), for example, the \((1,1)\)-element of \(\tilde{T}\), \(\tilde{T}_{11}\), can be written as:
+We now state clearly that $T$ denotes the latent $2\times2$ contingency table of counts relating the exposure $X_j$ to the true binary outcome $Y$ within the selected subset $I=1$. Its entries are defined as
 \[
-\tilde{T}_{11} = \{T K^T\}_{11} = T_{11} p_{sel} + T_{12} (1-p_{sel}) = T_{11} P(\tilde{Y}=1 \mid Y=1,I=1) + T_{12} P(\tilde{Y}=0 \mid Y=1,I=1)
+T_{x,y} = \#\{i : X_{ij}=x,\; Y_i=y,\; I_i=1\},
 \]
-Given the above expression, I cannot understand what the \(\tilde{T}_{11}\) means and what \(T_{11}\) and \(T_{12}\) are appropriate.
+so that, for example, $T_{11}$ is the number of subjects in the selected set with $X_j=1$ and true outcome $Y=1$, and $T_{12}$ is the number with $X_j=1$ and $Y=0$. Because the true outcome $Y$ is not observed in the retrospective data, this table is latent and therefore referred to as the ``unknown true count matrix.''
 
-\paragraph{Response.}
-We agree that the earlier wording was too compressed. In the revised manuscript, \(T\) is now defined directly as the latent contingency table indexed by exposure and the true outcome within the selected set, while \(\tilde{T}\) is defined as the corresponding observed contingency table formed using the proxy labels. We also rewrote the surrounding explanation so that the indexing of the entries and the action of the operator \(K\) are described in words before the matrix equation is used. The goal of this revision was to make the interpretation of entries such as \(\tilde{T}_{11}\), \(T_{11}\), and \(T_{12}\) transparent even for readers who do not work routinely with matrix representations of misclassification.
+The matrix $\tilde{T}$ is the corresponding observed contingency table formed using the proxy label $\tilde{Y}$ constructed from the score tails. Its entries are
+\[
+\tilde{T}_{x,y} = \#\{i : X_{ij}=x,\; \tilde{Y}_i=y,\; I_i=1\}.
+\]
+The relationship between these tables arises from outcome misclassification induced by the proxy labeling procedure. Conditional on $I=1$, the proxy label is related to the true outcome through the misclassification operator $K$, whose entries are determined by the operating characteristics of the score tails. Taking expectations gives
+\[
+\mathbb{E}[\tilde{T}] = T K^{\top}.
+\]
 
-\paragraph{Comment.}
-There is no justfication of the ridge regularization. I can understand that the authors try to avoid negative or inflated values of the estimated contingency table, but justification in terms of statistical models or maximum likelihood estimation is lacking.
+Under this definition, the element $\tilde{T}_{11}$ represents the observed number of subjects with $X_j=1$ and proxy label $\tilde{Y}=1$ in the selected set. Its expectation decomposes as
+\[
+\mathbb{E}[\tilde{T}_{11}]
+=
+T_{11}\,P(\tilde{Y}=1\mid Y=1,I=1)
++
+T_{12}\,P(\tilde{Y}=1\mid Y=0,I=1),
+\]
+which reflects contributions from both true positives and misclassified negatives. We have revised the text around Eqs.~(2)--(4) to make the meaning of the matrices and their elements explicit and to clarify that $T$ represents the latent true contingency table, while $\tilde{T}$ is the observed proxy-labeled table obtained after tail selection.
+%}
+
+\revcommnt{There is no justfication of the ridge regularization. I can understand that the authors try to avoid negative or inflated values of the estimated contingency table, but justification in terms of statistical models or maximum likelihood estimation is lacking.
 Please note that there exists Firth-penalized method (Firth 1993) that can be applied to any maximum likelihood estimation methods.
 It is well known that the Firth-penalized logistic regression avoids infinite odds ratio estimation just like the authors' motivation. Why not consider the Firth-penalized method for the current setup?
+}
 
-\paragraph{Response.}
-We appreciate this important point and revised the manuscript to make the distinction much more explicit. In the revised Methods, we now explain that the ridge term is introduced to stabilize an upstream inverse problem, namely reconstruction of the latent contingency table when the misclassification operator is close to singular. This is different from Firth penalization, which addresses downstream separation and small-sample bias in likelihood-based regression. In other words, the two regularizations act at different stages of the pipeline and solve different problems. We expanded the text in Section 2.2 to explain why the ridge-stabilized inverse is the relevant device in our setting and why a Firth correction would not replace the need to regularize the inversion step itself.
+We thank the reviewer for raising this important point. In the revised manuscript we now make explicit that the ridge term is introduced to stabilize the \emph{reconstruction} of the latent contingency table from the proxy-labeled table, rather than to regularize the downstream odds-ratio estimation itself. Specifically, the instability in our setting arises when the misclassification operator \(K\) is close to singular, so that inversion of \(K^\top\) becomes ill-conditioned and small fluctuations in \(\tilde T\) or in \((p_{\mathrm{sel}}, q_{\mathrm{sel}})\) can induce large or even negative recovered cell counts. For this reason, we use the ridge-regularized inverse \((K^\top + \lambda I)^{-1}\), which is a Tikhonov-type stabilization of the table-reconstruction step. In the revised manuscript we now show the closed-form corrected row expressions and explain directly how ridge increases the denominator and attenuates the subtraction terms that otherwise drive infeasible recovered counts.
 
-\paragraph{Comment.}
+We agree that Firth penalization is a well-established remedy for sparse-data bias and separation in logistic regression, and we now discuss this explicitly in the revised manuscript. However, that correction operates at a different stage of the pipeline. Firth penalization regularizes likelihood-based odds-ratio estimation once a regression model or contingency table has already been specified, whereas the present instability occurs earlier, when the latent table \(T\) must first be recovered from \(\tilde T\) by inversion of the misclassification operator. In that sense, ridge regularization and Firth penalization address distinct problems: the former stabilizes recovery of the latent counts, while the latter can be applied subsequently, if desired, when estimating an odds ratio from the reconstructed table. We have revised Section~2.2 to clarify this distinction and to explain why ridge regularization is the natural device for the inverse problem considered here.
+
+\revcommnt{
 It is unclear why the SHAP is considered. Connection between SHAP and odds ratio are unclear.
+}
+We thank the reviewer for pointing this out. SHAP values are used solely for model interpretability and are not interpreted as odds ratios or effect-size estimates. The predictive component of the framework relies on a nonlinear machine-learning model, for which regression coefficients and corresponding odds ratios are not directly defined. SHAP provides a principled method to decompose an individual prediction into additive feature contributions relative to the model baseline. 
 
-\paragraph{Response.}
-We revised the SHAP comparison section to state much more clearly why it is included. In the revised manuscript, we no longer rely on an implicit connection between SHAP values and odds ratios. Instead, we explain directly that SHAP is presented as a widely used attribution baseline in applied machine learning, against which the proposed method can be contrasted in terms of stability and interpretability under outcome misclassification. The revised text now makes clear that the comparison is contextual and empirical, not based on any claim that SHAP and odds-ratio estimators are mathematically equivalent.
+Importantly, SHAP values are often used quantify contributions to the model output, $i.e.$ for post-hoc attribution (in our case, the log-risk scale) and therefore should not be interpreted as epidemiologic effect sizes. All odds ratios reported in the manuscript arise from the downstream statistical association analyses, not from the SHAP explanations.
 
-\paragraph{Comment.}
-It is unclear how \(T\) and \(\tilde{T}\) are defined.
-In the python script ``lambdaORsimulation.py'' from the provided github link, it seems that \(Y\) is generated given \(X\) though a logistic regression model unlike the retrospective sampling mentioned in the paper to generate \(X\) given \(Y\). Please correct me if I misunderstand.
+The reason for looking into SHAP is primarily because of their common use, not because of a relation to odds ratio.
+We have clarified this distinction in the manuscript (Methods section, paragraph on model interpretability).
 
-\paragraph{Response.}
-We thank the reviewer for pointing out this source of confusion. In the revised manuscript, we clarified the definitions of \(T\) and \(\tilde{T}\) throughout the Methods and made the generative purpose of the simulation section more explicit. The simulation is used to study estimator behavior under controlled data-generating conditions that reproduce the misclassification structure relevant to the theory; it is not intended to literally mimic every operational detail of retrospective sampling. We added text to the simulation section to explain this distinction more carefully so that the role of the simulation design is clear.
+\revcommnt{It is unclear how T and $\tilde{T}$ are defined.}
 
 
-\section*{Response to Reviewer 2}
+We thank the reviewer for flagging this. In the manuscript, $T$ denotes the true latent phenotype (true case--control status), while $\tilde{T}$ denotes the observed phenotype after label noise is introduced. We have clarified these definitions in the Methods section.
 
-\paragraph{Comment.}
-Introduction: The authors state ``Classical label-noise corrections to OR mainly target small-sample misclassification [7] or require external gold-standard cohorts that are rarely available at scale.'' It would be beneficial to have a more thorough description of currently available methods and a citation for methods that require external gold-standard cohorts.
 
-\paragraph{Response.}
-We thank the reviewer for this suggestion. We expanded the Introduction to provide a broader methodological context for the proposed approach. The revised text now discusses matrix-based and likelihood-based correction approaches in more detail and explicitly notes that many practically deployed alternatives depend on adjudicated labels, chart review, or dedicated validation cohorts. We also added citations to make that comparison more concrete. The goal of this revision was to show more clearly where the present method sits relative to the existing literature and why a correction strategy that can work without a large external gold standard is practically valuable.
+\revcommnt{In the python script "lambdaORsimulation.py" from the provided github link, it seems that Y is generated given X though a logistic regression model unlike the retrospective sampling mentioned in the paper to generate X given Y. Please correct me if I misunderstand.}
 
-\paragraph{Comment.}
-Introduction: The authors later focus on why choosing these high-purity tails induced by \(t_{hi}\) and \(t_{lo}\) is beneficial (i.e., 2.4). It would be good to briefly mention this idea in the introduction as it seems to be a key motivation for the method.
+The reviewer is correct that the  script (for what is now the first set of simulations in the revised manuscript) generates $Y$ conditional on $X$ via a logistic model. This was a simplified simulation used in the initial version of the manuscript. The goal was to illustrate the behavior of the method in a controlled setting with a known ground-truth odds-ratio structure. Simulating the full EHR-like setting described in the manuscript is substantially more complex because real EHR data contain thousands of heterogeneous variables with unknown and highly structured cross-dependencies. Generating synthetic data that faithfully reproduces such dependence structures is generally difficult and often requires strong modeling assumptions.
 
-\paragraph{Response.}
-We agree and added this motivation to the Introduction. The revised manuscript now states earlier that the extreme score tails serve to define proxy case and control groups with relatively high purity, which is exactly what makes misclassification correction feasible in this framework. By moving this explanation forward, the reader can understand the central intuition behind the method before reaching the formal threshold-selection discussion.
+To address this limitation, we have now added a second simulation experiment that more closely reflects the high-dimensional setting of the real data. This simulation generates thousands of features and summarizes the resulting signal structure using a volcano-style plot, which better illustrates the large-scale behavior of the method. However, we note in the revised text that even this setting also necessarily relies on simplifying assumptions and cannot fully reproduce the dependency structure of real EHR data.
 
-\paragraph{Comment.}
-Introduction: The final paragraph before section 1.1 reads too technical. I would recommend providing intuitive explanations for the theoretical benefits of the method.
+Finally, we have added a clarifying sentence explaining that the logistic-generation scheme in the original script was used for convenience to obtain a valid joint distribution of $(X,Y)$, whereas the theoretical derivations in the manuscript are presented under the retrospective formulation (sampling $X$ conditional on $T$), which simplifies the analytical treatment of the odds-ratio structure.
 
-\paragraph{Response.}
-We revised this paragraph substantially. In the new version, the emphasis is on the practical intuition behind the method and on the qualitative meaning of the theoretical guarantees, rather than on dense technical phrasing. This change was made to improve accessibility and to give the reader a clear conceptual picture before formal statements are introduced.
 
-\paragraph{Comment.}
-Section 1.1: This motivation doesn’t make much sense until you’ve read section 2 and 3, so I would focus on the intuitive takeaways provided at the end of the first 2 paragraphs and move the numerical examples to after you have introduced the theorems being used.
 
-\paragraph{Response.}
-We reorganized Section 1.1 accordingly. The revised section now presents the conceptual takeaway first and postpones the more quantitative illustration until after the reader has been given the necessary framework. This restructuring was done specifically to make the motivation intelligible on first read rather than only after returning to it from later sections.
 
-\paragraph{Comment.}
-Section 1.1: The final paragraph is a summary of results; this is good information to know but I would focus on the takeaway rather than explaining the figure (which is done more fully in section 5).
 
-\paragraph{Response.}
-We revised the closing paragraph of Section 1.1 so that it now emphasizes the core takeaway rather than functioning mainly as an advance description of a later figure. The purpose of this change was to keep the motivational section focused on why the method matters rather than on figure-level detail.
 
-\paragraph{Comment.}
-Section 2.1: The notation could be a bit clearer. The predictive model (and therefore the score) depends on all \(X\), correct? Not just the exposure of interest for calculating the odds ratio. Later (Section 3.1), there is \(X_j\) notation; this would be good to introduce fully in section 2.1.
 
-\paragraph{Response.}
-We agree and clarified this point in the revised Methods. The score is now written as \(S=f(\mathbf{Z})\), where \(\mathbf{Z}\) denotes the predictor set used by the pre-existing model, while the exposure under association testing is denoted separately by \(X_j\). This notational separation was introduced precisely to avoid conflating the model input space with the specific exposure variable whose corrected odds ratio is being estimated.
 
-\paragraph{Comment.}
-Section 2: The math in Section 2 and 3 is thorough and I appreciate the proofs. It would be nice to have a proof/more thorough walkthrough for the variance given in Equation (9) for completeness.
 
-\paragraph{Response.}
-We thank the reviewer for this suggestion and expanded the treatment of the variance calculation. In the revised manuscript, the delta-method structure is described more explicitly and the Appendix derivation is better connected to the main text. The revised presentation now makes clearer where the different components of the variance come from, including the contribution of the correction step itself.
 
-\paragraph{Comment.}
-Section 2: The statements in 2.4-2.6 do a good job of explaining the purpose of choosing \((t_{hi}\) and \(t_{lo})\) in both a mathematical and intuitive sense. However, 2.6 could use some more direct guide to choosing the thresholds. For example, do the authors have any intuition for a good present floor or a certain level of precision? Some more explanation of how they chose the specific values for their simulations and real data analysis might be helpful along these lines.
 
-\paragraph{Response.}
-We agree and revised the threshold-selection subsection to make it more practically useful. The revised text now provides direct guidance on how to choose the upper threshold to ensure strong specificity and the lower threshold to preserve sufficient sensitivity and sample size. We also added explanation of how the thresholds used in the simulations and in the real-data case study were chosen in practice. The goal was to convert the section from a mostly conceptual discussion into one that also offers actionable guidance.
 
-\paragraph{Comment.}
-Section 4: Some details on the simulation setting are missing (what is the sample size, how many replicates were used, what is the target log OR). Additional simulations would be helpful. It seems the authors vary \(p_{sel}\) but not \(q_{sel}\). How sensitive are the results to varying \(q_{sel}\), the sample size, and the target OR?
+%% \revcommnt{The authors should explain more clearly how the score tails relate to purity and why this is central to the approach.}
+%% We thank the reviewer for this helpful suggestion. We have added a brief foreshadowing of this idea in the Introduction to clarify that the method relies on selecting high-confidence proxy labels from the extreme regions of the risk-score distribution. Specifically, we now state that the approach leverages the high-purity tails of the score distribution to mitigate label noise and stabilize downstream odds-ratio estimation. 
 
-\paragraph{Response.}
-We substantially expanded the Simulation Study in response to this comment. The revised manuscript now reports replicate counts, sample sizes, target effect-size settings, and the simulation grids more explicitly. We also broadened the simulation exploration to include additional variation in operating characteristics, cohort size, and effect size, so that the behavior of the estimator is assessed over a wider range of settings. These changes were made to improve reproducibility and to provide a fuller empirical picture of sensitivity to the key parameters.
+%% In addition, we have clarified the motivation in the methodological description by expanding the paragraph introducing tail selection (Pg. 5, Section~\ref{sec:formulation}). The revised text now explicitly states that the thresholds $t_{\mathrm{hi}}$ and $t_{\mathrm{lo}}$ identify extreme score regions that form high-purity proxy case and control sets, which substantially reduces label noise and stabilizes downstream odds-ratio estimation.
 
-\paragraph{Comment.}
-Section 5: Some more details on the dataset would be helpful. What is the sample size, and is the data subject to any missingness in any of the exposures? The model is mentioned in the figure caption but could also be briefly explained in the text.
 
-\paragraph{Response.}
-We expanded the case-study section accordingly. The revised manuscript now reports the relevant cohort sizes, the selected-sample sizes, the dimensionality of the diagnosis-code feature space, and the coding vocabulary used. We also added a clearer description of the predictive model used to construct the score and therefore the tail strata. This was done so that the applied example is interpretable from the main text without relying on the figure caption.
+%% \revcommnt{Introduction: The final paragraph before section 1.1 reads too technical. I would recommend providing intuitive explanations for the theoretical benefits of the method.}
+%% We have rewritten the final paragraph before Section~\ref{sec:motivation} (p.~3) to lead with the main intuitive idea, namely that when a reasonably informative predictive model is available, its sensitivity--specificity trade-off can be used to correct label noise in downstream odds-ratio analysis. Only after stating this intuition do we summarize the formal guarantees.
 
-\paragraph{Comment.}
-Section 5: Confidence intervals were explored through the simulations but seemingly not applied to the real data analysis. How could the confidence intervals be insightful in practice?
 
-\paragraph{Response.}
-We thank the reviewer for this question. In the real-data analysis, results are displayed using volcano plots, where effect size appears on the x-axis and statistical significance, through the transformed \(p\)-value, appears on the y-axis. This is the standard usage of volcano plots in high-dimensional screening settings, and for that reason we did not overlay confidence intervals on individual points. In the revision, we clarified the inferential role of the variance and significance calculations more explicitly in the text, while preserving the standard volcano-plot representation for readability.
+%% \revcommnt{Section 1.1: This motivation doesn’t make much sense until you’ve read section 2 and 3, so I would focus on the intuitive takeaways provided at the end of the first 2 paragraphs and move the numerical examples to after you have introduced the theorems being used.}
 
-\paragraph{Comment.}
-Section 5: The authors state ``\dots while the protective codes (often biologically implausible) are almost entirely eliminated.'' They give examples for correctly recovered risk factors and protective effects, but could they also provide an example of one of these biologically implausible protective codes (via the naïve log-odds) is not significant with the lambda-OR?
+%% We have expanded the motivation section, and re-written it so that it makes sense by itself. We kept the numerical examples (but made it understandable), to make the case compelling.
 
-\paragraph{Response.}
-We agree and added explicit examples of such codes in the revised case-study discussion. The revised manuscript now identifies representative apparently protective associations from the naive analysis that lose significance after \(\lambda\)-OR correction. This addition was made to illustrate concretely how the correction removes implausible signals rather than only describing that effect in general terms.
+%% \revcommnt{Section 1.1: The final paragraph is a summary of results; this is good information to know but I would focus on the takeaway rather than explaining the figure (which is done more fully in section 5). }
 
-\paragraph{Comment.}
-Concluding remarks: Please expand a bit on the impact of this method and the practicality for researchers looking to implement it.
+%% Indeed. Updated.
 
-\paragraph{Response.}
-We revised the concluding remarks to place greater emphasis on practical use. The revised conclusion now explains more clearly what kinds of studies the method is intended for, what problem it solves in those settings, and why it can be useful for researchers working with large EHR-based predictive models and proxy labels. We also made the implementation perspective more explicit so that the practical value of the method is clearer at the end of the paper.
+%% \revcommnt{Section~\ref{sec:formulation} should be clearer about the notation. The predictive score depends on all features, not just the exposure of interest.}
+%% We have revised the opening of Section~\ref{sec:formulation} (p.~5) to introduce $X_j$ explicitly as the exposure of interest, while defining the risk score as $S=f(\mathbf{Z})$ where $\mathbf{Z}$ denotes the full feature set used by the predictive model and is not restricted to $X_j$. This distinction now appears before the contingency table construction.
 
-\paragraph{Comment.}
-I’m getting a 503 error for the reference implementation link. I assume this link will be helpful for addressing the practicality aspect.
 
-\paragraph{Response.}
-We thank the reviewer for alerting us to this issue. We will ensure that the implementation link provided in the revised submission is active and accessible.
+%% \revcommnt{A proof or more thorough walkthrough for the variance in Equation~(9) would be needed for completeness.}
+%% We have added a full Appendix~1 (pp.~30--33), titled ``Delta-method variance propagation for $\logor$.'' This appendix derives the additional variance contribution step by step: we differentiate the correction map $(p_{\mathrm{sel}}, q_{\mathrm{sel}}) \mapsto K \mapsto T(\lambda) \mapsto \log(ad/bc)$, use the matrix inverse derivative identity, compute the derivatives with respect to $p$ and $q$, and propagate them through the log-odds functional. The total variance in Eq.~(29) is now presented as the sum of the naive variance and the additional validation-induced component.
 
-\paragraph{Comment.}
-``Odds ratio'' should be spelled out the first time it’s mentioned in the introduction.
+%% \revcommnt{Section 2: The statements in 2.4-2.6 do a good job of explaining the purpose of choosing ($t_{hi}$ and $t_{lo}$) in both a mathematical and intuitive sense. However, 2.6 could use some more direct guide to choosing the thresholds. For example, do the authors have any intuition for a good present floor or a certain level of precision? Some more explanation of how they chose the specific values for their simulations and real data analysis might be helpful along these lines.}
 
-\paragraph{Response.}
-We corrected this in the revised manuscript.
+%% We have expanded Section~2.4 (pp.~8--10) with practical threshold-selection guidance. In the revised manuscript, $t_{\mathrm{hi}}$ is chosen to achieve very high specificity, typically at least $97\%$, while $t_{\mathrm{lo}}$ is chosen to achieve sensitivity in the range of roughly $70$--$80\%$. We now explain the bias--variance trade-off more explicitly and provide a practical recipe for threshold selection. Table~5 reports the actual threshold values used in all three real-data applications. We did not add a closed-form optimization rule, as we felt that the bias--variance framing and the reported practical choices are the most reliable guidance we can support.
 
-\paragraph{Comment.}
-``Specificity'' on page 5 (``while \(t_{lo}\) is chosen so that specificity is \(\approx 70\)–\(80\%\)'') should be ``sensitivity'' I think?
+%% \revcommnt{Section 4: Some details on the simulation setting are missing (what is the sample size, how many replicates were used, what is the target log OR). Additional simulations would be helpful. It seems the authors vary $p_sel$ but not $q_sel$. How sensitive are the results to varying $q_sel$, the sample size, and the target OR?}
 
-\paragraph{Response.}
-We corrected this terminology in the revised manuscript.
 
-\paragraph{Comment.}
-There is inconsistent use of lower vs. uppercase lambda in referring to the method.
 
-\paragraph{Response.}
-We standardized the notation throughout the manuscript.
+%% We have substantially expanded the simulation section. Tables~2 and 3 now report the simulation constants, including the number of replicates, sample size, prevalence, feature frequency, target effect size, ridge grid, and random seed. Figure~1 now sweeps both specificity degradation and symmetric degradation. Figure~2 further examines sensitivity to false negative rate, false positive rate, target effect size, and sample size. We hope this broader set of simulation experiments addresses the concern that the original version varied too few parameters.
 
-\paragraph{Comment.}
-What specific ICD vocabulary is being used? (e.g. 9 or 10)
 
-\paragraph{Response.}
-We now state explicitly in the revised manuscript that the diagnosis vocabulary is ICD-10-CM.
 
-\paragraph{Comment.}
-Figure 2: The red line should be defined in the caption. Also, I think ROR in the right column should be lambda-OR?
 
-\paragraph{Response.}
-We corrected the figure caption and terminology accordingly in the revised manuscript.
 
-\paragraph{Comment.}
-Corollary 6 proof mentions Lemma 4(b) which isn’t present.
 
-\paragraph{Response.}
-We reviewed and corrected theorem, lemma, corollary, and equation cross-references throughout the manuscript.
 
-\paragraph{Comment.}
-Algorithm 1 is not mentioned in the main text.
 
-\paragraph{Response.}
-We revised the main text so that Algorithm 1 is now introduced and referenced explicitly.
 
 
-\section*{Response to Reviewer 3}
 
-\paragraph{Comment.}
-Please provide full names for abbreviations when it is the first time in the paper, for example EHR.
 
-\paragraph{Response.}
-We reviewed the manuscript for abbreviation usage and revised the text so that abbreviations are now spelled out at first occurrence in the main text. This change was made throughout, not only for EHR, in order to improve readability and consistency.
 
-\paragraph{Comment.}
-In the simulation, the paper doesn’t state the design constants (\(R, \pi, \phi, n\)). What do these parameters look like in the case study? Because the manuscript does not clearly report the simulation and case-study parameter settings (e.g., sample sizes, number of replicates, threshold choices, and misclassification rates), it is difficult to assess whether the reported performance is reproducible or robust. Without these details, it is hard to justify trusting the simulation results, and even harder to extend that trust to the case-study findings.
 
-\paragraph{Response.}
-We agree and expanded both the simulation and case-study descriptions substantially. The revised manuscript now reports the key design constants, replicate counts, sample sizes, threshold settings, and operating-characteristic settings more explicitly in the simulation section. We also added more complete reporting of cohort construction and analytic setup in the case study. These revisions were made specifically to improve reproducibility and to allow readers to assess robustness directly from the manuscript.
 
-\paragraph{Comment.}
-Could you include a simulation analogue of Figure 2 (effect size on the x-axis and \(-\log_{10}(p)\) on the y-axis) for OR and \(\lambda\)-OR, with points colored to distinguish true positives (TP, nonzero true effect) from false positives (FP, null features)? Please also report the false discovery rate (\(FDR=FP/(TP+FP)\)).
 
-\paragraph{Response.}
-We thank the reviewer for this suggestion and incorporated a simulation-based volcano-style analysis into the revised manuscript. The revision also includes explicit reporting of false positive and false discovery behavior so that the screening implications of naive OR versus \(\lambda\)-OR are easier to compare directly. This addition was intended to make the practical difference between the two approaches more visually and quantitatively transparent.
 
-\paragraph{Comment.}
-A central limitation is that the proposed approach seems to hinge on the availability of a strong, well-calibrated predictive model to define the tail strata and to estimate . Could the authors clarify how sensitive the method’s performance is to the quality of this predictive model (e.g., varying AUC/calibration and validation-set shift)? In particular, under what conditions does \(\lambda\)-OR provide meaningful improvement over the naive OR, and when does it degrade or become unstable?
 
-\paragraph{Response.}
-We thank the reviewer for this important point. In the revision, we addressed this issue through the theory rather than by adding an intentionally poor-model simulation. The revised manuscript now makes clearer that estimator behavior depends on the conditioning of the misclassification operator \(K\), which is determined by the tail-specific operating characteristics. As upstream discrimination deteriorates and approaches chance performance, the operator becomes ill-conditioned, the variance increases, and the corrected estimator correspondingly loses precision or collapses conservatively rather than becoming spuriously confident. We chose to address this issue analytically because that framework already characterizes the relevant degradation mechanism directly.
 
 
-\section*{Response to Reviewer 4}
+\section*{Reviewer 2: Major Comments}
+\revcommnt{Introduction: Authors state ``Classical label-noise corrections to OR mainly target small-sample misclassification or require explicit external validation'' without enough context. Please discuss the literature more clearly.}
+We have added a fuller literature paragraph to the introduction (p.~2). The revised text now distinguishes classical misclassification bias analyses, matrix-based correction approaches, and methods that rely on external validation or strong measurement assumptions. We then explain more carefully where $\lambda$-OR sits relative to that literature and what gap it is intended to address. We hope this provides a fairer and more useful contextualization.
 
-\paragraph{Comment.}
-This paper was overall difficult to read. Derivations are given without explanation, and there is a lot of notational clashing going on. E.g., \(S\) is defined as Shapley and risk score, and \(a\) and \(b\) get redefined in the proofs. Confusion matrices are also not labeled. Notation is used before defining them. This makes it confusing overall. I encourage the authors to keep consistent notation and explain things slowly.
+\revcommnt{Introduction: The authors later focus on why choosing these high-purity tails induced by $t_{hi}$ and $t_{lo}$ is beneficial (i.e., 2.4). It would be good to briefly mention this idea in the introduction as it seems to be a key motivation for the method. }
+We have added an explicit explanation of the two-threshold strategy in the final paragraph of the introduction (p.~3). The revised text now states early that high-score and low-score tails are used to construct proxy case and control groups, whose purities are controlled by the operating characteristics of the predictive score.
 
-\paragraph{Response.}
-We thank the reviewer for this assessment and took it seriously in the revision. We performed a broad notation cleanup across the manuscript, removed or reduced conflicting symbol usage, ensured that key quantities are defined before they appear in the argument, and labeled the contingency tables more explicitly. We also slowed the pace of presentation in several places by inserting additional explanatory sentences around derivations. The goal of these revisions was to improve readability without changing the mathematical content.
+\revcommnt{Introduction: The final paragraph before Section~1.1 reads too technical. Recommend providing intuitive explanations for the theoretical benefits.}
+We have rewritten this paragraph (p.~3) to lead with the main insight, namely that a reliable predictive model can be used to control outcome misclassification in downstream odds-ratio estimation. Only after this intuitive statement do we summarize the formal guarantees, including collapse under non-informative scores, resistance to blow-up, and reduction of SHAP mis-ranking.
 
-\paragraph{Comment.}
-pg 7 Theorem 2. I'm confused about the proof. You seem to be bounding a risk ratio, not an odds ratio. Please explain. Also, explain: ``From the PPV/NPV mixture identities, \(a-b = (p_1-p_0)\Delta_Y\).'' Don't you need to assume that \(X_j \perp\!\!\!\perp R \mid Y\)?
+\revcommnt{Section~1.1: This motivation does not make sense until the reader has seen Sections~2 and~3. Focus on intuitive takeaways; move numerical examples to after the theorems are introduced.}
+We appreciate this suggestion. In the revised manuscript, Section~1.1 (pp.~3--4) now opens with more intuitive prose before the numerical illustrations. We retained the numerical examples in Section~1.1 because we felt they still serve a useful motivating role, but we added explicit forward references to the later formal results so that the structure is less circular and the reader can see where the supporting theory appears.
 
-\paragraph{Response.}
-We appreciate this close reading of the proof. In the revised manuscript, we clarified the theorem presentation by expanding the intermediate explanation, tightening the notation used in the proof, and making the relevant assumptions more explicit in the Methods. In particular, the non-differential misclassification assumption within the selected set is now stated more clearly and used consistently in the theoretical development. These changes were made so that the logical path from the mixture identities to the odds-ratio result is easier to follow.
+\revcommnt{Section~1.1: The final paragraph is too focused on summarizing results and explaining a figure. Please focus on the takeaway.}
+We have rewritten the closing paragraph of Section~1.1 (p.~4) so that it now emphasizes the substantive takeaway: naive odds-ratio screening and model-based attribution can both become unstable under common conditions in large observational EHR data, whereas $\lambda$-OR is designed to mitigate these effects by correcting for outcome misclassification before odds ratios are computed. The paragraph no longer redundantly describes the figure.
 
-\paragraph{Comment.}
-pg 2 ASD, IPF and ADRD defined only in abstract. Define in the main text too. E.g., Autism spectrum disorder (ASD), Alzheimer's disease and related dementias (ADRD)
+\revcommnt{Section~2.1: Notation could be clearer. The predictive model depends on all covariates, not just the exposure of interest. The $X_j$ notation from later should be introduced earlier.}
+We have revised the opening of Section~2.1 (p.~4) to introduce the $X_j$ notation explicitly from the outset. We now define the risk score as $S=f(\mathbf{Z})$, with $\mathbf{Z}$ denoting the full feature set used by the predictive model and not limited to $X_j$. This clarification now appears before the contingency-table construction.
 
-\paragraph{Response.}
-We corrected this and now define these abbreviations at first use in the main text.
+\revcommnt{Section~2: A proof or more thorough walkthrough for the variance in Equation~(9) would be needed for completeness.}
+We have added Appendix~1 (pp.~30--33), which gives the full delta-method derivation for the additional variance contribution in $\log \lambda$-OR. The derivation includes the correction map, the derivative of the inverse operator, the chain rule, and the final working form used in Eq.~(25). We hope this makes the variance formula substantially more transparent and complete.
 
-\paragraph{Comment.}
-pg 2 ``\(\lambda\)-OR’s collapse property prevents such mis-ranking when the underlying score is uninformative (Lemma 3 and Corollaries 5,7).'' Another misnumbering of Lemmas and Corollaries here
+\revcommnt{Section~2.4--2.6: Could use more direct guidance on choosing thresholds. Do the authors have intuition for a good preset floor or level of precision? How were specific values chosen for simulations and real data?}
+We have expanded Section~2.4 (pp.~8--10) with practical guidance. In the revised manuscript, $t_{\mathrm{hi}}$ is set to achieve very high specificity, typically at least $97\%$, while $t_{\mathrm{lo}}$ is chosen to target sensitivity in the range of about $70$--$80\%$. We also added a bias--variance trade-off discussion and a practical threshold-selection recipe. Table~5 reports the exact thresholds used in the three applications. We have not added a formal closed-form optimization rule, as we felt the practical guidance and the trade-off framing are the most reliable recommendations we can make from the present work.
 
-\paragraph{Response.}
-We reviewed the numbering and corrected the affected cross-references throughout the manuscript.
+\revcommnt{Section~4: Missing details on simulation setting. Additional simulations are needed, since the paper appears to vary only $p_{\mathrm{sel}}$.}
+We have addressed this by expanding both the tabulated simulation description and the figures. Tables~2 and~3 now report the simulation constants, including the number of replicates, sample size, prevalence, feature frequency, target effect size, ridge grid, continuity correction, feasibility floor, and random seed. Figures~1 and~2 now vary specificity, sensitivity, effect size, and sample size. We hope this broader coverage addresses the concern.
 
-\paragraph{Comment.}
-pg 3 SHAP example. Notation is not defined yet. Introduce all notational definitions before introducing them. Also Corollaries 5,7 should be 6,7
+\revcommnt{Section~5: More details on the dataset would be helpful. What is the sample size? Is there missingness in exposures? The model could be briefly explained in the text.}
+We have added Table~5, which now reports the out-of-sample cohort sizes, training sizes, feature counts, selected analysis sizes, and gate parameters for all three real-data applications. We also clarified the nature of missingness in Section~5 (p.~22): for diagnosis-code features, a code either appears in the record or it does not, so the relevant issue is sparsity and noise rather than conventional missingness. The predictive models used for the applications are now identified more clearly in the text and references.
 
-\paragraph{Response.}
-We revised that section so that notation is introduced before use and corrected the corollary references. This was done both to resolve the specific issue identified here and to improve the general readability of the opening theory and motivation sections.
+\revcommnt{Section~5: Confidence intervals are explored in simulations but not applied in the real data analysis. How could CIs be insightful in practice?}
+The uncertainty  is represented directly in the volcano plots through the vertical axis, which is based on the Wald statistic computed from the total variance, including both the naive and validation-induced components. Thus, we are indeed considering uncertainty, but as $-log_{10}p_{value}$.
 
-\paragraph{Comment.}
-pg 4 Equation (2). Label the rows and columns of the table
+\revcommnt{Section~5: Could the authors provide an example of a biologically implausible protective code under naive OR that is not significant with $\lambda$-OR?}
+We have added Table~6, which gives 12 concrete examples of ICD codes that appear significantly protective under the naive odds ratio but lose significance after $\lambda$-OR correction. These examples were added specifically to make the real-data implications of the method easier to interpret. Some of these codes borders on being ridiculously implausible, which, incidentally is why this work was undertaken in the first place.
 
-\paragraph{Response.}
-We updated the table presentation so that rows and columns are now labeled explicitly.
+\revcommnt{Concluding remarks: Please expand on the impact of the method and practicality for researchers.}
+We have expanded the concluding remarks (pp.~25--26) to explain the practical workflow more explicitly. The revised conclusion now states that the method requires a held-out labeled cohort to estimate the operating characteristics of the score tails, after which corrected selected-set contingency tables can be formed for downstream exposures of interest. We also emphasize the suitability of the approach for large EHR settings and note the availability of the implementation.
 
-\paragraph{Comment.}
-pg 4 Equation (3). You should state that you are assuming that selection is independent of exposure.
+\section*{Reviewer 2: Minor Comments}
 
-\paragraph{Response.}
-We now state this assumption explicitly in the revised Methods and use it consistently in the subsequent theoretical derivations.
+\revcommnt{``Odds ratio'' should be spelled out the first time it is mentioned in the introduction.}
+We have now spelled out ``Odds Ratio (OR)'' at its first substantive use in the introduction (p.~2). Other key abbreviations are likewise defined on first use.
 
-\paragraph{Comment.}
-pg 4 Section 2.2. Show how ridge inversion ensures non-negativity by tilting the inverse away from subtraction dominance, e.g.,
-\[
-T_{x,1}^{\lambda}
-=
-\frac{(q_{sel}+\lambda) \tilde T_{x,1} - (1-q_{sel}) \tilde T_{x,0}}
-{\det\left(K^\top+\lambda I\right)}
-\]
+\revcommnt{``Specificity'' on page 5 should be ``sensitivity.''}
+We thank the reviewer for catching this. The text in Section~2.4 (p.~8) now correctly states that $t_{\mathrm{lo}}$ is chosen to achieve high sensitivity, equivalently a low false-negative rate, and that we target sensitivity in the range of roughly $70$--$80\%$ at $t_{\mathrm{lo}}$.
 
-\paragraph{Response.}
-We expanded Section 2.2 in the revision to explain the role of ridge regularization more concretely. The revised text now discusses how the regularized inverse changes the algebra near singularity and why this stabilizes the reconstructed latent counts by reducing subtraction-dominated behavior. This addition was made specifically to provide the more mechanistic explanation requested by the reviewer.
+\revcommnt{Inconsistent use of lower- versus uppercase lambda ($\lambda$ versus $\Lambda$) in referring to the method.}
+We have standardized the notation to $\lambda$-OR throughout the revised manuscript, including the main text, theorem statements, corollaries, figure captions, and Algorithm~1.
 
-\paragraph{Comment.}
-Figure 2 - \(\log \Lambda\)-OR should be \(\log \lambda\)-OR
+\revcommnt{What specific ICD vocabulary is being used?}
+We now state explicitly in the introduction and again in Section~5 that the applications use International Classification of Diseases ICD-10-CM code sets.
 
-\paragraph{Response.}
-We corrected this in the revised figure labeling.
+\revcommnt{Figure~2: The red line should be defined in the caption. Also, ``ROR'' in the right column should be $\lambda$-OR.}
+We have corrected the figure labeling and caption language in the revised manuscript. The caption now defines the estimators and identifies the corrected estimator as $\lambda$-OR.
 
-\paragraph{Comment.}
-Algorithm 1 line 27 is off. Shouldn't it be \(+\log_{10}(\sqrt{2\pi}|z|)\) (not minus)?
+\revcommnt{Corollary~6 proof mentions ``Lemma~4(b),'' which is not present in the paper.}
+The internal numbering has been restructured in the revised manuscript, and the dangling reference no longer appears. The proofs now cite the correct internal results.
 
-\paragraph{Response.}
-We reviewed Algorithm 1 carefully and corrected the presentation where needed so that the formula is now consistent with the intended calculation and the surrounding text.
+\revcommnt{Algorithm~1 is not mentioned in the main text.}
+We have added explicit references to Algorithm~1 in Section~2.3 and in the simulation section so that the pseudocode is now properly connected to the narrative.
+
+\section*{Reviewer 3}
+
+\revcommnt{Please provide full names for abbreviations when first used in the paper (e.g., EHR).}
+We have revised the introduction so that all major abbreviations are defined on first use, including Electronic Healthcare Record (EHR), Autism Spectrum Disorder (ASD), Idiopathic Pulmonary Fibrosis (IPF), Alzheimer's Disease and Related Dementia (ADRD), SHapley Additive exPlanations (SHAP), Local Interpretable Model-agnostic Explanations (LIME), and International Classification of Diseases (ICD-10-CM).
+
+\revcommnt{The paper does not state the design constants $(R, \pi, \phi, n)$ in the simulation. Parameter settings for the case study are also unclear, making reproducibility difficult to assess.}
+We have added Tables~2, 3, and~4 to specify the simulation constants, including the number of replicates, sample size, prevalence, feature frequency, target effect size, misclassification grids, ridge grid, continuity correction, feasibility floor, and random seed. Table~5 now reports the main case-study parameters for all three applications, including cohort sizes, feature counts, thresholds, quantiles, and the selected-set operating characteristics.
+
+\revcommnt{Could you include a simulation analogue of Figure~2 (effect size versus $-\log_{10}(p)$) for OR and $\lambda$-OR, with points colored for true versus false positives? Also report FDR.}
+We have added Figures~3 and~4 to address this point. Figure~3 provides the volcano-style simulation analogue comparing naive OR and $\lambda$-OR across multiple cohort sizes, with non-null and null features distinguished visually. Figure~4 adds an explicit cohort-size sweep reporting FDR, true positives, and false positives at two significance thresholds. We hope these additions address the request more directly.
+
+\revcommnt{The approach hinges on availability of a strong, well-calibrated predictive model. How sensitive is performance to model quality? When does $\lambda$-OR degrade or become unstable?}
+We appreciate this important point. In the revised manuscript, Corollary~5 gives the theoretical collapse guarantee as AUC approaches $0.5$, implying that when the predictive score becomes uninformative, $\log \lambda$-OR collapses toward zero rather than generating spurious corrected associations. We also added prose in the theory section clarifying that poor predictive performance manifests primarily as increased uncertainty and reduced power. Figures~1 and~2 illustrate this degradation across the conditioning range. We did not add a separate empirical simulation based on deliberately degrading an upstream model, because the method is intended for settings where a reasonably informative predictive score is available, but we hope the theoretical result and the conditioning sweeps now characterize the degradation behavior more clearly.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section*{Reviewer 4: Major Comments}
+
+\revcommnt{Paper was overall difficult to read. Derivations are given without explanation; notational clashing ($S$ defined as Shapley and risk score, $a$ and $b$ redefined in proofs, confusion matrices not labeled, notation used before defining). Encourage authors to keep consistent notation and explain things slowly.}
+
+We appreciate this assessment and have made extensive notational and expository revisions throughout the manuscript. In the revised paper, $S_j$ is used for mean-absolute SHAP values, while $S=f(\mathbf{Z})$ is reserved for the risk score. The contingency table in Eq.~(10) is now explained term-wise, all abbreviations are defined on first use, and the proofs now include more intermediate explanation. We also added Appendix~1 to  make explicit the variance derivation that was previously too compressed.
+
+\revcommnt{Theorem~2: Confused about the proof --- seems to bound a risk ratio, not an odds ratio. Please explain. Also explain ``From the PPV/NPV mixture identities, $a-b=(p_1-p_0)\Delta_Y$.'' Don't you need to assume $X_j \perp R \mid Y$?}
+We have revised this argument substantially. The relevant assumption is now stated explicitly as Assumption~B in the statement of  Theorem~\ref{thm:SPOR_collapse_J} in the revised manuscript. The identity $a-b=(p_1-p_0)\Delta_Y$ is now derived step by step via the law of total probability, and the bound is stated clearly as an odds-ratio bound based on the derivative of $\log(u/(1-u))$, rather than as a risk-ratio bound. We hope this resolves the ambiguity in the earlier proof.
+
+
+\revcommnt{Page~2: ASD, IPF and ADRD are defined only in the abstract. Define them in the main text too.}
+We have corrected this in the revised introduction, where all three terms are now defined on first use in the main text body.
+
+
+
+
+\revcommnt{pg 2 "$\lambda$-OR’s collapse property prevents such mis-ranking when the underlying score is uninformative (Lemma 3 and Corollaries 5,7)." Another misnumbering of Lemmas and Corollaries here.
+
+  pg 3 SHAP example. Notation is not defined yet. Introduce all notational definitions before introducing them. Also Corollaries 5,7 should be 6,7
+
+  
+}
+
+Corrected. We have renumbered the theoretical results throughout the revised paper and updated the corresponding references in the introduction and elsewhere so that they now point to the correct results.
+
+
+
+
+\revcommnt{pg 4 Equation (2). Label the rows and columns of the table}
+Contingency table in the revised manuscript are now explicitly labeled, with the rows and columns identified in the text, and the cell definitions spelled out in the subsequent equations.
+
+
+\revcommnt{pg 4 Equation (3). You should state that you are assuming that selection is independent of exposure.}
+
+
+\revcommnt{Page~4 Equation~(3): State that you are assuming selection is independent of exposure.}
+We have added Assumption~A  Eq.~(14), stating the non-differential misclassification condition under which the same correction operator applies in both exposure strata. This makes the role of the assumption explicit in the matrix correction formula.
+
+\revcommnt{Page~4 Section~2.2: Show how ridge inversion ensures non-negativity by tilting the inverse away from subtraction dominance with the closed-form expression for $T_{x,1}^{\lambda}$.}
+We have added the closed-form expressions for the corrected row elements in Eqs.~(23-24), together with prose explaining how ridge regularization increases the denominator and attenuates the subtraction terms that otherwise drive negative recovered counts under the unregularized inverse. We hope this makes the stabilizing role of ridge more transparent.
+
+\revcommnt{Figure~2: $\log \Lambda$-OR should be $\log \lambda$-OR. Algorithm~1 line~27 is off --- shouldn't it be $+\log_{10}(\sqrt{2\pi}|z|)$ rather than minus?}
+Both points have been corrected in the revised manuscript. The notation has been standardized to $\lambda$-OR throughout, and the sign in Algorithm~1 line~27 has been corrected so that the large-$|z|$ approximation is now written properly.
+
+\section*{Closing note}
+
+We are grateful for the reviewers' careful and constructive comments. The manuscript has benefited substantially from these suggestions, particularly in the clarity of presentation, explicitness of assumptions, completeness of derivations, breadth of simulation analysis, and interpretability of the real-data applications.
+
 
 
 

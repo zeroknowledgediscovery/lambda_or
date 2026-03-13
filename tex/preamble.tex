@@ -1,13 +1,14 @@
 \usepackage{etex}
-\usepackage{amssymb,amsfonts,amsmath,amsthm}
+\usepackage{etoolbox}
+\usepackage{amsfonts,amsmath,amsthm}
 \usepackage{graphicx}
+%\usepackage{booktabs}
 \usepackage[usenames,x11names, dvipsnames, svgnames]{xcolor}
-%\usepackage{amsmath,amssymb,amsthm}
 \usepackage{dsfont}
-\usepackage{amsfonts}
 \usepackage{mathrsfs}
-\usepackage{texshade}
+%\usepackage{texshade}
 \usepackage{hyperref}
+%\usepackage{pdfpages}
 \hypersetup{
   colorlinks=true,
   linkcolor=black,
@@ -18,17 +19,40 @@
   % linkbordercolor=red,% hyperlink borders will be red
   % pdfborderstyle={/S/U/W 1}% border style will be underline of width 1pt
 }
+\usepackage{array}
+\usepackage{xr}
+%\usepackage{verbatim}
+\usepackage{multirow}
+\usepackage{longtable}
+\usepackage{tikz-network}
+%\usepackage{times}
 \usepackage{tikz}
 \usepackage{pgfplots}
 \usetikzlibrary{shapes,calc,shadows,fadings,arrows,decorations.pathreplacing,automata,positioning}
 \usetikzlibrary{external}
 \usetikzlibrary{decorations.text}
-\tikzexternalize[prefix=./Figures/External/]% activate externalization!
+\usepgfplotslibrary{colorbrewer} 
+\usepgfplotslibrary{statistics}
+
+\tikzexternalize[prefix=./Figures_2025/External/]% activate externalization!
 \tikzexternaldisable
+\usepackage{geometry}
+\geometry{letterpaper, left=.7in,right=.7in,top=.7in,bottom=.7in,marginparwidth=.55in, % Adjust the width of the marginpar
+  marginparsep=0.05cm % Adjust the separation between the margin paragraph and the text
+}
+\usepackage{rotating}
+\usetikzlibrary{pgfplots.dateplot}
 \usetikzlibrary{patterns}
 \usetikzlibrary{decorations.markings}
 \usepackage{mathtools}
-\usepackage[group-separator={,}]{siunitx}
+\usepgfplotslibrary{colormaps}
+\usepackage{lineno}
+\usepackage{tikz-network} 
+%\usepackage{listings}
+%\usepackage{algorithm}
+%\usepackage{algorithmic}
+%\renewcommand{\baselinestretch}{.93}
+%\renewcommand{\captionN}[1]{\caption{\color{CadetBlue4!50!black} \sffamily \fontsize{9}{11}\selectfont #1  }}
 %% ## Equation Space Control---------------------------
 \def\EQSP{3pt}
 \newcommand{\mltlne}[2][\EQSP]{\begingroup\setlength\abovedisplayskip{#1}\setlength\belowdisplayskip{#1}\begin{equation}\begin{multlined} #2 \end{multlined}\end{equation}\endgroup\noindent}
@@ -38,50 +62,83 @@
 \newcommand{\caligns}[2][\EQSP]{\begingroup\setlength\abovedisplayskip{#1}\setlength\belowdisplayskip{#1}\begin{align*} #2 \end{align*}\endgroup\noindent}
 \newcommand{\mnp}[2]{\begin{minipage}{#1}#2\end{minipage}} 
 %% COLOR DEFS------------------------------------------
-\newtheorem{thm}{Theorem}
+\newtheorem{theorem}{Theorem}
 \newtheorem{cor}{Corollary}
-\newtheorem{lem}{Lemma}
+\newtheorem{lemma}{Lemma}
 \newtheorem{prop}{Proposition}
 \newtheorem{defn}{Definition}
 \newtheorem{exmpl}{Example}
 \newtheorem{rem}{Remark}
 \newtheorem{notn}{Notation}
-%% ------------PROOF INCLUSION -----------------
+% ------------ -----------------
+\newcommand{\DETAILS}[1]{#1}
+%% ------------ -----------------
+% color commands------------------------
+\newcommand{\etal}{\textit{et} \mspace{3mu} \textit{al.}}
+% \renewcommand{\algorithmiccomment}[1]{$/** $ #1 $ **/$}
+\newcommand{\vect}[1]{\textbf{\textit{#1}}}
+\newcommand{\figfont}{\fontsize{8}{8}\selectfont\strut}
+\newcommand{\hlt}{ \bf \sffamily \itshape\color[rgb]{.1,.2,.45}}
+\newcommand{\pitilde}{\widetilde{\pi}}
+\newcommand{\Pitilde}{\widetilde{\Pi}}
+\newcommand{\bvec}{\vartheta}
+\newcommand{\algo}{\textrm{\bf\texttt{GenESeSS}}\xspace}
+\newcommand{\xalgo}{\textrm{\bf\texttt{xGenESeSS}}\xspace}
+\newcommand{\FNTST}{\bf }
+\newcommand{\FNTED}{\color{darkgray} \scriptsize $\phantom{.}$}
+\newcommand{\sync}{\otimes}
+\newcommand{\psync}{\hspace{3pt}\overrightarrow{\hspace{-3pt}\sync}}
+% \newcommand{\psync}{\raisebox{-4pt}{\begin{tikzpicture}\node[anchor=south] (A) {$\sync$};
+%   \draw [->,>=stealth] ([yshift=-2pt, xshift=2pt]A.north west) -- ([yshift=-2pt]A.north east); %\end{tikzpicture}}}
+\newcommand{\base}[1]{\llbracket #1 \rrbracket}
+\newcommand{\nst}{\textrm{\sffamily\textsc{Numstates}}}
+\newcommand{\HA}{\boldsymbol{\mathds{H}}}
+\newcommand{\eqp}{ \vartheta }
+\newcommand{\entropy}[1]{\boldsymbol{h}\left ( #1 \right )}
+\newcommand{\norm}[1]{\left\lVert #1 \right\rVert}%
+\newcommand{\abs}[1]{\left\lvert #1 \right\rvert}%
+\newcommand{\absB}[1]{\big\lvert #1 \big\rvert}%
+% #############################################################
+% #############################################################
+% PREAMBLE ####################################################
+% #############################################################
 % #############################################################
 % \usepackage{pnastwoF}      
+%\usepackage{concmath}
+\usepackage{tgheros}
 \DeclareMathOperator*{\argmax}{argmax}
 \DeclareMathOperator*{\argmin}{arg\,min}
 \DeclareMathOperator*{\expect}{\mathbf{E}}
 \DeclareMathOperator*{\var}{\mathbf{Var}}
-\usepackage[linesnumbered,ruled,vlined,noend]{algorithm2e}
-\newcommand{\captionN}[1]{\caption{\color{darkgray} \sffamily \fontsize{9}{10}\selectfont #1  }}
-% ###################################
-\newcommand{\xtitaut}[2]{
-  \noindent\mnp{\textwidth}{
-    \mnp{\textwidth}{\raggedright\Huge \bf \sffamily #1}
-
-    \vskip 1em
-
-    {\bf \sffamily #2}
-  }
-  \vskip 2em
-}
-% ###################################
+\usepackage{newtxmath}
+\usepackage{newtxtext}
+\newcommand{\ND}{ \mathcal{N}  }
+%\usepackage[linesnumbered,ruled,vlined,noend]{algorithm2e}
+\newcommand{\captionN}[1]{\caption{\color{gray} \sffamily \fontsize{9}{10}\selectfont #1  }}
+\newcommand{\btl}{\ \textbf{\small\sffamily bits/letter}}
+%\usepackage{kerkis}
+\usepackage{tgheros}
+\tikzexternalenable 
 % ###################################
 \newcolumntype{L}[1]{>{\rule{0pt}{2ex}\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
 \newcolumntype{C}[1]{>{\rule{0pt}{2ex}\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
 \newcolumntype{R}[1]{>{\rule{0pt}{2ex}\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
-
-\newcommand{\R}{\mathbb{R}} % Set of real numbers
+% ################################################
+% ################################################
+% ################################################
+% ################################################
+% ####################################
 \usetikzlibrary{arrows.meta}
 \usetikzlibrary{decorations.pathreplacing,shapes.misc}
 \usepgfplotslibrary{fillbetween}
 %usepackage{tikz-network}
 \usetikzlibrary{shapes.geometric}
 \usetikzlibrary{math}
-%\usepackage{textcomp}
+\usepgfplotslibrary{colorbrewer} 
+\usepackage{textcomp}
 \usepackage{colortbl}
-%\usepackage{courier} 
+\usepackage{array}
+\usepackage{wrapfig}
 \usepackage{pifont}
 \usetikzlibrary{chains,backgrounds}
 \usetikzlibrary{intersections}
@@ -89,144 +146,17 @@
 \usepgfplotslibrary{fillbetween} 
 \usetikzlibrary{arrows.meta}
 \usepackage{pgfplotstable}
+\usepackage[super,compress,sort,comma]{natbib}
+%\usepackage{natbib}
+\usepackage{setspace}
 \usetikzlibrary{math}
 \usetikzlibrary{matrix}
 \usepackage{xstring}
 \usepackage{xspace}
-\usepackage{flushend}
+%\usepackage{flushend}
 
-\tikzexternaldisable
-\def\COLA{black}
-\newif\iftikzX
-\tikzXtrue
-\tikzXfalse
-\newif\ifFIGS 
-\FIGSfalse  
-\def\moca{MoCA\xspace}
-\def\zcor{ZeBRA\xspace}
-\def\pcor{ZCoR\xspace}
-\def\ICD{ICD-10\xspace}
-\def\DISEASE{ADRD\xspace}
-\gdef\mcor{MCoR\xspace}
-% --- deterministic, high-separation colors using dvipsnames ---
-\newcommand{\getcolor}[1]{%
-  \ifnum\pdfstrcmp{#1}{A}=0 Red\fi
-  \ifnum\pdfstrcmp{#1}{B}=0 RoyalBlue\fi
-  \ifnum\pdfstrcmp{#1}{C}=0 ForestGreen\fi
-  \ifnum\pdfstrcmp{#1}{D}=0 BurntOrange\fi
-  \ifnum\pdfstrcmp{#1}{E}=0 Magenta\fi
-  \ifnum\pdfstrcmp{#1}{F}=0 TealBlue\fi
-  \ifnum\pdfstrcmp{#1}{G}=0 Violet\fi
-  \ifnum\pdfstrcmp{#1}{H}=0 Goldenrod\fi
-  \ifnum\pdfstrcmp{#1}{I}=0 Turquoise\fi
-  \ifnum\pdfstrcmp{#1}{J}=0 Maroon\fi
-  \ifnum\pdfstrcmp{#1}{K}=0 OliveGreen\fi
-  \ifnum\pdfstrcmp{#1}{L}=0 Cerulean\fi
-  \ifnum\pdfstrcmp{#1}{M}=0 BrickRed\fi
-  \ifnum\pdfstrcmp{#1}{N}=0 SeaGreen\fi
-  \ifnum\pdfstrcmp{#1}{O}=0 Purple\fi
-  \ifnum\pdfstrcmp{#1}{P}=0 Dandelion\fi
-  \ifnum\pdfstrcmp{#1}{Q}=0 NavyBlue\fi
-  \ifnum\pdfstrcmp{#1}{R}=0 LimeGreen\fi
-  \ifnum\pdfstrcmp{#1}{S}=0 RubineRed\fi
-  \ifnum\pdfstrcmp{#1}{T}=0 CadetBlue\fi
-}
+\newcounter{Dcounter}
+\setcounter{Dcounter}{1}
+\newcommand{\DQS}[1]{\marginpar{\tikzexternaldisable \tikz{\node[rounded corners=5pt,draw=none,thick,fill=black!10,font=\sffamily\fontsize{7}{8}\selectfont] {\mnp{.45in} {\color{Red3}\raggedright  \#\theDcounter.~#1}}; }}\stepcounter{Dcounter}\xspace}
 
 
-\newcommand{\getmark}[1]{%
-  \ifnum\pdfstrcmp{#1}{A}=0 *\fi
-  \ifnum\pdfstrcmp{#1}{B}=0 square*\fi
-  \ifnum\pdfstrcmp{#1}{C}=0 triangle*\fi
-  \ifnum\pdfstrcmp{#1}{D}=0 diamond*\fi
-  \ifnum\pdfstrcmp{#1}{E}=0 pentagon*\fi
-  \ifnum\pdfstrcmp{#1}{F}=0 star\fi
-  \ifnum\pdfstrcmp{#1}{G}=0 *\fi
-  \ifnum\pdfstrcmp{#1}{H}=0 square*\fi
-  \ifnum\pdfstrcmp{#1}{I}=0 triangle*\fi
-  \ifnum\pdfstrcmp{#1}{J}=0 diamond*\fi
-  \ifnum\pdfstrcmp{#1}{K}=0 *\fi
-  \ifnum\pdfstrcmp{#1}{L}=0 square*\fi
-  \ifnum\pdfstrcmp{#1}{M}=0 triangle*\fi
-  \ifnum\pdfstrcmp{#1}{N}=0 diamond*\fi
-  \ifnum\pdfstrcmp{#1}{O}=0 pentagon*\fi
-  \ifnum\pdfstrcmp{#1}{P}=0 star\fi
-  \ifnum\pdfstrcmp{#1}{Q}=0 *\fi
-  \ifnum\pdfstrcmp{#1}{R}=0 square*\fi
-  \ifnum\pdfstrcmp{#1}{S}=0 triangle*\fi
-  \ifnum\pdfstrcmp{#1}{T}=0 diamond*\fi
-}
-
-\newcommand{\getlabel}[1]{%
-  \ifnum\pdfstrcmp{#1}{A}=0 Infectious \& parasitic diseases\fi
-  \ifnum\pdfstrcmp{#1}{B}=0 Infectious \& parasitic diseases\fi
-  \ifnum\pdfstrcmp{#1}{C}=0 Malignant neoplasms\fi
-  \ifnum\pdfstrcmp{#1}{D}=0 Blood disorders \& benign neoplasms\fi
-  \ifnum\pdfstrcmp{#1}{E}=0 Endocrine, nutritional, metabolic\fi
-  \ifnum\pdfstrcmp{#1}{F}=0 Mental \& behavioural disorders\fi
-  \ifnum\pdfstrcmp{#1}{G}=0 Nervous system diseases\fi
-  \ifnum\pdfstrcmp{#1}{H}=0 Eye, ear diseases\fi
-  \ifnum\pdfstrcmp{#1}{I}=0 Circulatory system diseases\fi
-  \ifnum\pdfstrcmp{#1}{J}=0 Respiratory diseases\fi
-  \ifnum\pdfstrcmp{#1}{K}=0 Digestive system diseases\fi
-  \ifnum\pdfstrcmp{#1}{L}=0 Skin \& subcutaneous tissue diseases\fi
-  \ifnum\pdfstrcmp{#1}{M}=0 Musculoskeletal diseases\fi
-  \ifnum\pdfstrcmp{#1}{N}=0 Genitourinary diseases\fi
-  \ifnum\pdfstrcmp{#1}{O}=0 Pregnancy \& childbirth\fi
-  \ifnum\pdfstrcmp{#1}{P}=0 Perinatal conditions\fi
-  \ifnum\pdfstrcmp{#1}{Q}=0 Congenital malformations\fi
-  \ifnum\pdfstrcmp{#1}{R}=0 Symptoms, signs, and abnormal findings\fi
-  \ifnum\pdfstrcmp{#1}{S}=0 Injuries to body regions\fi
-  \ifnum\pdfstrcmp{#1}{T}=0 Injuries, poisoning, external causes\fi
-  \ifnum\pdfstrcmp{#1}{Z}=0 Factors influencing health status\fi
-}
-\renewcommand{\R}{\mathbb{R}}
-\newcommand{\indep}{\perp\!\!\!\perp}
-\newcommand{\SPOR}{\textrm{$\lambda$-OR}}
-\newcommand{\COR}{\operatorname{OR}}
-\newcommand{\logor}{\log\SPOR}
-\newcommand{\clogor}{\log\COR}
-\newcommand{\E}{\mathbb{E}}
-\newcommand{\AUC}{\operatorname{AUC}}
-
-
-\usepackage{booktabs,multirow}
-\usepackage{siunitx}
-\sisetup{
-  round-mode=places,
-  round-precision=4,
-  detect-all
-}
-\makeatletter
-% Section
-\renewcommand\section{\@startsection {section}{1}{\z@}%
-  {-.5ex \@plus -.1ex \@minus -.1ex}% space above
-  {.5ex \@plus .1ex}% space below
-  {\selectfont\bfseries}}
-
-% Subsection
-\renewcommand\subsection{\@startsection {subsection}{2}{\z@}%
-  {-.3ex \@plus -.1ex \@minus -.1ex}%
-  {.3ex \@plus .1ex}%
-  {\selectfont\bfseries\color{Red3}}}
-
-% Subsubsection
-\renewcommand\subsubsection{\@startsection {subsubsection}{3}{\z@}%
-  {-.2ex \@plus -.1ex \@minus -.1ex}%
-  {.2ex \@plus .1ex}%
-  {\selectfont\bfseries\color{MediumBlue}}}
-
-% Paragraph
-\renewcommand\paragraph{\@startsection {paragraph}{4}{\z@}%
-  {0ex \@plus -.1ex \@minus -.1ex}%
-  {0ex \@plus .1ex}%
-  {\selectfont\bfseries\itshape\color{Red4!80}}}
-
-
-%\renewcommand{\thesubsection}{\thesection.\arabic{subsection}}
-\renewcommand{\thesubsectiondis}{\arabic{subsection}.}
-\renewcommand{\thesectiondis}{\arabic{section}.}
-\renewcommand{\thesection}{\arabic{section}}
-
-\renewcommand{\thetable}{\arabic{table}}
-
-\makeatother

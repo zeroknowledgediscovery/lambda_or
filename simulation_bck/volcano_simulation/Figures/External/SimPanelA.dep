@@ -1,4 +1,0 @@
-./Figures/External/SimPanelA.pdf: full_results_50000.csv
-./Figures/External/SimPanelA.pdf: full_results_50000.csv
-./Figures/External/SimPanelA.pdf: full_results_750000.csv
-./Figures/External/SimPanelA.pdf: full_results_750000.csv

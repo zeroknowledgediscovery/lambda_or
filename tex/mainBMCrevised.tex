@@ -335,51 +335,115 @@ In addition, the revised theory establishes that $\SPOR$ has the right limiting 
 %##########################################################################
 %##########################################################################
 %##########################################################################
-\subsection{Motivation: Illustration of OR blow-up and SHAP mis-attribution}
+\subsection{Motivation: Illustration of OR blow-up and SHAP mis-attribution}\label{sec:motivation}
 
 Two phenomena motivate $\SPOR$: (i) odds ratios computed from noisy outcomes can be severely inflated under small \emph{differential} misclassification, and (ii) post hoc attribution scores can mis-rank weak effects when feature variances differ substantially. We illustrate both effects with concrete parameter choices.
 
 \paragraph{Inflation of odds ratios under differential misclassification.}
+
+
+
 Let $X\in\{0,1\}$ denote a binary exposure (e.g., presence of an ICD-coded condition), let $Y\in\{0,1\}$ denote the latent true outcome, and let $\widetilde Y$ denote an imperfect observed outcome label derived from routine EHR coding. Define sensitivity and specificity of the observed label by
-\cgather{
+\cgather{\label{eq1}
 p=\Pr(\widetilde Y=1\mid Y=1),\qquad q=\Pr(\widetilde Y=0\mid Y=0).
 }
-In large observational settings, coding and ascertainment can vary subtly across exposure strata. To represent such \emph{differential} misclassification, we allow a small row-wise perturbation of magnitude $\delta>0$ in the effective misclassification rates between $X=0$ and $X=1$ strata (See Methods). With baseline $(p,q)=(0.80,0.85)$, $\delta=0.10$, and $\varepsilon=0.01$, all implied error rates remain within $(0.70,0.95)$. Nevertheless, Lemma~\ref{lem:minimal} and Corollary~\ref{corshap} show that the naive odds ratio computed on the noisy table can be inflated by more than a factor of six:
+In large observational settings, coding and ascertainment can vary subtly across exposure strata. To represent such \emph{differential} misclassification, we allow a small row-wise perturbation of magnitude $\delta>0$ in the effective misclassification rates between $X=0$ and $X=1$ strata (See Methods). 
+As a simple illustration, consider the true \(2\times2\) table
 \cgather{
-\frac{\mathrm{OR}_{\text{naive}}}{\mathrm{OR}_{\text{true}}}
-=\frac{(0.90)(0.25)}{(0.70)(0.05)}
-=\frac{0.225}{0.035}\approx 6.43,
+T =
+\begin{array}{c|l|l}
+ & X=1 & X=0 \\
+\hline
+Y=1 & 10001 & 1 \\
+Y=0 & 10000 & 1
+\end{array},
 }
-Thus,  a near-null association $(\mathrm{OR}_{\text{true}}\approx 1)$ can appear strongly enriched, and modest and realistic misclassification, when slightly asymmetric across strata, can generate large apparent effects.
+%% \cgather{
+%%   T=
+%%   \begin{array}{c@{\quad}c}
+%% &
+%% \begin{array}{cc}
+%% X=1 & X=0
+%% \end{array}
+%% \\[4pt]
+%% \begin{array}{c}
+%% Y=1\\
+%% Y=0
+%% \end{array}
+%% &
+%% \begin{bmatrix}
+%% 10001 & 1\\
+%% 10000 & 1
+%% \end{bmatrix}
+%% \end{array},
+%% %% \begin{bmatrix}
+%% %% 10001 & 1\\
+%% %% 10000 & 1
+%% %% \end{bmatrix},
+%% }
+for which
+\cgather{
+\mathrm{OR}_{\mathrm{true}}
+=
+\frac{10001\times 1}{1\times 10000}
+=
+1.0001.
+}
+Thus the true association is essentially null. In our setting the outcome is not observed directly, but instead inferred from a risk score produced by a predictive model (as in the proxy-label construction used throughout this paper). If the exposure feature itself contributes to that model, then the proxy classifier is typically more accurate among exposed individuals than among unexposed individuals. This leads naturally to row-specific classification accuracy. For example, the proxy outcome may satisfy
+\cgather{
+p_1= q_1=0.95,
+\qquad
+p_0=q_0=0.75,
+}
+where \(p_x=\Pr(\tilde Y=1\mid Y=1,X=x)\) and
+\(q_x=\Pr(\tilde Y=0\mid Y=0,X=x)\).
+Applying this row-specific misclassification model yields the observed proxy table
+\cgather{
+\tilde T \approx
+\begin{bmatrix}
+9501 & 501\\
+7500.25 & 2500.75
+\end{bmatrix}.
+}
+The naive odds ratio computed from these proxy labels is therefore
+\cgather{
+\mathrm{OR}_{\mathrm{naive}}
+\approx
+\frac{9501\cdot 2500.75}{501\cdot 7500.25}
+\approx 6.3.
+}
+
+In other words, a true odds ratio extremely close to one
+(\(\mathrm{OR}_{\mathrm{true}}=1.0001\))
+can appear as a strong association purely because the proxy-label error differs slightly across rows. The formal result below shows that this phenomenon is not specific to this numerical example: under differential misclassification, the naive odds ratio can become arbitrarily large even while \(\mathrm{OR}_{\mathrm{true}}\to 1\).
+
 \paragraph{Mis-ranking in post hoc attribution.}
 Post hoc attribution methods such as SHAP are widely used to interpret predictive models trained on EHR data. These methods assign a feature-level importance score based on the fitted model, but attribution can depend on feature variability as well as effect strength. Consider a linear prediction model $ f(X)=\sum_{j}\beta_j X_j$, 
-where $\beta_j$ is the regression coefficient associated with feature $X_j$, and $\sigma_j=\sqrt{\mathrm{Var}(X_j)}$ is the standard deviation of that feature. In the Gaussian setting analyzed in Corollary~\ref{cor:shap_misrank}, the mean absolute SHAP importance $S_j$ scales with both $|\beta_j|$ and $\sigma_j$. For example, with $|\beta_k|=1$, $\sigma_k=1$, $\varepsilon=0.05$, and $\sigma_j=30$, we obtain $S_j/S_k\approx 1.5$, implying that a feature with a regression coefficient twenty times smaller can nevertheless appear approximately $50\%$ more important in SHAP attribution solely because it has much larger variability. Differences in feature variance can therefore lead to systematic mis-ranking of weak effects.
+where $\beta_j$ is the regression coefficient associated with feature $X_j$, and $\sigma_j=\sqrt{\mathrm{Var}(X_j)}$ is the standard deviation of that feature. In the Gaussian setting analyzed in Corollary~\ref{cor:shap_misrank}, the mean absolute SHAP importance $S_j$ scales with both $|\beta_j|$ and $\sigma_j$. For example, with $|\beta_k|=1$, $\sigma_k=1$, $\varepsilon=0.05$, and $\sigma_j=30$, we obtain $S_j/S_k\approx 1.5$, implying that a feature with a regression coefficient twenty times smaller can nevertheless appear approximately $50\%$ more important in SHAP attribution solely because it has much larger variability. Thus, differences in feature variance can  lead to systematic mis-ranking of weak effects.
 
 Taken together, these examples show that both association screening (via naive odds ratios) and model-based attribution (via SHAP) can be unstable under common conditions in large observational EHR data. $\SPOR$ is designed to mitigate these effects by explicitly correcting for outcome misclassification before computing odds ratios and by collapsing toward null attribution when the underlying score is non-informative.
 
 %################################### 
-%===============================================================================
 \begin{algorithm}[t]
-  \small
-\caption{$\SPOR$ Estimation with p-value}\label{algo}
+\small
+\caption{$\SPOR$ estimation with p-value}\label{algo}
 \DontPrintSemicolon
 \SetAlgoLined
 \SetKwInOut{Input}{Input}\SetKwInOut{Output}{Output}
 
-\Input{Misclassified table $(\tilde a,\tilde b,\tilde c,\tilde d)$; ROC thresholds $(t_{\mathrm{hi}},t_{\mathrm{lo}})$ with selection–conditional sensitivity $p_{\text{sel}}$ and specificity $q_{\text{sel}}$; validation size $n_{\text{val}}$; ridge grid $(\lambda_{\text{start}},\lambda_{\max},\text{step})$; stability floor $\varepsilon>0$.}
+\Input{Misclassified table $(\tilde a,\tilde b,\tilde c,\tilde d)$; ROC thresholds $(t_{\mathrm{hi}},t_{\mathrm{lo}})$ with selection-conditional sensitivity $p_{\text{sel}}$ and specificity $q_{\text{sel}}$; validation size $n_{\text{val}}$; ridge grid $(\lambda_{\text{start}},\lambda_{\max},\text{step})$; stability floor $\varepsilon>0$.}
 \Output{$(\logor,\;-\log_{10}p)$ for the chosen $(t_{\mathrm{hi}},t_{\mathrm{lo}})$.}
 
-\BlankLine
-\textbf{Initialization:}\;
-$A \leftarrow \begin{bmatrix} p_{\text{sel}} & 1-p_{\text{sel}} \\ 1-q_{\text{sel}} & q_{\text{sel}}\end{bmatrix}$,\quad
+\tcp{Initialization}
+$K \leftarrow \begin{bmatrix} p_{\text{sel}} & 1-p_{\text{sel}} \\ 1-q_{\text{sel}} & q_{\text{sel}}\end{bmatrix}$,\quad
 $\tilde T \leftarrow \begin{bmatrix} \tilde a & \tilde b \\ \tilde c & \tilde d \end{bmatrix}$,\quad
 $\lambda \leftarrow \lambda_{\text{start}}$.\;
-\BlankLine
 
-\textbf{Ridge inversion (minimal feasible $\lambda$):}\;
+\tcp{Ridge inversion (minimal feasible $\lambda$)}
 \While{$\lambda \le \lambda_{\max}$}{
-  $A_\lambda \leftarrow A + \lambda I$.\;
-  $\text{counts} \leftarrow \tilde T \cdot A_\lambda^{-\top}$ \tcp*{$A_\lambda^{-\top} = (A_\lambda^{-1})^\top$}
+  $M_\lambda \leftarrow K^\top + \lambda I$.\;
+  $A_\lambda \leftarrow M_\lambda^{-1}$.\;
+  $\text{counts} \leftarrow \tilde T \cdot A_\lambda$.\;
   \If{\(\min(\text{counts}) \ge \varepsilon\)}{
     \textbf{break}\;
   }
@@ -387,53 +451,120 @@ $\lambda \leftarrow \lambda_{\text{start}}$.\;
 }
 \If{$\lambda > \lambda_{\max}$}{\Return $(\mathrm{NaN},\mathrm{NaN})$}
 
-\BlankLine
-\textbf{Odds ratio:}\;
+\tcp{Odds ratio}
 Unpack $\text{counts}$ into $(a,b,c,d)$.\;
 $\logor \leftarrow \log\!\left(\dfrac{ad}{bc}\right)$.\;
 
-\BlankLine
-\textbf{Variance (base + delta for $(p_{\text{sel}},q_{\text{sel}})$):}\;
+\tcp{Variance (base + delta for $(p_{\text{sel}},q_{\text{sel}})$)}
 $\text{var}_{\text{base}} \leftarrow \dfrac{1}{a}+\dfrac{1}{b}+\dfrac{1}{c}+\dfrac{1}{d}$.\;
-\Begin{
-  \tcp{Delta-method partial derivatives (selection-conditional)}
-  $\displaystyle \frac{\partial \logor}{\partial p_{\text{sel}}} \leftarrow 
-  \frac{(1-q_{\text{sel}})(ad-bc)}{(p_{\text{sel}}+q_{\text{sel}}-1)^2\,ad}$,\quad
-  $\displaystyle \frac{\partial \logor}{\partial q_{\text{sel}}} \leftarrow 
-  \frac{(1-p_{\text{sel}})(bc-ad)}{(p_{\text{sel}}+q_{\text{sel}}-1)^2\,ad}$.\;
-  $\text{var}_p \leftarrow \dfrac{p_{\text{sel}}(1-p_{\text{sel}})}{n_{\text{val}}}$,\quad
-  $\text{var}_q \leftarrow \dfrac{q_{\text{sel}}(1-q_{\text{sel}})}{n_{\text{val}}}$.\;
-  $\text{var}_{\text{extra}} \leftarrow
-  \left(\dfrac{\partial \logor}{\partial p_{\text{sel}}}\right)^{\!2}\text{var}_p
-  +\left(\dfrac{\partial \logor}{\partial q_{\text{sel}}}\right)^{\!2}\text{var}_q$.\;
-}
+$A \leftarrow A_\lambda$.\;
+
+\tcp{Delta-method gradient from ridge-corrected inverse}
+$g_p \leftarrow
+(a-b)\!\left(\dfrac{A_{12}}{b}-\dfrac{A_{11}}{a}\right)
++(c-d)\!\left(\dfrac{A_{11}}{c}-\dfrac{A_{12}}{d}\right)$.\;
+
+$g_q \leftarrow
+(a-b)\!\left(\dfrac{A_{21}}{a}-\dfrac{A_{22}}{b}\right)
++(c-d)\!\left(\dfrac{A_{22}}{d}-\dfrac{A_{21}}{c}\right)$.\;
+
+$\text{var}_p \leftarrow \dfrac{p_{\text{sel}}(1-p_{\text{sel}})}{n_{\text{val}}}$,\quad
+$\text{var}_q \leftarrow \dfrac{q_{\text{sel}}(1-q_{\text{sel}})}{n_{\text{val}}}$.\;
+
+$\text{var}_{\text{extra}} \leftarrow g_p^2\,\text{var}_p + g_q^2\,\text{var}_q$.\;
+
 $\text{SE} \leftarrow \sqrt{\text{var}_{\text{base}}+\text{var}_{\text{extra}}}$.\;
 
-\BlankLine
-\textbf{Significance:}\;
+\tcp{Significance}
 $z \leftarrow \dfrac{\logor}{\text{SE}}$.\;
+
 \If{$|z| \le 7$}{
-  $p \leftarrow 2\bigl(1-\Phi(|z|)\bigr)$ \tcp*{standard normal CDF $\Phi$}
-}
-\Else{
-  $-\log_{10}p \leftarrow \dfrac{z^2}{2\ln 10} + \log_{10}\!\bigl(\sqrt{2\pi}\,|z|\bigr)$.\;
-}
-\If{$|z| \le 7$}{
+  $p \leftarrow 2\bigl(1-\Phi(|z|)\bigr)$ \tcp*{standard normal CDF}
   $-\log_{10}p \leftarrow -\log_{10}(p)$.\;
 }
+\Else{
+  $-\log_{10}p \leftarrow \dfrac{z^2}{2\ln 10} + \log_{10}\!\bigl(\sqrt{2\pi}\,|z|\bigr) - \log_{10}(2)$.\;
+}
 
-\BlankLine
-\textbf{Return:}\;
 \Return $(\logor,\;-\log_{10}p)$.\;
 
 \end{algorithm}
+%===============================================================================
+%% \begin{algorithm}[t]
+%%   \small
+%% \caption{$\SPOR$ Estimation with p-value}\label{algo}
+%% \DontPrintSemicolon
+%% \SetAlgoLined
+%% \SetKwInOut{Input}{Input}\SetKwInOut{Output}{Output}
+
+%% \Input{Misclassified table $(\tilde a,\tilde b,\tilde c,\tilde d)$; ROC thresholds $(t_{\mathrm{hi}},t_{\mathrm{lo}})$ with selection–conditional sensitivity $p_{\text{sel}}$ and specificity $q_{\text{sel}}$; validation size $n_{\text{val}}$; ridge grid $(\lambda_{\text{start}},\lambda_{\max},\text{step})$; stability floor $\varepsilon>0$.}
+%% \Output{$(\logor,\;-\log_{10}p)$ for the chosen $(t_{\mathrm{hi}},t_{\mathrm{lo}})$.}
+
+%% \BlankLine
+%% \textbf{Initialization:}\;
+%% $A \leftarrow \begin{bmatrix} p_{\text{sel}} & 1-p_{\text{sel}} \\ 1-q_{\text{sel}} & q_{\text{sel}}\end{bmatrix}$,\quad
+%% $\tilde T \leftarrow \begin{bmatrix} \tilde a & \tilde b \\ \tilde c & \tilde d \end{bmatrix}$,\quad
+%% $\lambda \leftarrow \lambda_{\text{start}}$.\;
+%% \BlankLine
+
+%% \textbf{Ridge inversion (minimal feasible $\lambda$):}\;
+%% \While{$\lambda \le \lambda_{\max}$}{
+%%   $A_\lambda \leftarrow A + \lambda I$.\;
+%%   $\text{counts} \leftarrow \tilde T \cdot A_\lambda^{-\top}$ \tcp*{$A_\lambda^{-\top} = (A_\lambda^{-1})^\top$}
+%%   \If{\(\min(\text{counts}) \ge \varepsilon\)}{
+%%     \textbf{break}\;
+%%   }
+%%   $\lambda \leftarrow \lambda + \text{step}$\;
+%% }
+%% \If{$\lambda > \lambda_{\max}$}{\Return $(\mathrm{NaN},\mathrm{NaN})$}
+
+%% \BlankLine
+%% \textbf{Odds ratio:}\;
+%% Unpack $\text{counts}$ into $(a,b,c,d)$.\;
+%% $\logor \leftarrow \log\!\left(\dfrac{ad}{bc}\right)$.\;
+
+%% \BlankLine
+%% \textbf{Variance (base + delta for $(p_{\text{sel}},q_{\text{sel}})$):}\;
+%% $\text{var}_{\text{base}} \leftarrow \dfrac{1}{a}+\dfrac{1}{b}+\dfrac{1}{c}+\dfrac{1}{d}$.\;
+%% \Begin{
+%%   \tcp{Delta-method partial derivatives (selection-conditional)}
+%%   $\displaystyle \frac{\partial \logor}{\partial p_{\text{sel}}} \leftarrow 
+%%   \frac{(1-q_{\text{sel}})(ad-bc)}{(p_{\text{sel}}+q_{\text{sel}}-1)^2\,ad}$,\quad
+%%   $\displaystyle \frac{\partial \logor}{\partial q_{\text{sel}}} \leftarrow 
+%%   \frac{(1-p_{\text{sel}})(bc-ad)}{(p_{\text{sel}}+q_{\text{sel}}-1)^2\,ad}$.\;
+%%   $\text{var}_p \leftarrow \dfrac{p_{\text{sel}}(1-p_{\text{sel}})}{n_{\text{val}}}$,\quad
+%%   $\text{var}_q \leftarrow \dfrac{q_{\text{sel}}(1-q_{\text{sel}})}{n_{\text{val}}}$.\;
+%%   $\text{var}_{\text{extra}} \leftarrow
+%%   \left(\dfrac{\partial \logor}{\partial p_{\text{sel}}}\right)^{\!2}\text{var}_p
+%%   +\left(\dfrac{\partial \logor}{\partial q_{\text{sel}}}\right)^{\!2}\text{var}_q$.\;
+%% }
+%% $\text{SE} \leftarrow \sqrt{\text{var}_{\text{base}}+\text{var}_{\text{extra}}}$.\;
+
+%% \BlankLine
+%% \textbf{Significance:}\;
+%% $z \leftarrow \dfrac{\logor}{\text{SE}}$.\;
+%% \If{$|z| \le 7$}{
+%%   $p \leftarrow 2\bigl(1-\Phi(|z|)\bigr)$ \tcp*{standard normal CDF $\Phi$}
+%% }
+%% \Else{
+%%   $-\log_{10}p \leftarrow \dfrac{z^2}{2\ln 10} + \log_{10}\!\bigl(\sqrt{2\pi}\,|z|\bigr)$.\;
+%% }
+%% \If{$|z| \le 7$}{
+%%   $-\log_{10}p \leftarrow -\log_{10}(p)$.\;
+%% }
+
+%% \BlankLine
+%% \textbf{Return:}\;
+%% \Return $(\logor,\;-\log_{10}p)$.\;
+
+%% \end{algorithm}
 %===============================================================================
 %===============================================================================
 
 %###################################
 \section{Methods}
 
-\subsection{$\SPOR$ Formulation}
+\subsection{$\SPOR$ Formulation}\label{sec:formulation}
 
 We consider a retrospective dataset of subjects with a binary exposure of interest $X_j\in\{0,1\}$ and an (unobserved) true binary outcome $Y\in\{0,1\}$. We assume $X_j$ is measured without error. In addition, we assume the availability of a pre-existing predictive model $f(\mathbf{Z})$ producing a risk score
 \cgather{
@@ -442,13 +573,17 @@ S=f(\mathbf{Z})\in[0,1],
 where $\mathbf{Z}$ denotes the feature set used by the predictive model (not limited to $X_j$). The goal is to estimate an odds ratio relating $X_j$ to the true outcome $Y$ while accounting for outcome misclassification arising from the use of score-based proxy labels.
 
 \paragraph{Tail selection and proxy labels.}
+
+
 We select subjects from the extreme score regions using two thresholds: a high-score threshold $t_{\mathrm{hi}}$, corresponding to a high-specificity operating point on the ROC curve, and a low-score threshold $t_{\mathrm{lo}}$, corresponding to a high-sensitivity operating point:
 \cgather{
 H=\{S\ge t_{\mathrm{hi}}\},\qquad
 L=\{S<t_{\mathrm{lo}}\},\qquad
 I=\mathbf{1}\{H\cup L\}.
 }
-Subjects in the middle region ($I=0$) are excluded from attribution analysis. For selected subjects ($I=1$), define the proxy label
+Subjects in the middle region ($I=0$) are excluded from attribution analysis. . Subjects in these extreme regions form high-purity proxy case and proxy control sets. We will show that restricting analysis to these high-confidence tails substantially reduces label noise and stabilizes downstream odds-ratio estimation.
+
+For selected subjects ($I=1$), define the proxy label
 \cgather{
 \tilde Y=
 \begin{cases}
@@ -746,28 +881,111 @@ Then, writing \(J=\sup_t|F_1(t)-F_0(t)|\),
 }
 \end{lemma}
 %
+
 \begin{proof}
-\cgather{
-\Pr(Y=1\mid R=1)
-  =\frac{\Pr(S\ge q_{1-\alpha},Y=1)}{\Pr(R=1)}
-  =\frac{\wp\,[1-F_1(q_{1-\alpha})]}{\alpha},\\[6pt]
-\Pr(Y=1\mid R=0)
-  =\frac{\Pr(S\le q_{\alpha},Y=1)}{\Pr(R=0)}
-  =\frac{\wp\,F_1(q_{\alpha})}{\alpha}.
-}
-Hence
-\mltlne{
+By definition of the extreme strata,
+\[
+\Pr(Y = 1 \mid R = 1)
+=
+\frac{\Pr(S \ge q_{1-\alpha},\, Y = 1)}{\Pr(R = 1)}
+=
+\frac{\wp\,[1 - F_1(q_{1-\alpha})]}{\alpha},
+\]
+and
+\[
+\Pr(Y = 1 \mid R = 0)
+=
+\frac{\Pr(S \le q_{\alpha},\, Y = 1)}{\Pr(R = 0)}
+=
+\frac{\wp\,F_1(q_{\alpha})}{\alpha}.
+\]
+Therefore
+\[
 \Delta_Y
-\triangleq\bigl|\Pr(Y=1\mid R=1)-\Pr(Y=1\mid R=0)\bigr| =\frac{\wp}{\alpha}\,
-    \bigl|1-F_1(q_{1-\alpha})-F_1(q_{\alpha})\bigr|.
-}%
-Because the cut-points are defined on the marginal distribution of \(S\),
-\(\;F_0(q_{1-\alpha})=1-\alpha\) and \(F_0(q_{\alpha})=\alpha\).
-For any \(t\) we have \(\lvert F_1(t)-F_0(t)\rvert\le J\); evaluating at
-\(t=q_{1-\alpha}\) and \(t=q_{\alpha}\) and summing the resulting
-inequalities yields
-\(\,|1-F_1(q_{1-\alpha})-F_1(q_{\alpha})|\le2J\).
+=
+\left|
+\Pr(Y = 1 \mid R = 1)-\Pr(Y = 1 \mid R = 0)
+\right|
+=
+\frac{\wp}{\alpha}
+\left|
+1 - F_1(q_{1-\alpha}) - F_1(q_{\alpha})
+\right|.
+\]
+Now, because \(q_{1-\alpha}\) and \(q_\alpha\) are quantiles of the \emph{marginal}
+distribution of \(S\), we have
+\[
+1-\alpha
+=
+\wp F_1(q_{1-\alpha}) + (1-\wp)F_0(q_{1-\alpha}),
+\]
+\[
+\alpha
+=
+\wp F_1(q_{\alpha}) + (1-\wp)F_0(q_{\alpha}).
+\]
+Hence
+\[
+1-\alpha - F_1(q_{1-\alpha})
+=
+(1-\wp)\bigl(F_0(q_{1-\alpha}) - F_1(q_{1-\alpha})\bigr),
+\]
+and
+\[
+\alpha - F_1(q_{\alpha})
+=
+(1-\wp)\bigl(F_0(q_{\alpha}) - F_1(q_{\alpha})\bigr).
+\]
+Adding these identities yields
+\[
+1 - F_1(q_{1-\alpha}) - F_1(q_\alpha)
+=
+(1-\wp)\Bigl[
+F_0(q_{1-\alpha}) - F_1(q_{1-\alpha})
++
+F_0(q_\alpha) - F_1(q_\alpha)
+\Bigr].
+\]
+Therefore, using \(|F_1(t)-F_0(t)| \le J\) for all \(t\),
+\[
+\left|
+1 - F_1(q_{1-\alpha}) - F_1(q_\alpha)
+\right|
+\le 2(1-\wp)J.
+\]
+Substituting into the expression for \(\Delta_Y\) gives
+\[
+\Delta_Y
+\le
+\frac{2\wp(1-\wp)}{\alpha}J
+\le
+\frac{2\wp}{\alpha}J,
+\]
+which proves the claimed bound.
 \end{proof}
+
+%% \begin{proof}
+%% \cgather{
+%% \Pr(Y=1\mid R=1)
+%%   =\frac{\Pr(S\ge q_{1-\alpha},Y=1)}{\Pr(R=1)}
+%%   =\frac{\wp\,[1-F_1(q_{1-\alpha})]}{\alpha},\\[6pt]
+%% \Pr(Y=1\mid R=0)
+%%   =\frac{\Pr(S\le q_{\alpha},Y=1)}{\Pr(R=0)}
+%%   =\frac{\wp\,F_1(q_{\alpha})}{\alpha}.
+%% }
+%% Hence
+%% \mltlne{
+%% \Delta_Y
+%% \triangleq\bigl|\Pr(Y=1\mid R=1)-\Pr(Y=1\mid R=0)\bigr| =\frac{\wp}{\alpha}\,
+%%     \bigl|1-F_1(q_{1-\alpha})-F_1(q_{\alpha})\bigr|.
+%% }%
+%% Because the cut-points are defined on the marginal distribution of \(S\),
+%% \(\;F_0(q_{1-\alpha})=1-\alpha\) and \(F_0(q_{\alpha})=\alpha\).
+%% For any \(t\) we have \(\lvert F_1(t)-F_0(t)\rvert\le J\); evaluating at
+%% \(t=q_{1-\alpha}\) and \(t=q_{\alpha}\) and summing the resulting
+%% inequalities yields
+%% \(\,|1-F_1(q_{1-\alpha})-F_1(q_{\alpha})|\le2J\).
+%% \end{proof}
 
 
 \begin{theorem}[Stratification OR collapse as $J \to 0$]\label{thm:SPOR_collapse_J}
@@ -786,7 +1004,7 @@ Let $S$ be a calibrated score and let $R$ denote the $\alpha$-quantile stratific
 defined in Lemma~\ref{lem:prevalence-gap}, with $\wp = \Pr(Y=1)$.
 Assume further that
 \[
-X_j \perp R \mid Y.
+X_j \perp R \mid Y.  \tag{Assumption B}
 \]
 
 Define
@@ -926,7 +1144,7 @@ J \to 0
 \quad \Rightarrow \quad 
 \log \mathrm{OR}_{j,R} \to 0.
 }
-Moreover, under the conditions of Proposition~3 with $\lambda_n\to 0$,
+Moreover, under the conditions of Theorem~\ref{thm:SPOR_collapse_J} with $\lambda_n\to 0$,
 \cgather{
 \log\lambda\text{-OR}^{(\lambda_n)}_{j,n}\xrightarrow{p}0
 \quad \text{as } \mathrm{AUC}\to 0.5.
@@ -964,6 +1182,108 @@ More generally, the stability of the $\lambda$-OR correction depends on the cond
 J = p_{\mathrm{sel}} + q_{\mathrm{sel}} - 1,
 \]
 i.e., Youden's $J$. When the predictive model has good discrimination, the thresholds $t_{\mathrm{hi}}$ and $t_{\mathrm{lo}}$ produce high-purity tails with large $p_{\mathrm{sel}}$ and $q_{\mathrm{sel}}$, so $K$ is well-conditioned and the corrected estimator remains stable. In contrast, when predictive performance is weak and the ROC curve approaches the diagonal, $p_{\mathrm{sel}}$ and $q_{\mathrm{sel}}$ approach $0.5$, implying $J \to 0$ and an increasingly ill-conditioned inverse problem. In this regime the variance of the corrected estimator increases, Wald statistics shrink, and fewer signals cross significance thresholds. Thus $\lambda$-OR provides the greatest practical benefit when the underlying score yields meaningful separation, and degrades conservatively as discrimination weakens: poor predictive performance does not create spurious corrected associations, but instead manifests as increased uncertainty and eventual collapse toward the null.
+
+
+\subsection{OR Blowup from differential error}
+
+\begin{lemma}[Differential error can inflate a near-null odds ratio]\label{lem:minimal}
+Let the true odds ratio satisfy $\operatorname{OR}_{\mathrm{true}}=1+\varepsilon$
+with $|\varepsilon|\ll1$.
+Take baseline sensitivity $p\in(0,1)$ and specificity $q\in(0,1)$.
+Let the exposed row use $p_1=p+\delta,\ q_1=q+\delta$ and the unexposed row
+$p_0=p-\delta,\ q_0=q-\delta$ with $0<\delta<\min\{p,1-p,q,1-q\}$.
+%
+Then there exist valid $2\times2$ tables for which the naive odds ratio computed from the misclassified outcome
+can be arbitrarily close to:
+\cgather{
+\mathrm{OR}_{\mathrm{naive}}
+=
+\frac{(p+\delta)(1-p+\delta)}{(1-p-\delta)(p-\delta)} .
+%% \frac{\big[(p+\delta)a+(1-q-\delta)b\big]\big[(1-p+\delta)c+(q-\delta)d\big]}
+%% {\big[(1-p-\delta)a+(q+\delta)b\big]\big[(p-\delta)c+(1-q+\delta)d\big]},
+}
+%and can exceed $\mathrm{OR}_{\mathrm{true}}$ by an arbitrarily large factor.
+\end{lemma}
+\begin{proof}
+Consider the family of true $2\times2$ tables
+\cgather{
+T_t=
+\begin{bmatrix}
+(1+\varepsilon)t & 1\\
+t & 1
+\end{bmatrix},
+\qquad t>0.
+}
+For every $t$,
+\cgather{
+\mathrm{OR}_{\mathrm{true}}
+=
+\frac{(1+\varepsilon)t\cdot 1}{1\cdot t}
+=
+1+\varepsilon .
+}
+
+Applying the row-specific misclassification model gives the observed table
+\cgather{
+\tilde a=(p+\delta)(1+\varepsilon)t+(1-q-\delta),\quad
+\tilde b=(1-p-\delta)(1+\varepsilon)t+(q+\delta),\\
+\tilde c=(p-\delta)t+(1-q+\delta),\quad
+\tilde d=(1-p+\delta)t+(q-\delta).
+}
+
+The naive odds ratio therefore equals
+\cgather{
+\mathrm{OR}_{\text{naive}}(t)
+=
+\frac{\tilde a\,\tilde d}{\tilde b\,\tilde c}.
+}
+For $t>>1$, we have:
+\cgather{
+  \mathrm{OR}_{\text{naive}}(t)
+= \frac{(p+\delta)(1-p+\delta)t^2(1+\epsilon)+O(t)}{(1-p-\delta)(p-\delta)t^2(1+\epsilon)+O(t)}
+\approx  \frac{(p+\delta)(1-p+\delta)}{(1-p-\delta)(p-\delta)} }
+
+%% Taking $t\to\infty$ and keeping the leading $t^2$ terms yields
+%% \cgather{
+%% \lim_{t\to\infty}\mathrm{OR}_{\text{naive}}(t)
+%% =
+%% \frac{(p+\delta)(1-p+\delta)}{(1-p-\delta)(p-\delta)} .
+%% }
+%% Thus the inflation factor depends only on $(p,\delta)$ in the limit and is
+%% independent of $\varepsilon$.  As $\delta$ approaches the admissible boundary
+%% $p$ or $1-p$, the denominator approaches zero and the limit diverges.
+%% Hence tables with $\mathrm{OR}_{\mathrm{true}}=1+\varepsilon$ can produce
+%% arbitrarily large $\mathrm{OR}_{\mathrm{naive}}$.
+\end{proof}
+
+\begin{corollary}[Odds-ratio blow-up with tiny row difference]\label{corshap}
+Fix $M>1$ and choose $\varepsilon>0$ arbitrarily small.
+Under the differential misclassification model
+$p_1=p+\delta,\ q_1=q+\delta,\ p_0=p-\delta,\ q_0=q-\delta$,
+there exist valid $2\times2$ tables with $\mathrm{OR}_{\mathrm{true}}=1+\varepsilon$
+for which
+\cgather{
+\mathrm{OR}_{\mathrm{naive}} \ge M .
+}
+\end{corollary}
+
+\begin{proof}
+From Lemma~\ref{lem:minimal},
+\[
+\lim_{t\to\infty}\mathrm{OR}_{\text{naive}}(t)
+=
+\frac{(p+\delta)(1-p+\delta)}{(1-p-\delta)(p-\delta)} .
+\]
+For any $M>0$ one can choose $\delta$ sufficiently close to the admissible
+boundary (e.g., $\delta \uparrow p$) so that the right-hand side exceeds $M$.
+Selecting $t$ sufficiently large then yields
+$\mathrm{OR}_{\text{naive}}\ge M$ while $\mathrm{OR}_{\mathrm{true}}=1+\varepsilon$.
+\end{proof}
+
+
+
+
+
 
 To contextualize this property, we compare $\lambda$-OR with widely used 
 model-based attribution approaches in clinical machine learning, 
@@ -1030,50 +1350,7 @@ $\mathbb E|\phi_j(f,X)| = |\beta_j|\,\sigma_j\,\mathbb E|Z|$ with $Z\sim\mathcal
 Since $\mathbb E|Z|=\sqrt{2/\pi}$, the result follows.
 \end{proof}
 
-\begin{lemma}[Minimal inflation under differential error]\label{lem:minimal}
-Let the true odds ratio be $\operatorname{OR}_{\mathrm{true}}=1+\varepsilon$
-with $|\varepsilon|\ll1$.
-Take baseline sensitivity $p\in(0,1)$ and specificity $q\in(0,1)$.
-Let the exposed row use $p_1=p+\delta,\ q_1=q+\delta$ and the unexposed row
-$p_0=p-\delta,\ q_0=q-\delta$ with $0<\delta<\min\{p,1-p,q,1-q\}$.
-Then
-\cgather{
-\frac{\mathrm{OR}_{\text{naive}}}{\mathrm{OR}_{\text{true}}}
-= \frac{(p+\delta)(1-q+\delta)}{(p-\delta)(1-q-\delta)} ,
-}
-so $\mathrm{OR}_{\text{naive}}>\mathrm{OR}_{\text{true}}$ for every $\delta>0$.
-\end{lemma}
-\begin{proof}
-The stated ratio is obtained by substituting the row-specific sensitivities and specificities into the naive $2\times2$ table mapping
-and simplifying. Taking logs and differentiating with respect to $\delta$ gives
-\cgather{
-\frac{d}{d\delta}\log\frac{\mathrm{OR}_{\text{naive}}}{\mathrm{OR}_{\text{true}}}
-=
-\frac{1}{p+\delta}+\frac{1}{p-\delta}
-+
-\frac{1}{1-q+\delta}+\frac{1}{1-q-\delta}
->0,
-}
-for all admissible $\delta$, hence $\log(\mathrm{OR}_{\text{naive}}/\mathrm{OR}_{\text{true}})>0$ for every $\delta>0$,
-which implies $\mathrm{OR}_{\text{naive}}>\mathrm{OR}_{\text{true}}$.
-A first-order expansion at $\delta=0$ yields
-\cgather{
-\log\frac{\mathrm{OR}_{\text{naive}}}{\mathrm{OR}_{\text{true}}}
-\approx 2\delta\left(\frac{1}{p}+\frac{1}{1-q}\right).
-}
-\end{proof}
-%
-\begin{corollary}[Odds-ratio blow-up with tiny row difference]\label{corshap}
-Fix $M>1$. Choose $\varepsilon>0$ arbitrarily small and set
-\cgather{
-\delta \ \ge\ \frac{\log M-\log(1+\varepsilon)}{\,2\left(\frac{1}{p}+\frac{1}{1-q}\right)} .
-}
-With $p_1=p+\delta,\ q_1=q+\delta,\ p_0=p-\delta,\ q_0=q-\delta$ one has
-$\mathrm{OR}_{\text{naive}}\ge M$ even though $\mathrm{OR}_{\text{true}}=1+\varepsilon\to1$.
-\end{corollary}
-\begin{proof}
-Immediate from Lemma~\ref{lem:minimal} and the first-order expansion in $\delta$.
-\end{proof}
+
 %
 \begin{corollary}[SHAP mis-ranking under heterogeneous feature variance]\label{cor:shap_misrank}
 Under the assumptions of Lemma~\ref{lem:shap_lin_gauss}, even if $|\beta_j|\ll|\beta_k|$, one may have $S_j>S_k$
@@ -1085,7 +1362,10 @@ $\sigma_j/\sigma_k>|\beta_k|/|\beta_j|$.
 \end{proof}
 
 %% %###################################
-%###################################
+
+
+
+
 \begin{table*}[t]
 \centering
 \caption{Fraction and number of significant and protective codes for the tested approaches.}
@@ -1529,14 +1809,15 @@ Random seed & Simulation RNG seed & \(3\) \\
     \node[anchor=north west] (C) at ([yshift=.1in]B.south west) {\includegraphics[width=\WDT]{Figures/figcompsemilogADRD}};
   \end{tikzpicture}
   \else
-\hspace{-10pt}\includegraphics[width=\textwidth]{Figures/External/figvolcano}
+\hspace{-10pt}\includegraphics[width=.97\textwidth]{Figures/External/figvolcano}
   \fi
   
-\caption{\textbf{ Comparison of attribution methods (OR, mean SHAP, $\SPOR$) applied to comorbidity profiles for IPF, ASD, and ADRD.} Each point is an ICD code (effect size on x; significance on y). OR and SHAP display pervasive significance and many spuriously ``protective'' codes due to label noise and large-n artifacts; $\SPOR$ collapses this inflated cloud (Theorem~S1), moderating significance and highlighting biologically credible modulators. Data:  Merative Marketscan; $\SPOR$ based on reported \zcor models~\cite{ASDzed,IPFzed,ADRDzed}.  Selection thresholds chosen at 97\% specificity (cases) and 75\% sensitivity.
-}\label{figvolcano}
+\caption{\textbf{Comparison of attribution methods (naive OR, mean SHAP, and $\SPOR$) in real EHR-based comobidity for IPF, ASD, and ADRD, based on published  upstream prediction~\cite{ASDzed,IPFzed,ADRDzed}.} Each point is an ICD-10-CM code, with horizontal position giving the estimated effect size and vertical position giving $-\log_{10}(p)$. The naive OR and mean SHAP analyses produce broad clouds of apparently significant associations, including many nominally ``protective'' codes, whereas $\SPOR$ yields a markedly more selective set of signals. This contraction is consistent with the volcano-style simulation results in Fig.~\ref{figsim2}, where incorporation of the additional correction-induced uncertainty suppresses significance inflation that otherwise arises in large cohorts. In the real-data analyses, $\SPOR$ was applied on the two-gate selected cohorts obtained from held-out out-of-sample prediction scores, with disease-specific score thresholds and resulting \((p_{\mathrm{sel}},q_{\mathrm{sel}})\) values reported in Table~\ref{tab:realdata_summary}; the retained $\SPOR$ signals are more clinically plausible overall, while representative examples of codes that appear significantly protective under naive OR but lose significance after correction are listed in Table~\ref{tab:protective_examples}. Data source: Merative MarketScan.}\label{figvolcano}
 \end{figure} 
 %################################### 
-%################################### 
+%###################################
+
+
 %################################### 
 %################################### 
 %==================================================
