@@ -236,5 +236,5 @@ def lambda_or(
     )
 
 
-__all__ = ["lambda_or", "pq_from_two_gates", "LambdaORResult",    "neglog10_p_from_z"
-]
+__all__ = ["lambda_or", "pq_from_two_gates", "LambdaORResult",    "neglog10_p_from_z"]
+ 
