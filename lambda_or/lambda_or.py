@@ -74,6 +74,10 @@ def _neglog10_p_from_z(z_abs: float) -> float:
     )
 
 
+def neglog10_p_from_z(z_abs: float) -> float:
+    return _neglog10_p_from_z(z_abs)
+
+
 def pq_from_two_gates(pi_H1: float, pi_L1: float, pi_H0: float, pi_L0: float) -> Tuple[float, float]:
     """
     Compute selection-conditional sensitivity/specificity from two-gate ROC probabilities.
@@ -232,4 +236,5 @@ def lambda_or(
     )
 
 
-__all__ = ["lambda_or", "pq_from_two_gates", "LambdaORResult"]
+__all__ = ["lambda_or", "pq_from_two_gates", "LambdaORResult",    "neglog10_p_from_z"
+]
