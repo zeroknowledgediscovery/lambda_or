@@ -1,0 +1,25 @@
+from lambda_or_upd import lambda_or
+
+# observed proxy 2x2 table from tail-selected cohort
+# rows: proxy Ytilde = {1,0}
+# cols: exposure X = {1,0}
+Ttil = [
+    [120, 80],   # proxy cases
+    [40, 160]    # proxy controls
+]
+
+# validation estimates of proxy accuracy
+p_sel = 0.92   # Pr(proxy=1 | true Y=1)
+q_sel = 0.88   # Pr(proxy=0 | true Y=0)
+
+# size of validation set used to estimate p_sel and q_sel
+n_val = 1000
+
+result = lambda_or(
+    Ttil=Ttil,
+    p_sel=p_sel,
+    q_sel=q_sel,
+    n_val=n_val
+)
+
+print(result)
